@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A623D06E-6ECC-41B2-8F09-34EE0BD5B705}|Tests\\MaquinaDeCafe.Test\\MaquinaDeCafe.Test.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\tests\\maquinadecafe.test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A623D06E-6ECC-41B2-8F09-34EE0BD5B705}|Tests\\MaquinaDeCafe.Test\\MaquinaDeCafe.Test.csproj|solutionrelative:tests\\maquinadecafe.test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\Tests\\MaquinaDeCafe.Test\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "Tests\\MaquinaDeCafe.Test\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\Tests\\MaquinaDeCafe.Test\\UnitTest1.cs",
+              "RelativeToolTip": "Tests\\MaquinaDeCafe.Test\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T20:17:52.733Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
