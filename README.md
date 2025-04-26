@@ -2,14 +2,16 @@
 
 ## ❓ Apresentação 
 
-Na disciplina de **Métodos Formais de Engenharia de Software**, aprendemos a aplicar abordagens para formalizar e refinar sistemas, visando um desenvolvimento de software mais preciso e estruturado. Nesse processo, utilizamos a Notação Z para estabelecer um modelo formal do sistema, garantindo clareza no projeto.
+O componente curricular de **Métodos Formais de Engenharia de Software** abrange a aplicação de técnicas que utilizam matemática e lógica para analisar e modelar sistemas rigorosamente, a fim de garantir que os tais se comportem como previsto, possibilitando a criação de software livre de erros quanto à especificação.
 
-Com os conhecimentos adquiridos durante as aulas, foi desenvolvido o projeto **Devine Café** - Sistema de Máquina de Café como parte da avaliação da disciplina de **Métodos Formais**, sob a orientação do professor Alysson Filgueira Milanez.
+Para aplicar o aprendizado relativo ao conteúdo supracitado e utilizando das etapas necessárias para o processo de desenvolvimento de software, foi desenvolvido o projeto **Devine Café** - Sistema de Máquina de Café como parte da avaliação da disciplina de **Métodos Formais**, sob a orientação do professor Alysson Filgueira Milanez.
 
 
 ## 📖 Descrição
 
-<!-- O Devine Café é um sistema desenvolvido na linguagem **C#** que tem como intuito centralizar e automatizar os processos de pedidos de uma máquina de café. -->
+O projeto Devine Café consiste em um sistema Web de máquina de café desenvolvido majoritariamente em linguagem de programação **C#**. O sistema procura facilitar a realização de pedidos em uma cafeteria, por meio da automatização de processos, promovendo maior autonomia ao cliente. 
+
+As interações humano-máquina compreendem um processo realizado em etapas que podem ser divididas em vários níveis, dependendo do perfil do usuário. Esse processo até a realização do pedido busca promover singularidade e abarcar diferentes paladares, favorecendo ao cliente uma sensação de particularidade e pertencimento em relação ao pedido efetuado.  
 
 ## 🎯 Objetivos
 > Integralizar os serviços da máquina de café a fim de facilitar o processo de pedidos.
@@ -33,7 +35,8 @@ O sistema é baseado em uma arquitetura cliente-servidor, utilizando os seguinte
   - **Linguagem de Programação**: C#
 
 - **Front-end**:
-  - **Linguagem de Programação**: React e Typescript
+  - **Linguagem de Programação**: Typescript
+  - **Biblioteca**: React  
 
 <!-- - **Armazenamento**:
   - **Banco de Dados**: MySQL
