@@ -1,7 +1,12 @@
+import { Header } from "../components/Header/header";
 
 
 function Home() {
-  return <div>ola mundo</div>;
+  return (
+    <>
+     <Header />
+    </>
+  );
 }
 
 export default Home;
