@@ -6,9 +6,9 @@ namespace MaquinaDeCafe.src.Repositories;
 
 public interface ICafeRepository
 {
-    Task<List<ResponseCafeJson>> GetList();
-    Task<ResponseCafeJson?> GetItemById(Guid id);
-    Task Adicionar(RequestCriacaoCafeJson cafe);
-    Task Atualizar(Guid id, RequestAtualizacaoCafeJson cafeAtualizado);
-    Task Remover(Guid id);
+    Task<List<ResponseCafeJson>> GetListAsync();
+    Task<ResponseCafeJson?> GetItemByIdAsync(Guid id);
+    Task AddAsync(RequestCriacaoCafeJson cafe);
+    Task UpdateAsync(Guid id, RequestAtualizacaoCafeJson cafeAtualizado);
+    Task RemoverAsync(Guid id);
 }

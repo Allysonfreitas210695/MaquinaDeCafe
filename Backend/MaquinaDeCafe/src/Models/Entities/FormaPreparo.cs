@@ -6,5 +6,5 @@ public class FormaPreparo
     public string Nome { get; set; } = string.Empty;
     public int TempoPreparoMinutos { get; set; }
 
-     public List<Pedido> Pedidos { get; set; } = new();
+    public List<Pedido> Pedidos { get; set; } = new();
 }

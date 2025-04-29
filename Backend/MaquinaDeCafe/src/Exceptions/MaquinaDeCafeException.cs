@@ -1,6 +1,12 @@
 namespace MaquinaDeCafe.src.Exceptions;
 
-public class MaquinaDeCafeException : SystemException
+public abstract class MaquinaDeCafeException : SystemException
 {
-    
+    protected MaquinaDeCafeException(string message) : base(message)
+    {
+
+    }
+
+    public abstract List<string> GetErrors { get; }
+    public abstract int GetStatusError();
 }

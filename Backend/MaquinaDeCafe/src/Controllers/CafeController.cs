@@ -19,15 +19,19 @@ public class CafeController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(List<ResponseCafeJson>), StatusCodes.Status200OK)]
     public async Task<ActionResult<List<ResponseCafeJson>>> GetList()
     {
-        return Ok(await _service.GetList());
+        return Ok(await _service.GetListAsync());
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ResponseCafeJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+
     public async Task<ActionResult<ResponseCafeJson>> GetItemById(Guid id)
     {
-        var cafe = await _service.GetItemById(id);
+        var cafe = await _service.GetItemByIdAsync(id);
         if (cafe == null)
             return NotFound();
 
@@ -35,23 +39,27 @@ public class CafeController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(ResponseCafeJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] RequestCriacaoCafeJson novoCafe)
     {
-        await _service.Adicionar(novoCafe);
+        await _service.AddAsync(novoCafe);
         return Created();
     }
 
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(ResponseCafeJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(Guid id, [FromBody] RequestAtualizacaoCafeJson cafeAtualizado)
     {
-        await _service.Atualizar(id, cafeAtualizado);
+        await _service.UpdateAsync(id, cafeAtualizado);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        await _service.Remover(id);
+        await _service.RemoverAsync(id);
         return NoContent();
     }
 }
