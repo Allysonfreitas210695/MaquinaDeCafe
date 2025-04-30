@@ -6,7 +6,7 @@ export const Contaner__Secao_Principal = styled.div`
 
 export const Conteudo__Secao = styled.div`
   width: 710px;
-  padding-top: 125px;
+  padding-top: 105px;
   padding-left: 50px;
 `;
 
@@ -57,18 +57,19 @@ export const Button_Secao = styled.a`
 
 export const Img__Secao = styled.img`
   position: absolute;
-  bottom: 0;
-  left: 75%;
-  transform: translateX(-50%);
-  max-width: 600px;
+  right: 50%;
+  left: 50%;
+  bottom: 0.2px;
+  transform: translateX(-55%,-60%);
+  max-width: 620px;
   z-index: 1;
 `;
 
 export const Img__Ellipe = styled.img`
   position: relative;
   top: 100px;
-  left: 50px;
+  left: 130px;
   height: 67vh;
-  width: 40%;
+  width: 440px;
   z-index: 0;
 `;
