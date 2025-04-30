@@ -5,6 +5,7 @@ using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.DTOs;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Repositories;
+using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,6 @@ public class CafeService : ICafeRepository
     {
         _dbContext = dbContext; 
     }
-
     public async Task AddAsync(RequestCriacaoCafeJson cafe)
     {
         var _criacaoValidator = new RequestCriacaoCafeValidator();
@@ -27,11 +27,7 @@ public class CafeService : ICafeRepository
         if (!validation.IsValid)
             throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
-        await _dbContext.Cafes.AddAsync(new Models.Entities.Cafe() {
-            Nome = cafe.Nome,
-            Descricao = cafe.Descricao,
-            Preco = cafe.Preco
-        });
+        await _dbContext.Cafes.AddAsync(new Models.Entities.Cafe(Guid.NewGuid(), cafe.Nome, cafe.Descricao, cafe.Preco));
         
         await _dbContext.SaveChangesAsync();
     }
@@ -45,11 +41,11 @@ public class CafeService : ICafeRepository
 
         var _cafe = await _dbContext.Cafes.FirstOrDefaultAsync(x => x.Id == id);
         if( _cafe == null)
-            throw new NotFoundException("Café não encontrado.");
+            throw new NotFoundException(ErrorsMensagem.CafeNaoEncontrado);
 
-        _cafe.Nome = cafeAtualizado.Nome;
-        _cafe.Descricao = cafeAtualizado.Descricao;
-        _cafe.Preco = cafeAtualizado.Preco;
+        _cafe.UpdateNome(cafeAtualizado.Nome);
+        _cafe.UpdateDescricao(cafeAtualizado.Descricao);
+        _cafe.UpdatePreco(cafeAtualizado.Preco);
 
         _dbContext.Cafes.Update(_cafe);
         await _dbContext.SaveChangesAsync();
@@ -70,7 +66,7 @@ public class CafeService : ICafeRepository
                                     .FirstOrDefaultAsync();
 
         if (_cafe is null)
-            throw new NotFoundException("Café não encontrado.");
+            throw new NotFoundException(ErrorsMensagem.CafeNaoEncontrado);
 
         return _cafe;
     }
@@ -93,9 +89,9 @@ public class CafeService : ICafeRepository
     {
        var _cafe =  await _dbContext.Cafes.Where(x => x.Id == id).FirstOrDefaultAsync();
        if (_cafe == null)
-            throw new NotFoundException("Café não encontrado.");
+            throw new NotFoundException(ErrorsMensagem.CafeNaoEncontrado);
 
-       _dbContext.Remove(_cafe);
+        _dbContext.Remove(_cafe);
        await _dbContext.SaveChangesAsync();
     }
 }

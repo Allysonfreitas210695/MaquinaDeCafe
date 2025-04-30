@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\maquinadecafe\\src\\services\\formapreparoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|solutionrelative:backend\\maquinadecafe\\src\\services\\formapreparoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\maquinadecafe\\src\\models\\entities\\formapreparo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|solutionrelative:backend\\maquinadecafe\\src\\models\\entities\\formapreparo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\maquinadecafe\\src\\services\\cafeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|solutionrelative:backend\\maquinadecafe\\src\\services\\cafeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9517D4B-E7A1-4E0B-B72A-DDD68B11E717}|Backend\\tests\\CommonTestUltilities.Test\\CommonTestUltilities.Test.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\tests\\commontestultilities.test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9517D4B-E7A1-4E0B-B72A-DDD68B11E717}|Backend\\tests\\CommonTestUltilities.Test\\CommonTestUltilities.Test.csproj|solutionrelative:backend\\tests\\commontestultilities.test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7411F6A8-4537-4C85-8A26-316CAF99FC91}|Backend\\tests\\Services.Test\\Services.Test.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\tests\\services.test\\services.test.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7411F6A8-4537-4C85-8A26-316CAF99FC91}|Backend\\tests\\Services.Test\\Services.Test.csproj|solutionrelative:backend\\tests\\services.test\\services.test.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7411F6A8-4537-4C85-8A26-316CAF99FC91}|Backend\\tests\\Services.Test\\Services.Test.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\tests\\services.test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7411F6A8-4537-4C85-8A26-316CAF99FC91}|Backend\\tests\\Services.Test\\Services.Test.csproj|solutionrelative:backend\\tests\\services.test\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormaPreparoService.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Services\\FormaPreparoService.cs",
+              "RelativeDocumentMoniker": "Backend\\MaquinaDeCafe\\src\\Services\\FormaPreparoService.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Services\\FormaPreparoService.cs",
+              "RelativeToolTip": "Backend\\MaquinaDeCafe\\src\\Services\\FormaPreparoService.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAIwFEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T00:28:22.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormaPreparo.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Models\\Entities\\FormaPreparo.cs",
+              "RelativeDocumentMoniker": "Backend\\MaquinaDeCafe\\src\\Models\\Entities\\FormaPreparo.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Models\\Entities\\FormaPreparo.cs",
+              "RelativeToolTip": "Backend\\MaquinaDeCafe\\src\\Models\\Entities\\FormaPreparo.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T00:28:12.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CafeService.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Services\\CafeService.cs",
+              "RelativeDocumentMoniker": "Backend\\MaquinaDeCafe\\src\\Services\\CafeService.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Services\\CafeService.cs",
+              "RelativeToolTip": "Backend\\MaquinaDeCafe\\src\\Services\\CafeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T00:26:23.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\CommonTestUltilities.Test\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "Backend\\tests\\CommonTestUltilities.Test\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\CommonTestUltilities.Test\\UnitTest1.cs",
+              "RelativeToolTip": "Backend\\tests\\CommonTestUltilities.Test\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T00:23:59.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Services.Test",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Services.Test\\Services.Test.csproj",
+              "RelativeDocumentMoniker": "Backend\\tests\\Services.Test\\Services.Test.csproj",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Services.Test\\Services.Test.csproj",
+              "RelativeToolTip": "Backend\\tests\\Services.Test\\Services.Test.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-30T00:21:57.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Services.Test\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "Backend\\tests\\Services.Test\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Services.Test\\UnitTest1.cs",
+              "RelativeToolTip": "Backend\\tests\\Services.Test\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-30T00:21:28.743Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

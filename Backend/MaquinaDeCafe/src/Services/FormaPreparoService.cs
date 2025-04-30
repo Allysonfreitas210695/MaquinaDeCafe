@@ -4,6 +4,7 @@ using MaquinaDeCafe.src.Communication.Response;
 using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Repositories;
+using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,7 +47,7 @@ public class FormaPreparoService : IFormaPreparoRepository
                                     .FirstOrDefaultAsync();
 
         if (_formaPreparo is null)
-            throw new NotFoundException("Forma de preparo não encontrada.");
+            throw new NotFoundException(ErrorsMensagem.FormaPreparoNaoEncontrado);
 
         return _formaPreparo;
     }
@@ -59,12 +60,7 @@ public class FormaPreparoService : IFormaPreparoRepository
         if (!validation.IsValid)
             throw new ValidationException(validation.Errors);
 
-        var novaFormaPreparo = new Models.Entities.FormaPreparo
-        {
-            Id = Guid.NewGuid(),
-            Nome = formaPreparo.Nome,
-            TempoPreparoMinutos = formaPreparo.TempoPreparoMinutos
-        };
+        var novaFormaPreparo = new Models.Entities.FormaPreparo(Guid.NewGuid(), formaPreparo.Nome, formaPreparo.TempoPreparoMinutos);
 
         await _dbContext.FormasPreparo.AddAsync(novaFormaPreparo);
         await _dbContext.SaveChangesAsync();
@@ -79,10 +75,10 @@ public class FormaPreparoService : IFormaPreparoRepository
 
         var formaPreparo = await _dbContext.FormasPreparo.FirstOrDefaultAsync(x => x.Id == id);
         if (formaPreparo == null)
-            throw new ArgumentException("Forma de preparo não encontrada.");
+            throw new NotFoundException(ErrorsMensagem.FormaPreparoNaoEncontrado);
 
-        formaPreparo.Nome = formaPreparoAtualizado.Nome;
-        formaPreparo.TempoPreparoMinutos = formaPreparoAtualizado.TempoPreparoMinutos;
+        formaPreparo.UpdateNome(formaPreparoAtualizado.Nome);
+        formaPreparo.UpdateTempoPreparoMinutos(formaPreparoAtualizado.TempoPreparoMinutos);
 
         _dbContext.FormasPreparo.Update(formaPreparo);
         await _dbContext.SaveChangesAsync();
