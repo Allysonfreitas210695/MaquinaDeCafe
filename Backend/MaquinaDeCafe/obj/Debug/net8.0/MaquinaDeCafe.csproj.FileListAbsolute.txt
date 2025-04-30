@@ -161,10 +161,10 @@ C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MaquinaDeCafe.props
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MaquinaDeCafe.props
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\MaquinaD.84227F53.Up2Date
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\MaquinaDeCafe.dll
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\refint\MaquinaDeCafe.dll
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\MaquinaDeCafe.pdb
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\MaquinaDeCafe.genruntimeconfig.cache
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\ref\MaquinaDeCafe.dll
+C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

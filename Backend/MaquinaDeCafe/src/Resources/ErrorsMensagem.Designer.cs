@@ -70,6 +70,24 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A descrição é obrigatória..
+        /// </summary>
+        public static string cafeDescricaoObrigatorio {
+            get {
+                return ResourceManager.GetString("cafeDescricaoObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A descrição do café deve ter pelo menos 5 caracteres..
+        /// </summary>
+        public static string cafeDescricaoTamanhoMinimo {
+            get {
+                return ResourceManager.GetString("cafeDescricaoTamanhoMinimo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Café não encontrado..
         /// </summary>
         public static string CafeNaoEncontrado {

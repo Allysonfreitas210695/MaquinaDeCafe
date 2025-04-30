@@ -120,6 +120,12 @@
   <data name="CafeDescricaoMinima" xml:space="preserve">
     <value>A descrição deve ter pelo menos 5 caracteres.</value>
   </data>
+  <data name="cafeDescricaoObrigatorio" xml:space="preserve">
+    <value>A descrição é obrigatória.</value>
+  </data>
+  <data name="cafeDescricaoTamanhoMinimo" xml:space="preserve">
+    <value>A descrição do café deve ter pelo menos 5 caracteres.</value>
+  </data>
   <data name="CafeNaoEncontrado" xml:space="preserve">
     <value>Café não encontrado.</value>
   </data>

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MaquinaDeCafe\MaquinaDeCafe.csproj" />
+    <ProjectReference Include="..\CommonTestUltilities.Test\CommonTestUltilities.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 using FluentValidation;
 using MaquinaDeCafe.src.Communication.Request;
+using MaquinaDeCafe.src.Resources;
 
 namespace MaquinaDeCafe.src.Validators;
 
@@ -7,8 +8,8 @@ public class RequestCriacaoFormaPreparoValidator : AbstractValidator<RequestCria
 {
     public RequestCriacaoFormaPreparoValidator()
     {
-        RuleFor(x => x.Nome).NotEmpty().WithMessage("O nome é obrigatório.");
-        RuleFor(x => x.TempoPreparoMinutos).GreaterThan(0).WithMessage("O tempo de preparo deve ser maior que zero.");
+        RuleFor(x => x.Nome).NotEmpty().WithMessage(ErrorsMensagem.FormaPreparoNomeObrigatorio);
+        RuleFor(x => x.TempoPreparoMinutos).GreaterThan(0).WithMessage(ErrorsMensagem.FormaPreparoTempoInvalido);
     }
 }
 
@@ -16,7 +17,7 @@ public class RequestAtualizacaoFormaPreparoValidator : AbstractValidator<Request
 {
     public RequestAtualizacaoFormaPreparoValidator()
     {
-        RuleFor(x => x.Nome).NotEmpty().WithMessage("O nome é obrigatório.");
-        RuleFor(x => x.TempoPreparoMinutos).GreaterThan(0).WithMessage("O tempo de preparo deve ser maior que zero.");
+        RuleFor(x => x.Nome).NotEmpty().WithMessage(ErrorsMensagem.CafePrecoMaiorQueZero);
+        RuleFor(x => x.TempoPreparoMinutos).GreaterThan(0).WithMessage(ErrorsMensagem.FormaPreparoTempoInvalido);
     }
 }

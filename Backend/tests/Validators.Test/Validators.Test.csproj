@@ -21,15 +21,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MaquinaDeCafe\MaquinaDeCafe.csproj" />
+    <ProjectReference Include="..\CommonTestUltilities.Test\CommonTestUltilities.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Cafe\" />
-    <Folder Include="FormaPreparo\" />
   </ItemGroup>
 
 </Project>
