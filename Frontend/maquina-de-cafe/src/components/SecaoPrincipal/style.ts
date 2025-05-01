@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const Contaner__Secao_Principal = styled.div`
   display: flex;
 `;
@@ -33,6 +34,7 @@ export const Descricao = styled.p`
   line-height: 100%;
   letter-spacing: 0%;
   color: #000000;
+  margin-bottom: 30px;
 `;
 
 export const Button_Secao = styled.a`
@@ -42,16 +44,16 @@ export const Button_Secao = styled.a`
   padding: 15px 30px;
  
 
-  button {
+  .button {
     font-family: Poppins;
     font-size: 20px;
     font-weight: 400;
     text-align: justify;
     line-height: 100%;
     letter-spacing: 0%;
-    margin-top: 30px;
     color: #ffffff;
     cursor: pointer;
+    text-decoration: none;
   }
 `;
 
@@ -63,6 +65,7 @@ export const Img__Secao = styled.img`
   transform: translateX(-55%,-60%);
   max-width: 620px;
   z-index: 1;
+
 `;
 
 export const Img__Ellipe = styled.img`

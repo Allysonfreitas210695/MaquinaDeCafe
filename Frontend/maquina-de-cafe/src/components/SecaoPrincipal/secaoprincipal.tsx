@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
 import React from "react";
@@ -31,7 +32,9 @@ export const SecaoPrincipal = () => {
             </S.Titulo>
             <S.Descricao>{Discricao}</S.Descricao>
             <S.Button_Secao>
-              <button>{Button}</button>
+              <Link className="button" to={"/pedido"}>
+                {Button}
+              </Link>
             </S.Button_Secao>
           </S.Conteudo__Secao>
           <S.Img__Ellipe src={Images.Ellipse} alt="Ellipse" />
