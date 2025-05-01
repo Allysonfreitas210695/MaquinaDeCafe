@@ -7,6 +7,7 @@ import Logo from "./Logo.png"
 import XicaraDeCafe from "./XicaradeCafé.png"
 import LogoTelaEscolha from "./LogoTelaEscolha.png"
 import Ellipse from "./Ellipse.png"
+import Seguir from "./seguir.png"
 
 export const Images = {
   CafeExpresso,
@@ -18,4 +19,5 @@ export const Images = {
   XicaraDeCafe,
   LogoTelaEscolha,
   Ellipse,
+  Seguir,
 };
