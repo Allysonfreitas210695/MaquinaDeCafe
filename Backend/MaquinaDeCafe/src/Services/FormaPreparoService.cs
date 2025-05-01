@@ -58,7 +58,7 @@ public class FormaPreparoService : IFormaPreparoRepository
         var validation = await _criacaoValidator.ValidateAsync(formaPreparo);
 
         if (!validation.IsValid)
-            throw new ValidationException(validation.Errors);
+            throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
         var novaFormaPreparo = new Models.Entities.FormaPreparo(Guid.NewGuid(), formaPreparo.Nome, formaPreparo.TempoPreparoMinutos);
 
@@ -70,8 +70,9 @@ public class FormaPreparoService : IFormaPreparoRepository
     {
         var _atualizacaoValidator = new RequestAtualizacaoFormaPreparoValidator();
         var validation = await _atualizacaoValidator.ValidateAsync(formaPreparoAtualizado);
+
         if (!validation.IsValid)
-            throw new ValidationException(validation.Errors);
+            throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
         var formaPreparo = await _dbContext.FormasPreparo.FirstOrDefaultAsync(x => x.Id == id);
         if (formaPreparo == null)
