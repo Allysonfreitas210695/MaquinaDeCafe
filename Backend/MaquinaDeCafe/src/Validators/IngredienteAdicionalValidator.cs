@@ -1,5 +1,6 @@
 using FluentValidation;
 using MaquinaDeCafe.src.Communication.Request;
+using MaquinaDeCafe.src.Resources;
 
 namespace MaquinaDeCafe.src.Validators;
 
@@ -12,8 +13,13 @@ public class RequestCriacaoIngredienteAdicionalValidator : AbstractValidator<Req
 {
     public RequestCriacaoIngredienteAdicionalValidator()
     {
-        RuleFor(x => x.Nome).NotEmpty().WithMessage("Nome não pode ser vazio.");
-        RuleFor(x => x.ValorExtra).GreaterThan(0).WithMessage("Valor extra deve ser maior que zero.");
+        RuleFor(x => x.Nome)
+           .NotEmpty()
+           .WithMessage(ErrorsMensagem.IngredienteNomeObrigatorio);
+
+        RuleFor(x => x.ValorExtra)
+            .GreaterThan(0)
+            .WithMessage(ErrorsMensagem.IngredienteValorExtraInvalido);
     }
 }
 
@@ -21,7 +27,7 @@ public class RequestAtualizacaoIngredienteAdicionalValidator : AbstractValidator
 {
     public RequestAtualizacaoIngredienteAdicionalValidator()
     {
-        RuleFor(x => x.Nome).NotEmpty().WithMessage("Nome não pode ser vazio.");
-        RuleFor(x => x.ValorExtra).GreaterThan(0).WithMessage("Valor extra deve ser maior que zero.");
+        RuleFor(x => x.Nome).NotEmpty().WithMessage(ErrorsMensagem.IngredienteNomeObrigatorio);
+        RuleFor(x => x.ValorExtra).GreaterThan(0).WithMessage(ErrorsMensagem.IngredienteValorExtraInvalido);
     }
 }

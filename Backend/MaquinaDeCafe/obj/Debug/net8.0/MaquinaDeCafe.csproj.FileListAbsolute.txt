@@ -167,3 +167,4 @@ C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\MaquinaDeCafe.pdb
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\MaquinaDeCafe.genruntimeconfig.cache
 C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\ref\MaquinaDeCafe.dll
+C:\Users\Allyson Fernandes\Desktop\Faculdade\MaquinaDeCafe\Backend\MaquinaDeCafe\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

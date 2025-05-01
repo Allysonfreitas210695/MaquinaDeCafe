@@ -160,6 +160,24 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nome não pode ser vazio..
+        /// </summary>
+        public static string IngredienteNomeObrigatorio {
+            get {
+                return ResourceManager.GetString("IngredienteNomeObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor extra deve ser maior que zero..
+        /// </summary>
+        public static string IngredienteValorExtraInvalido {
+            get {
+                return ResourceManager.GetString("IngredienteValorExtraInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a É necessário selecionar um café..
         /// </summary>
         public static string PedidoCafeObrigatorio {

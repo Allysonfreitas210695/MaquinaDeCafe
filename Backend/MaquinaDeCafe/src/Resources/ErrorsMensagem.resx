@@ -150,6 +150,12 @@
   <data name="IngredienteAdicionalValorInvalido" xml:space="preserve">
     <value>O valor extra deve ser maior ou igual a zero.</value>
   </data>
+  <data name="IngredienteNomeObrigatorio" xml:space="preserve">
+    <value>Nome não pode ser vazio.</value>
+  </data>
+  <data name="IngredienteValorExtraInvalido" xml:space="preserve">
+    <value>Valor extra deve ser maior que zero.</value>
+  </data>
   <data name="PedidoCafeObrigatorio" xml:space="preserve">
     <value>É necessário selecionar um café.</value>
   </data>
