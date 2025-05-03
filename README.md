@@ -54,7 +54,7 @@ Conheça a equipe do **Devine Café**:
 
 | Membros da equipe | Principal função | 
 |--------------------|------------------------------| 
-| [Allyson Bruno Freitas](https://github.com/Allysonfreitas210695) | Tech lead: back-end |
+| [Allyson Bruno](https://github.com/Allysonfreitas210695) | Tech lead: back-end |
 | [Andrey Sabino](https://github.com/andreysabino) | Tech lead: design |
 | [Geísa Morais](https://github.com/Geisa-mg) | Tech lead: requisitos |
 | [Lívia Beatriz](https://github.com/liviabeatrizml) | Tech lead: qualidade |
