@@ -20,10 +20,10 @@ namespace MaquinaDeCafe.src.Data.Configurations
                 .HasColumnType("decimal(10, 2)")  
                 .IsRequired(); 
 
-            builder.HasMany(c => c.Pedidos)
-                .WithOne(p => p.Cafe)  
-                .HasForeignKey(p => p.CafeId)  
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(c => c.PedidoItens)
+            .WithOne(pi => pi.Cafe)
+            .HasForeignKey(pi => pi.CafeId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MaquinaDeCafe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250427210856_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250504175837_intialCatalog")]
+    partial class intialCatalog
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace MaquinaDeCafe.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("IngredienteAdicionalPedido", b =>
-                {
-                    b.Property<Guid>("IngredientesAdicionaisId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PedidosId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("IngredientesAdicionaisId", "PedidosId");
-
-                    b.HasIndex("PedidosId");
-
-                    b.ToTable("PedidoIngredienteAdicional", (string)null);
-                });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
                 {
@@ -107,24 +92,42 @@ namespace MaquinaDeCafe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CafeId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("FormaPreparoId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("FormaPreparoId1")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("ProdutoDisponivel")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormaPreparoId");
+
+                    b.HasIndex("FormaPreparoId1");
+
+                    b.ToTable("Pedidos", (string)null);
+                });
+
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.PedidoItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CafeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("integer");
 
                     b.Property<string>("TamanhoXicara")
                         .IsRequired()
@@ -138,43 +141,38 @@ namespace MaquinaDeCafe.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("ValorTotal")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CafeId");
 
-                    b.HasIndex("FormaPreparoId");
+                    b.HasIndex("PedidoId");
 
-                    b.HasIndex("FormaPreparoId1");
-
-                    b.ToTable("Pedidos", (string)null);
+                    b.ToTable("PedidoItens", (string)null);
                 });
 
-            modelBuilder.Entity("IngredienteAdicionalPedido", b =>
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.PedidoItemIngredienteAdicional", b =>
                 {
-                    b.HasOne("MaquinaDeCafe.src.Models.Entities.IngredienteAdicional", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientesAdicionaisId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Pedido", null)
-                        .WithMany()
-                        .HasForeignKey("PedidosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("IngredienteAdicionalId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PedidoItemId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredienteAdicionalId");
+
+                    b.HasIndex("PedidoItemId");
+
+                    b.ToTable("PedidoItemIngredienteAdicional", (string)null);
                 });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Pedido", b =>
                 {
-                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
-                        .WithMany("Pedidos")
-                        .HasForeignKey("CafeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MaquinaDeCafe.src.Models.Entities.FormaPreparo", "FormaPreparo")
                         .WithMany()
                         .HasForeignKey("FormaPreparoId")
@@ -185,19 +183,60 @@ namespace MaquinaDeCafe.Migrations
                         .WithMany("Pedidos")
                         .HasForeignKey("FormaPreparoId1");
 
+                    b.Navigation("FormaPreparo");
+                });
+
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.PedidoItem", b =>
+                {
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
+                        .WithMany("PedidoItens")
+                        .HasForeignKey("CafeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Pedido", "Pedido")
+                        .WithMany("PedidoItens")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cafe");
 
-                    b.Navigation("FormaPreparo");
+                    b.Navigation("Pedido");
+                });
+
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.PedidoItemIngredienteAdicional", b =>
+                {
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.IngredienteAdicional", "IngredienteAdicional")
+                        .WithMany()
+                        .HasForeignKey("IngredienteAdicionalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.PedidoItem", "PedidoItem")
+                        .WithMany()
+                        .HasForeignKey("PedidoItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IngredienteAdicional");
+
+                    b.Navigation("PedidoItem");
                 });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
                 {
-                    b.Navigation("Pedidos");
+                    b.Navigation("PedidoItens");
                 });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.FormaPreparo", b =>
                 {
                     b.Navigation("Pedidos");
+                });
+
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Pedido", b =>
+                {
+                    b.Navigation("PedidoItens");
                 });
 #pragma warning restore 612, 618
         }

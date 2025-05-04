@@ -1,4 +1,3 @@
-using System.Runtime.ConstrainedExecution;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Resources;
 
@@ -10,7 +9,7 @@ public class Cafe
     public string Descricao { get; private set; } = string.Empty;
     public decimal Preco { get; private set; }
 
-    public List<Pedido> Pedidos { get; private set; } = new();
+    public List<PedidoItem> PedidoItens { get; set; } = new();
 
     public Cafe() { }
 

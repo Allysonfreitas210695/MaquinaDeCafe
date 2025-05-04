@@ -11,6 +11,8 @@ namespace MaquinaDeCafe.src.Data
         }
 
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoItem> PedidoItens { get; set; }
+        public DbSet<PedidoItemIngredienteAdicional> PedidoItemIngredienteAdicional { get; set; }
         public DbSet<Cafe> Cafes { get; set; }
         public DbSet<IngredienteAdicional> IngredientesAdicionais { get; set; }
         public DbSet<FormaPreparo> FormasPreparo { get; set; }

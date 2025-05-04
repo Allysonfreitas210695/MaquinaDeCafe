@@ -2,6 +2,8 @@ namespace MaquinaDeCafe.src.Models.Enums;
 
 public enum TipoLeite
 {
-    ComAcucar,
-    SemAcucar
+    Integral,
+    Desnatado,
+    Vegetal,
+    Nenhum
 }

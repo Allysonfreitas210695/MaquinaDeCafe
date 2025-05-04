@@ -7,6 +7,8 @@ namespace MaquinaDeCafe.src.Models.Enums;
 
 public enum TipoAcucar
 {
-    Com,
-    Sem
+    Refinado,
+    Mascavo,
+    Americano,
+    Nenhum
 }

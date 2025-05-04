@@ -8,95 +8,58 @@ namespace MaquinaDeCafe.src.Models.Entities;
 public class Pedido
 {
     public Guid Id { get; private set; }
-    public Guid CafeId { get; private set; }
-    public Cafe Cafe { get; private set; } = default!;
-    public TipoLeite TipoLeite { get; private set; }
-    public TipoAcucar TipoAcucar { get; private set; }
-    public TamanhoXicara TamanhoXicara { get; private set; }
-    public int Quantidade { get; private set; }
-    public decimal ValorTotal { get; private set; }
     public Guid FormaPreparoId { get; private set; }
     public FormaPreparo FormaPreparo { get; private set; } = default!;
     public StatusPedido Status { get; private set; }
-    public bool ProdutoDisponivel { get; private set; }
-    public List<IngredienteAdicional> IngredientesAdicionais { get; private set; } = new();
+    public decimal ValorTotal { get; private set; }
 
-    public Pedido(
-            Guid? id,
-            Cafe cafe,
-            TipoLeite tipoLeite,
-            TipoAcucar tipoAcucar,
-            TamanhoXicara tamanhoXicara,
-            int quantidade,
-            FormaPreparo formaPreparo,
-            List<IngredienteAdicional>? ingredientesAdicionais,
-            bool produtoDisponivel)
-    { 
+    public List<PedidoItem> PedidoItens { get; private set; } = new();
 
-        if (cafe == null)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoCafeObrigatorio });
+    public Pedido() {}
 
-        if (formaPreparo == null)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoFormaPreparoObrigatoria });
-
-        if (quantidade <= 0)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoQuantidadeInvalida });
-
-        if (!produtoDisponivel)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoProdutoIndisponivel });
-
+    public Pedido(Guid? id, Guid formaPreparoId)
+    {
         Id = id ?? Guid.NewGuid();
-        Cafe = cafe;
-        CafeId = cafe.Id;
-        TipoLeite = tipoLeite;
-        TipoAcucar = tipoAcucar;
-        TamanhoXicara = tamanhoXicara;
-        Quantidade = quantidade;
-        FormaPreparo = formaPreparo;
-        FormaPreparoId = formaPreparo.Id;
-        ProdutoDisponivel = produtoDisponivel;
-        IngredientesAdicionais = ingredientesAdicionais ?? new List<IngredienteAdicional>();
+        FormaPreparoId = formaPreparoId;
+        Status = StatusPedido.EmPreparo;
+        ValorTotal = 0;
 
-        ValorTotal = CalcularValorTotal();
-        Status = StatusPedido.EmPreparo; 
+        Validar();
     }
 
-    public void UpdateFormaPreparos(FormaPreparo formaPreparo)
+    private void Validar()
     {
-        if (formaPreparo == null)
+        if (FormaPreparoId == Guid.Empty)
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoFormaPreparoObrigatoria });
-
-        FormaPreparo = formaPreparo;
     }
-    
-    public void UpdateCafe(Cafe cafe)
-    {
-        if (cafe == null)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoCafeObrigatorio });
 
-        Cafe = cafe;
-    }
-    
-    public void UpdateQuantidade(int quantidade)
+    public void AdicionarItem(PedidoItem item, decimal precoCafe)
     {
-        if (quantidade <= 0)
+        if (item == null)
+            throw new ErrorOnValidationException(new List<string> { "Item do pedido inválido." });
+
+        if (item.GetQuantidadeItens() <= 0)
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoQuantidadeInvalida });
 
-        Quantidade = quantidade;
-    }
-    
-    public void UpdateProdutoDisponivel(bool produtoDisponivel)
-    {
-        if (!produtoDisponivel)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoProdutoIndisponivel });
-       
-        ProdutoDisponivel = produtoDisponivel;
+        PedidoItens.Add(item);
+        ValorTotal += item.CalcularValorItem(precoCafe);
     }
 
-    private decimal CalcularValorTotal()
+    public void AlterarStatus(StatusPedido novoStatus)
     {
-        decimal valorCafe = Cafe.Preco;
-        decimal valorIngredientes = IngredientesAdicionais.Sum(i => i.ValorExtra);
-        return (valorCafe + valorIngredientes) * Quantidade;
+        if (Status is StatusPedido.Entregue or StatusPedido.Cancelado)
+            throw new ErrorOnValidationException(new List<string> { "Não é possível alterar o status de um pedido que já foi entregue ou cancelado." });
+
+        if (!PodeAlterarPara(novoStatus))
+            throw new ErrorOnValidationException(new List<string> { $"Transição de status de '{Status}' para '{novoStatus}' não é permitida." });
+
+        Status = novoStatus;
     }
+
+    private bool PodeAlterarPara(StatusPedido novoStatus) => Status switch
+    {
+        StatusPedido.EmPreparo => novoStatus is StatusPedido.Pronto or StatusPedido.Cancelado,
+        StatusPedido.Pronto => novoStatus is StatusPedido.Entregue or StatusPedido.Cancelado,
+        _ => false
+    };
 }

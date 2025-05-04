@@ -9,7 +9,7 @@ public class IngredienteAdicional
     public string Nome { get; private set; } = string.Empty;
     public decimal ValorExtra { get; private set; }
 
-    public List<Pedido> Pedidos { get; private set; } = new();
+    public List<PedidoItemIngredienteAdicional> PedidoItemIngredientes { get; private set; } = new();
 
     public IngredienteAdicional() { }
 

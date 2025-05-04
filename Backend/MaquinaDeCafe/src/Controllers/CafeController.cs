@@ -39,7 +39,7 @@ public class CafeController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(ResponseCafeJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post([FromBody] RequestCriacaoCafeJson novoCafe)
     {
@@ -57,6 +57,8 @@ public class CafeController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _service.RemoverAsync(id);

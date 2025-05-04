@@ -1,12 +1,9 @@
 using System.Text.Json.Serialization;
-using FluentValidation;
-using MaquinaDeCafe.src.Communication.Request;
 using MaquinaDeCafe.src.Data;
-using MaquinaDeCafe.src.DTOs;
+using MaquinaDeCafe.src.Data.Persistence;
 using MaquinaDeCafe.src.Filters;
 using MaquinaDeCafe.src.Repositories;
 using MaquinaDeCafe.src.Services;
-using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,7 +49,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICafeRepository, CafeService>();
 builder.Services.AddScoped<IFormaPreparoRepository, FormaPreparoService>();
-
+builder.Services.AddScoped<IIngredienteAdicionalRepository, IngredienteAdicionalService>();builder.Services.AddScoped<IPedidoRepository, PedidoService>();
+builder.Services.AddScoped<IPedidoRepository, PedidoService>();
 
 var app = builder.Build();
 
@@ -66,4 +64,13 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+await MigrateDatabase();
+
 app.Run();
+
+async Task MigrateDatabase()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+
+    await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
+}
