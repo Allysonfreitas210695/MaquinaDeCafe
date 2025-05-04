@@ -19,87 +19,71 @@ namespace Entities.Test
         }
 
         [Fact]
-        public void DeveLancarErro_QuandoCafeForNulo()
+        public void DeveLancarErro_QuandoFormaPreparoIdForVazio()
         {
-            Action act = () => new Pedido(
-                id: Guid.NewGuid(),
-                cafe: null,
-                tipoLeite: TipoLeite.SemAcucar,
-                tipoAcucar: TipoAcucar.Com,
-                tamanhoXicara: TamanhoXicara.Grande,
-                quantidade: 2,
-                formaPreparo: FormaPreparoBuilder.Build(),
-                ingredientesAdicionais: new List<IngredienteAdicional> { IngredienteAdicionalBuilder.Build() },
-                produtoDisponivel: true
-            );
-
-            act.Should().Throw<ErrorOnValidationException>()
-                .Which.Errors.Should().Contain(ErrorsMensagem.PedidoCafeObrigatorio);
-        }
-
-        [Fact]
-        public void DeveLancarErro_QuandoFormaPreparoForNula()
-        {
-            Action act = () => new Pedido(
-                id: Guid.NewGuid(),
-                cafe: CafeBuilder.Build(),
-                tipoLeite: TipoLeite.SemAcucar,
-                tipoAcucar: TipoAcucar.Com,
-                tamanhoXicara: TamanhoXicara.Grande,
-                quantidade: 2,
-                formaPreparo: null,
-                ingredientesAdicionais: new List<IngredienteAdicional> { IngredienteAdicionalBuilder.Build() },
-                produtoDisponivel: true
-            );
+            Action act = () => new Pedido(id: Guid.NewGuid(), formaPreparoId: Guid.Empty);
 
             act.Should().Throw<ErrorOnValidationException>()
                 .Which.Errors.Should().Contain(ErrorsMensagem.PedidoFormaPreparoObrigatoria);
         }
 
         [Fact]
-        public void DeveLancarErro_QuandoQuantidadeForZeroOuNegativa()
-        {
-            Action act = () => PedidoBuilder.Build(quantidade: 0);
-            act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.PedidoQuantidadeInvalida);
-        }
-
-        [Fact]
-        public void DeveLancarErro_QuandoProdutoNaoEstiverDisponivel()
-        {
-            Action act = () => PedidoBuilder.Build(produtoDisponivel: false);
-            act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.PedidoProdutoIndisponivel);
-        }
-
-        [Fact]
-        public void DeveLancarErro_QuandoAtualizarFormaPreparoParaNulo()
+        public void DeveAdicionarItem_Valido()
         {
             var pedido = PedidoBuilder.Build();
-            Action act = () => pedido.UpdateFormaPreparos(null!);
-            act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.PedidoFormaPreparoObrigatoria);
+            var item = PedidoItemBuilder.Build(quantidade: 2);
+
+            pedido.AdicionarItem(item, precoCafe: 5.0m);
+
+            pedido.PedidoItens.Should().ContainSingle();
+            pedido.ValorTotal.Should().Be(item.CalcularValorItem(5.0m));
         }
 
         [Fact]
-        public void DeveLancarErro_QuandoAtualizarCafeParaNulo()
+        public void DeveLancarErro_QuandoAdicionarItemNulo()
         {
             var pedido = PedidoBuilder.Build();
-            Action act = () => pedido.UpdateCafe(null!);
-            act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.PedidoCafeObrigatorio);
+
+            Action act = () => pedido.AdicionarItem(null!, precoCafe: 5.0m);
+
+            act.Should().Throw<ErrorOnValidationException>()
+                .Which.Errors.Should().Contain(ErrorsMensagem.PedidoItemInvalido);
+        }
+
+        [Theory]
+        [InlineData(StatusPedido.Pronto)]
+        [InlineData(StatusPedido.Cancelado)]
+        public void DeveAlterarStatus_Valido(StatusPedido novoStatus)
+        {
+            var pedido = PedidoBuilder.Build();
+
+            pedido.AlterarStatus(novoStatus);
+
+            pedido.Status.Should().Be(novoStatus);
         }
 
         [Fact]
-        public void DeveLancarErro_QuandoAtualizarQuantidadeParaZeroOuNegativa()
+        public void NaoDeveAlterarStatus_SePedidoCanceladoOuEntregue()
         {
             var pedido = PedidoBuilder.Build();
-            Action act = () => pedido.UpdateQuantidade(0);
-            act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.PedidoQuantidadeInvalida);
+            pedido.AlterarStatus(StatusPedido.Cancelado);
+
+            Action act = () => pedido.AlterarStatus(StatusPedido.EmPreparo);
+
+            act.Should().Throw<ErrorOnValidationException>()
+                .Which.Errors.Should().Contain(ErrorsMensagem.PedidoStatusAlteracaoNaoPermitida);
         }
 
         [Fact]
-        public void DeveLancarErro_QuandoAtualizarProdutoParaIndisponivel()
+        public void NaoDeveAlterarStatus_ParaTransicaoInvalida()
         {
             var pedido = PedidoBuilder.Build();
-            Action act = () => pedido.UpdateProdutoDisponivel(false);
-            act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.PedidoProdutoIndisponivel);
+            pedido.AlterarStatus(StatusPedido.Pronto);
+
+            Action act = () => pedido.AlterarStatus(StatusPedido.EmPreparo);
+
+            act.Should().Throw<ErrorOnValidationException>()
+                .Which.Errors.Should().Contain("Transição de status de 'Pronto' para 'EmPreparo' não é permitida.");
         }
     }
 }

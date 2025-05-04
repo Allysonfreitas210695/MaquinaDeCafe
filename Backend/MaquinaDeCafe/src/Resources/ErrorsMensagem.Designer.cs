@@ -196,6 +196,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item do pedido inválido..
+        /// </summary>
+        public static string PedidoItemInvalido {
+            get {
+                return ResourceManager.GetString("PedidoItemInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O produto selecionado está indisponível..
         /// </summary>
         public static string PedidoProdutoIndisponivel {
@@ -210,6 +219,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string PedidoQuantidadeInvalida {
             get {
                 return ResourceManager.GetString("PedidoQuantidadeInvalida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não é possível alterar o status de um pedido que já foi entregue ou cancelado..
+        /// </summary>
+        public static string PedidoStatusAlteracaoNaoPermitida {
+            get {
+                return ResourceManager.GetString("PedidoStatusAlteracaoNaoPermitida", resourceCulture);
             }
         }
     }

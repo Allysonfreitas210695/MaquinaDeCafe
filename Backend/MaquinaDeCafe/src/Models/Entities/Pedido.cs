@@ -36,7 +36,7 @@ public class Pedido
     public void AdicionarItem(PedidoItem item, decimal precoCafe)
     {
         if (item == null)
-            throw new ErrorOnValidationException(new List<string> { "Item do pedido inválido." });
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoItemInvalido });
 
         if (item.GetQuantidadeItens() <= 0)
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoQuantidadeInvalida });
@@ -48,7 +48,7 @@ public class Pedido
     public void AlterarStatus(StatusPedido novoStatus)
     {
         if (Status is StatusPedido.Entregue or StatusPedido.Cancelado)
-            throw new ErrorOnValidationException(new List<string> { "Não é possível alterar o status de um pedido que já foi entregue ou cancelado." });
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoStatusAlteracaoNaoPermitida });
 
         if (!PodeAlterarPara(novoStatus))
             throw new ErrorOnValidationException(new List<string> { $"Transição de status de '{Status}' para '{novoStatus}' não é permitida." });

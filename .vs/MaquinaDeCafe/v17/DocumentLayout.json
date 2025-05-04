@@ -1,12 +1,71 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5368F01A-A3D8-46BC-B916-DAA5C9EA91A7}|Backend\\tests\\Entities.Test\\Entities.Test.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\tests\\entities.test\\pedidotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5368F01A-A3D8-46BC-B916-DAA5C9EA91A7}|Backend\\tests\\Entities.Test\\Entities.Test.csproj|solutionrelative:backend\\tests\\entities.test\\pedidotest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5368F01A-A3D8-46BC-B916-DAA5C9EA91A7}|Backend\\tests\\Entities.Test\\Entities.Test.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\tests\\entities.test\\pedidoitemtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5368F01A-A3D8-46BC-B916-DAA5C9EA91A7}|Backend\\tests\\Entities.Test\\Entities.Test.csproj|solutionrelative:backend\\tests\\entities.test\\pedidoitemtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|c:\\users\\allyson fernandes\\desktop\\faculdade\\maquinadecafe\\backend\\maquinadecafe\\src\\models\\entities\\pedidoitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3B8BF22-63A6-E6BF-9842-1CDAE5350135}|Backend\\MaquinaDeCafe\\MaquinaDeCafe.csproj|solutionrelative:backend\\maquinadecafe\\src\\models\\entities\\pedidoitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PedidoTest.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Entities.Test\\PedidoTest.cs",
+              "RelativeDocumentMoniker": "Backend\\tests\\Entities.Test\\PedidoTest.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Entities.Test\\PedidoTest.cs",
+              "RelativeToolTip": "Backend\\tests\\Entities.Test\\PedidoTest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T22:48:36.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PedidoItemTest.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Entities.Test\\PedidoItemTest.cs",
+              "RelativeDocumentMoniker": "Backend\\tests\\Entities.Test\\PedidoItemTest.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\tests\\Entities.Test\\PedidoItemTest.cs",
+              "RelativeToolTip": "Backend\\tests\\Entities.Test\\PedidoItemTest.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAiwCQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T22:48:15.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PedidoItem.cs",
+              "DocumentMoniker": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Models\\Entities\\PedidoItem.cs",
+              "RelativeDocumentMoniker": "Backend\\MaquinaDeCafe\\src\\Models\\Entities\\PedidoItem.cs",
+              "ToolTip": "C:\\Users\\Allyson Fernandes\\Desktop\\Faculdade\\MaquinaDeCafe\\Backend\\MaquinaDeCafe\\src\\Models\\Entities\\PedidoItem.cs",
+              "RelativeToolTip": "Backend\\MaquinaDeCafe\\src\\Models\\Entities\\PedidoItem.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAgwCUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T22:45:52.615Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

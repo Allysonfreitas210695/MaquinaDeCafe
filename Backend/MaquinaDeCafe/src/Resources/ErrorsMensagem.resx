@@ -162,10 +162,16 @@
   <data name="PedidoFormaPreparoObrigatoria" xml:space="preserve">
     <value>É necessário selecionar uma forma de preparo.</value>
   </data>
+  <data name="PedidoItemInvalido" xml:space="preserve">
+    <value>Item do pedido inválido.</value>
+  </data>
   <data name="PedidoProdutoIndisponivel" xml:space="preserve">
     <value>O produto selecionado está indisponível.</value>
   </data>
   <data name="PedidoQuantidadeInvalida" xml:space="preserve">
     <value>A quantidade deve ser maior que zero.</value>
+  </data>
+  <data name="PedidoStatusAlteracaoNaoPermitida" xml:space="preserve">
+    <value>Não é possível alterar o status de um pedido que já foi entregue ou cancelado.</value>
   </data>
 </root>
