@@ -38,9 +38,9 @@ O sistema é baseado em uma arquitetura cliente-servidor, utilizando os seguinte
   - **Linguagem de Programação**: Typescript
   - **Biblioteca**: React  
 
-<!-- - **Armazenamento**:
-  - **Banco de Dados**: MySQL
-  - **Mapeador**: Entity Framework Core -->
+- **Armazenamento**:
+  - **Banco de Dados**: Postgress
+  - **Imagem**: Docker.
 
 ## 🔗 Links Úteis
 
@@ -57,6 +57,7 @@ Conheça a equipe do **Devine Café**:
 | [Allyson Bruno](https://github.com/Allysonfreitas210695) | Tech lead: back-end |
 | [Andrey Sabino](https://github.com/andreysabino) | Tech lead: design |
 | [Geísa Morais](https://github.com/Geisa-mg) | Tech lead: requisitos |
+| [Klebson Davi](https://github.com/krepss) | Analista de requisitos |
 | [Lívia Beatriz](https://github.com/liviabeatrizml) | Tech lead: qualidade |
 | [Pedro Damião](https://github.com/pedrodamiaoluz) | Tech lead: front-end |
 
