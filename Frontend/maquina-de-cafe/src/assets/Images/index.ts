@@ -10,6 +10,7 @@ import Ellipse from "./Ellipse.png"
 import Seguir from "./seguir.png"
 import Dashboard from "./dashboard_black.png"
 import Subtract from "./Subtract.png"
+import Mais from "./+.png"
 
 export const Images = {
   CafeExpresso,
@@ -24,4 +25,5 @@ export const Images = {
   Seguir,
   Dashboard, 
   Subtract,
+  Mais,
 };

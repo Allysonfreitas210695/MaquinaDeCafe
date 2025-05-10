@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles/media";
 
 export const Container__Detalhes = styled.div`
   background-color: #ffffff;
@@ -9,28 +10,127 @@ export const Container__Detalhes = styled.div`
 `;
 
 export const Detalhe__Header = styled.div`
-  background-color: #512615;
   width: 300px;
   height: 100vh;
   position: fixed;
-  top: 150px;
+  top: 0;
   left: 0;
   border-top-right-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px;
+
+  .detalhe {
+    position: absolute;
+    top: 32rem;
+    left: 60px;
+    bottom: start;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-decoration: none;
+    text-transform: uppercase;
+
+     ${media.laptoplgheight} {
+      padding-top: 70px;
+    }
+  
+    ${media.tabletmdheight} {
+      position: absolute;
+      top: 420px;
+      left: 70px;
+    }
+  }
+`;
+
+export const Detalhe__Titulo0 = styled.h1`
+  display: flex;
+  align-items: center;
+  font-family: Poppins;
+  font-weight: 800;
+  font-size: 32px;
+  color: #ffffff;
+  line-height: 100%;
+  letter-spacing: 0%;
+  position: absolute;
+  top: 63px;
+
+   ${media.laptoplgheight} {
+      padding-top: 10px;
+    }
+  
+    ${media.tabletmdheight} {
+      position: absolute;
+      top: 55px;
+     
+    }
 `;
 
 export const Img__Detalhe = styled.img`
-  margin-top: -140px;
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
+
+export const Detalhe__Titulo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 20px;
+  color: #512615;
+  line-height: 100%;
+  letter-spacing: 0%;
+  position: absolute;
+  top: 185px;
+  left: 60px;
+  text-transform: uppercase;
+
+   ${media.laptoplgheight} {
+      padding-top: 30px;
+    }
+  
+    ${media.tabletmdheight} {
+      position: absolute;
+      top: 155px;
+      left: 70px;
+    }
 `;
 
 export const Detalhes = styled.div`
   max-width: 80vw;
-  margin-left: 300px;
+  margin-left: 330px;
   display: flex;
   flex-direction: column;
+
+  h1 {
+    font-family: Poppins;
+    font-weight: 700;
+    font-size: 34px;
+    color: #512615;
+    line-height: 100%;
+    letter-spacing: 0%;
+    padding-top: 95px;
+
+
+     ${media.laptoplgheight} {
+      padding-top: 120px;
+    }
+
+    ${media.tabletmdheight} {
+      margin-top: -40px;
+    }
+     
+  }
 `;
 
 export const Titulo1 = styled.h1`
@@ -40,23 +140,23 @@ export const Titulo1 = styled.h1`
   color: #512615;
   line-height: 100%;
   letter-spacing: 0%;
-  padding-top: 80px;
+  margin-top: -30px;
 `;
 
 export const Titulo2 = styled.h2`
   font-family: Poppins;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 25px;
   color: #000000;
   line-height: 100%;
   letter-spacing: 0%;
   text-align: justify;
-  padding-top: 10px;
+  padding-top: 20px;
 `;
 
 export const Conteudo__Detalhes = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding-top: 30px;
 
@@ -83,11 +183,19 @@ export const Arry__Detalhe = styled.div`
   background-color: #f8f8f8;
   padding: 15px;
   border-radius: 10px;
-  width: 900px;
+  width: 300px;
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 80px;
+
+  .arry__detalhe {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
 `;
 
 export const Button__Detalhe = styled.div`
@@ -121,13 +229,13 @@ export const Button__Item = styled.div`
   gap: 70px;
   padding: 15px 60px;
 
-  span{
+  span {
     font-family: Poppins;
     font-weight: 400;
     font-size: 20px;
     line-height: 100%;
     letter-spacing: 0%;
-    color: #DAC8B3;
+    color: #dac8b3;
     text-align: justify;
   }
 `;
