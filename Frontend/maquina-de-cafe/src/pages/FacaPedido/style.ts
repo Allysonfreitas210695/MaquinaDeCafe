@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles/media";
 
 export const Container__Pedido_Header = styled.div`
   background-color: #ffffff;
@@ -9,41 +10,118 @@ export const Container__Pedido_Header = styled.div`
 `;
 
 export const Navegacao__Header = styled.div`
-  background-color: #512615;
-  width: 365px;
+  width: 300px;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 50px;
+  box-shadow: 0 0 0 24% #000000;
+
+  img {
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+  }
 `;
+export const Cafes = styled.div`
+  position: relative;
+  top: 85px;
+  right: 88px;
+  transform: translate(50%, 50%);
+  cursor: pointer;
 
-export const Header__Logo = styled.img`
-  width: 150px;
-  height: 130px;
-`;
-
-export const Nav = styled.div`
-  padding-top: 90px;
-  padding-right: 110px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-
-  .link {
-    color: #ffffff;
-    font-family: Inter;
-    font-weight: 400;
-    font-size: 14px;
+  .links {
+    color: #552a18;
+    font-family: Poppins;
+    font-weight: 800;
+    font-size: 18px;
     line-height: 100%;
     letter-spacing: 0%;
     text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
+
+  ${media.laptoplgheight} {
+    padding-top: 10px;
+  }
+
+  ${media.tabletmdheight} {
+    position: relative;
+    top: 67px;
+    right: 88px;
+  }
+`;
+
+export const Header__Titulo = styled.span`
+  font-family: Poppins;
+  font-weight: 800;
+  font-size: 33.33px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #ffffff;
+  padding-top: 10px;
+  position: relative;
+
+   ${media.laptoplgheight} {
+    padding-top: 25px;
+  }
+
+    ${media.tabletmdheight} {
+     padding-top: 12px;
+  }
+`;
+
+export const Nav = styled.div`
+  padding-top: 140px;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 30px;
+  position: relative;
+
+  .link {
+    color: #ffffff;
+    font-family: Poppins;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  ${media.laptoplgheight} {
+    padding-top: 160px;
+  }
+
+    ${media.tabletmdheight} {
+     padding-top: 135px;
+  }
+`;
+
+interface MenuItemProps {
+  active?: boolean;
+}
+
+export const MenuItem = styled.div<MenuItemProps>`
+  padding: 0.8rem 1rem;
+  border-radius: 40px 0 0 40px; /* arredondado só à esquerda */
+  transition: all 0.3s ease;
+  cursor: pointer;
 `;
 
 export const Titulo = styled.h1`
@@ -60,7 +138,7 @@ export const Titulo = styled.h1`
 
 export const Pedido__Escolha = styled.div`
   max-width: 80vw;
-  margin-left: 370px;
+  margin-left: 300px;
   display: flex;
   flex-direction: column;
 `;

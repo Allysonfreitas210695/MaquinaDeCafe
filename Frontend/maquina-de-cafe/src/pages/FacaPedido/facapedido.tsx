@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 import * as S from "./style";
 import { Images } from "../../assets/Images";
 import { CafeCard } from "../../components/CafeCard/cafecard";
+import { useState } from "react";
+import { BsColumnsGap } from "react-icons/bs";
 
 interface IFacaPedidoProps {
+  Link0: string;
   Link1: string;
   Link2: string;
   Link3: string;
   Link4: string;
+  Link5: string;
 }
 
 const cafes = [
@@ -38,28 +42,76 @@ const cafes = [
 ];
 
 const facaPedido: IFacaPedidoProps[] = [
-  { Link1: "Gelado", Link2: "Quente", Link3: "Especiais", Link4: "Combos" },
+  {
+    Link0: "Cafés",
+    Link1: "Gelado",
+    Link2: "Quente",
+    Link3: "Especiais",
+    Link4: "Combos",
+    Link5: "Voltar",
+  },
 ];
 
 export const FacaPedido = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
     <S.Container__Pedido_Header>
-      {facaPedido.map(({ Link1, Link2, Link3, Link4 }) => (
+      {facaPedido.map(({ Link0, Link1, Link2, Link3, Link4, Link5 }) => (
         <S.Navegacao__Header>
-          <S.Header__Logo src={Images.LogoTelaEscolha} />
+          <img src={Images.Subtract} alt="" />
+          <S.Header__Titulo>Devine Café</S.Header__Titulo>
+          <S.Cafes>
+            <Link className="links" to="">
+              <BsColumnsGap />
+              {Link0}
+            </Link>
+          </S.Cafes>
           <S.Nav>
-            <Link className="link" to={""}>
-              {Link1}
-            </Link>
-            <Link className="link" to={""}>
-              {Link2}
-            </Link>
-            <Link className="link" to={""}>
-              {Link3}
-            </Link>
-            <Link className="link" to={""}>
-              {Link4}
-            </Link>
+            <S.MenuItem
+              active={activeIndex === 1}
+              onClick={() => setActiveIndex(1)}
+            >
+              <Link className="link" to="">
+                <BsColumnsGap />
+                {Link1}
+              </Link>
+            </S.MenuItem>
+            <S.MenuItem
+              active={activeIndex === 2}
+              onClick={() => setActiveIndex(2)}
+            >
+              <Link className="link" to="">
+                <BsColumnsGap />
+                {Link2}
+              </Link>
+            </S.MenuItem>
+            <S.MenuItem
+              active={activeIndex === 3}
+              onClick={() => setActiveIndex(3)}
+            >
+              <Link className="link" to="">
+                <BsColumnsGap />
+                {Link3}
+              </Link>
+            </S.MenuItem>
+            <S.MenuItem
+              active={activeIndex === 4}
+              onClick={() => setActiveIndex(4)}
+            >
+              <Link className="link" to="">
+                <BsColumnsGap />
+                {Link4}
+              </Link>
+            </S.MenuItem>
+            <S.MenuItem
+              active={activeIndex === 5}
+              onClick={() => setActiveIndex(5)}
+            >
+              <Link className="link" to="">
+                <BsColumnsGap />
+                {Link5}
+              </Link>
+            </S.MenuItem>
           </S.Nav>
         </S.Navegacao__Header>
       ))}
@@ -78,7 +130,7 @@ export const FacaPedido = () => {
         </S.Container__Card>
       </S.Pedido__Escolha>
       <S.Button__Seguir>
-        <Link className="seguir__link" to={""}>
+        <Link className="seguir__link" to={"/detalhe"}>
           <img src={Images.Seguir} alt="Seta de Seguir" />
         </Link>
       </S.Button__Seguir>

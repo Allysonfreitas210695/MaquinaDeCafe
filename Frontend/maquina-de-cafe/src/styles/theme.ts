@@ -8,5 +8,8 @@ export const theme = {
       lg: "1024px",
       xl: "1440px",
       xxl: "1920px",
+
+      heightmd: "644px",
+      rightlg: "800px",
     },
   };

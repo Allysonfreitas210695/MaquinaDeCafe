@@ -8,6 +8,8 @@ import XicaraDeCafe from "./XicaradeCafé.png"
 import LogoTelaEscolha from "./LogoTelaEscolha.png"
 import Ellipse from "./Ellipse.png"
 import Seguir from "./seguir.png"
+import Dashboard from "./dashboard_black.png"
+import Subtract from "./Subtract.png"
 
 export const Images = {
   CafeExpresso,
@@ -20,4 +22,6 @@ export const Images = {
   LogoTelaEscolha,
   Ellipse,
   Seguir,
+  Dashboard, 
+  Subtract,
 };
