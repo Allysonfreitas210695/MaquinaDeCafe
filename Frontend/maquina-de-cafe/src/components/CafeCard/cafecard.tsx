@@ -27,6 +27,22 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
       <S.Tag>{tag}</S.Tag>
       <S.Title>{title}</S.Title>
       <S.Description>{description}</S.Description>
+      <S.StyledWrapper>
+        <div className="radio-inputs">
+          <label className="radio">
+            <input type="radio" name="radio" defaultChecked />
+            <span className="name">50 ml</span>
+          </label>
+          <label className="radio">
+            <input type="radio" name="radio" />
+            <span className="name">100 ml</span>
+          </label>
+          <label className="radio">
+            <input type="radio" name="radio" />
+            <span className="name">150 ml</span>
+          </label>
+        </div>
+      </S.StyledWrapper>
       <S.PriceSection>
         <S.Price>
           <span> R$ </span>
