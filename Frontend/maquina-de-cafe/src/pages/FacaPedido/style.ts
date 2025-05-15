@@ -27,7 +27,6 @@ export const Navegacao__Header = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    
   }
 `;
 export const Cafes = styled.div`
@@ -68,31 +67,34 @@ export const Header__Titulo = styled.span`
   font-size: 33.33px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #ffffff;
-  padding-top: 10px;
+  color: #512615;
+  padding: 10px 6.5rem;
   position: relative;
 
-   ${media.laptoplgheight} {
+  ${media.laptoplgheight} {
     padding-top: 25px;
   }
 
-    ${media.tabletmdheight} {
-     padding-top: 12px;
+  ${media.tabletmdheight} {
+    padding-top: 12px;
   }
 `;
 
 export const Nav = styled.div`
-  padding-top: 140px;
-  padding-right: 50px;
+  background-color: #6f4829;
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-direction: row;
+  align-items: center;
   gap: 30px;
-  position: relative;
+  padding: 8px 70px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   .link {
     color: #ffffff;
-    font-family: Poppins;
+    font-family: Sora;
     font-weight: 800;
     font-size: 18px;
     line-height: 100%;
@@ -103,25 +105,20 @@ export const Nav = styled.div`
     align-items: center;
     gap: 20px;
   }
-
-  ${media.laptoplgheight} {
-    padding-top: 160px;
-  }
-
-    ${media.tabletmdheight} {
-     padding-top: 135px;
-  }
 `;
 
-interface MenuItemProps {
-  active?: boolean;
-}
-
-export const MenuItem = styled.div<MenuItemProps>`
+export const MenuItem = styled.div<{ active: boolean }>`
+  background-color: ${({ active }) => (active ? "#fff" : "transparent")};
+  color: ${({ active }) => (active ? "#7B4A2E" : "#fff")};
   padding: 0.8rem 1rem;
-  border-radius: 40px 0 0 40px; /* arredondado só à esquerda */
+  border-radius: 10px; /* arredondado só à esquerda */
   transition: all 0.3s ease;
   cursor: pointer;
+
+  .link {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 export const Titulo = styled.h1`
@@ -137,15 +134,15 @@ export const Titulo = styled.h1`
 `;
 
 export const Pedido__Escolha = styled.div`
-  max-width: 80vw;
-  margin-left: 300px;
+  padding-top: 200px;
+  padding-left: 55px;
   display: flex;
   flex-direction: column;
 `;
 
 export const Container__Card = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 `;
 
 export const Button__Seguir = styled.div`

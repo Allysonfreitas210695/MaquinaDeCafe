@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import * as S from "./style";
-import { Images } from "../../assets/Images";
 import { CafeCard } from "../../components/CafeCard/cafecard";
 import { useState } from "react";
-import { BsColumnsGap } from "react-icons/bs";
 
 interface IFacaPedidoProps {
   Link0: string;
@@ -12,6 +10,7 @@ interface IFacaPedidoProps {
   Link3: string;
   Link4: string;
   Link5: string;
+  Link6: string;
 }
 
 const cafes = [
@@ -43,12 +42,13 @@ const cafes = [
 
 const facaPedido: IFacaPedidoProps[] = [
   {
-    Link0: "Cafés",
-    Link1: "Gelado",
-    Link2: "Quente",
-    Link3: "Especiais",
-    Link4: "Combos",
-    Link5: "Voltar",
+    Link0: "Todos",
+    Link1: "Cafés",
+    Link2: "Gelado",
+    Link3: "Quente",
+    Link4: "Especiais",
+    Link5: "Combos",
+    Link6: "Voltar",
   },
 ];
 
@@ -56,68 +56,72 @@ export const FacaPedido = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <S.Container__Pedido_Header>
-      {facaPedido.map(({ Link0, Link1, Link2, Link3, Link4, Link5 }) => (
-        <S.Navegacao__Header>
-          <img src={Images.Subtract} alt="" />
-          <S.Header__Titulo>Devine Café</S.Header__Titulo>
-          <S.Cafes>
-            <Link className="links" to="">
-              <BsColumnsGap />
-              {Link0}
-            </Link>
-          </S.Cafes>
-          <S.Nav>
-            <S.MenuItem
-              active={activeIndex === 1}
-              onClick={() => setActiveIndex(1)}
-            >
-              <Link className="link" to="">
-                <BsColumnsGap />
-                {Link1}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 2}
-              onClick={() => setActiveIndex(2)}
-            >
-              <Link className="link" to="">
-                <BsColumnsGap />
-                {Link2}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 3}
-              onClick={() => setActiveIndex(3)}
-            >
-              <Link className="link" to="">
-                <BsColumnsGap />
-                {Link3}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 4}
-              onClick={() => setActiveIndex(4)}
-            >
-              <Link className="link" to="">
-                <BsColumnsGap />
-                {Link4}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 5}
-              onClick={() => setActiveIndex(5)}
-            >
-              <Link className="link" to="">
-                <BsColumnsGap />
-                {Link5}
-              </Link>
-            </S.MenuItem>
-          </S.Nav>
-        </S.Navegacao__Header>
-      ))}
+      {facaPedido.map(
+        ({ Link0, Link1, Link2, Link3, Link4, Link5, Link6 }) => (
+          <S.Navegacao__Header>
+            <S.Nav>
+              <S.MenuItem
+                active={activeIndex === 0}
+                onClick={() => setActiveIndex(0)}
+              >
+                <Link className="link" to="">
+                  {Link0}
+                </Link>
+              </S.MenuItem>
+              <S.MenuItem
+                active={activeIndex === 1}
+                onClick={() => setActiveIndex(1)}
+              >
+                <Link className="link" to="">
+                  {Link1}
+                </Link>
+              </S.MenuItem>
+              <S.MenuItem
+                active={activeIndex === 2}
+                onClick={() => setActiveIndex(2)}
+              >
+                <Link className="link" to="">
+                  {Link2}
+                </Link>
+              </S.MenuItem>
+              <S.MenuItem
+                active={activeIndex === 3}
+                onClick={() => setActiveIndex(3)}
+              >
+                <Link className="link" to="">
+                  {Link3}
+                </Link>
+              </S.MenuItem>
+              <S.MenuItem
+                active={activeIndex === 4}
+                onClick={() => setActiveIndex(4)}
+              >
+                <Link className="link" to="">
+                  {Link4}
+                </Link>
+              </S.MenuItem>
+              <S.MenuItem
+                active={activeIndex === 5}
+                onClick={() => setActiveIndex(5)}
+              >
+                <Link className="link" to="">
+                  {Link5}
+                </Link>
+              </S.MenuItem>
+              <S.MenuItem
+                active={activeIndex === 6}
+                onClick={() => setActiveIndex(6)}
+              >
+                <Link className="link" to="">
+                  {Link6}
+                </Link>
+              </S.MenuItem>
+            </S.Nav>
+          </S.Navegacao__Header>
+        )
+      )}
 
       <S.Pedido__Escolha>
-        <S.Titulo>Nossos Cafés</S.Titulo>
         <S.Container__Card>
           {cafes.map(({ title, description, price, tag }) => (
             <CafeCard
@@ -129,11 +133,7 @@ export const FacaPedido = () => {
           ))}
         </S.Container__Card>
       </S.Pedido__Escolha>
-      <S.Button__Seguir>
-        <Link className="seguir__link" to={"/detalhe"}>
-          <img src={Images.Seguir} alt="Seta de Seguir" />
-        </Link>
-      </S.Button__Seguir>
+      <S.Header__Titulo>Devine Café</S.Header__Titulo>
     </S.Container__Pedido_Header>
   );
 };
