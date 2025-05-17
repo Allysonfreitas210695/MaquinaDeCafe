@@ -11,7 +11,6 @@ export const Container__Pedido_Header = styled.div`
 
 export const Navegacao__Header = styled.div`
   width: 300px;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -142,7 +141,7 @@ export const Pedido__Escolha = styled.div`
 
 export const Container__Card = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 export const Button__Seguir = styled.div`
