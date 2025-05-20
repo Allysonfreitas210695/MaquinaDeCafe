@@ -44,7 +44,7 @@ O sistema é baseado em uma arquitetura cliente-servidor, utilizando os seguinte
 
 ## 🔗 Links Úteis
 
-- [Apresentação](###)
+- [Apresentação](https://github.com/Allysonfreitas210695/MaquinaDeCafe/blob/main/Artefatos/Devine%20Caf%C3%A9%20-%20Slide%20de%20apresenta%C3%A7%C3%A3o%20.pdf)
 - [Artefatos](https://github.com/Allysonfreitas210695/MaquinaDeCafe/tree/main/Artefatos)
 - [Artigo](###)
 
