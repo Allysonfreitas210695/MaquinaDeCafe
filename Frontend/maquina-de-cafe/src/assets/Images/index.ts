@@ -11,6 +11,7 @@ import Seguir from "./seguir.png"
 import Dashboard from "./dashboard_black.png"
 import Subtract from "./Subtract.png"
 import Mais from "./+.png"
+import Imagem4 from "./image4.png"
 
 export const Images = {
   CafeExpresso,
@@ -26,4 +27,5 @@ export const Images = {
   Dashboard, 
   Subtract,
   Mais,
+  Imagem4,
 };

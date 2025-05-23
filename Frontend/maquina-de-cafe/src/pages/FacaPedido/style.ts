@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { media } from "../../styles/media";
+import { Images } from "../../assets/Images";
 
 export const Container__Pedido_Header = styled.div`
+  background-image: url(${Images.Imagem4});
   background-color: #ffffff;
+  background-size: cover;
+  background-position: left;
   display: flex;
   flex-direction: column;
   align-items: start;

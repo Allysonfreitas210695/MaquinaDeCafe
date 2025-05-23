@@ -38,6 +38,43 @@ const cafes = [
     price: 6.9,
     tag: "TRADICIONAL",
   },
+    {
+    title: "Café Espresso",
+    description: "O café clássico é o mais concentrado de todos.",
+    price: 6.9,
+    tag: "TRADICIONAL",
+  },
+    {
+    title: "Café Espresso",
+    description: "O café clássico é o mais concentrado de todos.",
+    price: 6.9,
+    tag: "TRADICIONAL",
+  },
+    {
+    title: "Café Espresso",
+    description: "O café clássico é o mais concentrado de todos.",
+    price: 6.9,
+    tag: "TRADICIONAL",
+  },
+    {
+    title: "Café Espresso",
+    description: "O café clássico é o mais concentrado de todos.",
+    price: 6.9,
+    tag: "TRADICIONAL",
+  },
+    {
+    title: "Café Espresso",
+    description: "O café clássico é o mais concentrado de todos.",
+    price: 6.9,
+    tag: "TRADICIONAL",
+  },
+    {
+    title: "Café Espresso",
+    description: "O café clássico é o mais concentrado de todos.",
+    price: 6.9,
+    tag: "TRADICIONAL",
+  },
+  
 ];
 
 const facaPedido: IFacaPedidoProps[] = [
@@ -56,6 +93,7 @@ export const FacaPedido = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <S.Container__Pedido_Header>
+      
       {facaPedido.map(
         ({ Link0, Link1, Link2, Link3, Link4, Link5, Link6 }) => (
           <S.Navegacao__Header>
