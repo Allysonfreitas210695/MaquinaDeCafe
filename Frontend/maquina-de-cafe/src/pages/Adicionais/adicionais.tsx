@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
-import { BsColumnsGap } from "react-icons/bs";
+import { Svg } from "../../assets/Svg";
+import { IoCartSharp } from "react-icons/io5";
+import { CafeCard } from "../../components/CafeCard/cafecard";
 
 interface CDetalhe {
   Titulo?: string;
@@ -18,30 +20,27 @@ const detalhe: CDetalhe[] = [
   { Titulo: "Chocolate", Text: "Café e Canela Natural" },
   { Titulo: "Chocolate", Text: "Café e Canela Natural" },
   { Titulo: "Chocolate", Text: "Café e Canela Natural" },
+  { Titulo: "Chocolate", Text: "Café e Canela Natural" },
 ];
 
-export const Detalhes = () => {
+export const Adicionais = () => {
   return (
     <>
       <S.Container__Detalhes>
         <S.Detalhe__Header>
-          <S.Img__Detalhe src={Images.Subtract} />
-          <S.Detalhe__Titulo0>Devine Café</S.Detalhe__Titulo0>
-          <S.Detalhe__Titulo>
-            <BsColumnsGap />
-            <span>Detalhes</span>
-          </S.Detalhe__Titulo>
-          <Link className="detalhe" to={"/pedido"}>
-            <BsColumnsGap /> Voltar
-          </Link>
+          <S.Img__Detalhe src={Svg.Image2} />
         </S.Detalhe__Header>
-
+         <S.Titulo1>Adicionais</S.Titulo1>
+         <div className="detalhe__card_cafe">
+          <div className="card__cafe">
+           <CafeCard
+              title="Café Espresso"
+              description="O café clássico é o mais concentrado de todos."
+              price={6.9}
+              tag="TRADICIONAL"
+            />
+            </div>
         <S.Detalhes>
-          <S.Titulo1>Café Tradicional</S.Titulo1>
-          <S.Titulo2>
-            O café clássico é o mais concentrado de todos. Contém café feito na
-            água.
-          </S.Titulo2>
           <h1>Adicionais</h1>
           <S.Conteudo__Detalhes>
             {detalhe.map(({ Titulo, Text }) => (
@@ -55,13 +54,10 @@ export const Detalhes = () => {
             ))}
           </S.Conteudo__Detalhes>
         </S.Detalhes>
+        </div>
         <S.Button__Detalhe>
-          <S.Button__Item>
-            <span>R$ 29,90</span>
-            <span>4 ITENS</span>
-          </S.Button__Item>
           <Link className="item" to={""}>
-            <img src={Images.Seguir} alt="Seta de Seguir" />
+            <IoCartSharp />
           </Link>
         </S.Button__Detalhe>
       </S.Container__Detalhes>

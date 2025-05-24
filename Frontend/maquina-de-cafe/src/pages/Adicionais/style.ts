@@ -7,11 +7,24 @@ export const Container__Detalhes = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: flex-end;
+  padding: 50px;
+
+
+  .detalhe__card_cafe{
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    margin-left: 2rem;
+    
+    .card__cafe{
+      margin-top: 80px;
+      
+    }
+  }
 `;
 
 export const Detalhe__Header = styled.div`
   width: 300px;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -37,10 +50,10 @@ export const Detalhe__Header = styled.div`
     text-decoration: none;
     text-transform: uppercase;
 
-     ${media.laptoplgheight} {
+    ${media.laptoplgheight} {
       padding-top: 70px;
     }
-  
+
     ${media.tabletmdheight} {
       position: absolute;
       top: 420px;
@@ -61,23 +74,22 @@ export const Detalhe__Titulo0 = styled.h1`
   position: absolute;
   top: 63px;
 
-   ${media.laptoplgheight} {
-      padding-top: 10px;
-    }
-  
-    ${media.tabletmdheight} {
-      position: absolute;
-      top: 55px;
-     
-    }
+  ${media.laptoplgheight} {
+    padding-top: 10px;
+  }
+
+  ${media.tabletmdheight} {
+    position: absolute;
+    top: 55px;
+  }
 `;
 
 export const Img__Detalhe = styled.img`
-  width: 300px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  top: 15rem;
+  left: 1px;
+  width: 200px;
+  height: 500px;
 `;
 
 export const Detalhe__Titulo = styled.div`
@@ -95,22 +107,22 @@ export const Detalhe__Titulo = styled.div`
   left: 60px;
   text-transform: uppercase;
 
-   ${media.laptoplgheight} {
-      padding-top: 30px;
-    }
-  
-    ${media.tabletmdheight} {
-      position: absolute;
-      top: 155px;
-      left: 70px;
-    }
+  ${media.laptoplgheight} {
+    padding-top: 30px;
+  }
+
+  ${media.tabletmdheight} {
+    position: absolute;
+    top: 155px;
+    left: 70px;
+  }
 `;
 
 export const Detalhes = styled.div`
   max-width: 80vw;
-  margin-left: 330px;
   display: flex;
   flex-direction: column;
+  margin-top: -40px;
 
   h1 {
     font-family: Poppins;
@@ -121,26 +133,26 @@ export const Detalhes = styled.div`
     letter-spacing: 0%;
     padding-top: 95px;
 
-
-     ${media.laptoplgheight} {
+    ${media.laptoplgheight} {
       padding-top: 120px;
     }
 
     ${media.tabletmdheight} {
       margin-top: -40px;
     }
-     
   }
 `;
 
 export const Titulo1 = styled.h1`
-  font-family: Poppins;
-  font-weight: 700;
-  font-size: 34px;
-  color: #512615;
+  font-family: Open Sans;
+  font-weight: 600;
+  font-size: 24px;
+  color: #3F1811;
   line-height: 100%;
   letter-spacing: 0%;
-  margin-top: -30px;
+  border-bottom: 1px solid #000;
+  width: 100%;
+  padding: 30px 0px 8px 8px;
 `;
 
 export const Titulo2 = styled.h2`
@@ -156,7 +168,7 @@ export const Titulo2 = styled.h2`
 
 export const Conteudo__Detalhes = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding-top: 30px;
 
@@ -209,33 +221,10 @@ export const Button__Detalhe = styled.div`
 
   .item {
     background-color: #512615;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding: 10px 20px;
-
-    img {
-      width: 25px;
-    }
+    border-radius: 10px;
+    padding: 8px 80px;
+    color: #ffffff;
   }
 `;
 
-export const Button__Item = styled.div`
-  background-color: #512615;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 70px;
-  padding: 15px 60px;
 
-  span {
-    font-family: Poppins;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #dac8b3;
-    text-align: justify;
-  }
-`;

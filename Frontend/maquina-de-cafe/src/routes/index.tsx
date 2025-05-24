@@ -1,7 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from "../pages/home";
 import { FacaPedido } from "../pages/FacaPedido/facapedido";
-import { Detalhes } from "../pages/Detalhes/detalhes";
+import { Adicionais } from "../pages/Adicionais/adicionais";
 import { TipoPagamento } from "../pages/Pagamento/tipopagamento";
 
 function RoutesApp() {
@@ -10,7 +10,7 @@ function RoutesApp() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pedido" element={<FacaPedido />} />
-        <Route path="/detalhe" element={<Detalhes />} />
+        <Route path="/adicionais" element={<Adicionais />} />
         <Route path="/pagamento" element={<TipoPagamento />} />
       </Routes>
     </BrowserRouter>
