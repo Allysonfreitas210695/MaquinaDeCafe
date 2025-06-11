@@ -1,0 +1,66 @@
+﻿using CommonTestUltilities.Test.Request;
+using FluentAssertions;
+using MaquinaDeCafe.src.Resources;
+using MaquinaDeCafe.src.Validators;
+
+namespace Validators.Test;
+public class RequestCriacaoIngredienteAdicionalJsonTest
+{
+
+
+    [Fact]
+    public void DeveSerValido_QuandoDadosForemValidos()
+    {
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+            
+        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var result = _validator.Validate(request);
+
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void DeveRetornarErro_QuandoNomeForVazio()
+    {
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        request.Nome = string.Empty;
+
+        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var result = _validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e =>
+            e.PropertyName == "Nome" &&
+            e.ErrorMessage == ErrorsMensagem.IngredienteNomeObrigatorio);
+    }
+
+    [Fact]
+    public void DeveRetornarErro_QuandoValorExtraForZero()
+    {
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        request.ValorExtra = 0;
+
+        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var result = _validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e =>
+            e.PropertyName == "ValorExtra" &&
+            e.ErrorMessage == ErrorsMensagem.IngredienteValorExtraInvalido);
+    }
+
+    [Fact]
+    public void DeveRetornarErro_QuandoValorExtraForNegativo()
+    {
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        request.ValorExtra = -3.5m;
+
+        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var result = _validator.Validate(request);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e =>
+            e.PropertyName == "ValorExtra" &&
+            e.ErrorMessage == ErrorsMensagem.IngredienteValorExtraInvalido);
+    }
+}
