@@ -62,6 +62,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+
 app.MapControllers();
 
 await MigrateDatabase();

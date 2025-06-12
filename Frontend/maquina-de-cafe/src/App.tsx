@@ -1,12 +1,12 @@
-function App() {
+import RoutesApp from "./routes";
+import "./App.css";
 
+function App() {
   return (
     <>
-      <div>
-        <p>Hello Word</p>
-      </div>
+      <RoutesApp />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
