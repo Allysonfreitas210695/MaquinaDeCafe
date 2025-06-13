@@ -23,6 +23,7 @@ import Wallet from "./Wallet.png"
 import Image2 from "./image2.png"
 import tabler from "./tabler-icon-cup.png"
 import imagehome from "./imagehome.png"
+import addCircle from "./material-symbols_add-circle-outline.png"
 
 export const Images = {
   CafeExpresso,
@@ -50,4 +51,5 @@ export const Images = {
   Image2,
   tabler,
   imagehome,
+  addCircle,
 };
