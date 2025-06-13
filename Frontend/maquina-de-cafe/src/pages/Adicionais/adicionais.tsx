@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
-import { IoCartSharp } from "react-icons/io5";
 import { useState } from "react";
+import { HeaderNavegacao } from "../FacaPedido/HeaderNavegacao/navegacao";
+import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
 
 interface CDetalhe {
   Titulo?: string;
@@ -29,10 +29,16 @@ export const Adicionais = () => {
   return (
     <>
       <S.Container__Detalhes>
+        <HeaderNavegacao />
         <div className="detalhe__card_cafe">
-          <div className="card__cafe"></div>
+          <div className="card__cafe">
+            <CardAdicionais />
+          </div>
           <S.Detalhes>
-            <h1>Adicionais</h1>
+            <div className="adicionais">
+              <img src={Images.addCircle} alt="Imagem de Adiciomar" />
+              <h1>Adicionais</h1>
+            </div>
             <S.Conteudo__Detalhes>
               {detalhe.map((adicional) => (
                 <S.Arry__Detalhe>
@@ -59,11 +65,6 @@ export const Adicionais = () => {
             </S.Conteudo__Detalhes>
           </S.Detalhes>
         </div>
-        <S.Button__Detalhe>
-          <Link className="item" to={"/carrinho"}>
-            <IoCartSharp />
-          </Link>
-        </S.Button__Detalhe>
       </S.Container__Detalhes>
     </>
   );

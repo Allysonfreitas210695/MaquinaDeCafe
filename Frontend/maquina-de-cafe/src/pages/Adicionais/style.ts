@@ -12,13 +12,14 @@ export const Container__Detalhes = styled.div`
   .detalhe__card_cafe {
     display: flex;
     flex-direction: row;
-    gap: 10rem;
-    margin-left: 2rem;
+    gap: 5rem;
+    margin-left: 1.2rem;
+    padding-top: 80px;
 
     .card__cafe {
-      margin-top: 80px;
       display: flex;
       flex-direction: column;
+      gap: 20px;
     }
   }
 `;
@@ -117,22 +118,29 @@ export const Detalhes = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fcf7f0;
+  border-radius: 16px;
 
   h1 {
-    font-family: Poppins;
+    font-family: Sora;
     font-weight: 700;
     font-size: 34px;
-    color: #512615;
+    color: #2d0d0b;
     line-height: 100%;
     letter-spacing: 0%;
 
     ${media.laptoplgheight} {
-      padding-top: 80px;
     }
 
     ${media.tabletmdheight} {
       margin-top: -40px;
     }
+  }
+
+  .adicionais {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 50px 0 0 80px;
   }
 `;
 
@@ -163,7 +171,7 @@ export const Conteudo__Detalhes = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  padding: 30px 80px;
+  padding: 30px 50px;
 
   p {
     font-family: Poppins;
@@ -186,16 +194,17 @@ export const Conteudo__Detalhes = styled.div`
 
 export const Arry__Detalhe = styled.div`
   background-color: #f3ebdd;
-  padding: 15px;
   border-radius: 10px;
+  padding: 8px 20px;
   width: 300px;
+  height: 70px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 8px;
 
-  img{
+  img {
     width: 40px;
     height: 40px;
   }
@@ -209,7 +218,7 @@ export const Arry__Detalhe = styled.div`
     padding-right: 50px;
   }
 
-  .button{
+  .button {
     display: flex;
     align-items: center;
     justify-content: center;
