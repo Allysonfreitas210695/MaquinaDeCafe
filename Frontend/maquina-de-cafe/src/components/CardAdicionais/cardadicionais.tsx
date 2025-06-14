@@ -1,35 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
+import { CoffeeCustomizationData } from "../CafeCard/cafecard";
 
-export const CardAdicionais = () => {
-  const [activeIndexTx, setActiveIndexTx] = useState<number | null>(null);
+interface CardAdicionaisProps {
+  cafeData: CoffeeCustomizationData;
+}
+
+export const CardAdicionais: React.FC<CardAdicionaisProps> = ({ cafeData }) => {
   const [activeIndexTa, setActiveIndexTa] = useState<number | null>(null);
   const [activeIndexLit, setActiveIndexLit] = useState<number | null>(null);
+
+  const [selectedCupMl, setSelectedCupMl] = useState<number | undefined>(
+    cafeData.selectedCupMl
+  );
+
+  // Funções para atualizar a seleção
+  const handleCupSelect = (ml: number) => setSelectedCupMl(ml);
+
+  const cupOptions = [50, 100, 150];
+
+  useEffect(() => {
+    if (cafeData.selectedCupMl) {
+      const initialIndex = cupOptions.findIndex(
+        (ml) => ml === cafeData.selectedCupMl
+      );
+      if (initialIndex !== -1) {
+        //setActiveIndexTx(initialIndex);
+      }
+    }
+  }, [cafeData.selectedCupMl]);
   return (
     <S.Container__Card_Adicionais>
       <S.Titulo_Adicionais>
-        <span>Café Expresso</span>
+        <span>{cafeData.title}</span>
         <p>Personalizado</p>
       </S.Titulo_Adicionais>
-      <S.Imag src={Images.CafeExpresso} />
+      <S.Imag src={cafeData.imageSrc} />
       <S.StyledWrapper__Adicionais>
         <div className="tamanho_da_xicra">
           <S.Wrapper__Adicionais_Tx
-            active={activeIndexTx === 0}
-            onClick={() => setActiveIndexTx(0)}
+            active={selectedCupMl === 50}
+            onClick={() => handleCupSelect(50)}
           >
             <span>50 ml</span>
           </S.Wrapper__Adicionais_Tx>
           <S.Wrapper__Adicionais_Tx
-            active={activeIndexTx === 1}
-            onClick={() => setActiveIndexTx(1)}
+            active={selectedCupMl === 100}
+            onClick={() => handleCupSelect(100)}
           >
             <span>100 ml</span>
           </S.Wrapper__Adicionais_Tx>
           <S.Wrapper__Adicionais_Tx
-            active={activeIndexTx === 2}
-            onClick={() => setActiveIndexTx(2)}
+            active={selectedCupMl === 150}
+            onClick={() => handleCupSelect(150)}
           >
             <span>150 ml</span>
           </S.Wrapper__Adicionais_Tx>

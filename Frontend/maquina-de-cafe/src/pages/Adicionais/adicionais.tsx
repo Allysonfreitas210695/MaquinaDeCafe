@@ -1,8 +1,10 @@
 import { Images } from "../../assets/Images";
 import * as S from "./style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderNavegacao } from "../FacaPedido/HeaderNavegacao/navegacao";
 import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CoffeeCustomizationData } from "../../components/CafeCard/cafecard";
 
 interface CDetalhe {
   Titulo?: string;
@@ -26,13 +28,24 @@ const detalhe: CDetalhe[] = [
 
 export const Adicionais = () => {
   const [quantity, setQuantity] = useState(1);
+
+  const location = useLocation();
+  const customizedCafe = location.state?.customizedCafe as CoffeeCustomizationData | undefined;
+ 
+
+  if (!customizedCafe) {
+    return <p>Carregando personalização ou redirecionando...</p>;
+  }
+
   return (
     <>
       <S.Container__Detalhes>
         <HeaderNavegacao />
         <div className="detalhe__card_cafe">
           <div className="card__cafe">
-            <CardAdicionais />
+            <CardAdicionais
+              cafeData={customizedCafe}
+            />
           </div>
           <S.Detalhes>
             <div className="adicionais">
