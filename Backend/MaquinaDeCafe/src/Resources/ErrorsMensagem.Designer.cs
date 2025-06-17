@@ -214,6 +214,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pedido é obrigatório..
+        /// </summary>
+        public static string PedidoIdObrigatorio {
+            get {
+                return ResourceManager.GetString("PedidoIdObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Item do pedido inválido..
         /// </summary>
         public static string PedidoItemInvalido {

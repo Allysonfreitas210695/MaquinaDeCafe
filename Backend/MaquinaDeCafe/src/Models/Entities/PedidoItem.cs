@@ -24,25 +24,16 @@ public class PedidoItem  : Entity
 
     public PedidoItem() {}
 
-    public PedidoItem(
-        Guid? id,
-        Guid pedidoId,
-        Guid cafeId,
-        int quantidade,
-        TipoLeite tipoLeite,
-        TipoAcucar tipoAcucar, 
-        int tempoPreparoSegundos,
-        Guid tamanhoXicaraId
-    )
+    public PedidoItem(PedidoItem pedidoItem)
     {
-        Id = id ?? Guid.NewGuid();
-        PedidoId = pedidoId;
-        CafeId = cafeId;
-        Quantidade = quantidade;
-        TipoLeite = tipoLeite;
-        TipoAcucar = tipoAcucar; 
-        TamanhoXicaraId = tamanhoXicaraId;
-        TempoPreparoSegundos = tempoPreparoSegundos;
+        Id = pedidoItem.Id;
+        PedidoId = pedidoItem.PedidoId;
+        CafeId = pedidoItem.CafeId;
+        Quantidade = pedidoItem.Quantidade;
+        TipoLeite = pedidoItem.TipoLeite;
+        TipoAcucar = pedidoItem.TipoAcucar;
+        TamanhoXicaraId = pedidoItem.TamanhoXicaraId;
+        TempoPreparoSegundos = pedidoItem.TempoPreparoSegundos;
 
         Validar();
     }
@@ -61,6 +52,63 @@ public class PedidoItem  : Entity
         if (TamanhoXicaraId == Guid.Empty)
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoTamanhoXicaraObrigatorio });
     }
+
+    public void UpdateId(Guid? id)
+    {
+
+        Id = id ?? Guid.NewGuid();
+    }
+
+    public void UpdatePedidoId(Guid pedidoId)
+    {
+        if (pedidoId == Guid.Empty)
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoIdObrigatorio });
+
+        PedidoId = pedidoId;
+    }
+
+    public void UpdateCafeId(Guid cafeId)
+    {
+        if (cafeId == Guid.Empty)
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoCafeObrigatorio });
+
+        CafeId = cafeId;
+    }
+
+    public void UpdateQuantidade(int quantidade)
+    {
+        if (quantidade <= 0)
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoQuantidadeInvalida });
+
+        Quantidade = quantidade;
+    }
+
+    public void UpdateTipoLeite(TipoLeite tipoLeite)
+    {
+        TipoLeite = tipoLeite;
+    }
+
+    public void UpdateTipoAcucar(TipoAcucar tipoAcucar)
+    {
+        TipoAcucar = tipoAcucar;
+    }
+
+    public void UpdateTamanhoXicaraId(Guid tamanhoXicaraId)
+    {
+        if (tamanhoXicaraId == Guid.Empty)
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoTamanhoXicaraObrigatorio });
+
+        TamanhoXicaraId = tamanhoXicaraId;
+    }
+
+    public void UpdateTempoPreparo(int tempoPreparoSegundos)
+    {
+        if (tempoPreparoSegundos <= 0)
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoTempoPreparoInvalido });
+
+        TempoPreparoSegundos = tempoPreparoSegundos;
+    }
+
 
     public void AdicionarIngrediente(PedidoItemIngredienteAdicional ingrediente)
     {

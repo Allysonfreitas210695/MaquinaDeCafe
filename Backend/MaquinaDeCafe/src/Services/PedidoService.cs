@@ -66,16 +66,18 @@ public class PedidoService : IPedidoRepository
                     .Where(i => itemReq.IngredientesAdicionaisIds?.Contains(i.Id) == true)
                     .ToList();
 
-                var item = new PedidoItem(
-                    id: Guid.NewGuid(),
-                    pedidoId: pedido.Id,
-                    cafeId: cafe.Id,
-                    quantidade: itemReq.Quantidade,
-                    tipoLeite: itemReq.TipoLeite,
-                    tipoAcucar: itemReq.TipoAcucar,
-                    tempoPreparoSegundos: cafe.TempoPreparoSegundos,
-                    tamanhoXicaraId: tamanhoXicara.Id
-                );
+                var _pedidoItem = new PedidoItem();
+
+                _pedidoItem.UpdateId(Guid.NewGuid());
+                _pedidoItem.UpdatePedidoId(pedido.Id);
+                _pedidoItem.UpdateCafeId(cafe.Id);
+                _pedidoItem.UpdateQuantidade(itemReq.Quantidade);
+                _pedidoItem.UpdateTipoLeite(itemReq.TipoLeite);
+                _pedidoItem.UpdateTipoAcucar(itemReq.TipoAcucar);
+                _pedidoItem.UpdateTempoPreparo(cafe.TempoPreparoSegundos);
+                _pedidoItem.UpdateTamanhoXicaraId(tamanhoXicara.Id);
+
+                var item = new PedidoItem(_pedidoItem);
 
                 foreach (var ingrediente in ingredientesDoItem)
                 {
@@ -106,9 +108,6 @@ public class PedidoService : IPedidoRepository
             throw new ArgumentException("Erro ao criar o pedido. Verifique os dados informados.", ex);
         }
     }
-
-
-
 
     public async Task<ResponsePedidoJson?> GetItemByIdAsync(Guid id)
     {

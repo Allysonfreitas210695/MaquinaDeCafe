@@ -168,6 +168,9 @@
   <data name="PedidoFormaPreparoObrigatoria" xml:space="preserve">
     <value>É necessário selecionar uma forma de preparo.</value>
   </data>
+  <data name="PedidoIdObrigatorio" xml:space="preserve">
+    <value>Pedido é obrigatório.</value>
+  </data>
   <data name="PedidoItemInvalido" xml:space="preserve">
     <value>Item do pedido inválido.</value>
   </data>
