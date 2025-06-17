@@ -82,7 +82,7 @@ public class CafeService : ICafeRepository
         return _cafe;
     }
 
-    public async Task<List<ResponseCafeJson>> GetListAsync(CategoriaCafe? categoria = null)
+    public async Task<List<ResponseCafeJson>> GetListAsync(CategoriaCafe? categoria)
     {
         var query = _dbContext.Cafes.AsQueryable();
 

@@ -7,7 +7,7 @@ namespace MaquinaDeCafe.src.Filters;
 
 public class ExceptionFilter : IExceptionFilter
 {
-     public void OnException(ExceptionContext context)
+    public void OnException(ExceptionContext context)
     {
         if (context.Exception is MaquinaDeCafeException)
             HandleProjectException(context);
@@ -15,20 +15,21 @@ public class ExceptionFilter : IExceptionFilter
             ThrowUnkowError(context);
     }
 
-    private void HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(ExceptionContext context)
     {
         if (context.Exception is MaquinaDeCafeException ex)
         {
             context.HttpContext.Response.StatusCode = ex.GetStatusError();
             context.Result = new ObjectResult(new ResponseErrorJson(ex.GetErrors));
-        }else
+        }
+        else
         {
             context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Result = new ObjectResult(new ResponseErrorJson("ResourcesErrorsMessages.UNKNOWN_ERROR"));
         }
     }
-    
-    private void ThrowUnkowError(ExceptionContext context)
+
+    private static void ThrowUnkowError(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(new ResponseErrorJson("ResourcesErrorsMessages.UNKNOWN_ERROR"));
