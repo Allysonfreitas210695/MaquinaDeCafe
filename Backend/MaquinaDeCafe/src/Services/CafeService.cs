@@ -22,20 +22,20 @@ public class CafeService : ICafeRepository
     {
         _dbContext = dbContext; 
     }
-    public async Task AddAsync(RequestCriacaoCafeJson request)
+    public async Task AddAsync(RequestCriacaoCafeJson cafe)
     {
         var _criacaoValidator = new RequestCriacaoCafeValidator();
-        var validation = await _criacaoValidator.ValidateAsync(request);
+        var validation = await _criacaoValidator.ValidateAsync(cafe);
         if (!validation.IsValid)
             throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
         await _dbContext.Cafes.AddAsync(new Models.Entities.Cafe(
                                                                     Guid.NewGuid(),
-                                                                    request.Nome,
-                                                                    request.Descricao,
-                                                                    request.Preco,
-                                                                    request.TempoPreparoSegundos,
-                                                                    request.Categoria
+                                                                    cafe.Nome,
+                                                                    cafe.Descricao,
+                                                                    cafe.Preco,
+                                                                    cafe.TempoPreparoSegundos,
+                                                                    cafe.Categoria
                                                                 ));
         
         await _dbContext.SaveChangesAsync();

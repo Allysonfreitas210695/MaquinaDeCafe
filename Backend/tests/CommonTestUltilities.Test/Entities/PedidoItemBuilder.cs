@@ -4,7 +4,7 @@ using MaquinaDeCafe.src.Models.Enums;
 
 namespace CommonTestUltilities.Test.Entities;
 
-public class PedidoItemBuilder
+public static class PedidoItemBuilder
 {
     public static PedidoItem Build(
         Guid? id = null,

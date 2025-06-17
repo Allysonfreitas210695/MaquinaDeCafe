@@ -4,7 +4,7 @@ using MaquinaDeCafe.src.Models.Enums;
 
 namespace CommonTestUltilities.Test.Request;
 
-public class RequestCriacaoCafeJsonBuilder
+public static class RequestCriacaoCafeJsonBuilder
 {
     public static RequestCriacaoCafeJson Build()
     {

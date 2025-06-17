@@ -4,6 +4,7 @@ using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Models.Entities;
 using MaquinaDeCafe.src.Repositories;
+using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaquinaDeCafe.src.Services;

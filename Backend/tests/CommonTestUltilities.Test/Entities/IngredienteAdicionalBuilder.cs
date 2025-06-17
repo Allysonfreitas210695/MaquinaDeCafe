@@ -3,7 +3,7 @@ using MaquinaDeCafe.src.Models.Entities;
 
 namespace CommonTestUltilities.Test.Entities;
 
-public class IngredienteAdicionalBuilder
+public static class IngredienteAdicionalBuilder
 {
     public static IngredienteAdicional Build(
         Guid? id = null,

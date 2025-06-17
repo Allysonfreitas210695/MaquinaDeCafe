@@ -48,7 +48,7 @@ public class PedidoService : IPedidoRepository
         if (tamanhosXicara.Count != tamanhoXicaraIds.Count)
             throw new NotFoundException("Um ou mais tamanhos de xícara não foram encontrados.");
 
-        var ingredientesAdicionais = ingredientesIds.Any()
+        var ingredientesAdicionais = ingredientesIds.Count > 0
             ? await _dbContext.IngredientesAdicionais
                 .Where(i => ingredientesIds.Contains(i.Id))
                 .ToListAsync()

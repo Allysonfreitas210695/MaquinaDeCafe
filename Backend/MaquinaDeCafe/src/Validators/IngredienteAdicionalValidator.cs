@@ -4,11 +4,6 @@ using MaquinaDeCafe.src.Resources;
 
 namespace MaquinaDeCafe.src.Validators;
 
-public class IngredienteAdicionalValidator
-{
-    
-}
-
 public class RequestCriacaoIngredienteAdicionalValidator : AbstractValidator<RequestCriacaoIngredienteAdicionalJson>
 {
     public RequestCriacaoIngredienteAdicionalValidator()

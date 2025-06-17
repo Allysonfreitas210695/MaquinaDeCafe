@@ -3,7 +3,7 @@ using MaquinaDeCafe.src.Communication.Request;
 
 namespace CommonTestUltilities.Test.Request;
 
-public class RequestCriacaoIngredienteAdicionalJsonBuilder
+public static class RequestCriacaoIngredienteAdicionalJsonBuilder
 {
     public static RequestCriacaoIngredienteAdicionalJson Build()
     {

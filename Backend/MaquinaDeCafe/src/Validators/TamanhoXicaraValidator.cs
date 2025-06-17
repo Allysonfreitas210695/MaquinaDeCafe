@@ -2,6 +2,8 @@ using FluentValidation;
 using MaquinaDeCafe.src.Communication.Request;
 using MaquinaDeCafe.src.Resources;
 
+namespace MaquinaDeCafe.src.Validators;
+
 public class RequestTamanhoXicaraValidator : AbstractValidator<RequestTamanhoXicaraJson>
 {
     public RequestTamanhoXicaraValidator()

@@ -4,7 +4,7 @@ using MaquinaDeCafe.src.Models.Enums;
 
 namespace CommonTestUltilities.Test.Entities;
 
-public class CafeBuilder
+public static class CafeBuilder
 {
     public static Cafe Build(
         Guid? id = null,
