@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MaquinaDeCafe.src.Models.Enums;
 
 namespace MaquinaDeCafe.src.Communication.Request;

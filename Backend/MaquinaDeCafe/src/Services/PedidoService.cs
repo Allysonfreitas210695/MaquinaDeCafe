@@ -20,81 +20,93 @@ public class PedidoService : IPedidoRepository
 
     public async Task<ResponsePedidoJson?> AddAsync(RequestCriacaoPedidoJson request)
     {
-        await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
-        var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo);
-        await _dbContext.Pedidos.AddAsync(pedido);
-
-        var cafeIds = request.PedidosItens.Select(i => i.CafeId).Distinct().ToList();
-        var tamanhoXicaraIds = request.PedidosItens.Select(i => i.TamanhoXicaraId).Distinct().ToList();
-        var ingredientesIds = request.PedidosItens
-            .Where(i => i.IngredientesAdicionaisIds != null)
-            .SelectMany(i => i.IngredientesAdicionaisIds!)
-            .Distinct()
-            .ToList();
-
-        var cafes = await _dbContext.Cafes
-            .Where(c => cafeIds.Contains(c.Id))
-            .AsNoTracking()
-            .ToListAsync();
-
-        if (cafes.Count != cafeIds.Count)
-            throw new Exception("Um ou mais cafés não foram encontrados.");
-
-        var tamanhosXicara = await _dbContext.TamanhosXicara
-            .Where(t => tamanhoXicaraIds.Contains(t.Id))
-            .ToDictionaryAsync(t => t.Id);
-
-        if (tamanhosXicara.Count != tamanhoXicaraIds.Count)
-            throw new NotFoundException("Um ou mais tamanhos de xícara não foram encontrados.");
-
-        var ingredientesAdicionais = ingredientesIds.Count > 0
-            ? await _dbContext.IngredientesAdicionais
-                .Where(i => ingredientesIds.Contains(i.Id))
-                .ToListAsync()
-            : new List<IngredienteAdicional>();
-
-        foreach (var itemReq in request.PedidosItens)
+        try
         {
-            var cafe = cafes.First(c => c.Id == itemReq.CafeId);
-            if (!tamanhosXicara.TryGetValue(itemReq.TamanhoXicaraId, out var tamanhoXicara))
-                throw new NotFoundException("Tamanho da xícara não encontrado.");
+            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            var ingredientesDoItem = ingredientesAdicionais
-                .Where(i => itemReq.IngredientesAdicionaisIds?.Contains(i.Id) == true)
+            var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo);
+            await _dbContext.Pedidos.AddAsync(pedido);
+
+            var cafeIds = request.PedidosItens.Select(i => i.CafeId).Distinct().ToList();
+            var tamanhoXicaraIds = request.PedidosItens.Select(i => i.TamanhoXicaraId).Distinct().ToList();
+            var ingredientesIds = request.PedidosItens
+                .Where(i => i.IngredientesAdicionaisIds != null)
+                .SelectMany(i => i.IngredientesAdicionaisIds!)
+                .Distinct()
                 .ToList();
 
-            var item = new PedidoItem(
-                id: Guid.NewGuid(),
-                pedidoId: pedido.Id,
-                cafeId: cafe.Id,
-                quantidade: itemReq.Quantidade,
-                tipoLeite: itemReq.TipoLeite,
-                tipoAcucar: itemReq.TipoAcucar,
-                tempoPreparoSegundos: cafe.TempoPreparoSegundos,
-                tamanhoXicaraId: tamanhoXicara.Id
-            );
+            var cafes = await _dbContext.Cafes
+                .Where(c => cafeIds.Contains(c.Id))
+                .AsNoTracking()
+                .ToListAsync();
 
-            foreach (var ingrediente in ingredientesDoItem)
+            if (cafes.Count != cafeIds.Count)
+                throw new NotFoundException("Um ou mais cafés não foram encontrados.");
+
+            var tamanhosXicara = await _dbContext.TamanhosXicara
+                .Where(t => tamanhoXicaraIds.Contains(t.Id))
+                .ToDictionaryAsync(t => t.Id);
+
+            if (tamanhosXicara.Count != tamanhoXicaraIds.Count)
+                throw new NotFoundException("Um ou mais tamanhos de xícara não foram encontrados.");
+
+            var ingredientesAdicionais = ingredientesIds.Count > 0
+                ? await _dbContext.IngredientesAdicionais
+                    .Where(i => ingredientesIds.Contains(i.Id))
+                    .ToListAsync()
+                : new List<IngredienteAdicional>();
+
+            foreach (var itemReq in request.PedidosItens)
             {
-                item.AdicionarIngrediente(new PedidoItemIngredienteAdicional
+                var cafe = cafes.First(c => c.Id == itemReq.CafeId);
+                if (!tamanhosXicara.TryGetValue(itemReq.TamanhoXicaraId, out var tamanhoXicara))
+                    throw new NotFoundException("Tamanho da xícara não encontrado.");
+
+                var ingredientesDoItem = ingredientesAdicionais
+                    .Where(i => itemReq.IngredientesAdicionaisIds?.Contains(i.Id) == true)
+                    .ToList();
+
+                var item = new PedidoItem(
+                    id: Guid.NewGuid(),
+                    pedidoId: pedido.Id,
+                    cafeId: cafe.Id,
+                    quantidade: itemReq.Quantidade,
+                    tipoLeite: itemReq.TipoLeite,
+                    tipoAcucar: itemReq.TipoAcucar,
+                    tempoPreparoSegundos: cafe.TempoPreparoSegundos,
+                    tamanhoXicaraId: tamanhoXicara.Id
+                );
+
+                foreach (var ingrediente in ingredientesDoItem)
                 {
-                    PedidoItemId = item.Id,
-                    PedidoItem = item,
-                    IngredienteAdicionalId = ingrediente.Id,
-                    IngredienteAdicional = ingrediente
-                });
+                    item.AdicionarIngrediente(new PedidoItemIngredienteAdicional
+                    {
+                        PedidoItemId = item.Id,
+                        PedidoItem = item,
+                        IngredienteAdicionalId = ingrediente.Id,
+                        IngredienteAdicional = ingrediente
+                    });
+                }
+
+                pedido.AdicionarItem(item, cafe.Preco, tamanhoXicara.ValorExtra);
+                await _dbContext.PedidoItens.AddAsync(item);
             }
 
-            pedido.AdicionarItem(item, cafe.Preco, tamanhoXicara.ValorExtra);
-            await _dbContext.PedidoItens.AddAsync(item);
+            await _dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+
+            return await GetItemByIdAsync(pedido.Id);
         }
-
-        await _dbContext.SaveChangesAsync();
-        await transaction.CommitAsync();
-
-        return await GetItemByIdAsync(pedido.Id);
+        catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException("Erro ao criar o pedido. Verifique os dados informados.", ex);
+        }
     }
+
 
 
 
