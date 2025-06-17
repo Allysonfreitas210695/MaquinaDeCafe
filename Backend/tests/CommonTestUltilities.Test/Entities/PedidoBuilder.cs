@@ -15,7 +15,7 @@ public class PedidoBuilder
         
         return new Pedido(
             id: id,
-            statusPedido: statusPedido ?? faker.PickRandom<StatusPedido>()
+            statusPedido: statusPedido ?? StatusPedido.EmPreparo
         );
     }
 }

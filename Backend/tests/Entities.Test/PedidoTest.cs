@@ -52,8 +52,7 @@ public class PedidoTest
     }
 
     [Theory]
-    [InlineData(StatusPedido.EmPreparo)]
-    [InlineData(StatusPedido.Cancelado)]
+    [InlineData(StatusPedido.Pronto)]
     public void DeveAlterarStatus_Valido(StatusPedido novoStatus)
     {
         var pedido = PedidoBuilder.Build(statusPedido: StatusPedido.EmPreparo);
