@@ -66,26 +66,14 @@ public static class SeedDatabaseInitial
             {
                 var ingredientes = new List<Models.Entities.IngredienteAdicional>
                 {
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Canela", 1.00m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Chantilly", 2.00m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Chocolate", 1.50m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Leite Condensado", 2.00m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Calda de Caramelo", 1.80m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Calda de Baunilha", 1.80m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Pó de Cacau", 1.20m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Açúcar Mascavo", 0.80m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Mel", 1.50m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Gengibre", 1.20m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Leite de Amêndoas", 2.50m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Leite de Coco", 2.50m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Noz Moscada", 1.00m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Essência de Amêndoas", 1.70m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Creme de Leite", 1.80m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Açúcar de Baunilha", 1.00m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Marshmallow", 2.00m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Essência de Hortelã", 1.50m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Pimenta Caiena", 1.20m),
-                        new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Chá Verde em Pó", 1.80m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Leite em pó", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Açúcar", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Leite Condensado", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Canela em pó", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Calda de Caramelo", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Calda de Chocolate", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Extrato de Baunilha", 1.00m),
+                    new Models.Entities.IngredienteAdicional(Guid.NewGuid(), "Chantilly", 1.00m),
                 };
 
                 await dbContext.IngredientesAdicionais.AddRangeAsync(ingredientes);
