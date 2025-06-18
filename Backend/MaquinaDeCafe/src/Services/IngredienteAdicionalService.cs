@@ -3,6 +3,7 @@ using MaquinaDeCafe.src.Communication.Response;
 using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Repositories;
+using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,28 +21,51 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
 
     public async Task AddAsync(RequestCriacaoIngredienteAdicionalJson ingredienteAdicional)
     {
-        var _criacaoValidator = new RequestCriacaoIngredienteAdicionalValidator();
-        var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicional);
+        try
+        {
+            var _criacaoValidator = new RequestCriacaoIngredienteAdicionalValidator();
+            var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicional);
 
-        if (!validation.IsValid)
-            throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            if (!validation.IsValid)
+                throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
-        var _ingredienteAdicional =  new Models.Entities.IngredienteAdicional(Guid.NewGuid(), ingredienteAdicional.Nome, ingredienteAdicional.ValorExtra);
+            var _ingredienteAdicional =  new Models.Entities.IngredienteAdicional(Guid.NewGuid(), ingredienteAdicional.Nome, ingredienteAdicional.ValorExtra);
         
-        await _dbContext.IngredientesAdicionais.AddAsync(_ingredienteAdicional);
-        await _dbContext.SaveChangesAsync();
+            await _dbContext.IngredientesAdicionais.AddAsync(_ingredienteAdicional);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (ErrorOnValidationException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarIngrediente, ex);
+        }
+
     }
 
     public async Task<ResponseIngredienteAdicionalJson?> GetItemByIdAsync(Guid id)
     {
-        var ingredienteAdicional = await _dbContext.IngredientesAdicionais.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-        if (ingredienteAdicional == null)  throw new NotFoundException("Ingrediente adicional não encontrado.");
+        try
+        {
+            var ingredienteAdicional = await _dbContext.IngredientesAdicionais.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (ingredienteAdicional == null)  throw new NotFoundException(ErrorsMensagem.IngredienteAdicionalNaoEncontrado);
 
-        return new ResponseIngredienteAdicionalJson() {
-            Id = ingredienteAdicional.Id,
-            Nome = ingredienteAdicional.Nome,
-            ValorExtra = ingredienteAdicional.ValorExtra
-        };
+            return new ResponseIngredienteAdicionalJson() {
+                Id = ingredienteAdicional.Id,
+                Nome = ingredienteAdicional.Nome,
+                ValorExtra = ingredienteAdicional.ValorExtra
+            };
+        }
+        catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarIngrediente, ex);
+        }
     }
 
     public async Task<List<ResponseIngredienteAdicionalJson>> GetListAsync()
@@ -56,30 +80,53 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
 
     public async Task RemoverAsync(Guid id)
     {
-        var ingredienteAdicional = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync(x => x.Id == id);
-        if (ingredienteAdicional == null) throw new NotFoundException("Ingrediente adicional não encontrado.");
+        try
+        {
+            var ingredienteAdicional = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync(x => x.Id == id);
+            if (ingredienteAdicional == null) throw new NotFoundException(ErrorsMensagem.IngredienteAdicionalNaoEncontrado);
 
-        _dbContext.IngredientesAdicionais.Remove(ingredienteAdicional);
-        await _dbContext.SaveChangesAsync();
+            _dbContext.IngredientesAdicionais.Remove(ingredienteAdicional);
+            await _dbContext.SaveChangesAsync();
+
+        }
+        catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarIngrediente, ex);
+        }
     }
 
     public async Task UpdateAsync(Guid id, RequestAtualizacaoIngredienteAdicionalJson ingredienteAdicionalAtualizado)
     {
-        var _criacaoValidator = new RequestAtualizacaoIngredienteAdicionalValidator();
-        var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicionalAtualizado);
+        try
+        {
+            var _criacaoValidator = new RequestAtualizacaoIngredienteAdicionalValidator();
+            var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicionalAtualizado);
 
-        if (!validation.IsValid)
-            throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
+            if (!validation.IsValid)
+                throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
 
-        var ingredienteAdicional = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync(x => x.Id == id);
-        if (ingredienteAdicional == null) throw new NotFoundException("Ingrediente adicional não encontrado.");
+            var ingredienteAdicional = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync(x => x.Id == id);
+            if (ingredienteAdicional == null) throw new NotFoundException(ErrorsMensagem.IngredienteAdicionalNaoEncontrado);
 
-        ingredienteAdicional.UpdateNome(ingredienteAdicionalAtualizado.Nome);
-        ingredienteAdicional.UpdateValorExtra(ingredienteAdicionalAtualizado.ValorExtra);
+            ingredienteAdicional.UpdateNome(ingredienteAdicionalAtualizado.Nome);
+            ingredienteAdicional.UpdateValorExtra(ingredienteAdicionalAtualizado.ValorExtra);
 
-        _dbContext.IngredientesAdicionais.Update(ingredienteAdicional);
+            _dbContext.IngredientesAdicionais.Update(ingredienteAdicional);
         
-        await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarIngrediente, ex);
+        }
     }
 }

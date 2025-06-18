@@ -115,11 +115,56 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Um ou mais cafés não foram encontrados..
+        /// </summary>
+        public static string CafesNaoEncontrados {
+            get {
+                return ResourceManager.GetString("CafesNaoEncontrados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Tempo de preparo do café deve ser maior que zero..
         /// </summary>
         public static string CoffeePreparationTimeInvalid {
             get {
                 return ResourceManager.GetString("CoffeePreparationTimeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao criar o pedido. Verifique os dados informados..
+        /// </summary>
+        public static string ErroCriarPedido {
+            get {
+                return ResourceManager.GetString("ErroCriarPedido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao criar o Café. Verifique os dados informados..
+        /// </summary>
+        public static string ErrorCriarCafe {
+            get {
+                return ResourceManager.GetString("ErrorCriarCafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao criar o Ingrediente. Verifique os dados informados..
+        /// </summary>
+        public static string ErrorCriarIngrediente {
+            get {
+                return ResourceManager.GetString("ErrorCriarIngrediente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao criar o Tamanho da xícara. Verifique os dados informados..
+        /// </summary>
+        public static string ErrorCriarTamanhoXicara {
+            get {
+                return ResourceManager.GetString("ErrorCriarTamanhoXicara", resourceCulture);
             }
         }
         
@@ -147,6 +192,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string FormaPreparoTempoInvalido {
             get {
                 return ResourceManager.GetString("FormaPreparoTempoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ingrediente adicional não encontrado..
+        /// </summary>
+        public static string IngredienteAdicionalNaoEncontrado {
+            get {
+                return ResourceManager.GetString("IngredienteAdicionalNaoEncontrado", resourceCulture);
             }
         }
         
@@ -196,6 +250,24 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cada café pode ter no máximo 4 ingredientes adicionais..
+        /// </summary>
+        public static string MaximoAdicionaisPorCafe {
+            get {
+                return ResourceManager.GetString("MaximoAdicionaisPorCafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não é permitido adicionar mais de 10 cafés em um único pedido..
+        /// </summary>
+        public static string MaximoCafesPorPedido {
+            get {
+                return ResourceManager.GetString("MaximoCafesPorPedido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a É necessário selecionar um café..
         /// </summary>
         public static string PedidoCafeObrigatorio {
@@ -232,6 +304,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pedido não encontrado!.
+        /// </summary>
+        public static string PedidoNaoEncontrado {
+            get {
+                return ResourceManager.GetString("PedidoNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O produto selecionado está indisponível..
         /// </summary>
         public static string PedidoProdutoIndisponivel {
@@ -246,6 +327,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string PedidoQuantidadeInvalida {
             get {
                 return ResourceManager.GetString("PedidoQuantidadeInvalida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não é possível alterar o status de um pedido que já foi entregue..
+        /// </summary>
+        public static string PedidoStatusAlteracaoInvalida {
+            get {
+                return ResourceManager.GetString("PedidoStatusAlteracaoInvalida", resourceCulture);
             }
         }
         
@@ -277,6 +367,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Um ou mais tamanhos de xícara não foram encontrados..
+        /// </summary>
+        public static string TamanhosXicaraNaoEncontrados {
+            get {
+                return ResourceManager.GetString("TamanhosXicaraNaoEncontrados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Descrição do tamanho da xícara é obrigatória..
         /// </summary>
         public static string TamanhoXicaraDescricaoObrigatoria {
@@ -291,6 +390,24 @@ namespace MaquinaDeCafe.src.Resources {
         public static string TamanhoXicaraMlInvalido {
             get {
                 return ResourceManager.GetString("TamanhoXicaraMlInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tamanho da xícara não encontrado..
+        /// </summary>
+        public static string TamanhoXicaraNaoEncontrado {
+            get {
+                return ResourceManager.GetString("TamanhoXicaraNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tamanho de xícara não encontrado!.
+        /// </summary>
+        public static string TamanhoXicaraNaoEncontradoExclamacao {
+            get {
+                return ResourceManager.GetString("TamanhoXicaraNaoEncontradoExclamacao", resourceCulture);
             }
         }
         
