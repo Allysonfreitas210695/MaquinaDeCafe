@@ -22,6 +22,15 @@ public class PedidoService : IPedidoRepository
     {
         try
         {
+            if (request.PedidosItens.Count > 10)
+                throw new NotFoundException("Não é permitido adicionar mais de 10 cafés em um único pedido.");
+
+            foreach (var item in request.PedidosItens)
+            {
+                if (item.IngredientesAdicionaisIds?.Count > 4)
+                    throw new NotFoundException("Cada café pode ter no máximo 4 ingredientes adicionais.");
+            }
+
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
             var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo);
