@@ -16,7 +16,6 @@ public class RequestCriacaoCafeValidator : AbstractValidator<RequestCriacaoCafeJ
             .WithMessage(ErrorsMensagem.cafeDescricaoObrigatorio)
             .MinimumLength(5)
             .WithMessage(ErrorsMensagem.cafeDescricaoTamanhoMinimo);
-        RuleFor(x => x.Preco).GreaterThan(0).WithMessage(ErrorsMensagem.CafePrecoMaiorQueZero);
     }
 }
 
@@ -30,6 +29,5 @@ public class RequestAtualizacaoCafeValidator : AbstractValidator<RequestAtualiza
             .WithMessage(ErrorsMensagem.cafeDescricaoObrigatorio)
             .MinimumLength(5)
             .WithMessage(ErrorsMensagem.cafeDescricaoTamanhoMinimo);
-        RuleFor(x => x.Preco).GreaterThan(0).WithMessage(ErrorsMensagem.CafePrecoMaiorQueZero);
     }
 } 

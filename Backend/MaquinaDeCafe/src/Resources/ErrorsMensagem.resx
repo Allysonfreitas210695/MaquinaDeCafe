@@ -222,6 +222,9 @@
   <data name="TamanhosXicaraNaoEncontrados" xml:space="preserve">
     <value>Um ou mais tamanhos de xícara não foram encontrados.</value>
   </data>
+  <data name="TamanhoXicaraCafeIdObrigatorio" xml:space="preserve">
+    <value>O campo 'CafeId' é obrigatório.</value>
+  </data>
   <data name="TamanhoXicaraDescricaoObrigatoria" xml:space="preserve">
     <value>Descrição do tamanho da xícara é obrigatória.</value>
   </data>

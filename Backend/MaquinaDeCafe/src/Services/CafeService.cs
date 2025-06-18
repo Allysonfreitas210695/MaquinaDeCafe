@@ -35,7 +35,6 @@ public class CafeService : ICafeRepository
                                                                         Guid.NewGuid(),
                                                                         cafe.Nome,
                                                                         cafe.Descricao,
-                                                                        cafe.Preco,
                                                                         cafe.TempoPreparoSegundos,
                                                                         cafe.Categoria
                                                                     ));
@@ -67,7 +66,6 @@ public class CafeService : ICafeRepository
 
             _cafe.UpdateNome(cafeAtualizado.Nome);
             _cafe.UpdateDescricao(cafeAtualizado.Descricao);
-            _cafe.UpdatePreco(cafeAtualizado.Preco);
 
             _dbContext.Cafes.Update(_cafe);
             await _dbContext.SaveChangesAsync();
@@ -92,14 +90,22 @@ public class CafeService : ICafeRepository
         {
             var _cafe =  await _dbContext.Cafes
                                         .Where(c => c.Id == id)
+                                        .Include(x => x.TamanhosXicara)
                                         .Select(c => new ResponseCafeJson()
                                         {
                                             Id = c.Id,
                                             Nome = c.Nome,
                                             Descricao = c.Descricao,
-                                            Preco = c.Preco,
                                             TempoPreparoSegundos = c.TempoPreparoSegundos,
-                                            Categoria = c.Categoria.ToDescricao()
+                                            Categoria = c.Categoria.ToDescricao(),
+                                            TamanhosXicara = c.TamanhosXicara.Select(z => new ResponseTamanhoXicaraJson()
+                                            {
+                                                Id = z.Id,
+                                                CafeId = z.CafeId,
+                                                Descricao = z.Descricao,
+                                                Ml = z.Ml,
+                                                Valor = z.Valor
+                                            }).ToList()
                                         })
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync();
@@ -132,9 +138,16 @@ public class CafeService : ICafeRepository
                 Id = c.Id,
                 Nome = c.Nome,
                 Descricao = c.Descricao,
-                Preco = c.Preco,
                 TempoPreparoSegundos = c.TempoPreparoSegundos,
-                Categoria = c.Categoria.ToDescricao()
+                Categoria = c.Categoria.ToDescricao(),
+                TamanhosXicara = c.TamanhosXicara.Select(z => new ResponseTamanhoXicaraJson()
+                {
+                    Id = z.Id,
+                    CafeId = z.CafeId,
+                    Descricao = z.Descricao,
+                    Ml = z.Ml,
+                    Valor = z.Valor
+                }).ToList()
             })
             .AsNoTracking()
             .ToListAsync();

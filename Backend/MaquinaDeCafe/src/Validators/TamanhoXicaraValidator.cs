@@ -15,7 +15,10 @@ public class RequestTamanhoXicaraValidator : AbstractValidator<RequestTamanhoXic
         RuleFor(x => x.Ml)
             .GreaterThan(0).WithMessage(ErrorsMensagem.TamanhoXicaraMlInvalido);
 
-        RuleFor(x => x.ValorExtra)
+        RuleFor(x => x.Valor)
             .GreaterThanOrEqualTo(0).WithMessage(ErrorsMensagem.TamanhoXicaraValorExtraNegativo);
+
+        RuleFor(x => x.CafeId)
+            .NotEmpty().WithMessage(ErrorsMensagem.TamanhoXicaraCafeIdObrigatorio);
     }
 }

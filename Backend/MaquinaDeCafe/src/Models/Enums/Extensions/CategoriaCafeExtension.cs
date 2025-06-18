@@ -6,11 +6,8 @@ public static class CategoriaCafeExtension
     {
         return categoria switch
         {
-            CategoriaCafe.Combo => "Combos",
-            CategoriaCafe.Especial => "Especiais",
             CategoriaCafe.Gelado => "Gelados",
             CategoriaCafe.Quente => "Quentes",
-            CategoriaCafe.Tradicional => "Tradicionais",
             _ => throw new ArgumentOutOfRangeException(nameof(categoria), categoria, null)
         };
     }

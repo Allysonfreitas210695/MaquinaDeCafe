@@ -19,9 +19,17 @@ public class TamanhoXicaraConfiguration : IEntityTypeConfiguration<TamanhoXicara
         builder.Property(t => t.Ml)
             .IsRequired();
 
-        builder.Property(t => t.ValorExtra)
+        builder.Property(t => t.Valor)
             .HasColumnType("decimal(10,2)")
             .IsRequired();
+
+        builder.Property(t => t.CafeId)
+            .IsRequired();
+
+        builder.HasOne(t => t.Cafe)
+            .WithMany(c => c.TamanhosXicara)
+            .HasForeignKey(t => t.CafeId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(t => t.PedidoItens)
             .WithOne(p => p.TamanhoXicara)

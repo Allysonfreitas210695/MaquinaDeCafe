@@ -27,7 +27,7 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
-            await _dbContext.AddAsync(new TamanhoXicara(Guid.NewGuid(), request.Descricao, request.Ml, request.ValorExtra));
+            await _dbContext.AddAsync(new TamanhoXicara(Guid.NewGuid(), request.Descricao, request.Ml, request.Valor, request.CafeId));
             await _dbContext.SaveChangesAsync();
         }
         catch (ErrorOnValidationException)
@@ -51,7 +51,7 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
                                         Id = z.Id,
                                         Descricao = z.Descricao,
                                         Ml = z.Ml,
-                                        ValorExtra = z.ValorExtra
+                                        Valor = z.Valor
                                     })
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync();
@@ -79,7 +79,7 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
                                     Id = z.Id,
                                     Descricao = z.Descricao,
                                     Ml = z.Ml,
-                                    ValorExtra = z.ValorExtra
+                                    Valor = z.Valor
                                 })
                                 .AsNoTracking()
                                 .ToListAsync();
@@ -98,7 +98,7 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
             if(_tamanhoXicara is null)
                 throw new NotFoundException(ErrorsMensagem.TamanhoXicaraNaoEncontradoExclamacao);
 
-            _tamanhoXicara.Atualizar(request.Descricao, request.Ml, request.ValorExtra);
+            _tamanhoXicara.Atualizar(request.Descricao, request.Ml, request.Valor, request.CafeId);
         
             await _dbContext.SaveChangesAsync();
         }

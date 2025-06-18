@@ -100,7 +100,7 @@ public class PedidoService : IPedidoRepository
                     });
                 }
 
-                pedido.AdicionarItem(item, cafe.Preco, tamanhoXicara.ValorExtra);
+                //pedido.AdicionarItem(item, cafe.Preco, tamanhoXicara.ValorExtra);
                 await _dbContext.PedidoItens.AddAsync(item);
             }
 
@@ -175,7 +175,6 @@ public class PedidoService : IPedidoRepository
                 Cafe = new ResponseCafeJson() {
                     Id = pi.Cafe.Id,
                     Descricao = pi.Cafe.Descricao,
-                    Preco = pi.Cafe.Preco,
                     Nome = pi.Cafe.Nome
                 },
                 PedidoId = pi.PedidoId,

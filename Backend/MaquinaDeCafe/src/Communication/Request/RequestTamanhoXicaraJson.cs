@@ -8,5 +8,8 @@ public class RequestTamanhoXicaraJson
     [Required(ErrorMessage = "O campo 'ML' é obrigatório.")]
     public required int Ml { get; set; }
     [Required(ErrorMessage = "O campo 'ValorExtra' é obrigatório.")]
-    public required decimal ValorExtra { get; set; }
+    public required decimal Valor { get; set; }
+
+    [Required(ErrorMessage = "O campo 'CafeId' é obrigatório.")]
+    public required Guid CafeId { get; set; }
 }
