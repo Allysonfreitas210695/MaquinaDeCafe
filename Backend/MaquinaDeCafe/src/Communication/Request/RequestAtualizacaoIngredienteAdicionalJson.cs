@@ -5,6 +5,6 @@ namespace MaquinaDeCafe.src.Communication.Request;
 public class RequestAtualizacaoIngredienteAdicionalJson
 {
     public string Nome { get;  set; } = string.Empty;
-    [Required(ErrorMessage = "O campo 'ValorExtra' é obrigatório.")]
+    [Required(ErrorMessage = "O campo 'ValorExtra' Ã© obrigatÃ³rio.")]
     public required decimal ValorExtra { get; set; }
 }

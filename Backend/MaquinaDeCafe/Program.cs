@@ -50,7 +50,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICafeRepository, CafeService>();
 builder.Services.AddScoped<IIngredienteAdicionalRepository, IngredienteAdicionalService>();builder.Services.AddScoped<IPedidoRepository, PedidoService>();
 builder.Services.AddScoped<IPedidoRepository, PedidoService>();
-builder.Services.AddScoped<TamanhoXicaraRepository, TamanhoXicaraService>();
+builder.Services.AddScoped<ITamanhoXicaraRepository, TamanhoXicaraService>();
 
 var app = builder.Build();
 

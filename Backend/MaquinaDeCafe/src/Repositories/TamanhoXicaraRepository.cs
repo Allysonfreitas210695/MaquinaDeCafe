@@ -3,7 +3,7 @@ using MaquinaDeCafe.src.Communication.Response;
 
 namespace MaquinaDeCafe.src.Repositories;
 
-public interface TamanhoXicaraRepository
+public interface ITamanhoXicaraRepository
 {
     Task<List<ResponseTamanhoXicaraJson>> GetListAsync();
     Task<ResponseTamanhoXicaraJson> GetItemByIdAsync(Guid id);

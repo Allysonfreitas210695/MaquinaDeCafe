@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MaquinaDeCafe.src.Services;
 
-public class TamanhoXicaraService : TamanhoXicaraRepository
+public class TamanhoXicaraService : ITamanhoXicaraRepository
 {
     private readonly ApplicationDbContext _dbContext;
     public TamanhoXicaraService(ApplicationDbContext dbContext)

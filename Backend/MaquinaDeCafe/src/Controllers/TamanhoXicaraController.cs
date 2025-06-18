@@ -9,8 +9,8 @@ namespace MaquinaDeCafe.src.Controllers;
 [Route("api/[controller]")]
 public class TamanhoXicaraController : ControllerBase
 {
-    private readonly TamanhoXicaraRepository _service;
-    public TamanhoXicaraController(TamanhoXicaraRepository service)
+    private readonly ITamanhoXicaraRepository _service;
+    public TamanhoXicaraController(ITamanhoXicaraRepository service)
     {
         _service = service;
     }

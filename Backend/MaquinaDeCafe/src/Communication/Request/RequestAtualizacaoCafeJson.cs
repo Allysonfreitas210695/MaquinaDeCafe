@@ -8,10 +8,10 @@ public class RequestAtualizacaoCafeJson
 {
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
-    [Required(ErrorMessage = "O campo 'Preco' é obrigatório.")]
+    [Required(ErrorMessage = "O campo 'Preco' Ã© obrigatÃ³rio.")]
     public required decimal Preco { get; set; }
-    [Required(ErrorMessage = "O campo 'TempoPreparoSegundos' é obrigatório.")]
+    [Required(ErrorMessage = "O campo 'TempoPreparoSegundos' Ã© obrigatÃ³rio.")]
     public required int TempoPreparoSegundos { get; set; }
-    [Required(ErrorMessage = "O campo 'Categoria' é obrigatório.")]
+    [Required(ErrorMessage = "O campo 'Categoria' Ã© obrigatÃ³rio.")]
     public required CategoriaCafe Categoria { get; set; }
 }
