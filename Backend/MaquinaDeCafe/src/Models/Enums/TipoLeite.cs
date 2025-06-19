@@ -4,6 +4,6 @@ public enum TipoLeite
 {
     Integral,
     Desnatado,
-    Vegetal,
-    Nenhum
+    ZeroLactose,
+    SemLeite
 }
