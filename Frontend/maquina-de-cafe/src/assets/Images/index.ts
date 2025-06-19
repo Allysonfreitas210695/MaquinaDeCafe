@@ -24,6 +24,12 @@ import Image2 from "./image2.png"
 import tabler from "./tabler-icon-cup.png"
 import imagehome from "./imagehome.png"
 import addCircle from "./material-symbols_add-circle-outline.png"
+import caffee from "./coffee.png"
+import visa from "./VISA.png"
+import relogio from "./relogio.png"
+import pedidoconfirmado from "./pedidoconfirmado.png"
+import empreparo from "./em-preparo.png"
+
 
 export const Images = {
   CafeExpresso,
@@ -52,4 +58,9 @@ export const Images = {
   tabler,
   imagehome,
   addCircle,
+  caffee,
+  visa,
+  relogio,
+  empreparo,
+  pedidoconfirmado
 };
