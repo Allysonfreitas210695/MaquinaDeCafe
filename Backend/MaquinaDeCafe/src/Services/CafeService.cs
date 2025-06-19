@@ -105,6 +105,14 @@ public class CafeService : ICafeRepository
                                                 Descricao = z.Descricao,
                                                 Ml = z.Ml,
                                                 Valor = z.Valor
+                                            }).ToList(),
+                                            AvaliacoesCafe = c.AvaliacoesCafe.Select(a => new ResponseAvaliacaoCafeJson()
+                                            {
+                                                Id = a.Id,
+                                                Atendimento = a.Atendimento.ToDescricao(),
+                                                CafeId = a.CafeId,
+                                                Estrelas = a.Estrelas,
+                                                Observacao = a.Observacao
                                             }).ToList()
                                         })
                                         .AsNoTracking()
@@ -127,12 +135,17 @@ public class CafeService : ICafeRepository
 
     public async Task<List<ResponseCafeJson>> GetListAsync(CategoriaCafe? categoria)
     {
-        var query = _dbContext.Cafes.AsQueryable();
+        var query = _dbContext.Cafes
+            .Include(c => c.TamanhosXicara)
+            .Include(c => c.AvaliacoesCafe)
+            .AsQueryable();
 
         if (categoria.HasValue)
             query = query.Where(c => c.Categoria == categoria.Value);
 
-        return await query
+        try
+        {
+            return await query
             .Select(c => new ResponseCafeJson
             {
                 Id = c.Id,
@@ -147,10 +160,22 @@ public class CafeService : ICafeRepository
                     Descricao = z.Descricao,
                     Ml = z.Ml,
                     Valor = z.Valor
+                }).ToList(),
+                AvaliacoesCafe = c.AvaliacoesCafe.Select(a => new ResponseAvaliacaoCafeJson()
+                {
+                    Id = a.Id,
+                    Atendimento = a.Atendimento.ToDescricao(),
+                    CafeId = a.CafeId,
+                    Estrelas = a.Estrelas,
+                    Observacao = a.Observacao
                 }).ToList()
             })
             .AsNoTracking()
             .ToListAsync();
+        }catch(Exception ex)
+        {
+            throw new ArgumentException(ex?.InnerException?.Message ?? ex?.Message);
+        }
     }
 
     public async Task RemoverAsync(Guid id)

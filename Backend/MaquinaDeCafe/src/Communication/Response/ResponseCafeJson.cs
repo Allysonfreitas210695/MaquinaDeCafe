@@ -8,4 +8,6 @@ public class ResponseCafeJson
     public int TempoPreparoSegundos { get; set; }
     public string Categoria { get; set; } = string.Empty;
     public List<ResponseTamanhoXicaraJson> TamanhosXicara { get; set; }
+    public List<ResponseAvaliacaoCafeJson> AvaliacoesCafe { get; set; }
+
 }

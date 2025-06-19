@@ -47,6 +47,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IAvaliacaoCafeRepository, AvaliacaoCafeService>();
 builder.Services.AddScoped<ICafeRepository, CafeService>();
 builder.Services.AddScoped<IIngredienteAdicionalRepository, IngredienteAdicionalService>();builder.Services.AddScoped<IPedidoRepository, PedidoService>();
 builder.Services.AddScoped<IPedidoRepository, PedidoService>();

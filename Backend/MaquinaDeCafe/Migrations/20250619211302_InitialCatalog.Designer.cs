@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MaquinaDeCafe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250619200920_AddTableAvaliacaoCafe")]
-    partial class AddTableAvaliacaoCafe
+    [Migration("20250619211302_InitialCatalog")]
+    partial class InitialCatalog
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,7 @@ namespace MaquinaDeCafe.Migrations
 
                     b.HasIndex("CafeId");
 
-                    b.ToTable("AvaliacoesCafe", (string)null);
+                    b.ToTable("Avaliacoes_cafe", (string)null);
                 });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
@@ -250,7 +250,7 @@ namespace MaquinaDeCafe.Migrations
                     b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
                         .WithMany("AvaliacoesCafe")
                         .HasForeignKey("CafeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cafe");

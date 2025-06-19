@@ -52,7 +52,7 @@ namespace MaquinaDeCafe.Migrations
 
                     b.HasIndex("CafeId");
 
-                    b.ToTable("AvaliacoesCafe", (string)null);
+                    b.ToTable("Avaliacoes_cafe", (string)null);
                 });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
@@ -247,7 +247,7 @@ namespace MaquinaDeCafe.Migrations
                     b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
                         .WithMany("AvaliacoesCafe")
                         .HasForeignKey("CafeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cafe");

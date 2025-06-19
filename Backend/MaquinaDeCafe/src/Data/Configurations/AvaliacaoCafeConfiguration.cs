@@ -8,7 +8,7 @@ namespace MaquinaDeCafe.src.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AvaliacaoCafe> builder)
         {
-            builder.ToTable("AvaliacoesCafe");
+            builder.ToTable("Avaliacoes_cafe");
 
             builder.HasKey(a => a.Id);
 
@@ -28,7 +28,7 @@ namespace MaquinaDeCafe.src.Data.Configurations
             builder.HasOne(a => a.Cafe)
                 .WithMany(x => x.AvaliacoesCafe)
                 .HasForeignKey(a => a.CafeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
