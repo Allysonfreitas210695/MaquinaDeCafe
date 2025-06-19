@@ -132,6 +132,9 @@
   <data name="CafeNomeObrigatorio" xml:space="preserve">
     <value>O nome do café é obrigatório.</value>
   </data>
+  <data name="CafeObrigatorio" xml:space="preserve">
+    <value>O café avaliado é obrigatório.</value>
+  </data>
   <data name="CafePrecoMaiorQueZero" xml:space="preserve">
     <value>O preço deve ser maior que zero.</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="MaximoCafesPorPedido" xml:space="preserve">
     <value>Não é permitido adicionar mais de 10 cafés em um único pedido.</value>
   </data>
+  <data name="NivelAtendimentoInvalido" xml:space="preserve">
+    <value>Nível de atendimento inválido.</value>
+  </data>
   <data name="PedidoCafeObrigatorio" xml:space="preserve">
     <value>É necessário selecionar um café.</value>
   </data>
@@ -218,6 +224,9 @@
   </data>
   <data name="PedidoTempoPreparoInvalido" xml:space="preserve">
     <value>Tempo de preparo deve ser maior que zero.</value>
+  </data>
+  <data name="QuantidadeEstrelasInvalida" xml:space="preserve">
+    <value>A quantidade de estrelas deve estar entre 1 e 5.</value>
   </data>
   <data name="TamanhosXicaraNaoEncontrados" xml:space="preserve">
     <value>Um ou mais tamanhos de xícara não foram encontrados.</value>

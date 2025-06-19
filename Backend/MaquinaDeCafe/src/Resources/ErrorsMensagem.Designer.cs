@@ -106,6 +106,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O café avaliado é obrigatório..
+        /// </summary>
+        public static string CafeObrigatorio {
+            get {
+                return ResourceManager.GetString("CafeObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O preço deve ser maior que zero..
         /// </summary>
         public static string CafePrecoMaiorQueZero {
@@ -268,6 +277,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nível de atendimento inválido..
+        /// </summary>
+        public static string NivelAtendimentoInvalido {
+            get {
+                return ResourceManager.GetString("NivelAtendimentoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a É necessário selecionar um café..
         /// </summary>
         public static string PedidoCafeObrigatorio {
@@ -363,6 +381,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string PedidoTempoPreparoInvalido {
             get {
                 return ResourceManager.GetString("PedidoTempoPreparoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A quantidade de estrelas deve estar entre 1 e 5..
+        /// </summary>
+        public static string QuantidadeEstrelasInvalida {
+            get {
+                return ResourceManager.GetString("QuantidadeEstrelasInvalida", resourceCulture);
             }
         }
         

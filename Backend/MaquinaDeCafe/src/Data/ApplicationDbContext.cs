@@ -16,6 +16,7 @@ namespace MaquinaDeCafe.src.Data
         public DbSet<Cafe> Cafes { get; set; }
         public DbSet<IngredienteAdicional> IngredientesAdicionais { get; set; }
         public DbSet<TamanhoXicara> TamanhosXicara { get; set; }
+        public DbSet<AvaliacaoCafe> AvaliacoesCafe { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
