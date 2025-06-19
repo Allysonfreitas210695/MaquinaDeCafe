@@ -10,8 +10,8 @@ public static class TipoLeiteExtension
         {
             TipoLeite.Integral => "Integral",
             TipoLeite.Desnatado => "Desnatado",
-            TipoLeite.Vegetal => "Vegetal",
-            TipoLeite.Nenhum => "Sem leite",
+            TipoLeite.SemLeite => "Sem leite",
+            TipoLeite.ZeroLactose => "Zero lactose",
             _ => throw new ArgumentOutOfRangeException(nameof(tipoLeite), tipoLeite, null)
         };
     }

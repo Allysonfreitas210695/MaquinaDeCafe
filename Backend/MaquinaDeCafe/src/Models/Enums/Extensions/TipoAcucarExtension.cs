@@ -8,10 +8,10 @@ public static class TipoAcucarExtension
     {
         return tipoAcucar switch
         {
-            TipoAcucar.Refinado => "Refinado",
+            TipoAcucar.Acucar => "açúcar",
             TipoAcucar.Mascavo => "Mascavo",
-            TipoAcucar.Americano => "Americano",
-            TipoAcucar.Nenhum => "Sem açúcar",
+            TipoAcucar.Adocante => "Adoçante",
+            TipoAcucar.SemAcucar => "Sem açúcar",
             _ => throw new ArgumentOutOfRangeException(nameof(tipoAcucar), tipoAcucar, null)
         };
     }
