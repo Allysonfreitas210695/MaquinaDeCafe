@@ -29,7 +29,10 @@ import visa from "./VISA.png"
 import relogio from "./relogio.png"
 import pedidoconfirmado from "./pedidoconfirmado.png"
 import empreparo from "./em-preparo.png"
-
+import punhadodegraodecafe from "./maos-de-homem-irreconhecivel-segurando-um-punhado-de-graos-de-cafe-no-saco-de-aniagem.png"
+import frown from "./frown.png"
+import laugh from "./laugh.png"
+import meh from "./meh.png"
 
 export const Images = {
   CafeExpresso,
@@ -62,5 +65,9 @@ export const Images = {
   visa,
   relogio,
   empreparo,
-  pedidoconfirmado
+  pedidoconfirmado,
+  punhadodegraodecafe,
+  frown,
+  laugh,
+  meh,
 };
