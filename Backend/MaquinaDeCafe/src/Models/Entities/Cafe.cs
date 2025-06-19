@@ -14,6 +14,7 @@ public class Cafe : Entity
 
     public List<PedidoItem> PedidoItens { get; set; } = new();
     public List<TamanhoXicara> TamanhosXicara { get; private set; } = new();
+    public List<AvaliacaoCafe> AvaliacoesCafe { get; private set; } = new();
 
     public Cafe() { }
 

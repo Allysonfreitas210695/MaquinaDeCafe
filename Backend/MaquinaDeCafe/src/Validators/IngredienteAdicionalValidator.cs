@@ -17,12 +17,4 @@ public class RequestCriacaoIngredienteAdicionalValidator : AbstractValidator<Req
             .WithMessage(ErrorsMensagem.IngredienteValorExtraInvalido);
     }
 }
-
-public class RequestAtualizacaoIngredienteAdicionalValidator : AbstractValidator<RequestAtualizacaoIngredienteAdicionalJson>
-{
-    public RequestAtualizacaoIngredienteAdicionalValidator()
-    {
-        RuleFor(x => x.Nome).NotEmpty().WithMessage(ErrorsMensagem.IngredienteNomeObrigatorio);
-        RuleFor(x => x.ValorExtra).GreaterThan(0).WithMessage(ErrorsMensagem.IngredienteValorExtraInvalido);
-    }
-}
+ 

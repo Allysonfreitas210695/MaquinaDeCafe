@@ -1,9 +1,76 @@
+using Bogus;
+using MaquinaDeCafe.src.Models.Entities;
+using MaquinaDeCafe.src.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaquinaDeCafe.src.Data.Persistence;
 
 public static class SeedDatabaseInitial
 {
+    private static async Task GerarAvaliacoesParaCafes(ApplicationDbContext dbContext)
+    {
+        var faker = new Faker("pt_BR");
+
+        var muitoBomObservacoes = new List<string>
+        {
+            "Excelente café!",
+            "Muito saboroso e equilibrado.",
+            "Perfeito para o dia a dia.",
+            "Gostei bastante!"
+        };
+
+        var regularObservacoes = new List<string>
+        {
+            "Bom, mas poderia estar mais quente.",
+            "Nada demais.",
+            "Aceitável, mas faltou algo.",
+            "Mais ou menos."
+        };
+
+        var ruimObservacoes = new List<string>
+        {
+            "Café estava frio.",
+            "Demorou muito para sair.",
+            "Sabor desagradável.",
+            "Péssimo atendimento."
+        };
+
+        var cafes = await dbContext.Cafes.AsNoTracking().ToListAsync();
+
+        foreach (var cafe in cafes)
+        {
+            var quantidadeAvaliacoes = faker.Random.Int(3, 10);
+            var avaliacoes = new List<AvaliacaoCafe>();
+
+            for (int i = 0; i < quantidadeAvaliacoes; i++)
+            {
+                var atendimento = faker.PickRandom<NivelAtendimento>();
+
+                var estrelas = atendimento switch
+                {
+                    NivelAtendimento.MuitoBom => faker.Random.Int(4, 5),
+                    NivelAtendimento.Regular => faker.Random.Int(2, 3),
+                    NivelAtendimento.Ruim => faker.Random.Int(1, 2),
+                    _ => 3
+                };
+
+                var observacao = atendimento switch
+                {
+                    NivelAtendimento.MuitoBom => faker.PickRandom(muitoBomObservacoes),
+                    NivelAtendimento.Regular => faker.PickRandom(regularObservacoes),
+                    NivelAtendimento.Ruim => faker.PickRandom(ruimObservacoes),
+                    _ => "Avaliação neutra."
+                };
+
+                avaliacoes.Add(new AvaliacaoCafe(Guid.NewGuid(), cafe.Id, atendimento, estrelas, observacao));
+            }
+
+            await dbContext.AvaliacoesCafe.AddRangeAsync(avaliacoes);
+        }
+
+        await dbContext.SaveChangesAsync();
+    }
+
     public static async Task Seeds(IServiceProvider serviceProvider)
     {
         var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
@@ -104,7 +171,7 @@ public static class SeedDatabaseInitial
                             ("150 ml", 150, 5.25m)
                         }),
                 };
-
+                
                 foreach (var (cafe, tamanhos) in cafes)
                 {
                     await dbContext.Cafes.AddAsync(cafe);
@@ -114,6 +181,7 @@ public static class SeedDatabaseInitial
                     {
                         var tamanho = new Models.Entities.TamanhoXicara(Guid.NewGuid(), volume, ml, preco, cafe.Id);
                         await dbContext.TamanhosXicara.AddAsync(tamanho);
+                        await dbContext.SaveChangesAsync();
                     }
                 }
             }
@@ -133,9 +201,11 @@ public static class SeedDatabaseInitial
                 };
 
                 await dbContext.IngredientesAdicionais.AddRangeAsync(ingredientes);
+                await dbContext.SaveChangesAsync();
             }
 
-            await dbContext.SaveChangesAsync();
+            await GerarAvaliacoesParaCafes(dbContext);
+
             await transaction.CommitAsync();
         }
         catch (Exception)

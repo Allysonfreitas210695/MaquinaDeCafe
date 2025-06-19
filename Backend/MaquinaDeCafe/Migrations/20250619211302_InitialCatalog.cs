@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MaquinaDeCafe.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialTables : Migration
+    public partial class InitialCatalog : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,6 +56,29 @@ namespace MaquinaDeCafe.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Avaliacoes_cafe",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CafeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Atendimento = table.Column<int>(type: "integer", nullable: false),
+                    Estrelas = table.Column<int>(type: "integer", nullable: false),
+                    Observacao = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Avaliacoes_cafe", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Avaliacoes_cafe_Cafes_CafeId",
+                        column: x => x.CafeId,
+                        principalTable: "Cafes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,6 +170,11 @@ namespace MaquinaDeCafe.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Avaliacoes_cafe_CafeId",
+                table: "Avaliacoes_cafe",
+                column: "CafeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PedidoItemIngredienteAdicional_IngredienteAdicionalId",
                 table: "PedidoItemIngredienteAdicional",
                 column: "IngredienteAdicionalId");
@@ -180,6 +208,9 @@ namespace MaquinaDeCafe.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Avaliacoes_cafe");
+
             migrationBuilder.DropTable(
                 name: "PedidoItemIngredienteAdicional");
 

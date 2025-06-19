@@ -61,6 +61,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Avaliação do café não encontrado..
+        /// </summary>
+        public static string AvaliacaoCafeEncontrado {
+            get {
+                return ResourceManager.GetString("AvaliacaoCafeEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A descrição deve ter pelo menos 5 caracteres..
         /// </summary>
         public static string CafeDescricaoMinima {
@@ -102,6 +111,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string CafeNomeObrigatorio {
             get {
                 return ResourceManager.GetString("CafeNomeObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O café avaliado é obrigatório..
+        /// </summary>
+        public static string CafeObrigatorio {
+            get {
+                return ResourceManager.GetString("CafeObrigatorio", resourceCulture);
             }
         }
         
@@ -268,6 +286,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nível de atendimento inválido..
+        /// </summary>
+        public static string NivelAtendimentoInvalido {
+            get {
+                return ResourceManager.GetString("NivelAtendimentoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a É necessário selecionar um café..
         /// </summary>
         public static string PedidoCafeObrigatorio {
@@ -363,6 +390,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string PedidoTempoPreparoInvalido {
             get {
                 return ResourceManager.GetString("PedidoTempoPreparoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A quantidade de estrelas deve estar entre 1 e 5..
+        /// </summary>
+        public static string QuantidadeEstrelasInvalida {
+            get {
+                return ResourceManager.GetString("QuantidadeEstrelasInvalida", resourceCulture);
             }
         }
         

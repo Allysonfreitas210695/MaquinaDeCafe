@@ -51,11 +51,11 @@ public class CafeService : ICafeRepository
         }
     }
 
-    public async Task UpdateAsync(Guid id, RequestAtualizacaoCafeJson cafeAtualizado)
+    public async Task UpdateAsync(Guid id, RequestCriacaoCafeJson cafeAtualizado)
     {
         try
         {
-            var _atualizacaoValidator = new RequestAtualizacaoCafeValidator();
+            var _atualizacaoValidator = new RequestCriacaoCafeValidator();
             var validation = await _atualizacaoValidator.ValidateAsync(cafeAtualizado);
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
@@ -105,6 +105,17 @@ public class CafeService : ICafeRepository
                                                 Descricao = z.Descricao,
                                                 Ml = z.Ml,
                                                 Valor = z.Valor
+                                            }).ToList(),
+                                            MediaAvaliacoes = c.AvaliacoesCafe.Any()
+                                            ? c.AvaliacoesCafe.Average(a => (double?)a.Estrelas) ?? 0.0
+                                            : 0.0,
+                                            AvaliacoesCafe = c.AvaliacoesCafe.Select(a => new ResponseAvaliacaoCafeJson()
+                                            {
+                                                Id = a.Id,
+                                                Atendimento = a.Atendimento.ToDescricao(),
+                                                CafeId = a.CafeId,
+                                                Estrelas = a.Estrelas,
+                                                Observacao = a.Observacao
                                             }).ToList()
                                         })
                                         .AsNoTracking()
@@ -127,30 +138,36 @@ public class CafeService : ICafeRepository
 
     public async Task<List<ResponseCafeJson>> GetListAsync(CategoriaCafe? categoria)
     {
-        var query = _dbContext.Cafes.AsQueryable();
+        var query = _dbContext.Cafes
+            .Include(c => c.TamanhosXicara)
+            .Include(c => c.AvaliacoesCafe)
+            .AsQueryable();
 
         if (categoria.HasValue)
-            query = query.Where(c => c.Categoria == categoria.Value);
-
+            query = query.Where(c => c.Categoria == categoria.Value); 
+            
         return await query
-            .Select(c => new ResponseCafeJson
+        .Select(c => new ResponseCafeJson
+        {
+            Id = c.Id,
+            Nome = c.Nome,
+            Descricao = c.Descricao,
+            TempoPreparoSegundos = c.TempoPreparoSegundos,
+            Categoria = c.Categoria.ToDescricao(),
+            TamanhosXicara = c.TamanhosXicara.Select(z => new ResponseTamanhoXicaraJson()
             {
-                Id = c.Id,
-                Nome = c.Nome,
-                Descricao = c.Descricao,
-                TempoPreparoSegundos = c.TempoPreparoSegundos,
-                Categoria = c.Categoria.ToDescricao(),
-                TamanhosXicara = c.TamanhosXicara.Select(z => new ResponseTamanhoXicaraJson()
-                {
-                    Id = z.Id,
-                    CafeId = z.CafeId,
-                    Descricao = z.Descricao,
-                    Ml = z.Ml,
-                    Valor = z.Valor
-                }).ToList()
-            })
-            .AsNoTracking()
-            .ToListAsync();
+                Id = z.Id,
+                CafeId = z.CafeId,
+                Descricao = z.Descricao,
+                Ml = z.Ml,
+                Valor = z.Valor
+            }).ToList(),
+            MediaAvaliacoes = c.AvaliacoesCafe.Any()
+            ? c.AvaliacoesCafe.Average(a => (double?)a.Estrelas) ?? 0.0
+            : 0.0
+        })
+        .AsNoTracking()
+        .ToListAsync(); 
     }
 
     public async Task RemoverAsync(Guid id)

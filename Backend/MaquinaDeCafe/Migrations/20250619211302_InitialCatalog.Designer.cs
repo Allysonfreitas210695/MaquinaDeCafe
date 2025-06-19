@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MaquinaDeCafe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250618111807_InitialTables")]
-    partial class InitialTables
+    [Migration("20250619211302_InitialCatalog")]
+    partial class InitialCatalog
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,39 @@ namespace MaquinaDeCafe.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.AvaliacaoCafe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Atendimento")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("CafeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Estrelas")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CafeId");
+
+                    b.ToTable("Avaliacoes_cafe", (string)null);
+                });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
                 {
@@ -212,6 +245,17 @@ namespace MaquinaDeCafe.Migrations
                     b.ToTable("TamanhosXicara", (string)null);
                 });
 
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.AvaliacaoCafe", b =>
+                {
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
+                        .WithMany("AvaliacoesCafe")
+                        .HasForeignKey("CafeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cafe");
+                });
+
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.PedidoItem", b =>
                 {
                     b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
@@ -271,6 +315,8 @@ namespace MaquinaDeCafe.Migrations
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
                 {
+                    b.Navigation("AvaliacoesCafe");
+
                     b.Navigation("PedidoItens");
 
                     b.Navigation("TamanhosXicara");

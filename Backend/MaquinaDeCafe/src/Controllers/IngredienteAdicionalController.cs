@@ -43,7 +43,7 @@ public class IngredienteAdicionalController : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Update(Guid id, [FromBody] RequestAtualizacaoIngredienteAdicionalJson request)
+    public async Task<IActionResult> Update(Guid id, [FromBody] RequestCriacaoIngredienteAdicionalJson request)
     {
         await _service.UpdateAsync(id, request);
         return NoContent();

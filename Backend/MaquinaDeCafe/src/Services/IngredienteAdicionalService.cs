@@ -99,11 +99,11 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
         }
     }
 
-    public async Task UpdateAsync(Guid id, RequestAtualizacaoIngredienteAdicionalJson ingredienteAdicionalAtualizado)
+    public async Task UpdateAsync(Guid id, RequestCriacaoIngredienteAdicionalJson ingredienteAdicionalAtualizado)
     {
         try
         {
-            var _criacaoValidator = new RequestAtualizacaoIngredienteAdicionalValidator();
+            var _criacaoValidator = new RequestCriacaoIngredienteAdicionalValidator();
             var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicionalAtualizado);
 
             if (!validation.IsValid)

@@ -18,16 +18,3 @@ public class RequestCriacaoCafeValidator : AbstractValidator<RequestCriacaoCafeJ
             .WithMessage(ErrorsMensagem.cafeDescricaoTamanhoMinimo);
     }
 }
-
-public class RequestAtualizacaoCafeValidator : AbstractValidator<RequestAtualizacaoCafeJson>
-{
-    public RequestAtualizacaoCafeValidator()
-    {
-        RuleFor(x => x.Nome).NotEmpty().WithMessage(ErrorsMensagem.CafeNomeObrigatorio);
-        RuleFor(x => x.Descricao)
-            .NotEmpty()
-            .WithMessage(ErrorsMensagem.cafeDescricaoObrigatorio)
-            .MinimumLength(5)
-            .WithMessage(ErrorsMensagem.cafeDescricaoTamanhoMinimo);
-    }
-} 

@@ -17,8 +17,8 @@ namespace MaquinaDeCafe.src.Data.Configurations
                 .HasMaxLength(100);
             
             builder.Property(c => c.Categoria)
-            .HasConversion<int>()
-            .IsRequired();
+                .HasConversion<int>()
+                .IsRequired();
 
             builder.Property(c => c.TempoPreparoSegundos)
                 .IsRequired();
@@ -26,6 +26,11 @@ namespace MaquinaDeCafe.src.Data.Configurations
             builder.HasMany(c => c.PedidoItens)
                 .WithOne(pi => pi.Cafe)
                 .HasForeignKey(pi => pi.CafeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(c => c.AvaliacoesCafe)
+                .WithOne(a => a.Cafe)
+                .HasForeignKey(a => a.CafeId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
