@@ -46,7 +46,7 @@ namespace MaquinaDeCafe.src.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ResponseCafeJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] RequestAtualizacaoAvaliacaoCafeJson cafeAtualizado)
+        public async Task<IActionResult> Put(Guid id, [FromBody] RequestAvaliacaoCafeJson cafeAtualizado)
         {
             await _service.UpdateAsync(id, cafeAtualizado);
             return NoContent();

@@ -51,11 +51,11 @@ public class CafeService : ICafeRepository
         }
     }
 
-    public async Task UpdateAsync(Guid id, RequestAtualizacaoCafeJson cafeAtualizado)
+    public async Task UpdateAsync(Guid id, RequestCriacaoCafeJson cafeAtualizado)
     {
         try
         {
-            var _atualizacaoValidator = new RequestAtualizacaoCafeValidator();
+            var _atualizacaoValidator = new RequestCriacaoCafeValidator();
             var validation = await _atualizacaoValidator.ValidateAsync(cafeAtualizado);
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());

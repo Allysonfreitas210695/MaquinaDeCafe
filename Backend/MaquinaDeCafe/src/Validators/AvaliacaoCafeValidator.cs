@@ -21,21 +21,3 @@ public class AvaliacaoCafeValidator : AbstractValidator<RequestAvaliacaoCafeJson
             .WithMessage(ErrorsMensagem.QuantidadeEstrelasInvalida);
     }
 }
-
-public class RequestAtualizacaoAvaliacaoCafeValidator : AbstractValidator<RequestAtualizacaoAvaliacaoCafeJson>
-{
-    public RequestAtualizacaoAvaliacaoCafeValidator()
-    {
-        RuleFor(x => x.CafeId)
-            .NotEmpty()
-            .WithMessage(ErrorsMensagem.CafeObrigatorio);
-
-        RuleFor(x => x.Atendimento)
-            .IsInEnum()
-            .WithMessage(ErrorsMensagem.NivelAtendimentoInvalido);
-
-        RuleFor(x => x.Estrelas)
-            .InclusiveBetween(1, 5)
-            .WithMessage(ErrorsMensagem.QuantidadeEstrelasInvalida);
-    }
-}

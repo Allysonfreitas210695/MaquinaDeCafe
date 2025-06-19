@@ -47,7 +47,7 @@ public class CafeController : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ResponseCafeJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(Guid id, [FromBody] RequestAtualizacaoCafeJson cafeAtualizado)
+    public async Task<IActionResult> Put(Guid id, [FromBody] RequestCriacaoCafeJson cafeAtualizado)
     {
         await _service.UpdateAsync(id, cafeAtualizado);
         return NoContent();

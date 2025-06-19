@@ -8,6 +8,6 @@ public interface IIngredienteAdicionalRepository
     Task<List<ResponseIngredienteAdicionalJson>> GetListAsync();
     Task<ResponseIngredienteAdicionalJson?> GetItemByIdAsync(Guid id);
     Task AddAsync(RequestCriacaoIngredienteAdicionalJson ingredienteAdicional);
-    Task UpdateAsync(Guid id, RequestAtualizacaoIngredienteAdicionalJson ingredienteAdicionalAtualizado);
+    Task UpdateAsync(Guid id, RequestCriacaoIngredienteAdicionalJson ingredienteAdicionalAtualizado);
     Task RemoverAsync(Guid id);
 }

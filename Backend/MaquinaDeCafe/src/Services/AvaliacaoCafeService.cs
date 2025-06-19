@@ -94,11 +94,11 @@ namespace MaquinaDeCafe.src.Services
             }
         }
 
-        public async Task UpdateAsync(Guid id, RequestAtualizacaoAvaliacaoCafeJson avaliacaoAtualizada)
+        public async Task UpdateAsync(Guid id, RequestAvaliacaoCafeJson avaliacaoAtualizada)
         {
             try
             {
-                var _atualizacaoValidator = new RequestAtualizacaoAvaliacaoCafeValidator();
+                var _atualizacaoValidator = new AvaliacaoCafeValidator();
                 var validation = await _atualizacaoValidator.ValidateAsync(avaliacaoAtualizada);
                 if (!validation.IsValid)
                     throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
