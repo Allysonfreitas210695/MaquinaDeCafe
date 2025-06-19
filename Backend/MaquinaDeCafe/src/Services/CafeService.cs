@@ -106,6 +106,9 @@ public class CafeService : ICafeRepository
                                                 Ml = z.Ml,
                                                 Valor = z.Valor
                                             }).ToList(),
+                                            MediaAvaliacoes = c.AvaliacoesCafe.Any()
+                                            ? c.AvaliacoesCafe.Average(a => (double?)a.Estrelas) ?? 0.0
+                                            : 0.0,
                                             AvaliacoesCafe = c.AvaliacoesCafe.Select(a => new ResponseAvaliacaoCafeJson()
                                             {
                                                 Id = a.Id,
@@ -161,14 +164,9 @@ public class CafeService : ICafeRepository
                     Ml = z.Ml,
                     Valor = z.Valor
                 }).ToList(),
-                AvaliacoesCafe = c.AvaliacoesCafe.Select(a => new ResponseAvaliacaoCafeJson()
-                {
-                    Id = a.Id,
-                    Atendimento = a.Atendimento.ToDescricao(),
-                    CafeId = a.CafeId,
-                    Estrelas = a.Estrelas,
-                    Observacao = a.Observacao
-                }).ToList()
+                MediaAvaliacoes = c.AvaliacoesCafe.Any()
+                ? c.AvaliacoesCafe.Average(a => (double?)a.Estrelas) ?? 0.0
+                : 0.0
             })
             .AsNoTracking()
             .ToListAsync();
