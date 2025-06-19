@@ -99,7 +99,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
       </div>
       <S.StyledWrapper>
         {tamanhoXicara.map(({ descricao }, index) => (
-          <div className="styledWrapper">
+          <div key={index} className="styledWrapper">
             <S.Wrapper
               active={activeIndex === index}
               onClick={() => setActiveIndex(index)}

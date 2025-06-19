@@ -24,7 +24,7 @@ export const Carrinho = () => {
   const [quantity] = useState(0);
 
   const location = useLocation();
-  const { cartItems: initialCartItems } = (location.state || {}) as {
+  const { cartItems: initialCartItems } = (location.state ?? {}) as {
     cartItems?: CartItem[];
   };
 
@@ -129,13 +129,13 @@ export const Carrinho = () => {
                       {row.type === "cafe" ? (
                         <S.TableCellImg
                           src={Images.CafeExpresso}
-                          alt={row.title || "Café"}
+                          alt={row.title ?? "Café"}
                         />
                       ) : (
                         // You might want a generic image for add-ons or a different one
                         <S.TableCellImg
                           src={Images.Mais}
-                          alt={row.title || "Adicional"}
+                          alt={row.title ?? "Adicional"}
                         />
                       )}
                       <S.TableConteudo>
@@ -146,7 +146,7 @@ export const Carrinho = () => {
                       </S.TableConteudo>
                     </TableCell>
                     <TableCell align="center" sx={{ border: "none" }}>
-                      R$ {row.price?.toFixed(2) || "0.00"}
+                      R$ {row.price?.toFixed(2) ?? "0.00"}
                     </TableCell>
                     <TableCell align="center" sx={{ border: "none" }}>
                       <S.QuantityControl>

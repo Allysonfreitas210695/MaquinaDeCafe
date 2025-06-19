@@ -89,8 +89,8 @@ export const FacaPedido = () => {
               categoria,
               tempoPreparoSegundos,
               imagemUrl,
-            }) => (
-              <CafeCard
+            }, index) => (
+              <CafeCard key={index}
                 id={id}
                 title={nome}
                 description={descricao}

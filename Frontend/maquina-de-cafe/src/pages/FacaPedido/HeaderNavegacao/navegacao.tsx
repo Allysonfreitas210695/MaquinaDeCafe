@@ -40,8 +40,8 @@ export const HeaderNavegacao = ({
 
   return (
     <>
-      {facaPedido.map(({ Link0, Link1, Link2, Link3, Link4, Link5, Link6 }) => (
-        <S.Navegacao__Header>
+      {facaPedido.map(({ Link0, Link1, Link2, Link3, Link4, Link5, Link6 }, index) => (
+        <S.Navegacao__Header key={index}>
           <S.Nav>
             <S.MenuItem
               active={activeIndex === 0}

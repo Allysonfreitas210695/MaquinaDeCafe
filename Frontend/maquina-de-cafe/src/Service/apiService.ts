@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ApiCafeItem, ApiTamanhoXicara } from "./interface";
-const apiUrl = import.meta.env.LINKBACK || "http://localhost:5035";
+const apiUrl = import.meta.env.LINKBACK ?? "http://localhost:5035";
 
 export const getCafes = async (): Promise<ApiCafeItem[]> => {
   try {
