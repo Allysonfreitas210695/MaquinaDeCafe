@@ -121,9 +121,8 @@ namespace MaquinaDeCafe.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -160,13 +159,11 @@ namespace MaquinaDeCafe.Migrations
                     b.Property<int>("TempoPreparoSegundos")
                         .HasColumnType("integer");
 
-                    b.Property<string>("TipoAcucar")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("TipoAcucar")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("TipoLeite")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("TipoLeite")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

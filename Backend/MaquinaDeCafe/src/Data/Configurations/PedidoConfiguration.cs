@@ -18,7 +18,7 @@ public class PedidoConfiguration : IEntityTypeConfiguration<Pedido>
             .OnDelete(DeleteBehavior.Cascade);
  
         builder.Property(p => p.Status)
-            .HasConversion<string>()
+            .HasConversion<int>()
             .IsRequired(); 
  
         builder.Property(p => p.ValorTotal)

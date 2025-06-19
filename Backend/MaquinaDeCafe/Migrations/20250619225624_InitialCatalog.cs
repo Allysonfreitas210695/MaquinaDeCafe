@@ -48,7 +48,7 @@ namespace MaquinaDeCafe.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -112,8 +112,8 @@ namespace MaquinaDeCafe.Migrations
                     PedidoId = table.Column<Guid>(type: "uuid", nullable: false),
                     CafeId = table.Column<Guid>(type: "uuid", nullable: false),
                     Quantidade = table.Column<int>(type: "integer", nullable: false),
-                    TipoLeite = table.Column<string>(type: "text", nullable: false),
-                    TipoAcucar = table.Column<string>(type: "text", nullable: false),
+                    TipoLeite = table.Column<int>(type: "integer", nullable: false),
+                    TipoAcucar = table.Column<int>(type: "integer", nullable: false),
                     TamanhoXicaraId = table.Column<Guid>(type: "uuid", nullable: false),
                     TempoPreparoSegundos = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),

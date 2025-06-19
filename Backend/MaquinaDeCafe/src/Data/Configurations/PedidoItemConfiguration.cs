@@ -26,11 +26,11 @@ public class PedidoItemConfiguration : IEntityTypeConfiguration<PedidoItem>
             .IsRequired();
 
         builder.Property(pi => pi.TipoLeite)
-            .HasConversion<string>()
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(pi => pi.TipoAcucar)
-            .HasConversion<string>()
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(c => c.TempoPreparoSegundos)
