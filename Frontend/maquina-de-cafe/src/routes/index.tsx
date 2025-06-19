@@ -4,6 +4,7 @@ import { FacaPedido } from "../pages/FacaPedido/facapedido";
 import { Adicionais } from "../pages/Adicionais/adicionais";
 import { TipoPagamento } from "../pages/Pagamento/tipopagamento";
 import { Carrinho } from "../pages/Carrinho/carrinho";
+import { PedidoFinalizado } from "../pages/PedidoFinalizado/pedidofinalizado";
 
 function RoutesApp() {
   return (
@@ -14,6 +15,7 @@ function RoutesApp() {
         <Route path="/adicionais" element={<Adicionais />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/pagamento" element={<TipoPagamento />} />
+        <Route path="/pedidofinalizado" element={<PedidoFinalizado />} />
       </Routes>
     </BrowserRouter>
   );
