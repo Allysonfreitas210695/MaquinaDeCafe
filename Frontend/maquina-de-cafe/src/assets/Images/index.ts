@@ -33,6 +33,8 @@ import punhadodegraodecafe from "./maos-de-homem-irreconhecivel-segurando-um-pun
 import frown from "./frown.png"
 import laugh from "./laugh.png"
 import meh from "./meh.png"
+import cancelado from "./x.png"
+
 
 export const Images = {
   CafeExpresso,
@@ -70,4 +72,5 @@ export const Images = {
   frown,
   laugh,
   meh,
+  cancelado,
 };
