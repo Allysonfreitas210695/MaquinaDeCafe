@@ -1,13 +1,14 @@
 name: CI - MaquinaDeCafe
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: ["SonarQube"] 
+    types:
+      - completed
 
 jobs:
   build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     services:
@@ -26,17 +27,17 @@ jobs:
           --health-retries 5
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
-      working-directory: Backend/MaquinaDeCafe
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: Backend/MaquinaDeCafe
 
-    - name: Build
-      run: dotnet build --no-restore
-      working-directory: Backend/MaquinaDeCafe
+      - name: Build
+        run: dotnet build --no-restore
+        working-directory: Backend/MaquinaDeCafe

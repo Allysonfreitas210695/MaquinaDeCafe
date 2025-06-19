@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MaquinaDeCafe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250526231620_AddCategoriaCafe")]
-    partial class AddCategoriaCafe
+    [Migration("20250618111807_InitialTables")]
+    partial class InitialTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,9 +45,6 @@ namespace MaquinaDeCafe.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
-
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(10, 2)");
 
                     b.Property<int>("TempoPreparoSegundos")
                         .HasColumnType("integer");
@@ -188,6 +185,9 @@ namespace MaquinaDeCafe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CafeId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -202,10 +202,12 @@ namespace MaquinaDeCafe.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("ValorExtra")
+                    b.Property<decimal>("Valor")
                         .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CafeId");
 
                     b.ToTable("TamanhosXicara", (string)null);
                 });
@@ -256,9 +258,22 @@ namespace MaquinaDeCafe.Migrations
                     b.Navigation("PedidoItem");
                 });
 
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.TamanhoXicara", b =>
+                {
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
+                        .WithMany("TamanhosXicara")
+                        .HasForeignKey("CafeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cafe");
+                });
+
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Cafe", b =>
                 {
                     b.Navigation("PedidoItens");
+
+                    b.Navigation("TamanhosXicara");
                 });
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.IngredienteAdicional", b =>

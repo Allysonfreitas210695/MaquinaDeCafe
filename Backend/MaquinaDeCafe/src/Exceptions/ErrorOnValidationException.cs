@@ -4,7 +4,7 @@ namespace MaquinaDeCafe.src.Exceptions;
 
 public class ErrorOnValidationException : MaquinaDeCafeException
 {
-    public List<string> Errors { get; set; } = [];
+    public List<string> Errors { get; set; }
 
     public ErrorOnValidationException(List<string> errorMessages) : base(string.Empty)
     {

@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MaquinaDeCafe.src.Communication.Request;
 
 public class RequestAtualizacaoIngredienteAdicionalJson
 {
     public string Nome { get;  set; } = string.Empty;
-    public decimal ValorExtra { get; set; }
+    [Required(ErrorMessage = "O campo 'ValorExtra' é obrigatório.")]
+    public required decimal ValorExtra { get; set; }
 }

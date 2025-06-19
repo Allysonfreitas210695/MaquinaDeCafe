@@ -135,8 +135,23 @@
   <data name="CafePrecoMaiorQueZero" xml:space="preserve">
     <value>O preço deve ser maior que zero.</value>
   </data>
+  <data name="CafesNaoEncontrados" xml:space="preserve">
+    <value>Um ou mais cafés não foram encontrados.</value>
+  </data>
   <data name="CoffeePreparationTimeInvalid" xml:space="preserve">
     <value>Tempo de preparo do café deve ser maior que zero.</value>
+  </data>
+  <data name="ErroCriarPedido" xml:space="preserve">
+    <value>Erro ao criar o pedido. Verifique os dados informados.</value>
+  </data>
+  <data name="ErrorCriarCafe" xml:space="preserve">
+    <value>Erro ao criar o Café. Verifique os dados informados.</value>
+  </data>
+  <data name="ErrorCriarIngrediente" xml:space="preserve">
+    <value>Erro ao criar o Ingrediente. Verifique os dados informados.</value>
+  </data>
+  <data name="ErrorCriarTamanhoXicara" xml:space="preserve">
+    <value>Erro ao criar o Tamanho da xícara. Verifique os dados informados.</value>
   </data>
   <data name="FormaPreparoNaoEncontrado" xml:space="preserve">
     <value>Forma de preparo não encontrado.</value>
@@ -146,6 +161,9 @@
   </data>
   <data name="FormaPreparoTempoInvalido" xml:space="preserve">
     <value>O tempo de preparo deve ser maior que zero.</value>
+  </data>
+  <data name="IngredienteAdicionalNaoEncontrado" xml:space="preserve">
+    <value>Ingrediente adicional não encontrado.</value>
   </data>
   <data name="IngredienteAdicionalNomeObrigatorio" xml:space="preserve">
     <value>O nome do ingrediente adicional é obrigatório.</value>
@@ -162,20 +180,35 @@
   <data name="InvalidCoffeeCategory" xml:space="preserve">
     <value>Categoria do café inválida.</value>
   </data>
+  <data name="MaximoAdicionaisPorCafe" xml:space="preserve">
+    <value>Cada café pode ter no máximo 4 ingredientes adicionais.</value>
+  </data>
+  <data name="MaximoCafesPorPedido" xml:space="preserve">
+    <value>Não é permitido adicionar mais de 10 cafés em um único pedido.</value>
+  </data>
   <data name="PedidoCafeObrigatorio" xml:space="preserve">
     <value>É necessário selecionar um café.</value>
   </data>
   <data name="PedidoFormaPreparoObrigatoria" xml:space="preserve">
     <value>É necessário selecionar uma forma de preparo.</value>
   </data>
+  <data name="PedidoIdObrigatorio" xml:space="preserve">
+    <value>Pedido é obrigatório.</value>
+  </data>
   <data name="PedidoItemInvalido" xml:space="preserve">
     <value>Item do pedido inválido.</value>
+  </data>
+  <data name="PedidoNaoEncontrado" xml:space="preserve">
+    <value>Pedido não encontrado!</value>
   </data>
   <data name="PedidoProdutoIndisponivel" xml:space="preserve">
     <value>O produto selecionado está indisponível.</value>
   </data>
   <data name="PedidoQuantidadeInvalida" xml:space="preserve">
     <value>A quantidade deve ser maior que zero.</value>
+  </data>
+  <data name="PedidoStatusAlteracaoInvalida" xml:space="preserve">
+    <value>Não é possível alterar o status de um pedido que já foi entregue.</value>
   </data>
   <data name="PedidoStatusAlteracaoNaoPermitida" xml:space="preserve">
     <value>Não é possível alterar o status de um pedido que já foi entregue ou cancelado.</value>
@@ -186,11 +219,23 @@
   <data name="PedidoTempoPreparoInvalido" xml:space="preserve">
     <value>Tempo de preparo deve ser maior que zero.</value>
   </data>
+  <data name="TamanhosXicaraNaoEncontrados" xml:space="preserve">
+    <value>Um ou mais tamanhos de xícara não foram encontrados.</value>
+  </data>
+  <data name="TamanhoXicaraCafeIdObrigatorio" xml:space="preserve">
+    <value>O campo 'CafeId' é obrigatório.</value>
+  </data>
   <data name="TamanhoXicaraDescricaoObrigatoria" xml:space="preserve">
     <value>Descrição do tamanho da xícara é obrigatória.</value>
   </data>
   <data name="TamanhoXicaraMlInvalido" xml:space="preserve">
     <value>Quantidade de ml deve ser maior que zero.</value>
+  </data>
+  <data name="TamanhoXicaraNaoEncontrado" xml:space="preserve">
+    <value>Tamanho da xícara não encontrado.</value>
+  </data>
+  <data name="TamanhoXicaraNaoEncontradoExclamacao" xml:space="preserve">
+    <value>Tamanho de xícara não encontrado!</value>
   </data>
   <data name="TamanhoXicaraValorExtraNegativo" xml:space="preserve">
     <value>Valor extra não pode ser negativo.</value>

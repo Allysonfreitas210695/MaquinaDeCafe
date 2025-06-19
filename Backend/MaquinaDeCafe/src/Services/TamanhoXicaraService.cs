@@ -4,11 +4,13 @@ using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Models.Entities;
 using MaquinaDeCafe.src.Repositories;
+using MaquinaDeCafe.src.Resources;
+using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaquinaDeCafe.src.Services;
 
-public class TamanhoXicaraService : TamanhoXicaraRepository
+public class TamanhoXicaraService : ITamanhoXicaraRepository
 {
     private readonly ApplicationDbContext _dbContext;
     public TamanhoXicaraService(ApplicationDbContext dbContext)
@@ -18,33 +20,55 @@ public class TamanhoXicaraService : TamanhoXicaraRepository
 
     public async Task AddAsync(RequestTamanhoXicaraJson request)
     {
-        var _criacaoValidator = new RequestTamanhoXicaraValidator();
-        var validation = await _criacaoValidator.ValidateAsync(request);
-        if (!validation.IsValid)
-            throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
+        try
+        {
+            var _criacaoValidator = new RequestTamanhoXicaraValidator();
+            var validation = await _criacaoValidator.ValidateAsync(request);
+            if (!validation.IsValid)
+                throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
-        await _dbContext.AddAsync(new TamanhoXicara(Guid.NewGuid(), request.Descricao, request.Ml, request.ValorExtra));
-        await _dbContext.SaveChangesAsync();
+            await _dbContext.AddAsync(new TamanhoXicara(Guid.NewGuid(), request.Descricao, request.Ml, request.Valor, request.CafeId));
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (ErrorOnValidationException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarTamanhoXicara, ex);
+        }
     }
 
     public  async Task<ResponseTamanhoXicaraJson> GetItemByIdAsync(Guid id)
     {   
-        var _tamanhoXicara = await _dbContext.TamanhosXicara
-                                .Where(x => x.Id == id)
-                                .Select(z => new ResponseTamanhoXicaraJson()
-                                {
-                                    Id = z.Id,
-                                    Descricao = z.Descricao,
-                                    Ml = z.Ml,
-                                    ValorExtra = z.ValorExtra
-                                })
-                                .AsNoTracking()
-                                .FirstOrDefaultAsync();
+        try
+        {
+            var _tamanhoXicara = await _dbContext.TamanhosXicara
+                                    .Where(x => x.Id == id)
+                                    .Select(z => new ResponseTamanhoXicaraJson()
+                                    {
+                                        Id = z.Id,
+                                        Descricao = z.Descricao,
+                                        Ml = z.Ml,
+                                        Valor = z.Valor
+                                    })
+                                    .AsNoTracking()
+                                    .FirstOrDefaultAsync();
 
-        if (_tamanhoXicara is null)
-            throw new NotFoundException("Tamanho de xícara não encontrado!");
+            if (_tamanhoXicara is null)
+                throw new NotFoundException(ErrorsMensagem.TamanhoXicaraNaoEncontradoExclamacao);
 
-        return _tamanhoXicara;
+            return _tamanhoXicara;
+        }
+        catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarTamanhoXicara, ex);
+        }
     }
 
     public async Task<List<ResponseTamanhoXicaraJson>> GetListAsync()
@@ -55,7 +79,7 @@ public class TamanhoXicaraService : TamanhoXicaraRepository
                                     Id = z.Id,
                                     Descricao = z.Descricao,
                                     Ml = z.Ml,
-                                    ValorExtra = z.ValorExtra
+                                    Valor = z.Valor
                                 })
                                 .AsNoTracking()
                                 .ToListAsync();
@@ -63,17 +87,32 @@ public class TamanhoXicaraService : TamanhoXicaraRepository
 
     public async Task UpdateAsync(Guid id, RequestTamanhoXicaraJson request)
     {
-        var _criacaoValidator = new RequestTamanhoXicaraValidator();
-        var validation = await _criacaoValidator.ValidateAsync(request);
-        if (!validation.IsValid)
-            throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
+        try
+        {
+            var _criacaoValidator = new RequestTamanhoXicaraValidator();
+            var validation = await _criacaoValidator.ValidateAsync(request);
+            if (!validation.IsValid)
+                throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
-        var _tamanhoXicara = await _dbContext.TamanhosXicara.FirstOrDefaultAsync(x => x.Id == id);
-        if(_tamanhoXicara is null)
-            throw new NotFoundException("Tamanho de xícara não encontrado!");
+            var _tamanhoXicara = await _dbContext.TamanhosXicara.FirstOrDefaultAsync(x => x.Id == id);
+            if(_tamanhoXicara is null)
+                throw new NotFoundException(ErrorsMensagem.TamanhoXicaraNaoEncontradoExclamacao);
 
-        _tamanhoXicara.Atualizar(request.Descricao, request.Ml, request.ValorExtra);
+            _tamanhoXicara.Atualizar(request.Descricao, request.Ml, request.Valor, request.CafeId);
         
-        await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (NotFoundException)
+        {
+            throw;
+        } 
+        catch (ErrorOnValidationException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(ErrorsMensagem.ErrorCriarTamanhoXicara, ex);
+        }
     }
 }

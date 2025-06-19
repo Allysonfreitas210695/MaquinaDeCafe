@@ -23,10 +23,6 @@ namespace MaquinaDeCafe.src.Data.Configurations
             builder.Property(c => c.TempoPreparoSegundos)
                 .IsRequired();
 
-            builder.Property(c => c.Preco)
-                .HasColumnType("decimal(10, 2)")
-                .IsRequired();
-
             builder.HasMany(c => c.PedidoItens)
                 .WithOne(pi => pi.Cafe)
                 .HasForeignKey(pi => pi.CafeId)

@@ -62,34 +62,4 @@ public class RequestCriacaoCafeJsonTest
             e.PropertyName == "Descricao" &&
             e.ErrorMessage == ErrorsMensagem.cafeDescricaoTamanhoMinimo);
     }
-
-    [Fact]
-    public void DeveRetornarErro_QuandoPrecoForZero()
-    {
-        var request = RequestCriacaoCafeJsonBuilder.Build();
-        request.Preco = 0.0m;
-
-        var _validator = new RequestCriacaoCafeValidator();
-        var result = _validator.Validate(request);
-
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e =>
-            e.PropertyName == "Preco" &&
-            e.ErrorMessage == ErrorsMensagem.CafePrecoMaiorQueZero);
-    }
-
-    [Fact]
-    public void DeveRetornarErro_QuandoPrecoForNegativo()
-    {
-        var request = RequestCriacaoCafeJsonBuilder.Build();
-        request.Preco = -5.0m;
-
-        var _validator = new RequestCriacaoCafeValidator();
-        var result = _validator.Validate(request);
-
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e =>
-            e.PropertyName == "Preco" &&
-            e.ErrorMessage == ErrorsMensagem.CafePrecoMaiorQueZero);
-    }
 }

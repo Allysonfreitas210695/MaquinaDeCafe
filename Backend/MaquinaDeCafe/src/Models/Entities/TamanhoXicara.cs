@@ -8,18 +8,22 @@ public class TamanhoXicara : Entity
 {
     public string Descricao { get; private set; } = string.Empty;
     public int Ml { get; private set; }
-    public decimal ValorExtra { get; private set; }
+    public decimal Valor { get; private set; }
+
+    public Guid CafeId { get; private set; }
+    public Cafe Cafe { get; private set; } = default!;
 
     public List<PedidoItem> PedidoItens { get; private set; } = new();
 
     public TamanhoXicara() {}
 
-    public TamanhoXicara(Guid? id, string descricao, int ml, decimal valorExtra)
+    public TamanhoXicara(Guid? id, string descricao, int ml, decimal valor, Guid cafeId)
     {
         Id = id ?? Guid.NewGuid();
         Descricao = descricao;
         Ml = ml;
-        ValorExtra = valorExtra;
+        Valor = valor;
+        CafeId = cafeId;
 
         Validar();
     }
@@ -32,15 +36,20 @@ public class TamanhoXicara : Entity
         if (Ml <= 0)
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.TamanhoXicaraMlInvalido });
 
-        if (ValorExtra < 0)
+        if (Valor < 0)
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.TamanhoXicaraValorExtraNegativo });
+
+        if (CafeId == Guid.Empty)
+            throw new ErrorOnValidationException(new List<string> { "CafeId obrigatório para TamanhoXicara." });
     }
 
-    public void Atualizar(string descricao, int ml, decimal valorExtra)
+    public void Atualizar(string descricao, int ml, decimal valorExtra, Guid cafeId)
     {
         Descricao = descricao;
         Ml = ml;
-        ValorExtra = valorExtra;
+        Valor = valorExtra;
+        CafeId = cafeId;
+
         Validar();
     }
 }

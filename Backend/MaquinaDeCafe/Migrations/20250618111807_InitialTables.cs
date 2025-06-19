@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MaquinaDeCafe.Migrations
 {
     /// <inheritdoc />
-    public partial class initalCatalog : Migration
+    public partial class InitialTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +18,8 @@ namespace MaquinaDeCafe.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Descricao = table.Column<string>(type: "text", nullable: false),
-                    Preco = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
                     TempoPreparoSegundos = table.Column<int>(type: "integer", nullable: false),
+                    Categoria = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -65,13 +65,20 @@ namespace MaquinaDeCafe.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Descricao = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Ml = table.Column<int>(type: "integer", nullable: false),
-                    ValorExtra = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    Valor = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    CafeId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TamanhosXicara", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TamanhosXicara_Cafes_CafeId",
+                        column: x => x.CafeId,
+                        principalTable: "Cafes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,6 +170,11 @@ namespace MaquinaDeCafe.Migrations
                 name: "IX_PedidoItens_TamanhoXicaraId",
                 table: "PedidoItens",
                 column: "TamanhoXicaraId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TamanhosXicara_CafeId",
+                table: "TamanhosXicara",
+                column: "CafeId");
         }
 
         /// <inheritdoc />
@@ -178,13 +190,13 @@ namespace MaquinaDeCafe.Migrations
                 name: "PedidoItens");
 
             migrationBuilder.DropTable(
-                name: "Cafes");
-
-            migrationBuilder.DropTable(
                 name: "Pedidos");
 
             migrationBuilder.DropTable(
                 name: "TamanhosXicara");
+
+            migrationBuilder.DropTable(
+                name: "Cafes");
         }
     }
 }

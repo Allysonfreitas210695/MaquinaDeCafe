@@ -36,13 +36,6 @@ public class CafeTest
     }
 
     [Fact]
-    public void DeveLancarErro_QuandoPrecoForZeroOuNegativo()
-    {
-        Action act = () => CafeBuilder.Build(preco: 0m);
-        act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.CafePrecoMaiorQueZero);
-    }
-
-    [Fact]
     public void DeveLancarErro_QuandoAtualizarNomeComValorVazio()
     {
         var cafe = CafeBuilder.Build();
@@ -64,13 +57,5 @@ public class CafeTest
         var cafe = CafeBuilder.Build();
         Action act = () => cafe.UpdateDescricao("Desc");
         act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.CafeDescricaoMinima);
-    }
-
-    [Fact]
-    public void DeveLancarErro_QuandoAtualizarPrecoComValorZeroOuNegativo()
-    {
-        var cafe = CafeBuilder.Build();
-        Action act = () => cafe.UpdatePreco(0m);
-        act.Should().Throw<ErrorOnValidationException>().Which.Errors.Should().Contain(ErrorsMensagem.CafePrecoMaiorQueZero);
     }
 }
