@@ -32,11 +32,7 @@ public class CafeController : ControllerBase
 
     public async Task<ActionResult<ResponseCafeJson>> GetItemById(Guid id)
     {
-        var cafe = await _service.GetItemByIdAsync(id);
-        if (cafe == null)
-            return NotFound();
-
-        return Ok(cafe);
+        return Ok(await _service.GetItemByIdAsync(id));
     }
 
     [HttpPost]

@@ -61,6 +61,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Avaliação do café não encontrado..
+        /// </summary>
+        public static string AvaliacaoCafeEncontrado {
+            get {
+                return ResourceManager.GetString("AvaliacaoCafeEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A descrição deve ter pelo menos 5 caracteres..
         /// </summary>
         public static string CafeDescricaoMinima {
