@@ -144,36 +144,30 @@ public class CafeService : ICafeRepository
             .AsQueryable();
 
         if (categoria.HasValue)
-            query = query.Where(c => c.Categoria == categoria.Value);
-
-        try
+            query = query.Where(c => c.Categoria == categoria.Value); 
+            
+        return await query
+        .Select(c => new ResponseCafeJson
         {
-            return await query
-            .Select(c => new ResponseCafeJson
+            Id = c.Id,
+            Nome = c.Nome,
+            Descricao = c.Descricao,
+            TempoPreparoSegundos = c.TempoPreparoSegundos,
+            Categoria = c.Categoria.ToDescricao(),
+            TamanhosXicara = c.TamanhosXicara.Select(z => new ResponseTamanhoXicaraJson()
             {
-                Id = c.Id,
-                Nome = c.Nome,
-                Descricao = c.Descricao,
-                TempoPreparoSegundos = c.TempoPreparoSegundos,
-                Categoria = c.Categoria.ToDescricao(),
-                TamanhosXicara = c.TamanhosXicara.Select(z => new ResponseTamanhoXicaraJson()
-                {
-                    Id = z.Id,
-                    CafeId = z.CafeId,
-                    Descricao = z.Descricao,
-                    Ml = z.Ml,
-                    Valor = z.Valor
-                }).ToList(),
-                MediaAvaliacoes = c.AvaliacoesCafe.Any()
-                ? c.AvaliacoesCafe.Average(a => (double?)a.Estrelas) ?? 0.0
-                : 0.0
-            })
-            .AsNoTracking()
-            .ToListAsync();
-        }catch(Exception ex)
-        {
-            throw new ArgumentException(ex?.InnerException?.Message ?? ex?.Message);
-        }
+                Id = z.Id,
+                CafeId = z.CafeId,
+                Descricao = z.Descricao,
+                Ml = z.Ml,
+                Valor = z.Valor
+            }).ToList(),
+            MediaAvaliacoes = c.AvaliacoesCafe.Any()
+            ? c.AvaliacoesCafe.Average(a => (double?)a.Estrelas) ?? 0.0
+            : 0.0
+        })
+        .AsNoTracking()
+        .ToListAsync(); 
     }
 
     public async Task RemoverAsync(Guid id)
