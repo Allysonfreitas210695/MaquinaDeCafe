@@ -8,15 +8,16 @@ import { HeaderNavegacao } from "./HeaderNavegacao/navegacao";
 import { getCafes } from "../../Service/apiService";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
+import { ApiTamanhoXicara } from "../../Service/interface";
 
 interface TransformedCafe {
   id: string;
   nome: string;
   descricao: string;
-  preco: number;
   categoria: string;
   tempoPreparoSegundos: number;
   imagemUrl?: string;
+  tamanhosXicara: ApiTamanhoXicara[];
 }
 
 export const FacaPedido = () => {
@@ -41,10 +42,10 @@ export const FacaPedido = () => {
           id: item.id,
           nome: item.nome,
           descricao: item.descricao,
-          preco: item.preco,
           categoria: item.categoria,
           tempoPreparoSegundos: item.tempoPreparoSegundos,
           imagemUrl: Images.CafeExpresso,
+          tamanhosXicara: item.tamanhosXicara,
         }));
         setNewsPedidos(transformedData);
         setErrorFetchingCafes(false);
@@ -81,32 +82,34 @@ export const FacaPedido = () => {
       <S.Pedido__Escolha>
         <S.Container__Card>
           {filteredCafes.map(
-            ({
-              id,
-              nome,
-              descricao,
-              preco,
-              categoria,
-              tempoPreparoSegundos,
-              imagemUrl,
-            }, index) => (
-              <CafeCard key={index}
+            (
+              {
+                id,
+                nome,
+                descricao,
+                categoria,
+                tempoPreparoSegundos,
+                imagemUrl,
+                tamanhosXicara,
+              },
+              index
+            ) => (
+              <CafeCard
+                key={index}
                 id={id}
                 title={nome}
                 description={descricao}
-                price={preco}
                 tag={categoria}
                 preparation={tempoPreparoSegundos}
                 imageSrc={imagemUrl || Images.CafeExpresso}
-                onCustomize={handleCustomizeCafe} 
+                onCustomize={handleCustomizeCafe}
+                tamanhosXicara={tamanhosXicara}
               />
             )
           )}
         </S.Container__Card>
       </S.Pedido__Escolha>
-      <S.Header__Titulo>
-        Devine Café
-      </S.Header__Titulo>
+      <S.Header__Titulo>Devine Café</S.Header__Titulo>
     </S.Container__Pedido_Header>
   );
 };

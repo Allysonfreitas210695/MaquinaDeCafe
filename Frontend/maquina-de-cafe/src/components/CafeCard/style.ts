@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-  width: 320px;
+  width: 330px;
   background-color: #ffffff;
   box-shadow: 0 8.76px 26.28px 0 #0000001a;
   border-radius: 14px;
   margin-top: 20px;
-  margin-left: 50px;
+  margin-left: 45px;
   margin-bottom: 50px;
   text-align: center;
   font-family: Poppins;
@@ -95,6 +95,9 @@ export const Description = styled.p`
   display: flex;
   flex-wrap: wrap;
   width: 250px;
+  height: 50px;
+  overflow-y: scroll;
+  padding-right: 8px;
   text-align: center;
   font-size: 14px;
   font-family: Poppins;
@@ -104,6 +107,28 @@ export const Description = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
+
+   &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #432c1b; 
+    border-radius: 8px;
+    border: 2px solid #f1f1f1; 
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #432c1b;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #f3f3f3 #ffffff;
 `;
 
 export const StyledWrapper = styled.div`

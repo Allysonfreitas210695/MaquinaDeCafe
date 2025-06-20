@@ -26,7 +26,7 @@ export const Nav = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 30px;
+  gap: 180px;
   padding: 8px 70px;
   position: fixed;
   left: 50%;
