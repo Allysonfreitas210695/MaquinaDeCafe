@@ -8,7 +8,7 @@ export const TipoPagamento = () => {
     <S.Container__Tipo_Pagamento>
       <S.Pagamento__Header>
         <S.Titulo__pagamento_Header>Pronto para um Devine Café?</S.Titulo__pagamento_Header>
-        <Link className="button" to="">Cancelar</Link>
+        <Link className="button" to="">CANCELAR</Link>
       </S.Pagamento__Header>
       <S.Tipo__Confirmar_Pagamento>
         <S.Conteudo__Pagamento>

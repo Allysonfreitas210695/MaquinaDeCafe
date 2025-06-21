@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { Images } from "../../../assets/Images";
 import * as S from "./style";
 import { IoCartSharp } from "react-icons/io5";
 
-const pedidos = [
+ const pedidos = [
   {
     nome: "Café Expresso",
     ml: "100ml",
@@ -32,6 +33,8 @@ const pedidos = [
     quant: "2",
   },
 ];
+
+
 
 export const CardPagamento = () => {
   return (
@@ -67,20 +70,21 @@ export const CardPagamento = () => {
               <div className="payments">
                 <div className="details">
                   <span>Subtotal:</span>
-                  <h3>R$240.00</h3>
+                  <h3>R$ 12,00</h3>
                   <span>Taxa de serviço:</span>
-                  <h3>R$10.00</h3>
+                  <h3>R$ 12,00</h3>
                 </div>
                 <div className="footer">
                   <form action="">
                     <label className="price">
                       <span>Total</span>
-                      <p>R$ 8.00</p>
+                      <p>R$ 24,00</p>
                     </label>
                   </form>
-                  <button className="checkout-btn">
-                    <IoCartSharp /> Confirmar e Pagar
-                  </button>
+                  <Link className="checkout-btn" to={"/pedidofinalizado"}>
+                    <IoCartSharp /> Confirmar Pagamento
+                  
+                  </Link>
                 </div>
               </div>
             </div>

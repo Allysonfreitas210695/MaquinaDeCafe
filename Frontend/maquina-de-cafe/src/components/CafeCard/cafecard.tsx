@@ -4,18 +4,8 @@ import { Images } from "../../assets/Images";
 import { FaRegStar } from "react-icons/fa";
 import { LuClock2 } from "react-icons/lu";
 import { IoCartSharp } from "react-icons/io5";
+import { CoffeeCustomizationData } from "../../Service/interface";
 
-// Interface para os dados do café que serão enviados
-export interface CoffeeCustomizationData {
-  id: string;
-  title: string;
-  description: string;
-  imageSrc: string;
-  selectedCupMl: number | undefined;
-  selectedCupDescription: string | undefined;
-  preparation: number;
-  selectedCupValue: number | undefined;
-}
 
 export interface CoffeeCardProps {
   id: string;
@@ -74,6 +64,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
     }
   }, [initialTamanhosXicara]);
 
+
   return (
     <S.CardContainer>
       <S.Image src={Images.CafeExpresso} alt={title} />
@@ -101,7 +92,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
       </S.StyledWrapper>
 
       <S.PriceSection>
-        <S.PriceCarrinho>
+        <S.PriceCarrinho >
           <S.Price>
             <span> R$ {selectedCup ? selectedCup.valor.toFixed(2).replace('.', ',') : '0,00'}</span>
           </S.Price>

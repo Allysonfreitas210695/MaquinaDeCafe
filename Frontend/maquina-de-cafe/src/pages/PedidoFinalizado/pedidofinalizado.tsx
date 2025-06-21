@@ -106,7 +106,7 @@ export const PedidoFinalizado = () => {
         <Link className="finalizar__pedido" to={""}>
           Finalizar Pedido
         </Link>
-        <Link className="cancelar__pedido" to={""}>
+        <Link className="cancelar__pedido" to={"/cancelado"}>
           Cancelar Pedido
         </Link>
       </S.Button__Pedido>

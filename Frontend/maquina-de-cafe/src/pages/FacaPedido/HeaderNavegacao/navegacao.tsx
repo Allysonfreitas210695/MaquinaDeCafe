@@ -6,7 +6,6 @@ interface IFacaPedidoProps {
   Link0: string;
   Link1: string;
   Link2: string;
-  Link3: string;
  
   onCategoryChange: (category: string) => void; // Nova propriedade: uma função que recebe uma string (a categoria)
 }
@@ -16,7 +15,7 @@ const facaPedido: IFacaPedidoProps[] = [
     Link0: "Todos",
     Link1: "Quentes",
     Link2: "Gelados",
-    Link3: "Voltar",
+ 
   
     onCategoryChange: () => {}, // Valor padrão (será sobrescrito pelo componente pai)
   },
@@ -36,7 +35,7 @@ export const HeaderNavegacao = ({
 
   return (
     <>
-      {facaPedido.map(({ Link0, Link1, Link2, Link3 }, index) => (
+      {facaPedido.map(({ Link0, Link1, Link2 }, index) => (
         <S.Navegacao__Header key={index}>
           <S.Nav>
             <S.MenuItem
@@ -61,14 +60,6 @@ export const HeaderNavegacao = ({
             >
               <Link className="link" to="">
                 {Link2}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 3}
-              onClick={() => handleMenuItemClick(3, Link3)}
-            >
-              <Link className="link" to="">
-                {Link3}
               </Link>
             </S.MenuItem>
           </S.Nav>

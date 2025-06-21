@@ -15,14 +15,14 @@ export const Pagamento__Header = styled.div`
   .button {
     font-family: Sora;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 20px;
     line-height: 100%;
     letter-spacing: 0%;
-    color: #ffffff82;
+    color: #ffffff;
     background-color: #3F1811;
     text-decoration: none;
     border-radius: 74px;
-    padding: 10px 20px;
+    padding: 15px 30px;
     margin-right: 30px;
   }
 `;

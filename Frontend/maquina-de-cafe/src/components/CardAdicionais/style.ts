@@ -5,7 +5,7 @@ export const Container__Card_Adicionais = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 340px;
+  width: 430px;
   border-radius: 16px;
   border: 1px solid #80808021;
   padding: 20px;
@@ -14,6 +14,7 @@ export const Container__Card_Adicionais = styled.div`
 export const Titulo_Adicionais = styled.div`
   display: flex;
   flex-direction: column;
+  padding-right: 50px;
 
   span {
     font-family: Sora;
@@ -81,13 +82,14 @@ export const Wrapper__Adicionais_Tx = styled.div<{ active: boolean }>`
   font-size: 16px;
   line-height: 100%;
   letter-spacing: -0.33px;
-  width: 96px;
+  width: 130px;
   padding: 0.6rem 1rem;
   border: 1px solid #6f482929;
   border-radius: 38px; /* arredondado só à esquerda */
   transition: all 0.3s ease;
   text-align: center;
   cursor: pointer;
+  margin-bottom: 20px;
 
   .tamanho_da_xicra {
     span {
@@ -150,8 +152,34 @@ export const Mais__Adicionais = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8rem;
+  gap: 150px;
   padding: 30px 0;
+  overflow-y: scroll;
+  width: 400px;
+  height: 10vh;
+  margin: 30px 0;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #432c1b;
+    border-radius: 8px;
+    border: 2px solid #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #432c1b;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #432c1b #ffffff;
 
   .tipos__adicionais {
     display: flex;
@@ -197,7 +225,7 @@ export const Mais__Adicionais = styled.div`
 export const Total = styled.div`
   display: flex;
   align-items: center;
-  gap: 9rem;
+  gap: 15rem;
 
   h1 {
     font-family: Sora;
@@ -220,8 +248,9 @@ export const Total = styled.div`
 
 export const Button__Finalizar = styled.button`
   background-color: #512615;
-  padding: 10px 60px;
+  padding: 20px 100px;
   margin: 20px 0;
+  width: 410px;
   border-radius: 32px;
   font-family: Sora;
   font-weight: 600;

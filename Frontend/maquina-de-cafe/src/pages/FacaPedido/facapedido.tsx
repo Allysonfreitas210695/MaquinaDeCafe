@@ -1,14 +1,15 @@
 import * as S from "./style";
 import {
-  CafeCard,
-  CoffeeCustomizationData,
+  CafeCard
 } from "../../components/CafeCard/cafecard";
 import { useEffect, useState } from "react";
 import { HeaderNavegacao } from "./HeaderNavegacao/navegacao";
 import { getCafes } from "../../Service/apiService";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
-import { ApiTamanhoXicara } from "../../Service/interface";
+import { ApiTamanhoXicara, CoffeeCustomizationData } from "../../Service/interface";
+import { Link } from "react-router-dom";
+
 
 interface TransformedCafe {
   id: string;
@@ -27,6 +28,8 @@ export const FacaPedido = () => {
   const [errorFetchingCafes, setErrorFetchingCafes] = useState<boolean>(false);
   const navigate = useNavigate();
 
+
+  
   // Função chamada pelo CafeCard quando o botão "Personalizar" é clicado
   const handleCustomizeCafe = (cafeData: CoffeeCustomizationData) => {
     console.log("Dados do café para personalizar:", cafeData);
@@ -79,6 +82,7 @@ export const FacaPedido = () => {
   return (
     <S.Container__Pedido_Header>
       <HeaderNavegacao onCategoryChange={handleCategoryChange} />
+      <Link className="button__voltar" to={"/"}>VOLTAR</Link>
       <S.Pedido__Escolha>
         <S.Container__Card>
           {filteredCafes.map(
@@ -108,6 +112,7 @@ export const FacaPedido = () => {
             )
           )}
         </S.Container__Card>
+    
       </S.Pedido__Escolha>
       <S.Header__Titulo>Devine Café</S.Header__Titulo>
     </S.Container__Pedido_Header>

@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
-import { CoffeeCustomizationData } from "../CafeCard/cafecard";
+import { CoffeeCustomizationData, SelectedAdicional } from "../../Service/interface";
+
+
 
 interface CardAdicionaisProps {
   cafeData: CoffeeCustomizationData;
+  selectedAdicionais: SelectedAdicional[];
 }
 
-export const CardAdicionais: React.FC<CardAdicionaisProps> = ({ cafeData }) => {
+export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
+  cafeData,
+  selectedAdicionais,
+}) => {
   const [activeIndexTa, setActiveIndexTa] = useState<number | null>(null);
   const [activeIndexLit, setActiveIndexLit] = useState<number | null>(null);
 
@@ -30,6 +36,17 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({ cafeData }) => {
       }
     }
   }, [cafeData.selectedCupMl]);
+
+  const calculateTotal = () => {
+    let total = cafeData.selectedCupValue || 0;
+
+    selectedAdicionais.forEach((adicional) => {
+      total += adicional.valorExtra * adicional.quantidade;
+    });
+
+    return total;
+  };
+
   return (
     <S.Container__Card_Adicionais>
       <S.Titulo_Adicionais>
@@ -69,13 +86,19 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({ cafeData }) => {
             active={activeIndexTa === 1}
             onClick={() => setActiveIndexTa(1)}
           >
-            <span>S/ Açucar</span>
+            <span>Mascavo</span>
           </S.Wrapper__Adicionais_Ta>
           <S.Wrapper__Adicionais_Ta
             active={activeIndexTa === 2}
             onClick={() => setActiveIndexTa(2)}
           >
             <span>Adoçante</span>
+          </S.Wrapper__Adicionais_Ta>
+          <S.Wrapper__Adicionais_Ta
+            active={activeIndexTa === 3}
+            onClick={() => setActiveIndexTa(3)}
+          >
+            <span>S/ Açucar</span>
           </S.Wrapper__Adicionais_Ta>
         </div>
 
@@ -84,47 +107,61 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({ cafeData }) => {
             active={activeIndexLit === 0}
             onClick={() => setActiveIndexLit(0)}
           >
-            <span>Leite</span>
+            <span>Integral</span>
           </S.Wrapper__Adicionais_Leite>
           <S.Wrapper__Adicionais_Leite
             active={activeIndexLit === 1}
             onClick={() => setActiveIndexLit(1)}
           >
-            <span>Integral</span>
+            <span>Desnatado</span>
           </S.Wrapper__Adicionais_Leite>
           <S.Wrapper__Adicionais_Leite
             active={activeIndexLit === 2}
             onClick={() => setActiveIndexLit(2)}
+          >
+            <span>0 Lactose</span>
+          </S.Wrapper__Adicionais_Leite>
+          <S.Wrapper__Adicionais_Leite
+            active={activeIndexLit === 3}
+            onClick={() => setActiveIndexLit(3)}
           >
             <span>S/ Leite</span>
           </S.Wrapper__Adicionais_Leite>
         </div>
       </S.StyledWrapper__Adicionais>
       <S.Mais__Adicionais>
-        <div className="tipos__adicionais">
-          <span>
-            {" "}
-            <img src={Images.Plus} alt="imagem de mais" />
-            Canela
-          </span>
-          <span>
-            <img src={Images.Plus} alt="imagem de mais" />
-            Leite
-          </span>
-          <span>
-            <img src={Images.Plus} alt="imagem de mais" />
-            Canela
-          </span>
-        </div>
-        <div className="valores">
-          <p>R$ 0.75</p>
-          <p>R$ 0.50</p>
-          <p>R$ 0.50</p>
-        </div>
+        {selectedAdicionais.length > 0 ? (
+          <>
+            <div className="tipos__adicionais">
+              {selectedAdicionais.map((adicional) => (
+                <span key={adicional.id}>
+                  {" "}
+                  <img src={Images.Plus} alt="imagem de mais" />
+                  {adicional.nome}{" "}
+                  {adicional.quantidade > 1 ? `(${adicional.quantidade}x)` : ""}
+                </span>
+              ))}
+            </div>
+            <div className="valores">
+              {selectedAdicionais.map((adicional) => (
+                <p key={`valor-${adicional.id}`}>
+                  R${" "}
+                  {(adicional.valorExtra * adicional.quantidade)
+                    .toFixed(2)
+                    .replace(".", ",")}
+                </p>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p style={{ textAlign: "center", width: "100%", color: "#666" }}>
+            Nenhum adicional selecionado.
+          </p>
+        )}
       </S.Mais__Adicionais>
       <S.Total>
         <h1>Total</h1>
-        <span>R$ 12.75</span>
+        <span>R$ {calculateTotal().toFixed(2).replace(".", ",")}</span>
       </S.Total>
       <S.Button__Finalizar>Finalizar Personalização</S.Button__Finalizar>
     </S.Container__Card_Adicionais>
