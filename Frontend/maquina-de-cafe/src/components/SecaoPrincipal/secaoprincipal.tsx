@@ -20,8 +20,8 @@ const secaoPrincipal: ISecaoPrincipalProps[] = [
 export const SecaoPrincipal = () => {
   return (
     <S.Contaner__Secao_Principal>
-      {secaoPrincipal.map(({ Titulo, Button, Span }) => (
-        <React.Fragment>
+      {secaoPrincipal.map(({ Titulo, Button, Span }, index) => (
+        <React.Fragment key={index}>
           <S.Conteudo__Secao>
             <span>{Span}</span>
             <S.Titulo>{Titulo}</S.Titulo>

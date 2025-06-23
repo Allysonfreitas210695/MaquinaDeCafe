@@ -5,6 +5,7 @@ export const Navegacao__Header = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +27,8 @@ export const Nav = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 30px;
+  gap: 14rem;
+  min-width: 1224px;
   padding: 8px 70px;
   position: fixed;
   left: 50%;

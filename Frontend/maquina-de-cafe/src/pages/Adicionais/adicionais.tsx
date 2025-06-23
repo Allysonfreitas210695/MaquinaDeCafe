@@ -1,70 +1,125 @@
-import { Link } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
-import { IoCartSharp } from "react-icons/io5";
-import { useState } from "react";
 
-interface CDetalhe {
-  Titulo?: string;
-  Text?: string;
-  price?: number;
-  imagem: string;
+import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
+import { useLocation } from "react-router-dom";
+
+import { useEffect, useState } from "react";
+import { getIngredienteadicional } from "../../Service/apiService";
+import { CoffeeCustomizationData } from "../../Service/interface";
+import { Link } from "react-router-dom";
+
+interface Ingredienteadicional {
+  id: string;
+  nome: string;
+  valorExtra: number;
 }
 
-const detalhe: CDetalhe[] = [
-  { Titulo: "Canela", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Canela", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Canela", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Açucar", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Açucar", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Açucar", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Chocolate", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Chocolate", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Chocolate", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-  { Titulo: "Chocolate", Text: "Sachê (5g)", imagem: Images.CafeAmericano },
-];
+// Interface para um adicional que foi selecionado pelo usuário, com quantidade
+interface SelectedAdicional extends Ingredienteadicional {
+  quantidade: number;
+}
 
 export const Adicionais = () => {
-  const [quantity, setQuantity] = useState(1);
+  const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>(
+    []
+  );
+
+  // Estado para armazenar os adicionais que o usuário selecionou
+  const [selectedAdicionais, setSelectedAdicionais] = useState<
+    SelectedAdicional[]
+  >([]);
+
+  //----------------------------------------------------------------
+
+  useEffect(() => {
+    const fetchPedidos = async () => {
+      const data = await getIngredienteadicional();
+      const transformedData = data.map((item) => ({
+        id: item.id,
+        nome: item.nome,
+        valorExtra: item.valorExtra,
+      }));
+      setNewsAdicionais(transformedData);
+    };
+    fetchPedidos();
+  }, []);
+
+  const location = useLocation();
+  const customizedCafe = location.state?.customizedCafe as
+    | CoffeeCustomizationData
+    | undefined;
+
+  // Função para lidar com a seleção/desseleção de um adicional
+  const handleToggleAdicional = (adicional: Ingredienteadicional) => {
+    setSelectedAdicionais((prevSelected) => {
+      const existingAdicionalIndex = prevSelected.findIndex(
+        (item) => item.id === adicional.id
+      );
+      if (existingAdicionalIndex > -1) {
+        const updatedSelected = [...prevSelected];
+        updatedSelected.splice(existingAdicionalIndex, 1);
+        return updatedSelected;
+      } else {
+        return [...prevSelected, { ...adicional, quantidade: 1 }];
+      }
+    });
+  };
+
+  // Função para verificar se um adicional está selecionado (para aplicar estilos)
+  const isAdicionalSelected = (adicionalId: string) => {
+    return selectedAdicionais.some((item) => item.id === adicionalId);
+  };
+
+  if (!customizedCafe) {
+    return <p>Carregando personalização ou redirecionando...</p>;
+  }
+
   return (
-    <>
-      <S.Container__Detalhes>
-        <div className="detalhe__card_cafe">
-          <div className="card__cafe"></div>
-          <S.Detalhes>
+    <S.Container__Detalhes>
+      <div className="header__container">
+        <h1>Personalize o seu café</h1>
+        <Link className="button__cancelar" to={"/carrinho"}>CALCELAR</Link>
+      </div>
+      <div className="detalhe__card_cafe">
+        <div className="card__cafe">
+          <CardAdicionais
+            cafeData={customizedCafe}
+            selectedAdicionais={selectedAdicionais}
+          />
+        </div>
+        <S.Detalhes>
+          <div className="adicionais">
+            <img src={Images.addCircle} alt="Imagem de Adiciomar" />
             <h1>Adicionais</h1>
-            <S.Conteudo__Detalhes>
-              {detalhe.map((adicional) => (
-                <S.Arry__Detalhe>
-                  <img src={adicional.imagem} alt="" />
+          </div>
+          <S.Conteudo__Detalhes>
+            {newsAdicionais.map((adicional, index) => (
+              <div className="detalhe">
+                <S.Arry__Detalhe
+                  key={index}
+                  onClick={() => handleToggleAdicional(adicional)}
+                  style={{
+                    border: isAdicionalSelected(adicional.id)
+                      ? "2px solid #5C3D2E"
+                      : "1px solid #ddd",
+                  }}
+                >
+                  <img src={Images.CafeExpresso} alt="" />
                   <div className="arry__detalhe">
-                    <h3>{adicional.Titulo}</h3>
-                    <p>{adicional.Text}</p>
-                  </div>
-                  <div className="button">
-                    <S.Button
-                      onClick={() =>
-                        setQuantity((prev) => Math.max(1, prev - 1))
-                      }
-                    >
-                      −
-                    </S.Button>
-                    <span>{quantity}</span>
-                    <S.Button onClick={() => setQuantity((prev) => prev + 1)}>
-                      +
-                    </S.Button>
+                    <h3>{adicional.nome}</h3>
                   </div>
                 </S.Arry__Detalhe>
-              ))}
-            </S.Conteudo__Detalhes>
-          </S.Detalhes>
-        </div>
-        <S.Button__Detalhe>
-          <Link className="item" to={"/carrinho"}>
-            <IoCartSharp />
-          </Link>
-        </S.Button__Detalhe>
-      </S.Container__Detalhes>
-    </>
+                <div className="valor">
+                  <span>
+                    R$ {adicional.valorExtra.toFixed(2).replace(".", ",")}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </S.Conteudo__Detalhes>
+        </S.Detalhes>
+      </div>
+    </S.Container__Detalhes>
   );
 };
