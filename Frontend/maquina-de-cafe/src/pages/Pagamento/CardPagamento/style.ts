@@ -307,6 +307,7 @@ export const StyledWrapper = styled.div`
     line-height: 100%;
     letter-spacing: 0%;
     cursor: pointer;
+    text-decoration: none;
   }
 
   .payments .footer {
@@ -337,7 +338,7 @@ export const StyledWrapper = styled.div`
   /* Checkout */
   .payments .details {
     display: grid;
-    grid-template-columns: 10fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding-top: 20px;
     gap: 20px;
 
@@ -357,6 +358,9 @@ export const StyledWrapper = styled.div`
       color: #432c1b;
       line-height: 100%;
       letter-spacing: 0%;
+      display: flex;
+      align-items: end;
+     justify-content: end;
     }
   }
 

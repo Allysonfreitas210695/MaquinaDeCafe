@@ -3,55 +3,67 @@ import * as S from "./style";
 import { Images } from "../../assets/Images";
 import { FaRegStar } from "react-icons/fa";
 import { LuClock2 } from "react-icons/lu";
-import { getTamanhoXicara } from "../../Service/apiService";
 import { IoCartSharp } from "react-icons/io5";
+import { CoffeeCustomizationData } from "../../Service/interface";
+
 
 export interface CoffeeCardProps {
   id: string;
   title: string;
   description: string;
-  price: number;
   tag: string;
   preparation: number;
-  isSelected: boolean;
-  onSelectToggle: (id: string) => void;
+  imageSrc: string;
+  onCustomize: (data: CoffeeCustomizationData) => void;
+  tamanhosXicara: ITamanhoXicaraProps[];
 }
 
 interface ITamanhoXicaraProps {
   id: string;
   descricao: string;
   ml: number;
-  valorExtra: number;
+  valor: number;
 }
 
 export const CafeCard: React.FC<CoffeeCardProps> = ({
   id,
   title,
   description,
-  price,
   preparation,
-  //isSelected,
-  onSelectToggle,
+  imageSrc,
+  onCustomize,
+  tamanhosXicara: initialTamanhosXicara,
 }) => {
-  const handleAddToCart = () => {
-    onSelectToggle(id);
-  };
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>([]);
+  const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(initialTamanhosXicara);
+
+  // Calcula o preço final com base na seleção da xícara
+  const selectedCup = activeIndex !== null ? tamanhoXicara[activeIndex] : null;
+
+  const handlePersonalizarClick = () => {
+    // Monta o objeto com os dados que serão enviados
+    const customizationData: CoffeeCustomizationData = {
+      id,
+      title,
+      description,
+      imageSrc: imageSrc,
+      selectedCupMl: selectedCup?.ml,
+      selectedCupDescription: selectedCup?.descricao,
+      preparation,
+      selectedCupValue: selectedCup?.valor,
+    };
+    onCustomize(customizationData);
+  };
 
   useEffect(() => {
-    const effectTamanhoXicara = async () => {
-      const data = await getTamanhoXicara();
-      const transformedData = data.map((item) => ({
-        id: item.id,
-        descricao: item.descricao,
-        ml: item.ml,
-        valorExtra: item.valorExtra,
-      })).slice(0, 3);
-      setTamanhoXicara(transformedData);
-    };
-    effectTamanhoXicara();
-  }, []);
+   setTamanhoXicara(initialTamanhosXicara);
+    if (initialTamanhosXicara.length > 0) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex(null); 
+    }
+  }, [initialTamanhosXicara]);
+
 
   return (
     <S.CardContainer>
@@ -67,31 +79,26 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
         </div>
       </div>
       <S.StyledWrapper>
-        {tamanhoXicara.map(({ descricao }, index) => (
-          <div className="styledWrapper">
+        {tamanhoXicara.map((item , index) => (
+          <div key={index} className="styledWrapper">
             <S.Wrapper
               active={activeIndex === index}
               onClick={() => setActiveIndex(index)}
             >
-              <span className="spans">{descricao}</span>
+              <span className="spans">{item.descricao}</span>
             </S.Wrapper>
-           
           </div>
         ))}
       </S.StyledWrapper>
 
       <S.PriceSection>
-        <S.PriceCarrinho>  
-        <S.Price>
-          <span> R$ </span>
-          {price.toFixed(2).replace(".", ",")}
-        </S.Price>
-        <IoCartSharp /> 
-        </S.PriceCarrinho> 
-        <S.CartButton
-          onClick={handleAddToCart}
-          //style={{ border: `3px solid ${isSelected ? "#36C07E" : "#ccc"}` }}
-        >
+        <S.PriceCarrinho >
+          <S.Price>
+            <span> R$ {selectedCup ? selectedCup.valor.toFixed(2).replace('.', ',') : '0,00'}</span>
+          </S.Price>
+          <IoCartSharp />
+        </S.PriceCarrinho>
+        <S.CartButton onClick={handlePersonalizarClick}>
           Personalizar
         </S.CartButton>
       </S.PriceSection>

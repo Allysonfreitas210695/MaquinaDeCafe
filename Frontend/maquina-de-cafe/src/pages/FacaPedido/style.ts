@@ -7,6 +7,21 @@ export const Container__Pedido_Header = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: flex-end;
+
+  .button__voltar{
+    color: #ffffff;
+    position: fixed;
+    z-index: 1000;
+    top: 2.6rem;
+    right: 8.4rem;
+    font-family: Sora;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-decoration: none;
+    
+  }
 `;
 
 export const Cafes = styled.div`
