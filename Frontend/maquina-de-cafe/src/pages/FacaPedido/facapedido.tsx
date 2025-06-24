@@ -5,11 +5,9 @@ import {
 import { useEffect, useState } from "react";
 import { HeaderNavegacao } from "./HeaderNavegacao/navegacao";
 import { getCafes } from "../../Service/apiService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import { ApiTamanhoXicara, CoffeeCustomizationData } from "../../Service/interface";
-import { Link } from "react-router-dom";
-
 
 interface TransformedCafe {
   id: string;
@@ -22,7 +20,6 @@ interface TransformedCafe {
 }
 
 export const FacaPedido = () => {
-  //const [selectedCafeIds, setSelectedCafeIds] = useState<string[]>([]);
   const [newsPedidos, setNewsPedidos] = useState<TransformedCafe[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
   const [errorFetchingCafes, setErrorFetchingCafes] = useState<boolean>(false);
@@ -95,17 +92,16 @@ export const FacaPedido = () => {
                 tempoPreparoSegundos,
                 imagemUrl,
                 tamanhosXicara,
-              },
-              index
+              }
             ) => (
               <CafeCard
-                key={index}
+                key={id}
                 id={id}
                 title={nome}
                 description={descricao}
                 tag={categoria}
                 preparation={tempoPreparoSegundos}
-                imageSrc={imagemUrl || Images.CafeExpresso}
+                imageSrc={imagemUrl ?? Images.CafeExpresso}
                 onCustomize={handleCustomizeCafe}
                 tamanhosXicara={tamanhosXicara}
               />

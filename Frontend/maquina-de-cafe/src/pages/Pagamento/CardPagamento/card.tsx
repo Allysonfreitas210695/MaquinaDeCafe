@@ -3,7 +3,7 @@ import { Images } from "../../../assets/Images";
 import * as S from "./style";
 import { IoCartSharp } from "react-icons/io5";
 
- const pedidos = [
+const pedidos = [
   {
     nome: "Café Expresso",
     ml: "100ml",
@@ -34,24 +34,20 @@ import { IoCartSharp } from "react-icons/io5";
   },
 ];
 
-
-
 export const CardPagamento = () => {
   return (
     <S.StyledWrapper>
       <div className="container">
         <div className="card cart">
-          <form action="">
-            <label className="title">
-              <img src={Images.Plus} alt="" />
-              <span>Resumo do Pedido</span>
-            </label>
-          </form>
+          <div className="title">
+            <img src={Images.Plus} alt="" />
+            <span>Resumo do Pedido</span>
+          </div>
           <div className="steps">
             <div className="step">
               <div className="tipos">
-                {pedidos.map((item, index) => (
-                  <div key={index} className="condeudo__tipos">
+                {pedidos.map((item, id) => (
+                  <div key={id} className="condeudo__tipos">
                     <div className="tipos__de_cafes">
                       <img src={Images.CafeExpresso} alt="" />
                       <div>
@@ -75,15 +71,12 @@ export const CardPagamento = () => {
                   <h3>R$ 12,00</h3>
                 </div>
                 <div className="footer">
-                  <form action="">
-                    <label className="price">
-                      <span>Total</span>
-                      <p>R$ 24,00</p>
-                    </label>
-                  </form>
+                  <div className="price">
+                    <span>Total</span>
+                    <p>R$ 24,00</p>
+                  </div>
                   <Link className="checkout-btn" to={"/pedidofinalizado"}>
                     <IoCartSharp /> Confirmar Pagamento
-                  
                   </Link>
                 </div>
               </div>

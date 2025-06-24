@@ -32,13 +32,13 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
         (ml) => ml === cafeData.selectedCupMl
       );
       if (initialIndex !== -1) {
-        //setActiveIndexTx(initialIndex);
+        console.log(initialIndex)
       }
     }
   }, [cafeData.selectedCupMl]);
 
   const calculateTotal = () => {
-    let total = cafeData.selectedCupValue || 0;
+    let total = cafeData.selectedCupValue ?? 0;
 
     selectedAdicionais.forEach((adicional) => {
       total += adicional.valorExtra * adicional.quantidade;
