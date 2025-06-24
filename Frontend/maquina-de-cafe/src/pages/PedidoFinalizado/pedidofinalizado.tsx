@@ -6,12 +6,14 @@ import { BsArrowLeftShort, BsCheck2 } from "react-icons/bs";
 export const PedidoFinalizado = () => {
   const pedidos = [
     {
+      id: 1,
       titulo: "Café Tradicional",
       ml: "50 ml",
       quant: "Quantidade: 2",
       valor: "R$ 10,00",
     },
     {
+      id: 2,
       titulo: "Café Tradicional",
       ml: "50 ml",
       quant: "Quantidade: 2",
@@ -36,8 +38,8 @@ export const PedidoFinalizado = () => {
           <span>#2025</span>
         </S.Detalhes>
         <S.Pedidos>
-          {pedidos.map((item, id) => (
-            <S.Item key={id}>
+          {pedidos.map((item) => (
+            <S.Item key={item.id}>
               <div className="tipos__pedidos">
                 <img src={Images.caffee} alt="imagem de cafe" />
                 <div className="pedido">

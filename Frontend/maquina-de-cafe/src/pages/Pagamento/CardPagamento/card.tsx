@@ -5,6 +5,7 @@ import { IoCartSharp } from "react-icons/io5";
 
 const pedidos = [
   {
+    id: 1,
     nome: "Café Expresso",
     ml: "100ml",
     com: "Leite x2",
@@ -12,6 +13,7 @@ const pedidos = [
     quant: "2",
   },
   {
+    id: 2,
     nome: "Café Expresso",
     ml: "100ml",
     com: "Leite x2",
@@ -19,6 +21,7 @@ const pedidos = [
     quant: "2",
   },
   {
+    id: 3,
     nome: "Café Expresso",
     ml: "100ml",
     com: "Leite x2",
@@ -26,6 +29,7 @@ const pedidos = [
     quant: "2",
   },
   {
+    id: 4,
     nome: "Café Expresso",
     ml: "100ml",
     com: "Leite x2",
@@ -46,8 +50,8 @@ export const CardPagamento = () => {
           <div className="steps">
             <div className="step">
               <div className="tipos">
-                {pedidos.map((item, id) => (
-                  <div key={id} className="condeudo__tipos">
+                {pedidos.map((item) => (
+                  <div key={item.id} className="condeudo__tipos">
                     <div className="tipos__de_cafes">
                       <img src={Images.CafeExpresso} alt="" />
                       <div>
