@@ -16,8 +16,8 @@ const headerProps: IHeaderProps[] = [
 export const Header = () => {
   return (
     <S.Container__Header>
-      {headerProps.map(({ Localizacao, Icon }, index) => (
-        <React.Fragment key={index}>
+      {headerProps.map(({ Localizacao, Icon }) => (
+        <React.Fragment >
           <S.Logo__Header src={Images.Logo} />
           <S.Conteudo__Header>
             <S.Localizacao>

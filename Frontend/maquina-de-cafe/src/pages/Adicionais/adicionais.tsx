@@ -2,12 +2,11 @@ import { Images } from "../../assets/Images";
 import * as S from "./style";
 
 import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
-import { useLocation } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { getIngredienteadicional } from "../../Service/apiService";
 import { CoffeeCustomizationData } from "../../Service/interface";
-import { Link } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 
 interface Ingredienteadicional {
   id: string;
@@ -94,10 +93,9 @@ export const Adicionais = () => {
             <h1>Adicionais</h1>
           </div>
           <S.Conteudo__Detalhes>
-            {newsAdicionais.map((adicional, index) => (
-              <div className="detalhe">
+            {newsAdicionais.map((adicional) => (
+              <div key={adicional.id} className="detalhe">
                 <S.Arry__Detalhe
-                  key={index}
                   onClick={() => handleToggleAdicional(adicional)}
                   style={{
                     border: isAdicionalSelected(adicional.id)

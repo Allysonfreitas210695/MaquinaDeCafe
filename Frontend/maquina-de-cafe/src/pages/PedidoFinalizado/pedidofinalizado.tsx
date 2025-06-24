@@ -36,8 +36,8 @@ export const PedidoFinalizado = () => {
           <span>#2025</span>
         </S.Detalhes>
         <S.Pedidos>
-          {pedidos.map((item, index) => (
-            <S.Item key={index}>
+          {pedidos.map((item, id) => (
+            <S.Item key={id}>
               <div className="tipos__pedidos">
                 <img src={Images.caffee} alt="imagem de cafe" />
                 <div className="pedido">
