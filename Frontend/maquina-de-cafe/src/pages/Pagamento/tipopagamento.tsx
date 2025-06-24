@@ -7,8 +7,12 @@ export const TipoPagamento = () => {
   return (
     <S.Container__Tipo_Pagamento>
       <S.Pagamento__Header>
-        <S.Titulo__pagamento_Header>Pronto para um Devine Café?</S.Titulo__pagamento_Header>
-        <Link className="button" to="">CANCELAR</Link>
+        <S.Titulo__pagamento_Header>
+          Pronto para um Devine Café?
+        </S.Titulo__pagamento_Header>
+        <Link className="button" to="">
+          CANCELAR
+        </Link>
       </S.Pagamento__Header>
       <S.Tipo__Confirmar_Pagamento>
         <S.Conteudo__Pagamento>
@@ -16,7 +20,7 @@ export const TipoPagamento = () => {
             <S.Escolha__Pagamento>
               <S.Titulo__Pagamento>
                 <img src={Images.Ticket} alt="Imagem de Ticket" />
-                Escolha a Forma de Pagamento
+                <h2>Escolha a Forma de Pagamento</h2>
               </S.Titulo__Pagamento>
               <S.Button__Forma_Pagamento>
                 <S.Button>
@@ -55,9 +59,9 @@ export const TipoPagamento = () => {
                 <p>
                   <img
                     src={Images.ShieldCheck}
-                    alt="Imagen de   shield-check"
+                    alt="Imagen de shield-check"
                   />
-                  Pagamento 100% seguro
+                  <h2>Pagamento 100% seguro</h2>
                 </p>
               </S.Button__Texto>
             </S.Escolha__Pagamento>

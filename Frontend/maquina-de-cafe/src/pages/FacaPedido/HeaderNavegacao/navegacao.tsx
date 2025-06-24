@@ -35,8 +35,8 @@ export const HeaderNavegacao = ({
 
   return (
     <>
-      {facaPedido.map(({ Link0, Link1, Link2 }) => (
-        <S.Navegacao__Header>
+      {facaPedido.map(({ Link0, Link1, Link2 }, id) => (
+        <S.Navegacao__Header key={id}>
           <S.Nav>
             <S.MenuItem
               active={activeIndex === 0}
