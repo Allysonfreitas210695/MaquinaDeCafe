@@ -99,8 +99,6 @@ public class PedidoService : IPedidoRepository
                         IngredienteAdicional = ingrediente
                     });
                 }
-
-                //pedido.AdicionarItem(item, cafe.Preco, tamanhoXicara.ValorExtra);
                 await _dbContext.PedidoItens.AddAsync(item);
             }
 
