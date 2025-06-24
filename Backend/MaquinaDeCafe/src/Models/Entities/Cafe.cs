@@ -74,13 +74,4 @@ public class Cafe : Entity
         Categoria = categoria;
         UpdateTimestamp();
     }
-
-    public void AdicionarTamanhoXicara(TamanhoXicara tamanho)
-    {
-        if (tamanho == null)
-            throw new ArgumentNullException(nameof(tamanho));
-
-        TamanhosXicara.Add(tamanho);
-        UpdateTimestamp();
-    }
 }
