@@ -1,5 +1,5 @@
 // src/context/CartContext.tsx
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { Adicional, ITamanhoXicaraProps } from '../../../Service/interface';
 
 export interface CartItem {
@@ -29,7 +29,27 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  // Inicializa o carrinho tentando carregar do localStorage
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    try {
+      const localData = localStorage.getItem('coffee_cart');
+      return localData ? JSON.parse(localData) : [];
+    } catch (error) {
+      console.error("Erro ao carregar carrinho do localStorage:", error);
+      return [];
+    }
+  });
+
+  // Salva o carrinho no localStorage sempre que ele muda
+  useEffect(() => {
+    try {
+      localStorage.setItem('coffee_cart', JSON.stringify(cart));
+    } catch (error) {
+      console.error("Erro ao salvar carrinho no localStorage:", error);
+    }
+  }, [cart]);
+
+  
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => [...prevCart, item]);
