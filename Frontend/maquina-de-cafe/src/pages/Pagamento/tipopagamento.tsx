@@ -12,7 +12,7 @@ export const TipoPagamento = () => {
         <S.Titulo__pagamento_Header>
           Pronto para um Devine Café?
         </S.Titulo__pagamento_Header>
-        <Link className="button" to="">
+        <Link className="button" to="/carrinho">
           CANCELAR
         </Link>
       </S.Pagamento__Header>

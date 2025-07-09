@@ -169,7 +169,7 @@ export const StyledWrapper = styled.div`
       span {
         font-family: Poppins;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 10px;
         color: #c99963;
         line-height: 100%;
         letter-spacing: 0%;
