@@ -97,6 +97,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a CafeId obrigatório para TamanhoXicara..
+        /// </summary>
+        public static string CafeIdObrigatorioTamanhoXicara {
+            get {
+                return ResourceManager.GetString("CafeIdObrigatorioTamanhoXicara", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Café não encontrado..
         /// </summary>
         public static string CafeNaoEncontrado {

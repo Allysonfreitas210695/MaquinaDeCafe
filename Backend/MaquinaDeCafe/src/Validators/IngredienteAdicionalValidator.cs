@@ -4,9 +4,9 @@ using MaquinaDeCafe.src.Resources;
 
 namespace MaquinaDeCafe.src.Validators;
 
-public class RequestCriacaoIngredienteAdicionalValidator : AbstractValidator<RequestCriacaoIngredienteAdicionalJson>
+public class IngredienteAdicionalValidator : AbstractValidator<RequestCriacaoIngredienteAdicionalJson>
 {
-    public RequestCriacaoIngredienteAdicionalValidator()
+    public IngredienteAdicionalValidator()
     {
         RuleFor(x => x.Nome)
            .NotEmpty()

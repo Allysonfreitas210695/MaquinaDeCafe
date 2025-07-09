@@ -4,7 +4,7 @@ using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Validators;
 
 namespace Validators.Test;
-public class RequestCriacaoIngredienteAdicionalJsonTest
+public class IngredienteAdicionalValidatorTest
 {
 
 
@@ -13,7 +13,7 @@ public class RequestCriacaoIngredienteAdicionalJsonTest
     {
         var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
             
-        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var _validator = new IngredienteAdicionalValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeTrue();
@@ -25,7 +25,7 @@ public class RequestCriacaoIngredienteAdicionalJsonTest
         var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
         request.Nome = string.Empty;
 
-        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var _validator = new IngredienteAdicionalValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
@@ -40,7 +40,7 @@ public class RequestCriacaoIngredienteAdicionalJsonTest
         var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
         request.ValorExtra = 0;
 
-        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var _validator = new IngredienteAdicionalValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
@@ -55,7 +55,7 @@ public class RequestCriacaoIngredienteAdicionalJsonTest
         var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
         request.ValorExtra = -3.5m;
 
-        var _validator = new RequestCriacaoIngredienteAdicionalValidator();
+        var _validator = new IngredienteAdicionalValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();

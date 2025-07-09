@@ -22,7 +22,7 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
     {
         try
         {
-            var _criacaoValidator = new RequestTamanhoXicaraValidator();
+            var _criacaoValidator = new TamanhoXicaraValidator();
             var validation = await _criacaoValidator.ValidateAsync(request);
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
@@ -89,7 +89,7 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
     {
         try
         {
-            var _criacaoValidator = new RequestTamanhoXicaraValidator();
+            var _criacaoValidator = new TamanhoXicaraValidator();
             var validation = await _criacaoValidator.ValidateAsync(request);
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());

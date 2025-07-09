@@ -4,7 +4,7 @@ using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Validators;
 
 namespace Validators.Test;
-public class RequestCriacaoCafeJsonTest
+public class CafeJsonValidatorTest
 {
 
     [Fact]
@@ -12,7 +12,7 @@ public class RequestCriacaoCafeJsonTest
     {
         var request = RequestCriacaoCafeJsonBuilder.Build();
 
-        var _validator = new RequestCriacaoCafeValidator();
+        var _validator = new CafeValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeTrue();
@@ -24,7 +24,7 @@ public class RequestCriacaoCafeJsonTest
         var request = RequestCriacaoCafeJsonBuilder.Build();
         request.Nome = string.Empty;
 
-        var _validator = new RequestCriacaoCafeValidator();
+        var _validator = new CafeValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
@@ -39,7 +39,7 @@ public class RequestCriacaoCafeJsonTest
         var request = RequestCriacaoCafeJsonBuilder.Build();
         request.Descricao = string.Empty;
 
-        var _validator = new RequestCriacaoCafeValidator();
+        var _validator = new CafeValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
@@ -54,7 +54,7 @@ public class RequestCriacaoCafeJsonTest
         var request = RequestCriacaoCafeJsonBuilder.Build();
         request.Descricao = "abc";
 
-        var _validator = new RequestCriacaoCafeValidator();
+        var _validator = new CafeValidator();
         var result = _validator.Validate(request);
 
         result.IsValid.Should().BeFalse();
