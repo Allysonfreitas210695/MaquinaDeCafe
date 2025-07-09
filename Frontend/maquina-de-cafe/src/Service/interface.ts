@@ -65,6 +65,7 @@ export interface CardPagamentoProps {
   subtotal: number;
   taxaServico: number;
   total: number;
+  checkoutPath?: string;
 }
 
 export interface ITamanhoXicaraProps {

@@ -44,18 +44,7 @@ export const Carrinho = () => {
                         />
                         <div>
                           <h3>{item.title}</h3>
-                          {/** <p>{item.tamanhoSelecionado.descricao}</p>
-                          <p>Qtd: {item.quantidadeNoCarrinho}</p>*/}
                           <span>{item.description}</span>
-                          {/**  {item.adicionaisSelecionados &&
-                            item.adicionaisSelecionados.length > 0 && (
-                              <span>
-                                Com:{" "}
-                                {item.adicionaisSelecionados
-                                  .map((adicional) => adicional.nome)
-                                  .join(", ")}
-                              </span>
-                            )}*/}
                         </div>
                       </div>
                       <div className="valor">
@@ -92,6 +81,7 @@ export const Carrinho = () => {
             subtotal={getCartSubtotal()}
             taxaServico={getServiceFee()}
             total={getCartTotal()}
+            checkoutPath="/pagamento"
           />
         </div>
       </S.Pedido__Escolha_Carrinho>

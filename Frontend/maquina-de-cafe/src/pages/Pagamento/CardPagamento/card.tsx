@@ -9,7 +9,10 @@ export const CardPagamento = ({
   subtotal,
   taxaServico,
   total,
+  checkoutPath,
 }: CardPagamentoProps) => {
+  const finalCheckoutPath = checkoutPath ?? "/pedidofinalizado";
+
   return (
     <S.StyledWrapper>
       <div className="container">
@@ -30,11 +33,10 @@ export const CardPagamento = ({
                         <p>{item.tamanhoSelecionado.descricao}</p>
                         {item.adicionaisSelecionados &&
                           item.adicionaisSelecionados.length > 0 && (
-                            <span>
-                              Com:{" "}
+                            <span style={{ whiteSpace: "pre-line" }}>
                               {item.adicionaisSelecionados
-                                .map((adicional) => adicional.nome)
-                                .join(", ")}
+                                .map((adicional) => adicional.nome) 
+                                .join("\n")} 
                             </span>
                           )}
                       </div>
@@ -60,7 +62,7 @@ export const CardPagamento = ({
                     <span>Total</span>
                     <p>R$ {total.toFixed(2).replace(".", ",")}</p>
                   </div>
-                  <Link className="checkout-btn" to={"/pedidofinalizado"}>
+                  <Link className="checkout-btn" to={finalCheckoutPath}>
                     <IoCartSharp /> Confirmar Pagamento
                   </Link>
                 </div>
