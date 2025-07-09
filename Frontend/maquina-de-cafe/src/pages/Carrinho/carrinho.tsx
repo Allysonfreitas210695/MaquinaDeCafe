@@ -18,9 +18,6 @@ export const Carrinho = () => {
   return (
     <S.Container__Carrinho>
       <HeaderNavegacao onCategoryChange={handleCategoryChange} />
-      <Link className="button" to={"/"}>
-        VOLTAR
-      </Link>
       <S.Pedido__Escolha_Carrinho>
         <S.Container__Card_Carrinho>
           <div className="card cart" style={{ width: "100%" }}>

@@ -3,7 +3,7 @@ import { CafeCard } from "../../components/CafeCard/cafecard";
 import { useEffect, useState } from "react";
 import { HeaderNavegacao } from "./HeaderNavegacao/navegacao";
 import { getCafes } from "../../Service/apiService";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import {
   ApiTamanhoXicara,
@@ -152,9 +152,6 @@ export const FacaPedido = () => {
   return (
     <S.Container__Pedido_Header>
       <HeaderNavegacao onCategoryChange={handleCategoryChange} />
-      <Link className="button__voltar" to={"/"}>
-        VOLTAR
-      </Link>
       <S.Div__Acoes>
         {/* Botão para ver o carrinho */}
         <button onClick={() => navigate("/carrinho")}>
