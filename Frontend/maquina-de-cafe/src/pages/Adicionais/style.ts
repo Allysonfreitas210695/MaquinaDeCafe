@@ -300,3 +300,26 @@ export const Button__Detalhe = styled.div`
     color: #ffffff;
   }
 `;
+
+export const Div__Botao = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: absolute;
+  top: 43rem;
+  left: 4.7rem;
+ 
+
+  button {
+    background-color: #512615;
+    color: white;
+    padding: 15px 80px;
+    width: 400px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+`;

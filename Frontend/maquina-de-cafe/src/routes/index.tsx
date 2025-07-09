@@ -7,20 +7,23 @@ import { Carrinho } from "../pages/Carrinho/carrinho";
 import { PedidoFinalizado } from "../pages/PedidoFinalizado/pedidofinalizado";
 import { Feedback } from "../pages/Feedback/feedback";
 import { PedidoCancelado } from "../pages/PedidoCancelado/cancelado";
+import { CartProvider } from "../pages/Carrinho/CardContext/cardcontext";
 
 function RoutesApp() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pedido" element={<FacaPedido />} />
-        <Route path="/adicionais" element={<Adicionais />} />
-        <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/pagamento" element={<TipoPagamento />} />
-        <Route path="/pedidofinalizado" element={<PedidoFinalizado />} />
-        <Route path="/feedback" element={<Feedback />} />
-        <Route path="/cancelado" element={<PedidoCancelado />} />
-      </Routes>
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pedido" element={<FacaPedido />} />
+          <Route path="/adicionais" element={<Adicionais />} />
+          <Route path="/carrinho" element={<Carrinho />} />
+          <Route path="/pagamento" element={<TipoPagamento />} />
+          <Route path="/pedidofinalizado" element={<PedidoFinalizado />} />
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/cancelado" element={<PedidoCancelado />} />
+        </Routes>
+      </CartProvider>
     </BrowserRouter>
   );
 }

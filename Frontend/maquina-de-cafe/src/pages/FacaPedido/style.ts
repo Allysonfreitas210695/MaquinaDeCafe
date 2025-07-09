@@ -88,7 +88,7 @@ export const Titulo = styled.h1`
 `;
 
 export const Pedido__Escolha = styled.div`
-  padding-top: 130px;
+  padding-top: 170px;
   padding-left: 55px;
   display: flex;
   flex-direction: column;
@@ -116,4 +116,57 @@ export const Button__Seguir = styled.div`
     width: 40px;
     height: 30px;
   }
+`;
+
+export const Div__Acoes = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+  z-index: 1000;
+  position: fixed;
+  top: 90px;
+  right: 7em;
+
+  button {
+    background-color: #5C3D2E;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #4A3025;
+    }
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .carrinho__pedido{
+    font-size: 40px;
+    color: #ffffff;
+    margin-top: -10px;
+    padding: 2px;
+  }
+
+  .quantidade{
+    font-size: 14px;
+    color: #000;
+    margin-top: -35px;
+    margin-left: 3px;
+    font-weight: 900;
+  }
+`;
+
+export const PersonalizarSelecionadosButton = styled.button`
+  /* Estilos específicos se houver, mas os acima já cobrem o básico */
+  z-index: 1000;
 `;

@@ -16,7 +16,6 @@ export const StyledWrapper = styled.div`
 
   .card {
     width: 400px;
-    background-color: #0000000d;
     box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01),
       0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09),
       0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
@@ -170,7 +169,7 @@ export const StyledWrapper = styled.div`
       span {
         font-family: Poppins;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 10px;
         color: #c99963;
         line-height: 100%;
         letter-spacing: 0%;
