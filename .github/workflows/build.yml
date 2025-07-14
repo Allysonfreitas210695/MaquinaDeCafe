@@ -48,7 +48,7 @@ jobs:
             /o:"allysonfreitas210695" `
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
-            /d:sonar.exclusions="**/Migrations/**,**/Program.cs,**/appsettings.*,**/coverage.runsettings, **/TestResults/**" `
+            /d:sonar.exclusions="**/Migrations/**,**/Program.cs,**/appsettings.*,**/coverage.runsettings,**/TestResults/**,coverage-report/**,**/*.html,**/*.css,**/*.js" `
             /d:sonar.coverage.exclusions="**/*"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
