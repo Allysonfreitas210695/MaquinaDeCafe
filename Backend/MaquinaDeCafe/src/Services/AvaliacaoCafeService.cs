@@ -114,13 +114,13 @@ namespace MaquinaDeCafe.src.Services
                 _dbContext.AvaliacoesCafe.Update(_avaliacaoCafe);
                 await _dbContext.SaveChangesAsync();
             }
-            catch (ErrorOnValidationException)
+            catch (ErrorOnValidationException ex)
             {
-                throw;
+                throw new ErrorOnValidationException(ex.Errors);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
-                throw;
+                throw new NotFoundException(ex.GetErrors.First().ToString());
             }
             catch (Exception ex)
             {

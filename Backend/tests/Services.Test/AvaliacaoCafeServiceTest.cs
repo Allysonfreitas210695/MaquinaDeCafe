@@ -99,5 +99,64 @@ namespace Services.Test
             exception.Errors.Should().Contain(ErrorsMensagem.QuantidadeEstrelasInvalida);
             (await _dbContext.AvaliacoesCafe.AnyAsync()).Should().BeFalse();
         }
+
+        [Fact]
+        public async Task UpdateAsync_ComDadosValidos_AtualizaAvaliacao()
+        {
+            // Arrange: cria e adiciona uma avaliação no banco
+            var request = RequestAvaliacaoCafeJsonBuilder.Build();
+            await _service.AddAsync(request);
+            var avaliacaoOriginal = await _dbContext.AvaliacoesCafe.FirstOrDefaultAsync();
+            avaliacaoOriginal.Should().NotBeNull();
+
+            // Arrange: cria novos dados de atualização
+            var atualizado = RequestAvaliacaoCafeJsonBuilder.Build()
+                .WithAtendimento(NivelAtendimento.Ruim)
+                .WithEstrelas(1)
+                .WithObservacao("Atualizado!");
+
+            // Act: realiza o update
+            await _service.UpdateAsync(avaliacaoOriginal!.Id, atualizado);
+
+            // Assert: verifica se os dados foram atualizados corretamente
+            var avaliacaoAtualizada = await _dbContext.AvaliacoesCafe.FirstAsync(x => x.Id == avaliacaoOriginal.Id);
+            avaliacaoAtualizada.Atendimento.Should().Be(NivelAtendimento.Ruim);
+            avaliacaoAtualizada.Estrelas.Should().Be(1);
+            avaliacaoAtualizada.Observacao.Should().Be("Atualizado!");
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ComIdInexistente_LancaNotFoundException()
+        {
+            // Arrange
+            var atualizado = RequestAvaliacaoCafeJsonBuilder.Build();
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<NotFoundException>(
+                () => _service.UpdateAsync(Guid.NewGuid(), atualizado));
+
+            exception.GetErrors.Should().Contain(ErrorsMensagem.AvaliacaoCafeEncontrado);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ComDadosInvalidos_LancaErrorOnValidationException()
+        {
+            // Arrange
+            var request = RequestAvaliacaoCafeJsonBuilder.Build();
+            await _service.AddAsync(request);
+            var avaliacaoOriginal = await _dbContext.AvaliacoesCafe.FirstOrDefaultAsync();
+            avaliacaoOriginal.Should().NotBeNull();
+
+            // Arrange
+            var atualizado = RequestAvaliacaoCafeJsonBuilder.Build()
+                .WithEstrelas(10);
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<ErrorOnValidationException>(
+                () => _service.UpdateAsync(avaliacaoOriginal.Id, atualizado));
+
+            exception.Errors.Should().Contain(ErrorsMensagem.QuantidadeEstrelasInvalida);
+        }
+
     }
 }
