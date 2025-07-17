@@ -107,6 +107,91 @@ public  class CafeServiceTest
         exception.Message.Should().Be(ErrorsMensagem.ErrorCriarCafe);
     }
 
+    [Fact]
+    public async Task UpdateAsync_ComDadosValidos_AtualizaCafe()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var cafe = await _dbContext.Cafes.FirstOrDefaultAsync();
+
+        var atualizado = RequestCriacaoCafeJsonBuilder.Build(
+            nome: "Novo Nome",
+            descricao: "Nova descrição válida"
+        );
+
+        // Act
+        await _service.UpdateAsync(cafe!.Id, atualizado);
+
+        // Assert
+        var cafeAtualizado = await _dbContext.Cafes.FirstOrDefaultAsync(x => x.Id == cafe.Id);
+        cafeAtualizado!.Nome.Should().Be("Novo Nome");
+        cafeAtualizado.Descricao.Should().Be("Nova descrição válida");
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+
+        // Act & Assert
+        await Assert.ThrowsAsync<NotFoundException>(
+        () => _service.UpdateAsync(Guid.NewGuid(), request));
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComNomeInvalido_DeveLancarErroValidacao()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var cafe = await _dbContext.Cafes.FirstOrDefaultAsync();
+
+        var atualizado = RequestCriacaoCafeJsonBuilder.Build(nome: "");
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ErrorOnValidationException>(
+            () => _service.UpdateAsync(cafe!.Id, atualizado));
+
+        exception.Errors.Should().Contain(ErrorsMensagem.CafeNomeObrigatorio);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComDescricaoVazia_DeveLancarErroValidacao()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var cafe = await _dbContext.Cafes.FirstOrDefaultAsync();
+
+        var atualizado = RequestCriacaoCafeJsonBuilder.Build(descricao: "");
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ErrorOnValidationException>(
+            () => _service.UpdateAsync(cafe!.Id, atualizado));
+
+        exception.Errors.Should().Contain(ErrorsMensagem.cafeDescricaoObrigatorio);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComDescricaoMenorQueCincoCaracteres_DeveLancarErroValidacao()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var cafe = await _dbContext.Cafes.FirstOrDefaultAsync();
+
+        var atualizado = RequestCriacaoCafeJsonBuilder.Build(descricao: "abc");
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ErrorOnValidationException>(
+            () => _service.UpdateAsync(cafe!.Id, atualizado));
+
+        exception.Errors.Should().Contain(ErrorsMensagem.cafeDescricaoTamanhoMinimo);
+    }
+
+
     private class BrokenDbContext : ApplicationDbContext
     {
         public BrokenDbContext(DbContextOptions<ApplicationDbContext> options)

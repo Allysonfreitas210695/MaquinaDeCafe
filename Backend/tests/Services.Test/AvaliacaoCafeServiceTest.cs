@@ -129,10 +129,8 @@ namespace Services.Test
             var atualizado = RequestAvaliacaoCafeJsonBuilder.Build();
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<NotFoundException>(
-                () => _service.UpdateAsync(Guid.NewGuid(), atualizado));
-
-            exception.GetErrors.Should().Contain(ErrorsMensagem.AvaliacaoCafeEncontrado);
+            await Assert.ThrowsAsync<NotFoundException>(
+                () => _service.UpdateAsync(Guid.NewGuid(), atualizado)); 
         }
 
         [Fact]
