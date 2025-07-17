@@ -92,6 +92,58 @@ public class IngredienteAdicionalServiceTest
         exception.Message.Should().Be(ErrorsMensagem.ErrorCriarIngrediente);
     }
 
+    [Fact]
+    public async Task UpdateAsync_ComDadosValidos_AtualizaIngredienteAdicional()
+    {
+        // Arrange
+        var ingredienteOriginal = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        await _service.AddAsync(ingredienteOriginal);
+
+        var ingrediente = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync();
+        var novoRequest = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(
+            nome: "Açúcar Mascavo",
+            valorExtra: 2.50m
+        );
+
+        // Act
+        await _service.UpdateAsync(ingrediente!.Id, novoRequest);
+
+        // Assert
+        var atualizado = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync(x => x.Id == ingrediente.Id);
+        atualizado!.Nome.Should().Be(novoRequest.Nome);
+        atualizado.ValorExtra.Should().Be(novoRequest.ValorExtra);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComIdInvalido_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<NotFoundException>(
+            () => _service.UpdateAsync(Guid.NewGuid(), request));
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComDadosInvalidos_DeveLancarErrorOnValidationException()
+    {
+        // Arrange
+        var ingredienteOriginal = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        await _service.AddAsync(ingredienteOriginal);
+
+        var ingrediente = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync();
+        var requestInvalido = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(
+            nome: string.Empty, 
+            valorExtra: -1m
+        );
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ErrorOnValidationException>(
+            () => _service.UpdateAsync(ingrediente!.Id, requestInvalido));
+    }
+
+
     // Simula erro no SaveChangesAsync
     private class BrokenDbContext : ApplicationDbContext
     {
