@@ -1,10 +1,7 @@
-﻿using Bogus;
-using CommonTestUltilities.Test.Request;
+﻿using CommonTestUltilities.Test.Request;
 using FluentAssertions;
-using MaquinaDeCafe.src.Communication.Request;
 using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.Exceptions;
-using MaquinaDeCafe.src.Models.Entities;
 using MaquinaDeCafe.src.Models.Enums;
 using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Services;
