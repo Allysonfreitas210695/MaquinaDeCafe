@@ -143,6 +143,35 @@ public class IngredienteAdicionalServiceTest
             () => _service.UpdateAsync(ingrediente!.Id, requestInvalido));
     }
 
+    [Fact]
+    public async Task RemoverAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var idInvalido = Guid.NewGuid();
+
+        // Act & Assert
+        await Assert.ThrowsAsync<NotFoundException>(
+            () => _service.RemoverAsync(idInvalido));
+    }
+
+    [Fact]
+    public async Task RemoverAsync_ComIdValido_DeveRemoverIngredienteAdicional()
+    {
+        // Arrange
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var ingrediente = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync();
+
+        // Act
+        await _service.RemoverAsync(ingrediente!.Id);
+
+        // Assert
+        var removido = await _dbContext.IngredientesAdicionais.FindAsync(ingrediente.Id);
+        removido.Should().BeNull();
+    }
+
+
+
 
     // Simula erro no SaveChangesAsync
     private class BrokenDbContext : ApplicationDbContext
