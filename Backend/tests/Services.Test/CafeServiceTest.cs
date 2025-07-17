@@ -191,6 +191,32 @@ public  class CafeServiceTest
         exception.Errors.Should().Contain(ErrorsMensagem.cafeDescricaoTamanhoMinimo);
     }
 
+    [Fact]
+    public async Task RemoverAsync_ComIdValido_DeveRemoverCafe()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var cafe = await _dbContext.Cafes.FirstOrDefaultAsync();
+
+        // Act
+        await _service.RemoverAsync(cafe!.Id);
+
+        // Assert
+        var removido = await _dbContext.Cafes.FindAsync(cafe.Id);
+        removido.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task RemoverAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var idInexistente = Guid.NewGuid();
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<NotFoundException>(
+            () => _service.RemoverAsync(idInexistente)); 
+    }
 
     private class BrokenDbContext : ApplicationDbContext
     {
