@@ -280,7 +280,7 @@ export const Arry__Detalhe = styled.div`
     align-items: start;
     justify-content: start;
     gap: 10px;
-    padding-right: 70px;
+    padding-right: 50px;
   }
 `;
 
