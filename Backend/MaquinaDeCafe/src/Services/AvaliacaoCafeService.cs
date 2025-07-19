@@ -84,7 +84,7 @@ namespace MaquinaDeCafe.src.Services
             
                 await _dbContext.SaveChangesAsync();
             }
-            catch (ErrorOnValidationException)
+            catch (ErrorOnValidationException ex)
             {
                 throw;
             }

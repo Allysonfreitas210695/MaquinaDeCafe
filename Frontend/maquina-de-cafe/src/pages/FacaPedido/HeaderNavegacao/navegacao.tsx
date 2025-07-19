@@ -6,8 +6,8 @@ interface IFacaPedidoProps {
   Link0: string;
   Link1: string;
   Link2: string;
- 
-  onCategoryChange: (category: string) => void; // Nova propriedade: uma função que recebe uma string (a categoria)
+  Link3: string;
+  onCategoryChange: (category: string) => void; 
 }
 
 const facaPedido: IFacaPedidoProps[] = [
@@ -15,9 +15,8 @@ const facaPedido: IFacaPedidoProps[] = [
     Link0: "Todos",
     Link1: "Quentes",
     Link2: "Gelados",
- 
-  
-    onCategoryChange: () => {}, // Valor padrão (será sobrescrito pelo componente pai)
+    Link3: "Voltar",
+    onCategoryChange: () => {}, 
   },
 ];
 
@@ -30,13 +29,15 @@ export const HeaderNavegacao = ({
 
   const handleMenuItemClick = (index: number, category: string) => {
     setActiveIndex(index);
-    onCategoryChange(category); // Chama a função passada pelo pai com a categoria
+   if (category !== "Voltar") { // Exemplo: só chama se não for o link "Voltar"
+        onCategoryChange(category);
+    }
   };
 
   return (
     <>
-      {facaPedido.map(({ Link0, Link1, Link2 }, index) => (
-        <S.Navegacao__Header key={index}>
+      {facaPedido.map(({ Link0, Link1, Link2, Link3 }, id) => (
+        <S.Navegacao__Header key={id}>
           <S.Nav>
             <S.MenuItem
               active={activeIndex === 0}
@@ -60,6 +61,14 @@ export const HeaderNavegacao = ({
             >
               <Link className="link" to="">
                 {Link2}
+              </Link>
+            </S.MenuItem>
+             <S.MenuItem
+              active={activeIndex === 3}
+              onClick={() => handleMenuItemClick(3, Link3)}
+            >
+              <Link className="link" style={{color: "#FFFFFF82"}} to="/">
+                {Link3}
               </Link>
             </S.MenuItem>
           </S.Nav>

@@ -4,8 +4,7 @@ import { Images } from "../../assets/Images";
 import { FaRegStar } from "react-icons/fa";
 import { LuClock2 } from "react-icons/lu";
 import { IoCartSharp } from "react-icons/io5";
-import { CoffeeCustomizationData } from "../../Service/interface";
-
+import { ApiTamanhoXicara, ITamanhoXicaraProps } from "../../Service/interface";
 
 export interface CoffeeCardProps {
   id: string;
@@ -14,56 +13,65 @@ export interface CoffeeCardProps {
   tag: string;
   preparation: number;
   imageSrc: string;
-  onCustomize: (data: CoffeeCustomizationData) => void;
   tamanhosXicara: ITamanhoXicaraProps[];
-}
-
-interface ITamanhoXicaraProps {
-  id: string;
-  descricao: string;
-  ml: number;
-  valor: number;
+  isSelected: boolean;
+  onToggleSelect: (
+    cafeId: string,
+    isSelected: boolean,
+    selectedSize: ApiTamanhoXicara | undefined,
+    cafeData: {
+      id: string;
+      title: string;
+      description: string;
+      tag: string;
+      preparation: number;
+      imageSrc: string;
+      tamanhosXicara: ApiTamanhoXicara[];
+    }
+  ) => void;
 }
 
 export const CafeCard: React.FC<CoffeeCardProps> = ({
   id,
   title,
   description,
+  tag,
   preparation,
   imageSrc,
-  onCustomize,
   tamanhosXicara: initialTamanhosXicara,
+  isSelected,
+  onToggleSelect,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(initialTamanhosXicara);
+  const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(
+    initialTamanhosXicara
+  );
 
   // Calcula o preço final com base na seleção da xícara
   const selectedCup = activeIndex !== null ? tamanhoXicara[activeIndex] : null;
 
-  const handlePersonalizarClick = () => {
-    // Monta o objeto com os dados que serão enviados
-    const customizationData: CoffeeCustomizationData = {
-      id,
-      title,
-      description,
+  // Função para lidar com a seleção/desseleção do card
+  const handleSelectToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleSelect(id, !isSelected, selectedCup || undefined, {
+      id: id,
+      title: title,
+      description: description,
+      tag: tag,
+      preparation: preparation,
       imageSrc: imageSrc,
-      selectedCupMl: selectedCup?.ml,
-      selectedCupDescription: selectedCup?.descricao,
-      preparation,
-      selectedCupValue: selectedCup?.valor,
-    };
-    onCustomize(customizationData);
+      tamanhosXicara: initialTamanhosXicara,
+    });
   };
 
   useEffect(() => {
-   setTamanhoXicara(initialTamanhosXicara);
+    setTamanhoXicara(initialTamanhosXicara);
     if (initialTamanhosXicara.length > 0) {
       setActiveIndex(0);
     } else {
-      setActiveIndex(null); 
+      setActiveIndex(null);
     }
   }, [initialTamanhosXicara]);
-
 
   return (
     <S.CardContainer>
@@ -79,8 +87,8 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
         </div>
       </div>
       <S.StyledWrapper>
-        {tamanhoXicara.map((item , index) => (
-          <div key={index} className="styledWrapper">
+        {tamanhoXicara.map((item, index) => (
+          <div key={item.id} className="styledWrapper">
             <S.Wrapper
               active={activeIndex === index}
               onClick={() => setActiveIndex(index)}
@@ -92,15 +100,19 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
       </S.StyledWrapper>
 
       <S.PriceSection>
-        <S.PriceCarrinho >
+        <S.PriceCarrinho>
           <S.Price>
-            <span> R$ {selectedCup ? selectedCup.valor.toFixed(2).replace('.', ',') : '0,00'}</span>
+            <span>
+              {" "}
+              R${" "}
+              {selectedCup
+                ? selectedCup.valor.toFixed(2).replace(".", ",")
+                : "0,00"}
+            </span>
           </S.Price>
           <IoCartSharp />
         </S.PriceCarrinho>
-        <S.CartButton onClick={handlePersonalizarClick}>
-          Personalizar
-        </S.CartButton>
+        <S.CartButton onClick={handleSelectToggle}>Personalizar</S.CartButton>
       </S.PriceSection>
     </S.CardContainer>
   );

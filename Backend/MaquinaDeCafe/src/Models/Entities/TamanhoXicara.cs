@@ -19,8 +19,9 @@ public class TamanhoXicara : Entity
 
     public TamanhoXicara(Guid? id, string descricao, int ml, decimal valor, Guid cafeId)
     {
+
         Id = id ?? Guid.NewGuid();
-        Descricao = descricao;
+        Descricao = descricao.Trim();
         Ml = ml;
         Valor = valor;
         CafeId = cafeId;
@@ -40,7 +41,7 @@ public class TamanhoXicara : Entity
             throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.TamanhoXicaraValorExtraNegativo });
 
         if (CafeId == Guid.Empty)
-            throw new ErrorOnValidationException(new List<string> { "CafeId obrigatório para TamanhoXicara." });
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.CafeIdObrigatorioTamanhoXicara });
     }
 
     public void Atualizar(string descricao, int ml, decimal valorExtra, Guid cafeId)

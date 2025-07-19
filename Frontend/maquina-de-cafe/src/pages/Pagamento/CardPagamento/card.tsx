@@ -2,67 +2,50 @@ import { Link } from "react-router-dom";
 import { Images } from "../../../assets/Images";
 import * as S from "./style";
 import { IoCartSharp } from "react-icons/io5";
+import { CardPagamentoProps } from "../../../Service/interface";
 
- const pedidos = [
-  {
-    nome: "Café Expresso",
-    ml: "100ml",
-    com: "Leite x2",
-    valor: "R$ 13,00",
-    quant: "2",
-  },
-  {
-    nome: "Café Expresso",
-    ml: "100ml",
-    com: "Leite x2",
-    valor: "R$ 13,00",
-    quant: "2",
-  },
-  {
-    nome: "Café Expresso",
-    ml: "100ml",
-    com: "Leite x2",
-    valor: "R$ 13,00",
-    quant: "2",
-  },
-  {
-    nome: "Café Expresso",
-    ml: "100ml",
-    com: "Leite x2",
-    valor: "R$ 13,00",
-    quant: "2",
-  },
-];
+export const CardPagamento = ({
+  pedidos,
+  subtotal,
+  taxaServico,
+  total,
+  checkoutPath,
+}: CardPagamentoProps) => {
+  const finalCheckoutPath = checkoutPath ?? "/pedidofinalizado";
 
-
-
-export const CardPagamento = () => {
   return (
     <S.StyledWrapper>
       <div className="container">
         <div className="card cart">
-          <form action="">
-            <label className="title">
-              <img src={Images.Plus} alt="" />
-              <span>Resumo do Pedido</span>
-            </label>
-          </form>
+          <div className="title">
+            <img src={Images.Plus} alt="" />
+            <span>Resumo do Pedido</span>
+          </div>
           <div className="steps">
             <div className="step">
               <div className="tipos">
-                {pedidos.map((item, index) => (
-                  <div key={index} className="condeudo__tipos">
+                {pedidos.map((item) => (
+                  <div key={item.id} className="condeudo__tipos">
                     <div className="tipos__de_cafes">
                       <img src={Images.CafeExpresso} alt="" />
                       <div>
-                        <h3>{item.nome}</h3>
-                        <p>{item.ml}</p>
-                        <span>{item.com}</span>
+                        <h3>{item.title}</h3>
+                        <p>{item.tamanhoSelecionado.descricao}</p>
+                        {item.adicionaisSelecionados &&
+                          item.adicionaisSelecionados.length > 0 && (
+                            <span style={{ whiteSpace: "pre-line" }}>
+                              {item.adicionaisSelecionados
+                                .map((adicional) => adicional.nome) 
+                                .join("\n")} 
+                            </span>
+                          )}
                       </div>
                     </div>
                     <div className="valor">
-                      <span>{item.valor}</span>
-                      <p>Qtd: {item.quant}</p>
+                      <span>
+                        {item.valorTotalItem.toFixed(2).replace(".", ",")}
+                      </span>
+                      <p>Qtd: {item.quantidadeNoCarrinho}</p>
                     </div>
                   </div>
                 ))}
@@ -70,20 +53,17 @@ export const CardPagamento = () => {
               <div className="payments">
                 <div className="details">
                   <span>Subtotal:</span>
-                  <h3>R$ 12,00</h3>
+                  <h3>R$ {subtotal.toFixed(2).replace(".", ",")}</h3>
                   <span>Taxa de serviço:</span>
-                  <h3>R$ 12,00</h3>
+                  <h3>R$ {taxaServico.toFixed(2).replace(".", ",")}</h3>
                 </div>
                 <div className="footer">
-                  <form action="">
-                    <label className="price">
-                      <span>Total</span>
-                      <p>R$ 24,00</p>
-                    </label>
-                  </form>
-                  <Link className="checkout-btn" to={"/pedidofinalizado"}>
+                  <div className="price">
+                    <span>Total</span>
+                    <p>R$ {total.toFixed(2).replace(".", ",")}</p>
+                  </div>
+                  <Link className="checkout-btn" to={finalCheckoutPath}>
                     <IoCartSharp /> Confirmar Pagamento
-                  
                   </Link>
                 </div>
               </div>

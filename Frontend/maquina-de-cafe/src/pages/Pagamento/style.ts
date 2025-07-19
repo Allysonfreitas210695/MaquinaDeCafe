@@ -19,7 +19,7 @@ export const Pagamento__Header = styled.div`
     line-height: 100%;
     letter-spacing: 0%;
     color: #ffffff;
-    background-color: #3F1811;
+    background-color: #3f1811;
     text-decoration: none;
     border-radius: 74px;
     padding: 15px 30px;
@@ -56,21 +56,23 @@ export const Titulo__Detalhe = styled.h1`
   padding: 8px 5px;
 `;
 
-export const Conteudo__Pagamento = styled.div`
-`;
+export const Conteudo__Pagamento = styled.div``;
 
 export const Tipo__Pagamento = styled.div``;
 
 export const Titulo__Pagamento = styled.h1`
-  color: #432c1b;
-  font-family: Poppins;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0%;
   display: flex;
   align-items: center;
   gap: 8px;
+
+  h2 {
+    color: #432c1b;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
 `;
 
 export const Button = styled.a`
@@ -157,7 +159,7 @@ export const Button__Texto = styled.div`
     color: #aaaaaa;
   }
 
-  p {
+  p, h2 {
     font-family: Poppins;
     font-weight: 500;
     font-size: 13px;
@@ -168,4 +170,6 @@ export const Button__Texto = styled.div`
     align-items: center;
     gap: 5px;
   }
+
+  
 `;

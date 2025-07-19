@@ -4,9 +4,9 @@ using MaquinaDeCafe.src.Resources;
 
 namespace MaquinaDeCafe.src.Validators;
 
-public class RequestTamanhoXicaraValidator : AbstractValidator<RequestTamanhoXicaraJson>
+public class TamanhoXicaraValidator : AbstractValidator<RequestTamanhoXicaraJson>
 {
-    public RequestTamanhoXicaraValidator()
+    public TamanhoXicaraValidator()
     {
         RuleFor(x => x.Descricao)
             .NotEmpty().WithMessage(ErrorsMensagem.TamanhoXicaraDescricaoObrigatoria)

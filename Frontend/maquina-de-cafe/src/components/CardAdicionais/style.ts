@@ -6,9 +6,11 @@ export const Container__Card_Adicionais = styled.div`
   flex-direction: column;
   align-items: center;
   width: 430px;
+  height: 580px;
   border-radius: 16px;
   border: 1px solid #80808021;
   padding: 20px;
+  
 `;
 
 export const Titulo_Adicionais = styled.div`

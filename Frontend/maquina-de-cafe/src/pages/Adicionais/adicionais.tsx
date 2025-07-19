@@ -2,53 +2,55 @@ import { Images } from "../../assets/Images";
 import * as S from "./style";
 
 import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
-import { useLocation } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { getIngredienteadicional } from "../../Service/apiService";
-import { CoffeeCustomizationData } from "../../Service/interface";
-import { Link } from "react-router-dom";
-
-interface Ingredienteadicional {
-  id: string;
-  nome: string;
-  valorExtra: number;
-}
-
-// Interface para um adicional que foi selecionado pelo usuário, com quantidade
-interface SelectedAdicional extends Ingredienteadicional {
-  quantidade: number;
-}
+import {
+  CoffeeCustomizationData,
+  Ingredienteadicional,
+  SelectedAdicional,
+} from "../../Service/interface";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
 
 export const Adicionais = () => {
   const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>(
     []
   );
 
-  // Estado para armazenar os adicionais que o usuário selecionou
   const [selectedAdicionais, setSelectedAdicionais] = useState<
     SelectedAdicional[]
   >([]);
 
-  //----------------------------------------------------------------
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+
+  const coffeesToCustomize: CoffeeCustomizationData[] =
+    location.state?.coffeesToCustomize ?? [];
+  const currentIndex: number = location.state?.currentIndex || 0;
+
+  // O café que está sendo personalizado AGORA
+  const currentCafe: CoffeeCustomizationData | undefined =
+    coffeesToCustomize[currentIndex];
 
   useEffect(() => {
     const fetchPedidos = async () => {
-      const data = await getIngredienteadicional();
-      const transformedData = data.map((item) => ({
-        id: item.id,
-        nome: item.nome,
-        valorExtra: item.valorExtra,
-      }));
-      setNewsAdicionais(transformedData);
+      try {
+        const data = await getIngredienteadicional();
+        const transformedData = data.map((item) => ({
+          id: item.id,
+          nome: item.nome,
+          valorExtra: item.valorExtra,
+        }));
+        setNewsAdicionais(transformedData);
+      } catch (error) {
+        console.error("Falha ao buscar adicionais:", error);
+      }
     };
     fetchPedidos();
-  }, []);
-
-  const location = useLocation();
-  const customizedCafe = location.state?.customizedCafe as
-    | CoffeeCustomizationData
-    | undefined;
+    setSelectedAdicionais([]);
+  }, [currentIndex, coffeesToCustomize]);
 
   // Função para lidar com a seleção/desseleção de um adicional
   const handleToggleAdicional = (adicional: Ingredienteadicional) => {
@@ -71,22 +73,103 @@ export const Adicionais = () => {
     return selectedAdicionais.some((item) => item.id === adicionalId);
   };
 
-  if (!customizedCafe) {
+  if (!currentCafe) {
     return <p>Carregando personalização ou redirecionando...</p>;
   }
+
+  // Função para finalizar a personalização e adicionar ao carrinho
+  const handleFinalizarPersonalizacao = () => {
+    if (!currentCafe || !currentCafe.tamanhoSelecionado) {
+      alert(
+        "Erro: Dados do café ou tamanho selecionado ausentes. Por favor, volte e tente novamente."
+      );
+      navigate("/");
+      return;
+    }
+
+    const valorBase = currentCafe.tamanhoSelecionado.valor;
+    const valorAdicionais = selectedAdicionais.reduce(
+      (sum, adicional) => sum + adicional.valorExtra,
+      0
+    );
+    const valorTotalItem = valorBase + valorAdicionais;
+
+    // Criar o novo item para o carrinho
+    const newItem: CartItem = {
+      id: currentCafe.id + "-" + Date.now(), 
+      title: currentCafe.title,
+      description: currentCafe.description,
+      tag: currentCafe.description || "Padrão",
+      preparation: currentCafe.preparation,
+      imageSrc: currentCafe.imageSrc,
+      tamanhoSelecionado: currentCafe.tamanhoSelecionado,
+      adicionaisSelecionados: selectedAdicionais,
+      quantidadeNoCarrinho: 1,
+      valorTotalItem: valorTotalItem,
+    };
+
+    addToCart(newItem);
+
+    // Verifica se há mais cafés para personalizar na lista
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < coffeesToCustomize.length) {
+      navigate("/adicionais", {
+        state: {
+          coffeesToCustomize: coffeesToCustomize,
+          currentIndex: nextIndex,
+        },
+      });
+    } else {
+      navigate("/carrinho");
+    }
+  };
+
+  if (!currentCafe) {
+    return (
+      <S.Container__Detalhes style={{ textAlign: "center", padding: "50px" }}>
+        <p>
+          Nenhum café selecionado para personalização ou erro na navegação. Por
+          favor, volte e selecione um café.
+        </p>
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "#5C3D2E",
+            fontWeight: "bold",
+          }}
+        >
+          Voltar para a seleção de cafés
+        </Link>
+      </S.Container__Detalhes>
+    );
+  }
+
+  const isLastCafe = currentIndex === coffeesToCustomize.length - 1;
+  const buttonText = isLastCafe
+    ? "Finalizar e Ir para o Carrinho"
+    : "Próximo Café";
 
   return (
     <S.Container__Detalhes>
       <div className="header__container">
         <h1>Personalize o seu café</h1>
-        <Link className="button__cancelar" to={"/carrinho"}>CALCELAR</Link>
+        <Link className="button__cancelar" to={"/carrinho"}>
+          CALCELAR
+        </Link>
       </div>
       <div className="detalhe__card_cafe">
         <div className="card__cafe">
           <CardAdicionais
-            cafeData={customizedCafe}
+            cafeData={currentCafe}
             selectedAdicionais={selectedAdicionais}
           />
+          <S.Div__Botao>
+            {" "}
+            <button onClick={handleFinalizarPersonalizacao}>
+              {buttonText}
+            </button>
+          </S.Div__Botao>
         </div>
         <S.Detalhes>
           <div className="adicionais">
@@ -94,10 +177,9 @@ export const Adicionais = () => {
             <h1>Adicionais</h1>
           </div>
           <S.Conteudo__Detalhes>
-            {newsAdicionais.map((adicional, index) => (
-              <div className="detalhe">
+            {newsAdicionais.map((adicional) => (
+              <div key={adicional.id} className="detalhe">
                 <S.Arry__Detalhe
-                  key={index}
                   onClick={() => handleToggleAdicional(adicional)}
                   style={{
                     border: isAdicionalSelected(adicional.id)

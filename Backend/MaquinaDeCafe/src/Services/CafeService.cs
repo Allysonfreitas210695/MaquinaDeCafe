@@ -1,5 +1,4 @@
 using FluentValidation;
-using MaquinaDeCafe.src.Communication.Request;
 using MaquinaDeCafe.src.Communication.Response;
 using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.DTOs;
@@ -26,7 +25,7 @@ public class CafeService : ICafeRepository
     {
         try
         {
-            var _criacaoValidator = new RequestCriacaoCafeValidator();
+            var _criacaoValidator = new CafeValidator();
             var validation = await _criacaoValidator.ValidateAsync(cafe);
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
@@ -55,7 +54,7 @@ public class CafeService : ICafeRepository
     {
         try
         {
-            var _atualizacaoValidator = new RequestCriacaoCafeValidator();
+            var _atualizacaoValidator = new CafeValidator();
             var validation = await _atualizacaoValidator.ValidateAsync(cafeAtualizado);
             if (!validation.IsValid)
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());

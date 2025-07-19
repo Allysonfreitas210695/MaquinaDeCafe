@@ -1,3 +1,5 @@
+import { CartItem } from "../pages/Carrinho/CardContext/cardcontext";
+
 export interface ApiCafeItem {
   id: string;
   nome: string;
@@ -23,10 +25,10 @@ export interface ApiIngredienteadicional {
 export interface ItemCarrinho {
   cafe: CoffeeCustomizationData;
   adicionaisSelecionados: SelectedAdicional[];
-  quantidade: number; 
-  precoItemTotal: number; 
+  quantidade: number;
+  precoItemTotal: number;
 
-// Campos extras para mapeamento direto no CardPagamento
+  // Campos extras para mapeamento direto no CardPagamento
   nome: string;
   ml: string;
   com: string;
@@ -51,8 +53,30 @@ export interface CoffeeCustomizationData {
   title: string;
   description: string;
   imageSrc: string;
-  selectedCupMl: number | undefined;
-  selectedCupDescription: string | undefined;
+  // selectedCupDescription: string | undefined;
   preparation: number;
-  selectedCupValue: number | undefined;
+  // selectedCupValue: number | undefined;
+  tag?: string; //
+  tamanhoSelecionado: ITamanhoXicaraProps;
+}
+
+export interface CardPagamentoProps {
+  pedidos: CartItem[];
+  subtotal: number;
+  taxaServico: number;
+  total: number;
+  checkoutPath?: string;
+}
+
+export interface ITamanhoXicaraProps {
+  id: string;
+  descricao: string;
+  ml: number;
+  valor: number;
+}
+
+export interface Adicional {
+  id: string;
+  nome: string;
+  valorExtra: number;
 }

@@ -23,7 +23,7 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
     {
         try
         {
-            var _criacaoValidator = new RequestCriacaoIngredienteAdicionalValidator();
+            var _criacaoValidator = new IngredienteAdicionalValidator();
             var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicional);
 
             if (!validation.IsValid)
@@ -103,7 +103,7 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
     {
         try
         {
-            var _criacaoValidator = new RequestCriacaoIngredienteAdicionalValidator();
+            var _criacaoValidator = new IngredienteAdicionalValidator();
             var validation = await _criacaoValidator.ValidateAsync(ingredienteAdicionalAtualizado);
 
             if (!validation.IsValid)
@@ -121,6 +121,10 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
             await _dbContext.SaveChangesAsync();
         }
         catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (ErrorOnValidationException)
         {
             throw;
         }

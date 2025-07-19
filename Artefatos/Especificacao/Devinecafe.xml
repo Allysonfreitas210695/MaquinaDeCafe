@@ -1,0 +1,1411 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+    <net id="Net-One" type="P/T net">
+        <token id="Default" enabled="true" red="0" green="0" blue="0"/>
+        <place id="Cancelamento bloqueado">
+            <graphics>
+                <position x="1346.25" y="442.5"/>
+            </graphics>
+            <name>
+                <value>Cancelamento bloqueado</value>
+                <graphics>
+                    <offset x="72.5" y="38.75"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Ingredientes selecionados">
+            <graphics>
+                <position x="960.0" y="225.0"/>
+            </graphics>
+            <name>
+                <value>Ingredientes selecionados</value>
+                <graphics>
+                    <offset x="85.0" y="-1.25"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Ínicio do processo">
+            <graphics>
+                <position x="532.5" y="82.5"/>
+            </graphics>
+            <name>
+                <value>Ínicio do processo</value>
+                <graphics>
+                    <offset x="6.0" y="21.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,1</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido alterado">
+            <graphics>
+                <position x="476.25" y="277.5"/>
+            </graphics>
+            <name>
+                <value>Pedido alterado</value>
+                <graphics>
+                    <offset x="-7.5" y="23.75"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido cancelado (antes da execução) ">
+            <graphics>
+                <position x="720.0" y="675.0"/>
+            </graphics>
+            <name>
+                <value>Pedido cancelado (antes da execução) </value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido com temporizador ativo">
+            <graphics>
+                <position x="1233.75" y="337.5"/>
+            </graphics>
+            <name>
+                <value>Pedido com temporizador ativo</value>
+                <graphics>
+                    <offset x="97.5" y="-1.25"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido confirmado">
+            <graphics>
+                <position x="915.0" y="405.0"/>
+            </graphics>
+            <name>
+                <value>Pedido confirmado</value>
+                <graphics>
+                    <offset x="65.0" y="43.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido entregue">
+            <graphics>
+                <position x="1035.0" y="705.0"/>
+            </graphics>
+            <name>
+                <value>Pedido entregue</value>
+                <graphics>
+                    <offset x="-9.0" y="17.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido Indisponível">
+            <graphics>
+                <position x="982.5" y="26.25"/>
+            </graphics>
+            <name>
+                <value>Pedido Indisponível</value>
+                <graphics>
+                    <offset x="73.75" y="-3.75"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido não preparado ainda (aguardando)">
+            <graphics>
+                <position x="915.0" y="495.0"/>
+            </graphics>
+            <name>
+                <value>Pedido não preparado ainda (aguardando)</value>
+                <graphics>
+                    <offset x="118.75" y="42.5"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido pronto">
+            <graphics>
+                <position x="1110.0" y="630.0"/>
+            </graphics>
+            <name>
+                <value>Pedido pronto</value>
+                <graphics>
+                    <offset x="47.0" y="-10.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido sendo preparado">
+            <graphics>
+                <position x="1110.0" y="480.0"/>
+            </graphics>
+            <name>
+                <value>Pedido sendo preparado</value>
+                <graphics>
+                    <offset x="162.0" y="20.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Pedido validado">
+            <graphics>
+                <position x="720.0" y="285.0"/>
+            </graphics>
+            <name>
+                <value>Pedido validado</value>
+                <graphics>
+                    <offset x="47.5" y="0.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Personalização concluída">
+            <graphics>
+                <position x="960.0" y="330.0"/>
+            </graphics>
+            <name>
+                <value>Personalização concluída</value>
+                <graphics>
+                    <offset x="83.5" y="49.25"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Qtd. selecionada">
+            <graphics>
+                <position x="1065.0" y="210.0"/>
+            </graphics>
+            <name>
+                <value>Qtd. selecionada</value>
+                <graphics>
+                    <offset x="115.25" y="18.5"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Tamanho da xícara">
+            <graphics>
+                <position x="990.0" y="90.0"/>
+            </graphics>
+            <name>
+                <value>Tamanho da xícara</value>
+                <graphics>
+                    <offset x="66.0" y="-3.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Tamanho para cálculo de valor ">
+            <graphics>
+                <position x="626.25" y="225.0"/>
+            </graphics>
+            <name>
+                <value>Tamanho para cálculo de valor </value>
+                <graphics>
+                    <offset x="101.25" y="-6.25"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Tipo de café escolhido">
+            <graphics>
+                <position x="795.0" y="90.0"/>
+            </graphics>
+            <name>
+                <value>Tipo de café escolhido</value>
+                <graphics>
+                    <offset x="80.0" y="-9.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Valor exibido">
+            <graphics>
+                <position x="720.0" y="435.0"/>
+            </graphics>
+            <name>
+                <value>Valor exibido</value>
+                <graphics>
+                    <offset x="-3.25" y="31.5"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <place id="Visualizando detalhes do pedido">
+            <graphics>
+                <position x="483.75" y="536.25"/>
+            </graphics>
+            <name>
+                <value>Visualizando detalhes do pedido</value>
+                <graphics>
+                    <offset x="1.25" y="25.0"/>
+                </graphics>
+            </name>
+            <initialMarking>
+                <value>Default,0</value>
+                <graphics>
+                    <offset x="0.0" y="0.0"/>
+                </graphics>
+            </initialMarking>
+            <capacity>
+                <value>0</value>
+            </capacity>
+        </place>
+        <transition id="Ativar temporizador para cancelar">
+            <graphics>
+                <position x="1106.25" y="352.5"/>
+            </graphics>
+            <name>
+                <value>Ativar temporizador para cancelar</value>
+                <graphics>
+                    <offset x="87.5" y="41.25"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>true</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Bloquear cancelamento">
+            <graphics>
+                <position x="1338.75" y="348.75"/>
+            </graphics>
+            <name>
+                <value>Bloquear cancelamento</value>
+                <graphics>
+                    <offset x="156.25" y="25.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Calcular/exibir valor">
+            <graphics>
+                <position x="720.0" y="360.0"/>
+            </graphics>
+            <name>
+                <value>Calcular/exibir valor</value>
+                <graphics>
+                    <offset x="133.75" y="15.75"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Cancelar pedido">
+            <graphics>
+                <position x="720.0" y="562.5"/>
+            </graphics>
+            <name>
+                <value>Cancelar pedido</value>
+                <graphics>
+                    <offset x="-4.0" y="20.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Confirmar pedido">
+            <graphics>
+                <position x="810.0" y="435.0"/>
+            </graphics>
+            <name>
+                <value>Confirmar pedido</value>
+                <graphics>
+                    <offset x="68.75" y="-11.75"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Detectar item indisponível">
+            <graphics>
+                <position x="866.25" y="11.25"/>
+            </graphics>
+            <name>
+                <value>Detectar item indisponível</value>
+                <graphics>
+                    <offset x="0.0" y="15.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Entregar pedido">
+            <graphics>
+                <position x="1110.0" y="705.0"/>
+            </graphics>
+            <name>
+                <value>Entregar pedido</value>
+                <graphics>
+                    <offset x="51.0" y="42.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Escolher qtd.">
+            <graphics>
+                <position x="1065.0" y="135.0"/>
+            </graphics>
+            <name>
+                <value>Escolher qtd.</value>
+                <graphics>
+                    <offset x="99.0" y="17.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Escolher tamanho da xícara">
+            <graphics>
+                <position x="900.0" y="120.0"/>
+            </graphics>
+            <name>
+                <value>Escolher tamanho da xícara</value>
+                <graphics>
+                    <offset x="84.0" y="43.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Escolher tipo de café">
+            <graphics>
+                <position x="667.5" y="63.75"/>
+            </graphics>
+            <name>
+                <value>Escolher tipo de café</value>
+                <graphics>
+                    <offset x="68.0" y="45.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Escolher tipo de café (pedido alterado)">
+            <graphics>
+                <position x="487.5" y="157.5"/>
+            </graphics>
+            <name>
+                <value>Escolher tipo de café (pedido alterado)</value>
+                <graphics>
+                    <offset x="97.5" y="50.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Finalizar preparo">
+            <graphics>
+                <position x="1110.0" y="555.0"/>
+            </graphics>
+            <name>
+                <value>Finalizar preparo</value>
+                <graphics>
+                    <offset x="-1.0" y="15.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Personalizar pedido">
+            <graphics>
+                <position x="1065.0" y="285.0"/>
+            </graphics>
+            <name>
+                <value>Personalizar pedido</value>
+                <graphics>
+                    <offset x="134.0" y="16.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Preparar pedido">
+            <graphics>
+                <position x="1050.0" y="435.0"/>
+            </graphics>
+            <name>
+                <value>Preparar pedido</value>
+                <graphics>
+                    <offset x="61.75" y="-0.25"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Solicitar alteração do pedido">
+            <graphics>
+                <position x="547.5" y="337.5"/>
+            </graphics>
+            <name>
+                <value>Solicitar alteração do pedido</value>
+                <graphics>
+                    <offset x="150.0" y="8.75"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Validar campos e quantidade">
+            <graphics>
+                <position x="840.0" y="285.0"/>
+            </graphics>
+            <name>
+                <value>Validar campos e quantidade</value>
+                <graphics>
+                    <offset x="98.0" y="-11.0"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <transition id="Visualizar detalhes do pedido">
+            <graphics>
+                <position x="487.5" y="423.75"/>
+            </graphics>
+            <name>
+                <value>Visualizar detalhes do pedido</value>
+                <graphics>
+                    <offset x="5.0" y="21.25"/>
+                </graphics>
+            </name>
+            <orientation>
+                <value>0</value>
+            </orientation>
+            <rate>
+                <value>1.0</value>
+            </rate>
+            <timed>
+                <value>false</value>
+            </timed>
+            <infiniteServer>
+                <value>false</value>
+            </infiniteServer>
+            <priority>
+                <value>1</value>
+            </priority>
+        </transition>
+        <arc id="Ativar temporizador para cancelar to Pedido com temporizador ativo" source="Ativar temporizador para cancelar" target="Pedido com temporizador ativo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1121" y="363" curvePoint="false"/>
+            <arcpath id="001" x="1230" y="350" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Bloquear cancelamento to Cancelamento bloqueado" source="Bloquear cancelamento" target="Cancelamento bloqueado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1350" y="375" curvePoint="false"/>
+            <arcpath id="001" x="1355" y="438" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Calcular/exibir valor to Valor exibido" source="Calcular/exibir valor" target="Valor exibido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="731" y="386" curvePoint="false"/>
+            <arcpath id="001" x="731" y="431" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Cancelamento bloqueado to Preparar pedido" source="Cancelamento bloqueado" target="Preparar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1342" y="450" curvePoint="false"/>
+            <arcpath id="001" x="1158" y="408" curvePoint="false"/>
+            <arcpath id="002" x="1066" y="441" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Cancelar pedido to Pedido cancelado (antes da execução) " source="Cancelar pedido" target="Pedido cancelado (antes da execução) ">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="731" y="588" curvePoint="false"/>
+            <arcpath id="001" x="731" y="671" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Confirmar pedido to Pedido confirmado" source="Confirmar pedido" target="Pedido confirmado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="826" y="441" curvePoint="false"/>
+            <arcpath id="001" x="911" y="418" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Confirmar pedido to Pedido não preparado ainda (aguardando)" source="Confirmar pedido" target="Pedido não preparado ainda (aguardando)">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="825" y="451" curvePoint="false"/>
+            <arcpath id="001" x="912" y="498" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Detectar item indisponível to Pedido Indisponível" source="Detectar item indisponível" target="Pedido Indisponível">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="881" y="22" curvePoint="false"/>
+            <arcpath id="001" x="978" y="35" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Entregar pedido to Pedido entregue" source="Entregar pedido" target="Pedido entregue">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1115" y="716" curvePoint="false"/>
+            <arcpath id="001" x="1060" y="716" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Escolher qtd. to Qtd. selecionada" source="Escolher qtd." target="Qtd. selecionada">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1076" y="161" curvePoint="false"/>
+            <arcpath id="001" x="1076" y="206" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Escolher tamanho da xícara to Tamanho da xícara" source="Escolher tamanho da xícara" target="Tamanho da xícara">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="915" y="131" curvePoint="false"/>
+            <arcpath id="001" x="986" y="106" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Escolher tamanho da xícara to Tamanho para cálculo de valor " source="Escolher tamanho da xícara" target="Tamanho para cálculo de valor ">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="905" y="136" curvePoint="false"/>
+            <arcpath id="001" x="651" y="230" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Escolher tipo de café (pedido alterado) to Tipo de café escolhido" source="Escolher tipo de café (pedido alterado)" target="Tipo de café escolhido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="502" y="168" curvePoint="false"/>
+            <arcpath id="001" x="791" y="103" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Escolher tipo de café to Tipo de café escolhido" source="Escolher tipo de café" target="Tipo de café escolhido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="682" y="75" curvePoint="false"/>
+            <arcpath id="001" x="791" y="97" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Finalizar preparo to Pedido pronto" source="Finalizar preparo" target="Pedido pronto">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1121" y="581" curvePoint="false"/>
+            <arcpath id="001" x="1121" y="626" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Ingredientes selecionados to Validar campos e quantidade" source="Ingredientes selecionados" target="Validar campos e quantidade">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="957" y="242" curvePoint="false"/>
+            <arcpath id="001" x="856" y="291" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Ínicio do processo to Escolher tipo de café" source="Ínicio do processo" target="Escolher tipo de café">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="557" y="91" curvePoint="false"/>
+            <arcpath id="001" x="672" y="75" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido alterado to Escolher tipo de café (pedido alterado)" source="Pedido alterado" target="Escolher tipo de café (pedido alterado)">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="488" y="273" curvePoint="false"/>
+            <arcpath id="001" x="498" y="183" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido com temporizador ativo to Bloquear cancelamento" source="Pedido com temporizador ativo" target="Bloquear cancelamento">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1258" y="350" curvePoint="false"/>
+            <arcpath id="001" x="1343" y="360" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido com temporizador ativo to Cancelar pedido" source="Pedido com temporizador ativo" target="Cancelar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1245" y="362" curvePoint="false"/>
+            <arcpath id="001" x="1252" y="596" curvePoint="false"/>
+            <arcpath id="002" x="735" y="578" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido confirmado to Ativar temporizador para cancelar" source="Pedido confirmado" target="Ativar temporizador para cancelar">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="940" y="411" curvePoint="false"/>
+            <arcpath id="001" x="1111" y="363" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido não preparado ainda (aguardando) to Cancelar pedido" source="Pedido não preparado ainda (aguardando)" target="Cancelar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="911" y="505" curvePoint="false"/>
+            <arcpath id="001" x="821" y="502" curvePoint="false"/>
+            <arcpath id="002" x="736" y="568" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido não preparado ainda (aguardando) to Preparar pedido" source="Pedido não preparado ainda (aguardando)" target="Preparar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="938" y="500" curvePoint="false"/>
+            <arcpath id="001" x="1055" y="446" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido pronto to Entregar pedido" source="Pedido pronto" target="Entregar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1121" y="655" curvePoint="false"/>
+            <arcpath id="001" x="1121" y="701" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido sendo preparado to Finalizar preparo" source="Pedido sendo preparado" target="Finalizar preparo">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1121" y="505" curvePoint="false"/>
+            <arcpath id="001" x="1121" y="551" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Pedido validado to Calcular/exibir valor" source="Pedido validado" target="Calcular/exibir valor">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="731" y="310" curvePoint="false"/>
+            <arcpath id="001" x="731" y="356" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Personalização concluída to Validar campos e quantidade" source="Personalização concluída" target="Validar campos e quantidade">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="956" y="336" curvePoint="false"/>
+            <arcpath id="001" x="855" y="301" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Personalizar pedido to Ingredientes selecionados" source="Personalizar pedido" target="Ingredientes selecionados">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1071" y="291" curvePoint="false"/>
+            <arcpath id="001" x="983" y="242" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Personalizar pedido to Personalização concluída" source="Personalizar pedido" target="Personalização concluída">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1070" y="301" curvePoint="false"/>
+            <arcpath id="001" x="985" y="335" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Preparar pedido to Pedido sendo preparado" source="Preparar pedido" target="Pedido sendo preparado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1065" y="451" curvePoint="false"/>
+            <arcpath id="001" x="1108" y="481" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Qtd. selecionada to Personalizar pedido" source="Qtd. selecionada" target="Personalizar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1076" y="235" curvePoint="false"/>
+            <arcpath id="001" x="1076" y="281" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Solicitar alteração do pedido to Pedido alterado" source="Solicitar alteração do pedido" target="Pedido alterado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="552" y="348" curvePoint="false"/>
+            <arcpath id="001" x="497" y="298" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Tamanho da xícara to Escolher qtd." source="Tamanho da xícara" target="Escolher qtd.">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="1013" y="108" curvePoint="false"/>
+            <arcpath id="001" x="1070" y="146" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Tamanho para cálculo de valor  to Calcular/exibir valor" source="Tamanho para cálculo de valor " target="Calcular/exibir valor">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="645" y="248" curvePoint="false"/>
+            <arcpath id="001" x="725" y="371" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Tipo de café escolhido to Detectar item indisponível" source="Tipo de café escolhido" target="Detectar item indisponível">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="815" y="88" curvePoint="false"/>
+            <arcpath id="001" x="871" y="22" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Tipo de café escolhido to Escolher tamanho da xícara" source="Tipo de café escolhido" target="Escolher tamanho da xícara">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="820" y="103" curvePoint="false"/>
+            <arcpath id="001" x="906" y="126" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Validar campos e quantidade to Pedido validado" source="Validar campos e quantidade" target="Pedido validado">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="845" y="296" curvePoint="false"/>
+            <arcpath id="001" x="745" y="296" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Valor exibido to Confirmar pedido" source="Valor exibido" target="Confirmar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="745" y="445" curvePoint="false"/>
+            <arcpath id="001" x="816" y="441" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Valor exibido to Solicitar alteração do pedido" source="Valor exibido" target="Solicitar alteração do pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="717" y="437" curvePoint="false"/>
+            <arcpath id="001" x="562" y="348" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Valor exibido to Visualizar detalhes do pedido" source="Valor exibido" target="Visualizar detalhes do pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="716" y="441" curvePoint="false"/>
+            <arcpath id="001" x="615" y="408" curvePoint="false"/>
+            <arcpath id="002" x="503" y="430" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Visualizando detalhes do pedido to Confirmar pedido" source="Visualizando detalhes do pedido" target="Confirmar pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="508" y="542" curvePoint="false"/>
+            <arcpath id="001" x="815" y="451" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Visualizar detalhes do pedido to Valor exibido" source="Visualizar detalhes do pedido" target="Valor exibido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="502" y="440" curvePoint="false"/>
+            <arcpath id="001" x="615" y="465" curvePoint="false"/>
+            <arcpath id="002" x="716" y="447" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+        <arc id="Visualizar detalhes do pedido to Visualizando detalhes do pedido" source="Visualizar detalhes do pedido" target="Visualizando detalhes do pedido">
+            <graphics/>
+            <inscription>
+                <value>Default,1</value>
+                <graphics/>
+            </inscription>
+            <tagged>
+                <value>false</value>
+            </tagged>
+            <arcpath id="000" x="498" y="450" curvePoint="false"/>
+            <arcpath id="001" x="495" y="532" curvePoint="false"/>
+            <type value="normal"/>
+        </arc>
+    </net>
+</pnml>
