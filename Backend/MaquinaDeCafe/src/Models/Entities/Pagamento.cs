@@ -1,7 +1,9 @@
 
 
+using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Models.Common;
 using MaquinaDeCafe.src.Models.Enums;
+using MaquinaDeCafe.src.Resources;
 
 namespace MaquinaDeCafe.src.Models.Entities;
 
@@ -15,34 +17,32 @@ public class Pagamento : Entity
     public Pedido Pedido { get; private set; }
 
     public Pagamento() { }
-    public Pagamento(Guid pedidoId, FormaPagamento forma, string? hashPix = null)
+
+    public Pagamento(Guid? id, Guid pedidoId, FormaPagamento forma)
     {
-        Id = Guid.NewGuid();
+        if (!Enum.IsDefined(typeof(FormaPagamento), forma))
+            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.InvalidFormaPagamento });
+
+        Id = id ?? Guid.NewGuid();
         PedidoId = pedidoId;
         DataPagamento = DateTime.UtcNow;
 
-        SetFormaPagamento(forma, hashPix);
+        SetFormaPagamento(forma);
     }
 
-    public void AtualizarFormaPagamento(FormaPagamento novaForma, string? novoHashPix = null)
+    public void AtualizarFormaPagamento(FormaPagamento novaForma)
     {
-        SetFormaPagamento(novaForma, novoHashPix);
+        SetFormaPagamento(novaForma);
         DataPagamento = DateTime.UtcNow;
     }
 
-    private void SetFormaPagamento(FormaPagamento forma, string? hashPix)
+    private void SetFormaPagamento(FormaPagamento forma)
     {
         if (forma == FormaPagamento.Pix)
-        {
-            if (string.IsNullOrWhiteSpace(hashPix))
-                throw new ArgumentException("HashPix é obrigatório para pagamentos via PIX.");
-
-            HashPix = hashPix;
-        }
+            HashPix = Guid.NewGuid().ToString();
         else
-        {
             HashPix = null;
-        }
+        
 
         Forma = forma;
     }

@@ -37,7 +37,7 @@ public class PedidoService : IPedidoRepository
             var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo, request.ValorTotal);
             await _dbContext.Pedidos.AddAsync(pedido);
 
-            var pagamento = new Pagamento(pedido.Id, request.FormaPagamento);
+            var pagamento = new Pagamento(Guid.NewGuid(), pedido.Id, request.FormaPagamento);
             await _dbContext.Pagamentos.AddAsync(pagamento);
 
             var cafeIds = request.PedidosItens.Select(i => i.CafeId).Distinct().ToList();

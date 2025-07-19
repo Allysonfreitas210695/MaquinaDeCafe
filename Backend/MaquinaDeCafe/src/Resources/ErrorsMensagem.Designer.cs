@@ -277,6 +277,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Forma de pagamento inválida..
+        /// </summary>
+        public static string InvalidFormaPagamento {
+            get {
+                return ResourceManager.GetString("InvalidFormaPagamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cada café pode ter no máximo 4 ingredientes adicionais..
         /// </summary>
         public static string MaximoAdicionaisPorCafe {
