@@ -8,6 +8,6 @@ public class RequestCafesPedidosJson
     public TipoLeite TipoLeite { get; set; }
     public TipoAcucar TipoAcucar { get; set; }
     public Guid TamanhoXicaraId { get; set; }
-    public List<Guid>? IngredientesAdicionaisIds { get; set; } 
+    public List<Guid>? IngredientesAdicionaisIds { get; set; }
     public int Quantidade { get; set; } = default!;
 }
