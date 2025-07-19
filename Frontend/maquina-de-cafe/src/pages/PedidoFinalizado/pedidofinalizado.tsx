@@ -1,25 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import * as S from "./style";
 import { BsArrowLeftShort, BsCheck2 } from "react-icons/bs";
+import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
 
 export const PedidoFinalizado = () => {
-  const pedidos = [
-    {
-      id: 1,
-      titulo: "Café Tradicional",
-      ml: "50 ml",
-      quant: "Quantidade: 2",
-      valor: "R$ 10,00",
-    },
-    {
-      id: 2,
-      titulo: "Café Tradicional",
-      ml: "50 ml",
-      quant: "Quantidade: 2",
-      valor: "R$ 10,00",
-    },
-  ];
+   const navigate = useNavigate();
+  const { cart, clearCart } = useCart();
+  const pedidoItemsReais: CartItem[] = cart;
+
+  const pedidosFormatadosParaExibicao = pedidoItemsReais.map(item => ({
+    id: item.id,
+    titulo: item.title,
+    ml: item.tamanhoSelecionado ? `${item.tamanhoSelecionado.ml} ml` : 'N/A',
+    quant: `Quantidade: ${item.quantidadeNoCarrinho || 1}`,
+    valor: `R$ ${item.valorTotalItem.toFixed(2).replace(".", ",")}`,
+    imageSrc: item.imageSrc || Images.caffee
+  }));
+
+  const totalRealDoPedido = pedidoItemsReais.reduce((acc, item) => acc + item.valorTotalItem, 0);
+
+  const handleFinalizarPedido = () => {
+    navigate("/feedback", { state: { itemsParaFeedback: pedidoItemsReais } });
+    clearCart();
+  };
+
   return (
     <S.Container__Pedido_Finalizado>
       <S.Header__Pedido>
@@ -38,7 +43,7 @@ export const PedidoFinalizado = () => {
           <span>#2025</span>
         </S.Detalhes>
         <S.Pedidos>
-          {pedidos.map((item) => (
+          {pedidosFormatadosParaExibicao.map((item) => (
             <S.Item key={item.id}>
               <div className="tipos__pedidos">
                 <img src={Images.caffee} alt="imagem de cafe" />
@@ -55,7 +60,7 @@ export const PedidoFinalizado = () => {
         </S.Pedidos>
         <S.Total__Pedido>
           <span>Total</span>
-          <p>R$ 18,00</p>
+          <p>R$ {totalRealDoPedido.toFixed(2).replace(".", ",")}</p>
         </S.Total__Pedido>
       </S.Detalhe__Pedido>
       <S.Medoto_Pagamento>
@@ -105,9 +110,9 @@ export const PedidoFinalizado = () => {
         </div>
       </S.Status__do__Pedido>
       <S.Button__Pedido>
-        <Link className="finalizar__pedido" to={""}>
+        <button className="finalizar__pedido" onClick={handleFinalizarPedido}>
           Finalizar Pedido
-        </Link>
+        </button>
         <Link className="cancelar__pedido" to={"/cancelado"}>
           Cancelar Pedido
         </Link>

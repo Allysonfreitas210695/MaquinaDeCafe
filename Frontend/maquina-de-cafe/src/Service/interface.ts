@@ -34,7 +34,6 @@ export interface ItemCarrinho {
   com: string;
   valor: string;
   quant: string;
-
   imagem: string;
 }
 
@@ -79,4 +78,11 @@ export interface Adicional {
   id: string;
   nome: string;
   valorExtra: number;
+}
+
+export interface AvaliacaoCafePayload {
+  cafeId: string;
+  atendimento: string;
+  estrelas: number;
+  observacao: string;
 }

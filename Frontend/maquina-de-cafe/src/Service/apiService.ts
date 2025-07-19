@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApiCafeItem, ApiIngredienteadicional, ApiTamanhoXicara } from "./interface";
+import { ApiCafeItem, ApiIngredienteadicional, ApiTamanhoXicara, AvaliacaoCafePayload } from "./interface";
 const apiUrl = import.meta.env.LINKBACK ?? "http://localhost:5035";
 
 export const getCafes = async (): Promise<ApiCafeItem[]> => {
@@ -26,7 +26,6 @@ export const getTamanhoXicara = async (): Promise<ApiTamanhoXicara[]> => {
   }
 };
 
-
 export const getIngredienteadicional = async (): Promise<ApiIngredienteadicional[]> => {
   try {
     const response = await axios.get(apiUrl + "/api/ingredienteadicional");
@@ -36,5 +35,15 @@ export const getIngredienteadicional = async (): Promise<ApiIngredienteadicional
   } catch (error) {
     console.error("Erro ao buscar os tamos das xicaras:", error);
     return [];
+  }
+};
+
+export const postAvaliacaoCafe = async (feedbackData: AvaliacaoCafePayload): Promise<AvaliacaoCafePayload> => { 
+  try {
+    const response = await axios.post(`${apiUrl}/api/avaliacoescafe`, feedbackData);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao enviar avaliação do café:", error);
+    throw error;
   }
 };
