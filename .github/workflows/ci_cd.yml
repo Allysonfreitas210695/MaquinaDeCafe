@@ -2,9 +2,7 @@ name: CI - Build, Test, SonarQube, Deploy
 
 on:
   push:
-    branches:
-      - main
-      - devel
+    branches: [main, devel]
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
@@ -59,7 +57,7 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.exclusions="**/Migrations/**,**/Program.cs,**/appsettings.*,**/coverage.runsettings,**/TestResults/**,coverage-report/**,**/*.html,**/*.css,**/*.js" `
             /d:sonar.coverage.exclusions="**/*"
-          dotnet build Backend/MaquinaDeCafe --configuration Release
+          dotnet build backend/MaquinaDeCafe.sln --configuration Release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   build:
@@ -78,19 +76,16 @@ jobs:
           dotnet-version: "8.x"
 
       - name: Restore dependencies
-        run: dotnet restore
-        working-directory: Backend/MaquinaDeCafe
+        run: dotnet restore backend/MaquinaDeCafe.sln
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --no-restore
-        working-directory: Backend/MaquinaDeCafe
+        run: dotnet build backend/MaquinaDeCafe.sln --configuration Release --no-restore
 
       - name: Run tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
-        working-directory: Backend/MaquinaDeCafe
+        run: dotnet test backend/tests --configuration Release --no-build --verbosity normal
 
       - name: Publish project
-        run: dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
+        run: dotnet publish backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
