@@ -86,7 +86,8 @@ jobs:
         working-directory: Backend/MaquinaDeCafe
 
       - name: Run tests
-        run: dotnet test MaquinaDeCafe.sln --no-build --configuration Release
+        run: dotnet test MaquinaDeCafe.sln --configuration Release
+        working-directory: .
 
       - name: Publish project
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
