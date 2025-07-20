@@ -59,7 +59,7 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.exclusions="**/Migrations/**,**/Program.cs,**/appsettings.*,**/coverage.runsettings,**/TestResults/**,coverage-report/**,**/*.html,**/*.css,**/*.js" `
             /d:sonar.coverage.exclusions="**/*"
-          dotnet build
+          dotnet build Backend/MaquinaDeCafe --configuration Release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   build:
@@ -90,16 +90,16 @@ jobs:
         working-directory: .
 
       - name: Publish project
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-        working-directory: Backend/MaquinaDeCafe
+        run: dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./publish
 
   deploy:
+    name: Deploy to Azure Web App
     runs-on: ubuntu-latest
     needs: build
     permissions:
@@ -111,6 +111,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
+          path: ./publish
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -125,4 +126,4 @@ jobs:
         with:
           app-name: "maquina-web"
           slot-name: "Production"
-          package: .
+          package: ./publish
