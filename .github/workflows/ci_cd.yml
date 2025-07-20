@@ -115,13 +115,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F635D843AC02428BA607ABBA526BE7A8 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5DB9594BC2E4428E97EFBD09A921B3B8 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E51AA33FBC6F4B4EBA3AC49BCB8BF40C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_561F079F1D164FA991646A0D4262D75E }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B904FA6DA8524E4BBB189689F565D0ED }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0B17470B9BD5426C994E553F77CC109A }}
 
       - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "maquinacafe-web"
+          app-name: "maquina-web"
           slot-name: "Production"
           package: .
