@@ -40,8 +40,8 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
         }
     }
 
-    public  async Task<ResponseTamanhoXicaraJson> GetItemByIdAsync(Guid id)
-    {   
+    public async Task<ResponseTamanhoXicaraJson> GetItemByIdAsync(Guid id)
+    {
         try
         {
             var _tamanhoXicara = await _dbContext.TamanhosXicara
@@ -51,7 +51,8 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
                                         Id = z.Id,
                                         Descricao = z.Descricao,
                                         Ml = z.Ml,
-                                        Valor = z.Valor
+                                        Valor = z.Valor,
+                                        CafeId = z.CafeId
                                     })
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync();
@@ -79,7 +80,8 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
                                     Id = z.Id,
                                     Descricao = z.Descricao,
                                     Ml = z.Ml,
-                                    Valor = z.Valor
+                                    Valor = z.Valor,
+                                    CafeId = z.CafeId
                                 })
                                 .AsNoTracking()
                                 .ToListAsync();
@@ -95,17 +97,17 @@ public class TamanhoXicaraService : ITamanhoXicaraRepository
                 throw new ErrorOnValidationException(validation.Errors.Select(x => x.ErrorMessage).ToList());
 
             var _tamanhoXicara = await _dbContext.TamanhosXicara.FirstOrDefaultAsync(x => x.Id == id);
-            if(_tamanhoXicara is null)
+            if (_tamanhoXicara is null)
                 throw new NotFoundException(ErrorsMensagem.TamanhoXicaraNaoEncontradoExclamacao);
 
             _tamanhoXicara.Atualizar(request.Descricao, request.Ml, request.Valor, request.CafeId);
-        
+
             await _dbContext.SaveChangesAsync();
         }
         catch (NotFoundException)
         {
             throw;
-        } 
+        }
         catch (ErrorOnValidationException)
         {
             throw;
