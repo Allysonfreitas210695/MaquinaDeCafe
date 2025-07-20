@@ -22,6 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="**\*Test*" />
+    <Content Remove="**\*Test*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="src\Resources\ErrorsMensagem.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

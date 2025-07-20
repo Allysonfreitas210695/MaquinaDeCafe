@@ -87,8 +87,12 @@ jobs:
       - name: Publish project
         run: |
           dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
-          # Remove test files to avoid confusion during deployment
-          find ./publish -name "*.Test.*" -delete
+          find ./publish -name "*Test*" -delete
+          find ./publish -name "*.Tests.*" -delete
+          rm -rf ./publish/TestResults
+
+      - name: List published files
+        run: ls -R ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
