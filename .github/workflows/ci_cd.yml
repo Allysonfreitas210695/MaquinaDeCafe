@@ -85,7 +85,10 @@ jobs:
         run: dotnet test Backend/MaquinaDeCafe.sln --configuration Release --no-build --verbosity normal
 
       - name: Publish project
-        run: dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
+        run: |
+          dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
+          # Remove test files to avoid confusion during deployment
+          find ./publish -name "*.Test.*" -delete
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -122,3 +125,4 @@ jobs:
           app-name: "maquina-web"
           slot-name: "Production"
           package: ./publish
+          startup-command: "dotnet MaquinaDeCafe.dll"
