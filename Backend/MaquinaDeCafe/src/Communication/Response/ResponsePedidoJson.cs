@@ -9,4 +9,7 @@ public class ResponsePedidoJson
     public decimal ValorTotal { get; set; }
 
     public string Status { get; set; } = string.Empty;
+    public string FormaPagamento { get; set; } = string.Empty;
+
+    public string HashPix { get; set; } = string.Empty;
 }

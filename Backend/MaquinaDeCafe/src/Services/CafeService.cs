@@ -1,5 +1,4 @@
 using FluentValidation;
-using MaquinaDeCafe.src.Communication.Request;
 using MaquinaDeCafe.src.Communication.Response;
 using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.DTOs;

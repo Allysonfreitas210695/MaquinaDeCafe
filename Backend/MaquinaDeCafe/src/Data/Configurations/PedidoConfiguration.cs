@@ -16,12 +16,17 @@ public class PedidoConfiguration : IEntityTypeConfiguration<Pedido>
             .WithOne(pi => pi.Pedido)
             .HasForeignKey(pi => pi.PedidoId)
             .OnDelete(DeleteBehavior.Cascade);
- 
+
         builder.Property(p => p.Status)
             .HasConversion<int>()
-            .IsRequired(); 
- 
+            .IsRequired();
+
         builder.Property(p => p.ValorTotal)
-            .IsRequired();   
+            .IsRequired();
+
+        builder.HasOne(p => p.Pagamento)
+            .WithOne(pag => pag.Pedido)
+            .HasForeignKey<Pagamento>(pag => pag.PedidoId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

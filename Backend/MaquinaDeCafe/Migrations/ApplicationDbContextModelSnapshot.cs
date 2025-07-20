@@ -112,6 +112,39 @@ namespace MaquinaDeCafe.Migrations
                     b.ToTable("IngredientesAdicionais", (string)null);
                 });
 
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Pagamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DataPagamento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Forma")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("HashPix")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId")
+                        .IsUnique();
+
+                    b.ToTable("Pagamentos", (string)null);
+                });
+
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
@@ -250,6 +283,17 @@ namespace MaquinaDeCafe.Migrations
                     b.Navigation("Cafe");
                 });
 
+            modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Pagamento", b =>
+                {
+                    b.HasOne("MaquinaDeCafe.src.Models.Entities.Pedido", "Pedido")
+                        .WithOne("Pagamento")
+                        .HasForeignKey("MaquinaDeCafe.src.Models.Entities.Pagamento", "PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+                });
+
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.PedidoItem", b =>
                 {
                     b.HasOne("MaquinaDeCafe.src.Models.Entities.Cafe", "Cafe")
@@ -323,6 +367,9 @@ namespace MaquinaDeCafe.Migrations
 
             modelBuilder.Entity("MaquinaDeCafe.src.Models.Entities.Pedido", b =>
                 {
+                    b.Navigation("Pagamento")
+                        .IsRequired();
+
                     b.Navigation("PedidoItens");
                 });
 

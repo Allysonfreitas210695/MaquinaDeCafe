@@ -5,5 +5,7 @@ namespace MaquinaDeCafe.src.DTOs;
 
 public class RequestCriacaoPedidoJson
 {
-    public List<RequestCafesPedidosJson> PedidosItens { get; set; } = default!;   
+    public FormaPagamento FormaPagamento { get; set; }
+    public decimal ValorTotal { get; set; } = 0.0m;
+    public List<RequestCafesPedidosJson> PedidosItens { get; set; } = default!;
 }

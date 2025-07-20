@@ -34,8 +34,11 @@ public class PedidoService : IPedidoRepository
 
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo);
+            var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo, request.ValorTotal);
             await _dbContext.Pedidos.AddAsync(pedido);
+
+            var pagamento = new Pagamento(Guid.NewGuid(), pedido.Id, request.FormaPagamento);
+            await _dbContext.Pagamentos.AddAsync(pagamento);
 
             var cafeIds = request.PedidosItens.Select(i => i.CafeId).Distinct().ToList();
             var tamanhoXicaraIds = request.PedidosItens.Select(i => i.TamanhoXicaraId).Distinct().ToList();
@@ -127,6 +130,7 @@ public class PedidoService : IPedidoRepository
                                     .Include(p => p.PedidoItens)
                                         .ThenInclude(pi => pi.PedidoItemIngredientes)
                                         .ThenInclude(i => i.IngredienteAdicional)
+                                    .Include(p => p.Pagamento)
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -155,6 +159,7 @@ public class PedidoService : IPedidoRepository
                 .ThenInclude(i => i.IngredienteAdicional)
             .Include(p => p.PedidoItens)
                 .ThenInclude(y => y.TamanhoXicara)
+            .Include(p => p.Pagamento)
             .AsNoTracking()
             .ToListAsync();
 
@@ -170,7 +175,8 @@ public class PedidoService : IPedidoRepository
             {
                 Id = pi.Id,
                 CafeId = pi.CafeId,
-                Cafe = new ResponseCafeJson() {
+                Cafe = new ResponseCafeJson()
+                {
                     Id = pi.Cafe.Id,
                     Descricao = pi.Cafe.Descricao,
                     Nome = pi.Cafe.Nome
@@ -188,7 +194,9 @@ public class PedidoService : IPedidoRepository
                 }).ToList()
             }).ToList(),
             ValorTotal = p.ValorTotal,
-            Status = p.Status.ToDescricao()
+            Status = p.Status.ToDescricao(),
+            FormaPagamento = p.Pagamento.Forma.ToDescricao(),
+            HashPix = p.Pagamento.HashPix ?? string.Empty
         };
     }
 

@@ -124,6 +124,10 @@ public class IngredienteAdicionalService : IIngredienteAdicionalRepository
         {
             throw;
         }
+        catch (ErrorOnValidationException)
+        {
+            throw;
+        }
         catch (Exception ex)
         {
             throw new ArgumentException(ErrorsMensagem.ErrorCriarIngrediente, ex);

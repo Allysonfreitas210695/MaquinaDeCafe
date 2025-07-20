@@ -10,28 +10,16 @@ public class Pedido : Entity
 {
     public StatusPedido Status { get; private set; }
     public decimal ValorTotal { get; private set; }
-
+    public Pagamento Pagamento { get; private set; }
     public List<PedidoItem> PedidoItens { get; private set; } = new();
 
-    public Pedido() {}
+    public Pedido() { }
 
-    public Pedido(Guid? id, StatusPedido statusPedido)
+    public Pedido(Guid? id, StatusPedido statusPedido, decimal valorTotal)
     {
         Id = id ?? Guid.NewGuid();
         Status = statusPedido;
-        ValorTotal = 0;
-    }
-
-    public void AdicionarItem(PedidoItem item, decimal precoCafe, decimal precoTamanhoXicara)
-    {
-        if (item == null)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoItemInvalido });
-
-        if (item.GetQuantidadeItens() <= 0)
-            throw new ErrorOnValidationException(new List<string> { ErrorsMensagem.PedidoQuantidadeInvalida });
-
-        PedidoItens.Add(item);
-        ValorTotal += item.CalcularValorItem(precoCafe, precoTamanhoXicara);
+        ValorTotal = valorTotal;
     }
 
     public void AlterarStatus(StatusPedido novoStatus)

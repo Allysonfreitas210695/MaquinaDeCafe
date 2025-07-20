@@ -189,6 +189,9 @@
   <data name="InvalidCoffeeCategory" xml:space="preserve">
     <value>Categoria do café inválida.</value>
   </data>
+  <data name="InvalidFormaPagamento" xml:space="preserve">
+    <value>Forma de pagamento inválida.</value>
+  </data>
   <data name="MaximoAdicionaisPorCafe" xml:space="preserve">
     <value>Cada café pode ter no máximo 4 ingredientes adicionais.</value>
   </data>
