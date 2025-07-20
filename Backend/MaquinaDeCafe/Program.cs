@@ -74,8 +74,6 @@ else
 app.UseRouting();
 app.UseCors("CorsPolicy");
 
-// Health Check endpoint
-app.MapHealthChecks("/health");
 
 app.MapControllers();
 
