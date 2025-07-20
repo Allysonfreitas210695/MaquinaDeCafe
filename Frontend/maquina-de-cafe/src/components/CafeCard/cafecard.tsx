@@ -4,7 +4,12 @@ import { Images } from "../../assets/Images";
 import { FaRegStar } from "react-icons/fa";
 import { LuClock2 } from "react-icons/lu";
 import { IoCartSharp } from "react-icons/io5";
-import { ApiTamanhoXicara, ITamanhoXicaraProps } from "../../Service/interface";
+import {
+  ApiTamanhoXicara,
+  AvaliacaoCafePayload,
+  ITamanhoXicaraProps,
+} from "../../Service/interface";
+import { getAvaliacaoCafe } from "../../Service/apiService";
 
 export interface CoffeeCardProps {
   id: string;
@@ -46,6 +51,9 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
   const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(
     initialTamanhosXicara
   );
+  const [newsAvaliacoes, setNewsAvaliacoes] = useState<AvaliacaoCafePayload[]>(
+    []
+  );
 
   // Calcula o preço final com base na seleção da xícara
   const selectedCup = activeIndex !== null ? tamanhoXicara[activeIndex] : null;
@@ -73,6 +81,37 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
     }
   }, [initialTamanhosXicara]);
 
+  useEffect(() => {
+    const fetchAvaliacoes = async () => {
+      try {
+        const data = await getAvaliacaoCafe();
+        const transformedData = data.map((item) => ({
+          cafeId: item.cafeId,
+          atendimento: item.atendimento,
+          estrelas: item.estrelas,
+          observacao: item.observacao,
+        }));
+        setNewsAvaliacoes(transformedData);
+      } catch (error) {
+        console.error("Falha ao buscar as Avaliações:", error);
+      }
+    };
+    fetchAvaliacoes();
+  }, []);
+
+  const avaliacoesParaEsteCafe = newsAvaliacoes.filter(
+    (avaliacao) => avaliacao.cafeId === id
+  );
+
+   const mediaEstrelas =
+    avaliacoesParaEsteCafe.length > 0
+      ? (
+          avaliacoesParaEsteCafe.reduce((sum, item) => sum + item.estrelas, 0) /
+          avaliacoesParaEsteCafe.length
+        ).toFixed(1)
+      : "0.0"; 
+
+
   return (
     <S.CardContainer>
       <S.Image src={Images.CafeExpresso} alt={title} />
@@ -81,7 +120,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
         <S.Description>{description}</S.Description>
         <div className="faRegStar">
           <FaRegStar className="star" />
-          <span>4.6</span>
+            <span>{mediaEstrelas}</span>
           <LuClock2 />
           <p>{preparation} min</p>
         </div>
