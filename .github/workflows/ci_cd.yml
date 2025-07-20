@@ -82,12 +82,12 @@ jobs:
         working-directory: Backend/MaquinaDeCafe
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release --no-restore
         working-directory: Backend/MaquinaDeCafe
 
       - name: Run tests
-        run: dotnet test MaquinaDeCafe.sln --configuration Release
-        working-directory: .
+        run: dotnet test --configuration Release --no-build --verbosity normal
+        working-directory: Backend/MaquinaDeCafe
 
       - name: Publish project
         run: dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
