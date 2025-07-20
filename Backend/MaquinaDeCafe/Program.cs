@@ -15,7 +15,7 @@ builder.Services
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
     });
-    
+
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
@@ -42,26 +42,25 @@ builder.Services.AddControllers()
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-    
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAvaliacaoCafeRepository, AvaliacaoCafeService>();
 builder.Services.AddScoped<ICafeRepository, CafeService>();
-builder.Services.AddScoped<IIngredienteAdicionalRepository, IngredienteAdicionalService>();builder.Services.AddScoped<IPedidoRepository, PedidoService>();
+builder.Services.AddScoped<IIngredienteAdicionalRepository, IngredienteAdicionalService>(); builder.Services.AddScoped<IPedidoRepository, PedidoService>();
 builder.Services.AddScoped<IPedidoRepository, PedidoService>();
 builder.Services.AddScoped<ITamanhoXicaraRepository, TamanhoXicaraService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseCors("CorsPolicy");
 
