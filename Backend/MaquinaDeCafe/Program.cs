@@ -66,22 +66,22 @@ app.UseCors("CorsPolicy");
 
 app.MapControllers();
 
-await MigrateDatabase();
+// await MigrateDatabase();
 
-await SeedDatabase();
+// await SeedDatabase();
 
 app.Run();
 
-async Task MigrateDatabase()
-{
-    await using var scope = app.Services.CreateAsyncScope();
+// async Task MigrateDatabase()
+// {
+//     await using var scope = app.Services.CreateAsyncScope();
 
-    await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
-}
+//     await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
+// }
 
-async Task SeedDatabase()
-{
-    await using var scope = app.Services.CreateAsyncScope();
+// async Task SeedDatabase()
+// {
+//     await using var scope = app.Services.CreateAsyncScope();
 
-    await SeedDatabaseInitial.Seeds(scope.ServiceProvider);
-}
+//     await SeedDatabaseInitial.Seeds(scope.ServiceProvider);
+// }
