@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Contaner__Secao_Principal = styled.div`
   display: flex;
@@ -11,8 +12,8 @@ export const Conteudo__Secao = styled.div`
   margin: 120px 150px;
 
   span {
-    font-family: Montserrat;
-    font-size: 19.5px;
+    font-family: Poppins;
+    font-size: 16px;
     font-weight: 500;
     line-height: 130%;
     letter-spacing: 0%;
@@ -21,8 +22,8 @@ export const Conteudo__Secao = styled.div`
 `;
 
 export const Titulo = styled.h1`
-  font-family: Montserrat;
-  font-size: 55px;
+  font-family: Poppins;
+  font-size: 40px;
   font-weight: 700;
   line-height: 130%;
   letter-spacing: 0%;
@@ -34,7 +35,7 @@ export const Descricao = styled.p`
   width: 610px;
   text-align: justify;
   padding-top: 5px;
-  font-family: Montserrat;
+  font-family: Poppins;
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
@@ -47,7 +48,7 @@ export const Descricao = styled.p`
   }
 `;
 
-export const Button_Secao = styled.a`
+export const Button_Secao = styled(Link)`
   background-color: #512615;
   border-radius: 25px;
   padding: 15px 30px;
@@ -56,17 +57,27 @@ export const Button_Secao = styled.a`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  text-decoration: none;
+  color: #f8f8f8;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: justify;
+  line-height: 100%;
+  letter-spacing: 0%;
+  cursor: pointer;
 
-  .button {
-    font-family: Montserrat;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: justify;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #F8F8F8;
-    cursor: pointer;
-    text-decoration: none;
+  span{
+    color: #f8f8f8; 
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: #6a3420;
   }
 `;
 
