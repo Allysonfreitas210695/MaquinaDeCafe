@@ -4,6 +4,11 @@ import { Link } from "react-router-dom";
 export const Contaner__Secao_Principal = styled.div`
   display: flex;
   flex-direction: row-reverse;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Conteudo__Secao = styled.div`
@@ -16,59 +21,83 @@ export const Conteudo__Secao = styled.div`
     font-size: 16px;
     font-weight: 500;
     line-height: 130%;
-    letter-spacing: 0%;
+    letter-spacing: 0;
     color: #282828b0;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    padding-top: 50px;
+    margin: 40px auto;
+    text-align: center;
+
+    span {
+      font-size: 14px;
+    }
   }
 `;
 
 export const Titulo = styled.h1`
+  width: 800px;
   font-family: Poppins;
   font-size: 40px;
   font-weight: 700;
   line-height: 130%;
-  letter-spacing: 0%;
-  width: 800px;
+  letter-spacing: 0;
   color: #512615;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    font-size: 28px;
+  }
 `;
 
 export const Descricao = styled.p`
   width: 610px;
-  text-align: justify;
-  padding-top: 5px;
-  font-family: Poppins;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: 0%;
-  color: #282522B5;
   margin-bottom: 40px;
+  padding-top: 5px;
+  text-align: justify;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: 0;
+  color: #282522b5;
 
-  strong{
+  strong {
     color: #000000;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    font-size: 14px;
+    padding-top: 10px;
   }
 `;
 
 export const Button_Secao = styled(Link)`
-  background-color: #512615;
-  border-radius: 25px;
-  padding: 15px 30px;
   width: 300px;
+  padding: 15px 30px;
+  border-radius: 25px;
+  background-color: #512615;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+
   text-decoration: none;
-  color: #f8f8f8;
+  cursor: pointer;
+
   font-family: Poppins;
   font-size: 16px;
   font-weight: 500;
   text-align: justify;
   line-height: 100%;
-  letter-spacing: 0%;
-  cursor: pointer;
+  letter-spacing: 0;
 
-  span{
-    color: #f8f8f8; 
+  span {
+    color: #f8f8f8;
   }
 
   img {
@@ -79,12 +108,23 @@ export const Button_Secao = styled(Link)`
   &:hover {
     background-color: #6a3420;
   }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    font-size: 14px;
+    padding: 12px 20px;
+    justify-content: center;
+  }
 `;
 
 export const Img__Secao = styled.img`
   position: fixed;
-  right: 0;
   left: 0;
+  right: 0;
   height: 100%;
   z-index: 1;
+
+  @media (max-width: 1024px) {  /* tablets e menores */
+    display: none;
+  }
 `;
