@@ -1,5 +1,6 @@
 import { Images } from "../../assets/Images";
 import * as S from "./style";
+import Swal from "sweetalert2";
 
 import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
 
@@ -58,11 +59,22 @@ export const Adicionais = () => {
       const existingAdicionalIndex = prevSelected.findIndex(
         (item) => item.id === adicional.id
       );
+
+      // Se já está selecionado, remove normalmente
       if (existingAdicionalIndex > -1) {
         const updatedSelected = [...prevSelected];
         updatedSelected.splice(existingAdicionalIndex, 1);
         return updatedSelected;
       } else {
+        // Se já tem 4 adicionais, não adiciona mais e mostra alerta
+        if (prevSelected.length >= 4) {
+          Swal.fire({
+            icon: "error",
+            title: "Você só pode selecionar 4 adicionais",
+            text: "Verifique novamente o seu café",
+          });
+          return prevSelected;
+        }
         return [...prevSelected, { ...adicional, quantidade: 1 }];
       }
     });
@@ -96,7 +108,7 @@ export const Adicionais = () => {
 
     // Criar o novo item para o carrinho
     const newItem: CartItem = {
-      id: currentCafe.id + "-" + Date.now(), 
+      id: currentCafe.id + "-" + Date.now(),
       title: currentCafe.title,
       description: currentCafe.description,
       tag: currentCafe.description || "Padrão",
@@ -155,7 +167,7 @@ export const Adicionais = () => {
       <div className="header__container">
         <h1>Personalize o seu café</h1>
         <Link className="button__cancelar" to={"/carrinho"}>
-          CALCELAR
+          CANCELAR
         </Link>
       </div>
       <div className="detalhe__card_cafe">
