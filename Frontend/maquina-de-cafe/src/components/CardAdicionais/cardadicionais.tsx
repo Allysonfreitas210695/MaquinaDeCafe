@@ -1,4 +1,5 @@
 import { Images } from "../../assets/Images";
+
 import * as S from "./style";
 import {
   CoffeeCustomizationData,
@@ -27,7 +28,7 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
   onSelectLeite,
   onSelectAcucar,
   onFinalizar,
-  buttonText
+  buttonText,
 }) => {
   const selectedTamanho = cafeData.tamanhoSelecionado;
 
@@ -42,6 +43,31 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
   };
   const total = calculateTotal();
 
+  // --- Início da correção ---
+  let tamanhoContent;
+  if (cafeData.tamanhosXicara?.length) {
+    // Se houver tamanhos de xícara definidos, mapeie-os
+    tamanhoContent = cafeData.tamanhosXicara.map((tamanho) => (
+      <S.Wrapper__Adicionais_Tx
+        key={tamanho.id}
+        $active={selectedTamanho?.id === tamanho.id}
+      >
+        <span>{tamanho.descricao}</span>
+      </S.Wrapper__Adicionais_Tx>
+    ));
+  } else if (selectedTamanho) {
+    // Se não houver tamanhos de xícara definidos, mas um tamanho foi selecionado
+    tamanhoContent = (
+      <S.Wrapper__Adicionais_Tx $active={true}>
+        <span>{selectedTamanho.descricao}</span>
+      </S.Wrapper__Adicionais_Tx>
+    );
+  } else {
+    // Caso contrário, o tamanho não foi especificado
+    tamanhoContent = <span>Tamanho não especificado.</span>;
+  }
+  // --- Fim da correção ---
+
   return (
     <S.Container__Card_Adicionais>
       <S.Titulo_Adicionais>
@@ -52,22 +78,8 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
 
       <S.StyledWrapper__Adicionais>
         <div className="tamanho_da_xicra">
-          {cafeData.tamanhosXicara?.length ? (
-            cafeData.tamanhosXicara.map((tamanho) => (
-              <S.Wrapper__Adicionais_Tx
-                key={tamanho.id}
-                $active={selectedTamanho?.id === tamanho.id}
-              >
-                <span>{tamanho.descricao}</span>
-              </S.Wrapper__Adicionais_Tx>
-            ))
-          ) : selectedTamanho ? (
-            <S.Wrapper__Adicionais_Tx $active={true}>
-              <span>{selectedTamanho.descricao}</span>
-            </S.Wrapper__Adicionais_Tx>
-          ) : (
-            <span>Tamanho não especificado.</span>
-          )}
+          {/* Renderiza o conteúdo que foi preparado na variável tamanhoContent */}
+          {tamanhoContent}
         </div>
       </S.StyledWrapper__Adicionais>
 
@@ -114,6 +126,7 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
                 </span>
               ))}
             </div>
+
             <div className="valores">
               {selectedAdicionais.map((adicional) => (
                 <p key={`valor-${adicional.id}`}>
@@ -131,6 +144,7 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
           </p>
         )}
       </S.Mais__Adicionais>
+
       <S.Total>
         <h1>Total</h1>
         <span>R$ {total.toFixed(2).replace(".", ",")}</span>

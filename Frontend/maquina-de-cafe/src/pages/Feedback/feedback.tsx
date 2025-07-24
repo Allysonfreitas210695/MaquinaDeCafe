@@ -1,16 +1,22 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as S from "./style";
+
 import { Images } from "../../assets/Images";
 
 import Rating from "@mui/material/Rating";
+
 import Stack from "@mui/material/Stack";
 import { CartItem } from "../Carrinho/CardContext/cardcontext";
+
 import { useState } from "react";
+
 import { postAvaliacaoCafe } from "../../Service/apiService";
 
 export const Feedback = () => {
   const location = useLocation();
+
   const navigate = useNavigate();
+
   const itemsParaFeedback: CartItem[] = location.state?.itemsParaFeedback || [];
 
   const [atendimentoRating, setAtendimentoRating] = useState<string | null>(
@@ -26,6 +32,7 @@ export const Feedback = () => {
     });
     return initialRatings;
   });
+
   const [observation, setObservation] = useState<string>("");
 
   const handleProductRatingChange = (
@@ -92,35 +99,44 @@ export const Feedback = () => {
           <h2>Atendimento</h2>
           <span>Como foi sua experiência com nosso atendimento?</span>
           <div className="reacoes">
-            <div
+            {/* Usando botões para elementos interativos */}
+            <button
               className={`reacoes__conteudo ${
                 atendimentoRating === "MuitoBom" ? "selected" : ""
               }`}
               onClick={() => setAtendimentoRating("MuitoBom")}
+              // Adicionado para acessibilidade: role e aria-pressed (opcional, mas bom para botões de alternância)
+              role="radio"
+              aria-checked={atendimentoRating === "MuitoBom"}
             >
-              <img src={Images.laugh} alt="" />
+              <img src={Images.laugh} alt="Muito bom" />
               <span>Muito bom</span>
-            </div>
-            <div
+            </button>
+            <button
               className={`reacoes__conteudo ${
                 atendimentoRating === "Regular" ? "selected" : ""
               }`}
               onClick={() => setAtendimentoRating("Regular")}
+              role="radio"
+              aria-checked={atendimentoRating === "Regular"}
             >
-              <img src={Images.meh} alt="" />
+              <img src={Images.meh} alt="Regular" />
               <span>Regular</span>
-            </div>
-            <div
+            </button>
+            <button
               className={`reacoes__conteudo ${
                 atendimentoRating === "Ruim" ? "selected" : ""
               }`}
               onClick={() => setAtendimentoRating("Ruim")}
+              role="radio"
+              aria-checked={atendimentoRating === "Ruim"}
             >
-              <img src={Images.frown} alt="" />
+              <img src={Images.frown} alt="Ruim" />
               <span>Ruim</span>
-            </div>
+            </button>
           </div>
         </S.Atendimento>
+
         <S.Produto>
           <div className="avaliacao">
             <h1>Produto</h1>
@@ -144,7 +160,6 @@ export const Feedback = () => {
                     </p>
                   </div>
                 </div>
-
                 <Stack spacing={1}>
                   <Rating
                     name={`rating-${item.id}`}
@@ -165,6 +180,7 @@ export const Feedback = () => {
             ))
           )}
         </S.Produto>
+
         <S.Observacao>
           <span>Quer deixar alguma observação?</span>
           <input
@@ -174,10 +190,11 @@ export const Feedback = () => {
             value={observation}
             onChange={(e) => setObservation(e.target.value)}
             placeholder="Seu comentário nos ajuda a entender melhor a sua experiência."
-            style={{fontSize: "16px"}}
+            style={{ fontSize: "16px" }}
           />
           <p>Seu comentário nos ajuda a entender melhor a sua experiência.</p>
         </S.Observacao>
+
         <S.Button__Feedback>
           <Link className="pular__valiacao" to={"/pedido"}>
             Pular Avaliação
