@@ -72,9 +72,18 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
     });
   };
 
+  // Função de ordenar o volume do café em ordem crescente
   useEffect(() => {
-    setTamanhoXicara(initialTamanhosXicara);
-    if (initialTamanhosXicara.length > 0) {
+    const ordenado = [...initialTamanhosXicara].sort((a, b) => {
+      // Pega só os digitos da descrição
+      const volumeA = parseInt(a.descricao.replace(/\D/g, ""), 10);
+      const volumeB = parseInt(b.descricao.replace(/\D/g, ""), 10);
+      return volumeA - volumeB;
+    });
+
+    setTamanhoXicara(ordenado);
+
+    if (ordenado.length > 0) {
       setActiveIndex(0);
     } else {
       setActiveIndex(null);

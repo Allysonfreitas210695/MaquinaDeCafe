@@ -133,7 +133,7 @@ export const Description = styled.p`
 
 export const StyledWrapper = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-top: 30px;

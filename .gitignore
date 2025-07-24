@@ -199,5 +199,3 @@ FakesAssemblies/
 coverage.opencover.xml
 
 TestResults/
-
-coverage-report/

@@ -21,6 +21,11 @@ export const Container__Detalhes = styled.div`
       flex-direction: column;
       gap: 20px;
     }
+
+    .cIyYKb {
+      overflow-y: visible !important;
+      max-height: none !important; 
+    }
   }
 
   .header__container {
