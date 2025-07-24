@@ -8,8 +8,8 @@ import {
   ApiTamanhoXicara,
   AvaliacaoCafePayload,
   ITamanhoXicaraProps,
-} from "../../Service/interface";
-import { getAvaliacaoCafe } from "../../Service/apiService";
+} from "../../service/interface";
+import { getAvaliacaoCafe } from "../../service/avaliacao_api";
 
 export interface CoffeeCardProps {
   id: string;
@@ -112,14 +112,13 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
     (avaliacao) => avaliacao.cafeId === id
   );
 
-   const mediaEstrelas =
+  const mediaEstrelas =
     avaliacoesParaEsteCafe.length > 0
       ? (
           avaliacoesParaEsteCafe.reduce((sum, item) => sum + item.estrelas, 0) /
           avaliacoesParaEsteCafe.length
         ).toFixed(1)
-      : "0.0"; 
-
+      : "0.0";
 
   return (
     <S.CardContainer>
@@ -129,7 +128,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
         <S.Description>{description}</S.Description>
         <div className="faRegStar">
           <FaRegStar className="star" />
-            <span>{mediaEstrelas}</span>
+          <span>{mediaEstrelas}</span>
           <LuClock2 />
           <p>{preparation} min</p>
         </div>

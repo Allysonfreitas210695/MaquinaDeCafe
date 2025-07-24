@@ -5,18 +5,22 @@ import Swal from "sweetalert2";
 import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
 
 import { useEffect, useState } from "react";
-import { getIngredienteadicional } from "../../Service/apiService";
 import {
   CoffeeCustomizationData,
   Ingredienteadicional,
   SelectedAdicional,
-} from "../../Service/interface";
+} from "../../service/interface";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
+import { getIngredienteadicional } from "../../service/ingredienteadicional_api";
 
 export const Adicionais = () => {
-  const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>([]);
-  const [selectedAdicionais, setSelectedAdicionais] = useState<SelectedAdicional[]>([]);
+  const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>(
+    []
+  );
+  const [selectedAdicionais, setSelectedAdicionais] = useState<
+    SelectedAdicional[]
+  >([]);
   const [selectedLeite, setSelectedLeite] = useState<string | null>(null);
   const [selectedAcucar, setSelectedAcucar] = useState<string | null>(null);
 
@@ -32,20 +36,21 @@ export const Adicionais = () => {
   const currentCafe: CoffeeCustomizationData | undefined =
     coffeesToCustomize[currentIndex];
 
+  async function fetchPedidos() {
+    try {
+      const data = await getIngredienteadicional();
+      const transformedData = data.map((item) => ({
+        id: item.id,
+        nome: item.nome,
+        valorExtra: item.valorExtra,
+      }));
+      setNewsAdicionais(transformedData);
+    } catch (error) {
+      console.error("Falha ao buscar adicionais:", error);
+    }
+  }
+
   useEffect(() => {
-    const fetchPedidos = async () => {
-      try {
-        const data = await getIngredienteadicional();
-        const transformedData = data.map((item) => ({
-          id: item.id,
-          nome: item.nome,
-          valorExtra: item.valorExtra,
-        }));
-        setNewsAdicionais(transformedData);
-      } catch (error) {
-        console.error("Falha ao buscar adicionais:", error);
-      }
-    };
     fetchPedidos();
     setSelectedAdicionais([]);
     setSelectedLeite(null);
@@ -114,7 +119,14 @@ export const Adicionais = () => {
           ? [{ id: "leite", nome: selectedLeite, valorExtra: 0, quantidade: 1 }]
           : []),
         ...(selectedAcucar
-          ? [{ id: "acucar", nome: selectedAcucar, valorExtra: 0, quantidade: 1 }]
+          ? [
+              {
+                id: "acucar",
+                nome: selectedAcucar,
+                valorExtra: 0,
+                quantidade: 1,
+              },
+            ]
           : []),
       ],
       quantidadeNoCarrinho: 1,

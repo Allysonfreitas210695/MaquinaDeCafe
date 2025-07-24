@@ -2,15 +2,15 @@ import * as S from "./style";
 import { CafeCard } from "../../components/CafeCard/cafecard";
 import { useEffect, useState } from "react";
 import { HeaderNavegacao } from "./HeaderNavegacao/navegacao";
-import { getCafes } from "../../Service/apiService";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import {
   ApiTamanhoXicara,
   CoffeeCustomizationData,
-} from "../../Service/interface";
+} from "../../service/interface";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { IoCartSharp } from "react-icons/io5";
+import { getCafes } from "../../service/cafe_api";
 
 interface TransformedCafe {
   id: string;
@@ -89,26 +89,27 @@ export const FacaPedido = () => {
     });
   };
 
+  async function fetchPedidos() {
+    try {
+      const data = await getCafes();
+      console.log(data);
+      const transformedData = data.map((item) => ({
+        id: item.id,
+        nome: item.nome,
+        descricao: item.descricao,
+        categoria: item.categoria,
+        tempoPreparoSegundos: item.tempoPreparoSegundos,
+        imagemUrl: Images.CafeExpresso,
+        tamanhosXicara: item.tamanhosXicara,
+      }));
+      setNewsPedidos(transformedData);
+      setErrorFetchingCafes(false);
+    } catch (error) {
+      setErrorFetchingCafes(true);
+    }
+  }
+
   useEffect(() => {
-    const fetchPedidos = async () => {
-      try {
-        const data = await getCafes();
-        const transformedData = data.map((item) => ({
-          id: item.id,
-          nome: item.nome,
-          descricao: item.descricao,
-          categoria: item.categoria,
-          tempoPreparoSegundos: item.tempoPreparoSegundos,
-          imagemUrl: Images.CafeExpresso,
-          tamanhosXicara: item.tamanhosXicara,
-        }));
-        setNewsPedidos(transformedData);
-        setErrorFetchingCafes(false);
-      } catch (error) {
-        console.error("Falha ao buscar cafés:", error);
-        setErrorFetchingCafes(true);
-      }
-    };
     fetchPedidos();
   }, []);
 

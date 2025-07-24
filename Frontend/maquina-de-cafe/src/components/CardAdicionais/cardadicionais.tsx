@@ -4,7 +4,7 @@ import * as S from "./style";
 import {
   CoffeeCustomizationData,
   SelectedAdicional,
-} from "../../Service/interface";
+} from "../../service/interface";
 
 const TIPOS_ACUCAR = ["Acucar", "Mascavo", "Adocante", "SemAcucar"];
 const TIPOS_LEITE = ["Integral", "Desnatado", "ZeroLactose", "SemLeite"];

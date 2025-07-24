@@ -9,8 +9,7 @@ import Stack from "@mui/material/Stack";
 import { CartItem } from "../Carrinho/CardContext/cardcontext";
 
 import { useState } from "react";
-
-import { postAvaliacaoCafe } from "../../Service/apiService";
+import { postAvaliacaoCafe } from "../../service/avaliacao_api";
 
 export const Feedback = () => {
   const location = useLocation();
@@ -74,9 +73,7 @@ export const Feedback = () => {
 
       try {
         await postAvaliacaoCafe(feedbackData);
-        console.log(`Feedback enviado com sucesso para: ${item.title}`);
       } catch (error) {
-        console.error(`Erro ao enviar feedback para ${item.title}:`, error);
         alert(
           `Ocorreu um erro ao enviar o feedback para ${item.title}. Por favor, tente novamente.`
         );

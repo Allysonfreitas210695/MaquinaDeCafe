@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Images } from "../../../assets/Images";
 import * as S from "./style";
 import { IoCartSharp } from "react-icons/io5";
-import { CardPagamentoProps } from "../../../Service/interface";
+import { CardPagamentoProps } from "../../../service/interface";
 
 export const CardPagamento = ({
   pedidos,
