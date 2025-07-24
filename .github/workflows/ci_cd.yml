@@ -1,0 +1,132 @@
+name: CI - Build, Test, SonarQube, Deploy
+
+on:
+  push:
+    branches: [main, devel]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
+
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cache SonarQube Cloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache SonarQube Cloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+
+      - name: Install SonarQube Cloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin `
+            /k:"Allysonfreitas210695_MaquinaDeCafe" `
+            /o:"allysonfreitas210695" `
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" `
+            /d:sonar.host.url="https://sonarcloud.io" `
+            /d:sonar.exclusions="**/Migrations/**,**/Program.cs,**/appsettings.*,**/coverage.runsettings,**/TestResults/**,coverage-report/**,**/*.html,**/*.css,**/*.js" `
+            /d:sonar.coverage.exclusions="**/*"
+          dotnet build Backend/MaquinaDeCafe.sln --configuration Release
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+  build:
+    name: Build, Test, Publish
+    runs-on: ubuntu-latest
+    needs: sonarqube
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.x"
+
+      - name: Restore dependencies
+        run: dotnet restore Backend/MaquinaDeCafe.sln
+
+      - name: Build with dotnet
+        run: dotnet build Backend/MaquinaDeCafe.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test Backend/MaquinaDeCafe.sln --configuration Release --no-build --verbosity normal
+
+      - name: Publish project
+        run: |
+          dotnet publish Backend/MaquinaDeCafe/MaquinaDeCafe.csproj -c Release -o ./publish
+          find ./publish -name "*Test*" -delete
+          find ./publish -name "*.Tests.*" -delete
+          rm -rf ./publish/TestResults
+
+      - name: List published files
+        run: ls -R ./publish
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ./publish
+
+  deploy:
+    name: Deploy to Azure Web App
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+          path: ./publish
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_561F079F1D164FA991646A0D4262D75E }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B904FA6DA8524E4BBB189689F565D0ED }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0B17470B9BD5426C994E553F77CC109A }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "maquina-web"
+          slot-name: "Production"
+          package: ./publish
+          startup-command: "dotnet MaquinaDeCafe.dll"

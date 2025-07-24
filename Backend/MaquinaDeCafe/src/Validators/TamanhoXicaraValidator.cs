@@ -1,0 +1,24 @@
+using FluentValidation;
+using MaquinaDeCafe.src.Communication.Request;
+using MaquinaDeCafe.src.Resources;
+
+namespace MaquinaDeCafe.src.Validators;
+
+public class TamanhoXicaraValidator : AbstractValidator<RequestTamanhoXicaraJson>
+{
+    public TamanhoXicaraValidator()
+    {
+        RuleFor(x => x.Descricao)
+            .NotEmpty().WithMessage(ErrorsMensagem.TamanhoXicaraDescricaoObrigatoria)
+            .Must(descricao => !string.IsNullOrWhiteSpace(descricao)).WithMessage(ErrorsMensagem.TamanhoXicaraDescricaoObrigatoria);
+
+        RuleFor(x => x.Ml)
+            .GreaterThan(0).WithMessage(ErrorsMensagem.TamanhoXicaraMlInvalido);
+
+        RuleFor(x => x.Valor)
+            .GreaterThanOrEqualTo(0).WithMessage(ErrorsMensagem.TamanhoXicaraValorExtraNegativo);
+
+        RuleFor(x => x.CafeId)
+            .NotEmpty().WithMessage(ErrorsMensagem.TamanhoXicaraCafeIdObrigatorio);
+    }
+}
