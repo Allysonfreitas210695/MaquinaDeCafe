@@ -139,7 +139,6 @@ export const Mais__Adicionais = styled.div`
   justify-content: center;
   gap: 150px;
   padding: 30px 0;
-  overflow-y: scroll;
   width: 400px;
   height: 10vh;
   margin: 30px 0;
