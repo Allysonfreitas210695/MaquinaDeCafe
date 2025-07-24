@@ -35,8 +35,8 @@ export const CardPagamento = ({
                           item.adicionaisSelecionados.length > 0 && (
                             <span style={{ whiteSpace: "pre-line" }}>
                               {item.adicionaisSelecionados
-                                .map((adicional) => adicional.nome) 
-                                .join("\n")} 
+                                .map((adicional) => adicional.nome)
+                                .join("\n")}
                             </span>
                           )}
                       </div>

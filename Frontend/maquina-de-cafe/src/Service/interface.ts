@@ -57,6 +57,9 @@ export interface CoffeeCustomizationData {
   // selectedCupValue: number | undefined;
   tag?: string; //
   tamanhoSelecionado: ITamanhoXicaraProps;
+  tamanhosXicara?: ITamanhoXicaraProps[];
+  tipoAcucar?: string;
+  tipoLeite?: string;
 }
 
 export interface CardPagamentoProps {
@@ -85,4 +88,23 @@ export interface AvaliacaoCafePayload {
   atendimento: string;
   estrelas: number;
   observacao: string;
+}
+
+export interface PedidoItem {
+  cafeId: string;
+  quantidade: number;
+  tamanhoXicaraId: string;
+  ingredientesAdicionaisIds: string[];
+  observacao: string;
+  tipoLeite: string; 
+  tipoAcucar: string; 
+}
+
+
+export interface Pedidos {
+  id: string; 
+  valorTotal: number;
+  formapagamento: string;
+  pedidosItens: PedidoItem[]; 
+ 
 }

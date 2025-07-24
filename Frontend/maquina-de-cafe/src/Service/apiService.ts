@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApiCafeItem, ApiIngredienteadicional, ApiTamanhoXicara, AvaliacaoCafePayload } from "./interface";
+import { ApiCafeItem, ApiIngredienteadicional, ApiTamanhoXicara, AvaliacaoCafePayload, Pedidos } from "./interface";
 const apiUrl = import.meta.env.LINKBACK ?? "https://maquina-web-f3drdyfff8hdewam.brazilsouth-01.azurewebsites.net/";
 
 export const getCafes = async (): Promise<ApiCafeItem[]> => {
@@ -56,6 +56,18 @@ export const getAvaliacaoCafe = async (): Promise<AvaliacaoCafePayload[]> => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar os tamos de avaliações:", error);
+    return [];
+  }
+};
+
+export const getPedidos = async (): Promise<Pedidos[]> => {
+  try {
+    const response = await axios.get(apiUrl + "/api/pedido");
+    console.log(response);
+    console.log("Dados recebidos da API:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar os tipos de pedidos:", error);
     return [];
   }
 };
