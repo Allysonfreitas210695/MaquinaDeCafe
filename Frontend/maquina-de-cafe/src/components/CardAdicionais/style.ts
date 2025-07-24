@@ -5,8 +5,8 @@ export const Container__Card_Adicionais = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 430px;
-  height: 580px;
+  width: 470px;
+  height: 650px;
   border-radius: 16px;
   border: 1px solid #80808021;
   padding: 20px;
@@ -76,52 +76,35 @@ export const StyledWrapper__Adicionais = styled.div`
   }
 `;
 
-export const Wrapper__Adicionais_Tx = styled.div<{ active: boolean }>`
-  background-color: ${({ active }) => (active ? "#512615" : "transparent")};
-  color: ${({ active }) => (active ? "#fff" : "#C99963A3")};
-  font-family: Sora;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: -0.33px;
-  width: 130px;
-  padding: 0.6rem 1rem;
-  border: 1px solid #6f482929;
-  border-radius: 38px; /* arredondado só à esquerda */
-  transition: all 0.3s ease;
-  text-align: center;
-  cursor: pointer;
-  margin-bottom: 20px;
 
-  .tamanho_da_xicra {
-    span {
-      color: inherit;
-      text-decoration: none;
-    }
-  }
-`;
+interface WrapperAdicionaisTxProps {
+  $active: boolean;
+}
 
-export const Wrapper__Adicionais_Ta = styled.div<{ active: boolean }>`
-  background-color: ${({ active }) => (active ? "#512615" : "transparent")};
-  color: ${({ active }) => (active ? "#fff" : "#C99963A3")};
-  width: 96px;
-  font-family: Sora;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: -0.33px;
-  padding: 0.6rem 1rem;
-  border: 1px solid #6f482929;
-  border-radius: 38px; /* arredondado só à esquerda */
-  transition: all 0.3s ease;
-  text-align: center;
-  cursor: pointer;
+export const Wrapper__Adicionais_Tx = styled.div<WrapperAdicionaisTxProps>`
+  background-color: ${(props) => (props.$active ? "#512615" : "transparent")}; /* Cor de fundo marrom quando ativo, transparente quando não ativo */
+  color: ${(props) => (props.$active ? "#fff" : "#C99963A3")}; /* Cor do texto branca quando ativo, marrom claro quando não ativo */
+  width: 96px; /* */
+  font-family: Sora; /* */
+  font-weight: 400; /* */
+  font-size: 15px; /* */
+  line-height: 100%; /* */
+  letter-spacing: -0.33px; /* */
+  padding: 0.6rem 1rem; /* */
+  border: 1px solid #C999631F; /* */
+  border-radius: 38px; /* */
+  transition: all 0.3s ease; /* */
+  text-align: center; /* */
+  cursor: pointer; /* */
+  margin: 5px; /* Adicionei um margin para espaçamento, pois é comum para botões em linha */
+  display: inline-flex; /* Para que ocupem apenas o espaço necessário e fiquem lado a lado */
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /* Evita quebras de linha dentro do texto */
 
-  .tipos_de_acucar {
-    span {
-      color: inherit;
-      text-decoration: none;
-    }
+  /* Seção de hover (opcional, mas boa para feedback visual) */
+  &:hover {
+    opacity: 0.9;
   }
 `;
 
@@ -261,4 +244,28 @@ export const Button__Finalizar = styled.button`
   letter-spacing: 0%;
   color: #ffffff;
   cursor: pointer;
+`;
+
+export const Div__Botao = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  button {
+    background-color: #5C3D2E;
+    width: 400px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #7a4e3a;
+    }
+  }
 `;

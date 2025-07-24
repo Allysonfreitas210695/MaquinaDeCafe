@@ -33,13 +33,6 @@ export const FacaPedido = () => {
     CoffeeCustomizationData[]
   >([]);
 
-  // Função chamada pelo CafeCard quando o botão "Personalizar" é clicado
-  // const handleCustomizeCafe = (cafeData: CoffeeCustomizationData) => {
-  // console.log("Dados do café para personalizar:", cafeData);
-  // Navega para a página de Adicionais, passando os dados do café no 'state'
-  // navigate("/adicionais", { state: { customizedCafe: cafeData } });
-  // };
-
   // NOVA FUNÇÃO: Lidar com a seleção/desseleção de um café no CafeCard
   const handleToggleCoffeeSelection = (
     cafeId: string,
@@ -57,38 +50,29 @@ export const FacaPedido = () => {
     }
   ) => {
     setCoffeesToCustomize((prevSelected) => {
-      // Se está desmarcando, remove o café da lista de personalização
       if (!isSelected) {
-        // Filtra pelo ID do café, para remover a seleção
         return prevSelected.filter((c) => c.id !== cafeId);
       } else {
-        // Se está marcando, adiciona o café à lista de personalização
         if (!selectedSize) {
           alert(
             "Por favor, selecione um tamanho de xícara antes de adicionar o café para personalização."
           );
-          return prevSelected; // Não adiciona se não houver tamanho selecionado
+          return prevSelected;
         }
-
-        // Verifica se o café já está na lista para evitar duplicatas acidentais
         if (prevSelected.some((c) => c.id === cafeId)) {
           return prevSelected;
         }
 
         // Cria o objeto CoffeeCustomizationData completo para adicionar à lista
         const newCustomizationData: CoffeeCustomizationData = {
-          // Usamos o ID original do café para identificação na lista de seleção.
-          // Um ID único para o item do carrinho será gerado na Adicionais.tsx
           id: cafeId,
           title: cafeOriginalData.title,
           description: cafeOriginalData.description,
-          tag: cafeOriginalData.tag, // Incluindo a tag
+          tag: cafeOriginalData.tag,
           preparation: cafeOriginalData.preparation,
           imageSrc: cafeOriginalData.imageSrc,
-          tamanhoSelecionado: selectedSize, // O tamanho já foi selecionado no CafeCard
+          tamanhoSelecionado: selectedSize,
         };
-
-        // Adiciona o novo item à lista de cafés a serem personalizados
         return [...prevSelected, newCustomizationData];
       }
     });
@@ -100,8 +84,6 @@ export const FacaPedido = () => {
       alert("Por favor, selecione pelo menos um café para personalizar.");
       return;
     }
-    // Navega para a página Adicionais, passando a lista de cafés a serem personalizados
-    // e o índice do café atual (0 para o primeiro)
     navigate("/adicionais", {
       state: { coffeesToCustomize: coffeesToCustomize, currentIndex: 0 },
     });
@@ -153,7 +135,6 @@ export const FacaPedido = () => {
     <S.Container__Pedido_Header>
       <HeaderNavegacao onCategoryChange={handleCategoryChange} />
       <S.Div__Acoes>
-        {/* Botão para ver o carrinho */}
         <button onClick={() => navigate("/carrinho")}>
           <IoCartSharp className="carrinho__pedido" />
           <div className="quantidade">{cart.length}</div>

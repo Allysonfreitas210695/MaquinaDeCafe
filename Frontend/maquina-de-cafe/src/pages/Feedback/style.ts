@@ -94,6 +94,7 @@ export const Atendimento = styled.div`
     align-items: center;
     justify-content: center;
     gap: 8px;
+    cursor: pointer;
 
     span {
       font-family: Sora;
@@ -102,6 +103,19 @@ export const Atendimento = styled.div`
       line-height: 100%;
       letter-spacing: 0%;
       color: #512615;
+    }
+
+     &.selected {
+      border-color: #B6895B;
+      background-color: #fffaf0; 
+      width: 100px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+      transform: translateY(-5px); 
+      padding: 8px;
+      border-radius: 10px;
+      span {
+        color: #B6895B; // Mudar a cor do texto
+      }
     }
   }
 `;
@@ -128,6 +142,7 @@ export const Produto = styled.div`
       background-color: #ecdec9;
       border-radius: 8px;
       padding: 8px;
+      width: 50px;
     }
   }
   .cafes {
@@ -161,7 +176,16 @@ export const Produto = styled.div`
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    gap: 8px;
+    gap: 2px;
+
+    h1{
+       font-family: Sora;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 130%;
+      letter-spacing: 0%;
+      color: #512615;
+    }
 
     span {
       font-family: Sora;
@@ -170,7 +194,7 @@ export const Produto = styled.div`
       line-height: 100%;
       letter-spacing: 0%;
       color: #512615;
-      padding-top: 8px;
+      
     }
   }
 `;
@@ -247,5 +271,6 @@ export const Button__Feedback = styled.div`
     background-color: #512615;
     padding: 16px 63px;
     border-radius: 8px;
+    cursor: pointer;
   }
 `;
