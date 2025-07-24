@@ -2,7 +2,8 @@ name: CI - Build, Test, SonarQube, Deploy
 
 on:
   push:
-    branches: [main, devel]
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
@@ -118,9 +119,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_561F079F1D164FA991646A0D4262D75E }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B904FA6DA8524E4BBB189689F565D0ED }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0B17470B9BD5426C994E553F77CC109A }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6BD1AC40F2A346B79BCB4E207F754A75 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DBEB55F135944F848C74CFED76D661BD }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3D6BDBDC149A4537B2B444ADABF31527 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
