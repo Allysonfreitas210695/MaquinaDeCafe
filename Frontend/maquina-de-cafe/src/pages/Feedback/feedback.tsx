@@ -165,7 +165,7 @@ export const Feedback = () => {
                     name={`rating-${item.id}`}
                     value={productRatings[item.id] ?? 0}
                     precision={1.0}
-                    onChange={(event, newValue) =>
+                    onChange={(_, newValue) =>
                       handleProductRatingChange(item.id, newValue)
                     }
                     style={{

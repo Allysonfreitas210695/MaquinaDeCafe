@@ -1,4 +1,3 @@
-
 import { SecaoPrincipal } from "../components/SecaoPrincipal/secaoprincipal";
 
 function Home() {
