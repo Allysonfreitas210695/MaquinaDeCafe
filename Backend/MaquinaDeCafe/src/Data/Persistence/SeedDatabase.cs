@@ -84,7 +84,7 @@ public static class SeedDatabaseInitial
                 string descricao50ML = "50 ml";
                 string descricao100ML = "100 ml";
                 string descricao150ML = "150 ml";
-                
+
                 var cafes = new List<(Models.Entities.Cafe cafe, List<(string volume, int ml, decimal preco)> tamanhos)>
                 {
                     (new Models.Entities.Cafe(Guid.NewGuid(), "Café Espresso", "Café concentrado feito sob pressão, com sabor intenso e encorpado.", 50, Models.Enums.CategoriaCafe.Quente),
@@ -174,8 +174,15 @@ public static class SeedDatabaseInitial
                             (descricao100ML, 100, 3.50m),
                             (descricao150ML, 150, 5.25m)
                         }),
+                    (new Models.Entities.Cafe(Guid.NewGuid(), "Cold brew", "Café ideal para quem busca uma experiência intensa e diferenciada de café gelado", 50, Models.Enums.CategoriaCafe.Gelado),
+                        new List<(string, int, decimal)>
+                        {
+                            (descricao50ML, 50, 6.00m),
+                            (descricao100ML, 100, 9.00m),
+                            (descricao150ML, 150, 12.00m)
+                        }),
                 };
-                
+
                 foreach (var (cafe, tamanhos) in cafes)
                 {
                     await dbContext.Cafes.AddAsync(cafe);
