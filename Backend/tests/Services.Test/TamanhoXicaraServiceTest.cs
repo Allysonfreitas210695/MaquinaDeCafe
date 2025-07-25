@@ -111,4 +111,86 @@ public class TamanhoXicaraServiceTest
         }
     }
 
+    [Fact]
+    public async Task UpdateAsync_ComDadosValidos_DeveAtualizarTamanhoXicara()
+    {
+        // Arrange
+        var original = RequestTamanhoXicaraJsonBuilder.Build();
+        await _service.AddAsync(original);
+        var tamanho = await _dbContext.TamanhosXicara.FirstOrDefaultAsync();
+
+        var atualizado = RequestTamanhoXicaraJsonBuilder.Build(
+            descricao: "Nova descrição",
+            ml: 350,
+            valor: 9.99m
+        );
+
+        // Act
+        await _service.UpdateAsync(tamanho!.Id, atualizado);
+
+        // Assert
+        var entidadeAtualizada = await _dbContext.TamanhosXicara.FindAsync(tamanho.Id);
+        entidadeAtualizada!.Descricao.Should().Be("Nova descrição");
+        entidadeAtualizada.Ml.Should().Be(350);
+        entidadeAtualizada.Valor.Should().Be(9.99m);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var request = RequestTamanhoXicaraJsonBuilder.Build();
+
+        // Act & Assert
+        await Assert.ThrowsAsync<NotFoundException>(
+            () => _service.UpdateAsync(Guid.NewGuid(), request));
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComDescricaoVazia_DeveLancarErroValidacao()
+    {
+        // Arrange
+        var original = RequestTamanhoXicaraJsonBuilder.Build();
+        await _service.AddAsync(original);
+        var tamanho = await _dbContext.TamanhosXicara.FirstOrDefaultAsync();
+        var invalido = RequestTamanhoXicaraJsonBuilder.Build(descricao: "");
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<ErrorOnValidationException>(
+            () => _service.UpdateAsync(tamanho!.Id, invalido));
+
+        ex.Errors.Should().Contain(ErrorsMensagem.TamanhoXicaraDescricaoObrigatoria);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComMlInvalido_DeveLancarErroValidacao()
+    {
+        // Arrange
+        var original = RequestTamanhoXicaraJsonBuilder.Build();
+        await _service.AddAsync(original);
+        var tamanho = await _dbContext.TamanhosXicara.FirstOrDefaultAsync();
+        var invalido = RequestTamanhoXicaraJsonBuilder.Build(ml: 0);
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<ErrorOnValidationException>(
+            () => _service.UpdateAsync(tamanho!.Id, invalido));
+
+        ex.Errors.Should().Contain(ErrorsMensagem.TamanhoXicaraMlInvalido);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ComValorNegativo_DeveLancarErroValidacao()
+    {
+        // Arrange
+        var original = RequestTamanhoXicaraJsonBuilder.Build();
+        await _service.AddAsync(original);
+        var tamanho = await _dbContext.TamanhosXicara.FirstOrDefaultAsync();
+        var invalido = RequestTamanhoXicaraJsonBuilder.Build(valor: -5.00m);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ErrorOnValidationException>(
+             () => _service.UpdateAsync(tamanho!.Id, invalido));
+
+    }
+
 }
