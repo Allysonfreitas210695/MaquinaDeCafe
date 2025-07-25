@@ -1,20 +1,9 @@
 import styled from "styled-components";
 
-export const Titulo__Detalhe = styled.h1`
-  border-bottom: 1px solid #808080;
-  color: #3f1811;
-  font-family: Poppins;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  padding: 8px 5px;
-`;
-
 export const Container__Tipo_Pagamento = styled.div`
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  height: 100vh;
+  background-color: #ffffff;
 `;
 
 export const Pagamento__Header = styled.div`
@@ -46,21 +35,10 @@ export const BotoesTopo = styled.div`
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    transition: color 0.3s ease;
 
     &:hover {
       color: #7a4e3a;
       background-color: rgba(81, 38, 21, 0.1);
-    }
-  }
-
-  @media (max-width: 768px) {
-    justify-content: flex-end;
-    padding: 15px 20px;
-
-    button {
-      font-size: 13px;
-      padding: 8px 12px;
     }
   }
 `;
@@ -104,42 +82,57 @@ export const Button__Forma_Pagamento = styled.div`
 
 export const Button = styled.div`
   button {
-    background-color: #512615;
+    background-color: #dcdcdc;
     border: none;
-    color: white;
+    color: #999;
     padding: 12px 25px;
     border-radius: 20px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #3f1f0e;
-    }
+    transition: all 0.3s ease;
 
     img {
       width: 20px;
     }
 
-    span {
+    span, p {
+      color: #aaa;
       font-family: Poppins, sans-serif;
     }
 
-    p {
-      font-family: Poppins;
-      font-size: 14px;
-      color: #e1cfc3;
-      margin: 0;
+    &.selecionado {
+      background-color: #512615;
+      color: #fff;
+
+      span, p {
+        color: #fff;
+      }
+    }
+
+    &.desabilitado {
+      background-color: #dcdcdc;
+      color: #999;
+      cursor: pointer;
+      opacity: 1;
+
+      span, p {
+        color: #aaa;
+      }
+    }
+
+    &:hover {
+      filter: brightness(0.95);
     }
   }
 `;
 
 export const Button__Texto = styled.div`
   margin-top: 25px;
+
   span {
     font-family: Poppins, sans-serif;
     font-weight: 500;
@@ -192,8 +185,16 @@ export const ResumoSimplificado = styled.div`
       font-size: 26px;
       color: #512615;
     }
+  }
 
-    button.confirmar {
+  p {
+    font-family: Poppins, sans-serif;
+    font-size: 16px;
+    color: #4a2f1b;
+    margin: 8px 0;
+  }
+
+  .confirmar {
     margin-top: 35px;
     width: 100%;
     background-color: #512615;
@@ -205,30 +206,19 @@ export const ResumoSimplificado = styled.div`
     font-weight: 700;
     font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(81, 38, 21, 0.4);
 
     &:hover {
       background-color: #3f1f0e;
-      box-shadow: 0 6px 14px rgba(63, 31, 14, 0.6);
     }
 
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px #b6895b;
-    }
-
-    &:active {
-      background-color: #2e1507;
+    &:disabled {
+      background-color: #cfcfcf;
+      color: #888;
+      cursor: not-allowed;
       box-shadow: none;
     }
-  }
-
-  p {
-    font-family: Poppins, sans-serif;
-    font-size: 16px;
-    color: #4a2f1b;
-    margin: 8px 0;
   }
 `;
 

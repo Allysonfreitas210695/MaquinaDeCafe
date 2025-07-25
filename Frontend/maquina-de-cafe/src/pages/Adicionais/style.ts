@@ -328,3 +328,37 @@ export const Div__Botao = styled.div`
     cursor: pointer;
   }
 `;
+
+export const BotoesTopo = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 30px;
+
+  button {
+    background: transparent;
+    color: #512615;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: Poppins, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #7a4e3a;
+      background-color: rgba(81, 38, 21, 0.1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: flex-end;
+    padding: 15px 20px;
+
+    button {
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+  }
+`;

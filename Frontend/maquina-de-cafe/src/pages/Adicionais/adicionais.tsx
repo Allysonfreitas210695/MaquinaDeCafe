@@ -19,7 +19,8 @@ export const Adicionais = () => {
   const [selectedAdicionais, setSelectedAdicionais] = useState<SelectedAdicional[]>([]);
   const [selectedLeite, setSelectedLeite] = useState<string | null>(null);
   const [selectedAcucar, setSelectedAcucar] = useState<string | null>(null);
-  const [selectedTamanho, setSelectedTamanho] = useState<ApiTamanhoXicara | null>(null); // ADICIONADO
+  const [selectedTamanho, setSelectedTamanho] = useState<ApiTamanhoXicara | null>(null);
+  const { clearCart } = useCart();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,8 +50,13 @@ export const Adicionais = () => {
     setSelectedAdicionais([]);
     setSelectedLeite(null);
     setSelectedAcucar(null);
-    setSelectedTamanho(currentCafe?.tamanhoSelecionado ?? null); // ADICIONADO
+    setSelectedTamanho(currentCafe?.tamanhoSelecionado ?? null);
   }, [currentIndex, coffeesToCustomize]);
+
+  const handleCancelar = () => {
+    clearCart();
+    navigate("/pedido");
+  };
 
   const handleFinalizarPersonalizacao = () => {
     if (!currentCafe || !selectedTamanho) {
@@ -146,7 +152,9 @@ export const Adicionais = () => {
     <S.Container__Detalhes>
       <div className="header__container">
         <h1>Personalize o seu café</h1>
-        <Link className="button__cancelar" to={"/"}>CANCELAR</Link>
+        <S.BotoesTopo>
+          <button onClick={handleCancelar}>Cancelar</button>
+        </S.BotoesTopo>
       </div>
       <div className="detalhe__card_cafe">
         <div className="card__cafe">
