@@ -5,7 +5,7 @@ using MaquinaDeCafe.src.Validators;
 
 namespace Validators.Test;
 
-public class PedidoValidator
+public class PedidoValidatorTest
 {
     [Fact]
     public void DeveSerValido_QuandoDadosForemValidos()
