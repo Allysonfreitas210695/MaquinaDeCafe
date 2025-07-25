@@ -7,6 +7,7 @@ using MaquinaDeCafe.src.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Services.Test;
+
 public class IngredienteAdicionalServiceTest
 {
     private readonly IngredienteAdicionalService _service;
@@ -26,6 +27,64 @@ public class IngredienteAdicionalServiceTest
     {
         _dbContext.Database.EnsureDeleted();
         _dbContext.Dispose();
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_ComIdExistente_DeveRetornarIngrediente()
+    {
+        // Arrange
+        var request = RequestCriacaoIngredienteAdicionalJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var ingrediente = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync();
+
+        // Act
+        var resultado = await _service.GetItemByIdAsync(ingrediente!.Id);
+
+        // Assert
+        resultado.Should().NotBeNull();
+        resultado!.Id.Should().Be(ingrediente.Id);
+        resultado.Nome.Should().Be(ingrediente.Nome);
+        resultado.ValorExtra.Should().Be(ingrediente.ValorExtra);
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var idInexistente = Guid.NewGuid();
+
+        // Act & Assert
+        var act = async () => await _service.GetItemByIdAsync(idInexistente);
+        await Assert.ThrowsAsync<NotFoundException>(act);
+    }
+
+    [Fact]
+    public async Task GetListAsync_QuandoExistemIngredientes_DeveRetornarTodos()
+    {
+        // Arrange
+        var ingrediente1 = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(nome: "Canela", valorExtra: 1.5m);
+        var ingrediente2 = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(nome: "Leite", valorExtra: 2.0m);
+        await _service.AddAsync(ingrediente1);
+        await _service.AddAsync(ingrediente2);
+
+        // Act
+        var lista = await _service.GetListAsync();
+
+        // Assert
+        lista.Should().HaveCount(2);
+        lista.Should().Contain(i => i.Nome == "Canela" && i.ValorExtra == 1.5m);
+        lista.Should().Contain(i => i.Nome == "Leite" && i.ValorExtra == 2.0m);
+    }
+
+    [Fact]
+    public async Task GetListAsync_QuandoNaoExistemIngredientes_DeveRetornarListaVazia()
+    {
+        // Act
+        var lista = await _service.GetListAsync();
+
+        // Assert
+        lista.Should().NotBeNull();
+        lista.Should().BeEmpty();
     }
 
     [Fact]
@@ -134,7 +193,7 @@ public class IngredienteAdicionalServiceTest
 
         var ingrediente = await _dbContext.IngredientesAdicionais.FirstOrDefaultAsync();
         var requestInvalido = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(
-            nome: string.Empty, 
+            nome: string.Empty,
             valorExtra: -1m
         );
 

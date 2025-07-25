@@ -63,6 +63,40 @@ namespace Services.Test
             await Assert.ThrowsAsync<NotFoundException>(act);
         }
 
+        [Fact]
+        public async Task GetListAsync_QuandoExistemAvaliacoes_DeveRetornarListaComItens()
+        {
+            // Arrange
+            var request1 = RequestAvaliacaoCafeJsonBuilder.Build()
+                .WithEstrelas(5)
+                .WithObservacao("Excelente!");
+            var request2 = RequestAvaliacaoCafeJsonBuilder.Build()
+                .WithEstrelas(3)
+                .WithObservacao("Bom!");
+
+            await _service.AddAsync(request1);
+            await _service.AddAsync(request2);
+
+            // Act
+            var lista = await _service.GetListAsync();
+
+            // Assert
+            lista.Should().NotBeNull();
+            lista.Should().HaveCount(2);
+            lista.Should().Contain(x => x.Observacao == "Excelente!");
+            lista.Should().Contain(x => x.Observacao == "Bom!");
+        }
+
+        [Fact]
+        public async Task GetListAsync_QuandoNaoExistemAvaliacoes_DeveRetornarListaVazia()
+        {
+            // Act
+            var lista = await _service.GetListAsync();
+
+            // Assert
+            lista.Should().NotBeNull();
+            lista.Should().BeEmpty();
+        }
 
         [Fact]
         public async Task AddAsync_ComDadosValidos_AdicionaAvaliacao()

@@ -5,16 +5,22 @@ namespace CommonTestUltilities.Test.Request;
 
 public static class RequestTamanhoXicaraJsonBuilder
 {
-    public static RequestTamanhoXicaraJson Build()
+    public static RequestTamanhoXicaraJson Build(
+    string? descricao = null,
+    int? ml = null,
+    decimal? valor = null,
+    Guid? cafeId = null
+)
     {
         var faker = new Faker<RequestTamanhoXicaraJson>("pt_BR")
-            .RuleFor(x => x.Descricao, f => f.Lorem.Word())
-            .RuleFor(x => x.Ml, f => f.Random.Int(1, 500))
-            .RuleFor(x => x.Valor, f => f.Random.Decimal(0, 100))
-            .RuleFor(x => x.CafeId, f => f.Random.Guid());
+            .RuleFor(x => x.Descricao, f => descricao ?? f.Lorem.Word())
+            .RuleFor(x => x.Ml, f => ml ?? f.Random.Int(1, 500))
+            .RuleFor(x => x.Valor, f => valor ?? f.Random.Decimal(0, 100))
+            .RuleFor(x => x.CafeId, f => cafeId ?? f.Random.Guid());
 
         return faker.Generate();
     }
+
 
     public static RequestTamanhoXicaraJson WithDescricao(this RequestTamanhoXicaraJson request, string descricao)
     {
