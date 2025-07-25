@@ -42,6 +42,11 @@ export const FacaPedido = () => {
       setNewsPedidos(transformedData);
       setErrorFetchingCafes(false);
     } catch (error) {
+      console.error(
+        `Erro ao buscar cafés: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
       setErrorFetchingCafes(true);
     }
   }
@@ -74,6 +79,7 @@ export const FacaPedido = () => {
       tamanhosXicara: ApiTamanhoXicara[];
     }
   ) => {
+    console.log(cafeId);
     if (!selectedSize) {
       Swal.fire({
         icon: "warning",
@@ -115,7 +121,9 @@ export const FacaPedido = () => {
       return;
     }
 
-    const tamanhoPadrao = [...cafe.tamanhosXicara].sort((a, b) => a.valor - b.valor)[0];
+    const tamanhoPadrao = [...cafe.tamanhosXicara].sort(
+      (a, b) => a.valor - b.valor
+    )[0];
 
     const novoItem = {
       id: cafe.id + "-" + Date.now(),

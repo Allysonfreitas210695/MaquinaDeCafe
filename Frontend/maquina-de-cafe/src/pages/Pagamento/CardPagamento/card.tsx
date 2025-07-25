@@ -1,16 +1,10 @@
-import { useNavigate, Link } from "react-router-dom";
 import { Images } from "../../../assets/Images";
 import * as S from "./style";
-import { IoCartSharp } from "react-icons/io5";
 import { CardPagamentoProps } from "../../../service/interface";
 
 export const CardPagamento = ({
   pedidos,
-  checkoutPath,
 }: Pick<CardPagamentoProps, "pedidos" | "checkoutPath">) => {
-  const navigate = useNavigate();
-  const finalCheckoutPath = checkoutPath ?? "/pedidofinalizado";
-
   // Cálculo de totais
   const subtotal = pedidos.reduce(
     (acc, item) => acc + item.valorTotalItem * item.quantidadeNoCarrinho,

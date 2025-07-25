@@ -63,7 +63,9 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
   const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(
     initialTamanhosXicara
   );
-  const [newsAvaliacoes, setNewsAvaliacoes] = useState<AvaliacaoCafePayload[]>([]);
+  const [newsAvaliacoes, setNewsAvaliacoes] = useState<AvaliacaoCafePayload[]>(
+    []
+  );
 
   const selectedCup = activeIndex !== null ? tamanhoXicara[activeIndex] : null;
 
@@ -106,9 +108,9 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
   const mediaEstrelas =
     avaliacoesParaEsteCafe.length > 0
       ? (
-        avaliacoesParaEsteCafe.reduce((sum, item) => sum + item.estrelas, 0) /
-        avaliacoesParaEsteCafe.length
-      ).toFixed(1)
+          avaliacoesParaEsteCafe.reduce((sum, item) => sum + item.estrelas, 0) /
+          avaliacoesParaEsteCafe.length
+        ).toFixed(1)
       : "0.0";
 
   const handlePersonalizarClick = (e: React.MouseEvent) => {
@@ -164,7 +166,10 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
       </S.StyledWrapper>
 
       <S.PriceSection>
-        <S.PriceCarrinho onClick={handleAddToCartClick} style={{ cursor: "pointer" }}>
+        <S.PriceCarrinho
+          onClick={handleAddToCartClick}
+          style={{ cursor: "pointer" }}
+        >
           <S.Price>
             <span>
               R${" "}

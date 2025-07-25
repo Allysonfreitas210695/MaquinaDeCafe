@@ -7,8 +7,12 @@ export const postAvaliacaoCafe = async (
   try {
     const { data } = await apiUrl.post("/avaliacoescafe", feedbackData);
     return data;
-  } catch (error: unknown) {
-    throw error;
+  } catch (error) {
+    throw new Error(
+      `Falha ao enviar avaliação do café. ${
+        error instanceof Error ? error.message : ""
+      }`
+    );
   }
 };
 
@@ -16,8 +20,11 @@ export const getAvaliacaoCafe = async (): Promise<AvaliacaoCafePayload[]> => {
   try {
     const response = await apiUrl.get("/avaliacoescafe");
     return response.data;
-  } catch (error: unknown) {
-    console.error("Erro ao buscar avaliações:", error);
-    return [];
+  } catch (error) {
+    throw new Error(
+      `Falha ao buscar avaliações do café. ${
+        error instanceof Error ? error.message : ""
+      }`
+    );
   }
 };

@@ -15,21 +15,28 @@ import {
 } from "../../service/interface";
 
 export const Adicionais = () => {
-  const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>([]);
-  const [selectedAdicionais, setSelectedAdicionais] = useState<SelectedAdicional[]>([]);
+  const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>(
+    []
+  );
+  const [selectedAdicionais, setSelectedAdicionais] = useState<
+    SelectedAdicional[]
+  >([]);
   const [selectedLeite, setSelectedLeite] = useState<string | null>(null);
   const [selectedAcucar, setSelectedAcucar] = useState<string | null>(null);
-  const [selectedTamanho, setSelectedTamanho] = useState<ApiTamanhoXicara | null>(null);
+  const [selectedTamanho, setSelectedTamanho] =
+    useState<ApiTamanhoXicara | null>(null);
   const { clearCart } = useCart();
 
   const location = useLocation();
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
-  const coffeesToCustomize: CoffeeCustomizationData[] = location.state?.coffeesToCustomize ?? [];
+  const coffeesToCustomize: CoffeeCustomizationData[] =
+    location.state?.coffeesToCustomize ?? [];
   const currentIndex: number = location.state?.currentIndex || 0;
 
-  const currentCafe: CoffeeCustomizationData | undefined = coffeesToCustomize[currentIndex];
+  const currentCafe: CoffeeCustomizationData | undefined =
+    coffeesToCustomize[currentIndex];
 
   async function fetchPedidos() {
     try {
@@ -60,7 +67,11 @@ export const Adicionais = () => {
 
   const handleFinalizarPersonalizacao = () => {
     if (!currentCafe || !selectedTamanho) {
-      alert("Erro: Dados do café ou tamanho selecionado ausentes.");
+      Swal.fire({
+        icon: "error",
+        title: "Erro",
+        text: "Dados do café ou tamanho selecionado ausentes.",
+      });
       navigate("/");
       return;
     }
@@ -86,7 +97,14 @@ export const Adicionais = () => {
           ? [{ id: "leite", nome: selectedLeite, valorExtra: 0, quantidade: 1 }]
           : []),
         ...(selectedAcucar
-          ? [{ id: "acucar", nome: selectedAcucar, valorExtra: 0, quantidade: 1 }]
+          ? [
+              {
+                id: "acucar",
+                nome: selectedAcucar,
+                valorExtra: 0,
+                quantidade: 1,
+              },
+            ]
           : []),
       ],
       quantidadeNoCarrinho: 1,
@@ -141,7 +159,14 @@ export const Adicionais = () => {
     return (
       <S.Container__Detalhes style={{ textAlign: "center", padding: "50px" }}>
         <p>Nenhum café selecionado para personalização.</p>
-        <Link to="/" style={{ textDecoration: "none", color: "#5C3D2E", fontWeight: "bold" }}>
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "#5C3D2E",
+            fontWeight: "bold",
+          }}
+        >
           Voltar
         </Link>
       </S.Container__Detalhes>
@@ -194,7 +219,9 @@ export const Adicionais = () => {
                   </div>
                 </S.Arry__Detalhe>
                 <div className="valor">
-                  <span>R$ {adicional.valorExtra.toFixed(2).replace(".", ",")}</span>
+                  <span>
+                    R$ {adicional.valorExtra.toFixed(2).replace(".", ",")}
+                  </span>
                 </div>
               </div>
             ))}

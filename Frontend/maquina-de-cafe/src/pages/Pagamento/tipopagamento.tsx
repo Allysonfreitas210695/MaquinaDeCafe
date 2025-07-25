@@ -6,8 +6,10 @@ import { useState } from "react";
 
 export const TipoPagamento = () => {
   const navigate = useNavigate();
-  const { cart, getCartTotal, clearCart } = useCart();
-  const [formaSelecionada, setFormaSelecionada] = useState<"pix" | "dinheiro" | null>(null);
+  const { getCartTotal, clearCart } = useCart();
+  const [formaSelecionada, setFormaSelecionada] = useState<
+    "pix" | "dinheiro" | null
+  >(null);
 
   const handleCancelar = () => {
     clearCart();
@@ -33,7 +35,9 @@ export const TipoPagamento = () => {
   return (
     <S.Container__Tipo_Pagamento>
       <S.Pagamento__Header>
-        <S.Titulo__pagamento_Header>Pronto para um Devine Café?</S.Titulo__pagamento_Header>
+        <S.Titulo__pagamento_Header>
+          Pronto para um Devine Café?
+        </S.Titulo__pagamento_Header>
         <S.BotoesTopo>
           <button onClick={handleCancelar}>Cancelar</button>
         </S.BotoesTopo>
@@ -51,7 +55,11 @@ export const TipoPagamento = () => {
               <S.Button__Forma_Pagamento>
                 <S.Button>
                   <button
-                    className={formaSelecionada === "pix" ? "selecionado" : "desabilitado"}
+                    className={
+                      formaSelecionada === "pix"
+                        ? "selecionado"
+                        : "desabilitado"
+                    }
                     onClick={() => setFormaSelecionada("pix")}
                   >
                     <img src={Images.Veto1} alt="Pix" />
@@ -62,7 +70,11 @@ export const TipoPagamento = () => {
 
                 <S.Button>
                   <button
-                    className={formaSelecionada === "dinheiro" ? "selecionado" : "desabilitado"}
+                    className={
+                      formaSelecionada === "dinheiro"
+                        ? "selecionado"
+                        : "desabilitado"
+                    }
                     onClick={() => setFormaSelecionada("dinheiro")}
                   >
                     <img src={Images.Wallet} alt="Dinheiro" />
@@ -73,7 +85,9 @@ export const TipoPagamento = () => {
               </S.Button__Forma_Pagamento>
 
               <S.Button__Texto>
-                <span>Após selecionar, siga as instruções no visor ao lado do totem.</span>
+                <span>
+                  Após selecionar, siga as instruções no visor ao lado do totem.
+                </span>
                 <p>
                   <img src={Images.ShieldCheck} alt="Shield Check" />
                   <h2>Pagamento 100% seguro</h2>
@@ -88,15 +102,23 @@ export const TipoPagamento = () => {
             <img src={Images.Plus} alt="imagem de mais" />
             <span>Resumo da Compra</span>
           </div>
-          <p><strong>Loja:</strong> Devine Café</p>
-          <p><strong>Data e Hora:</strong> {dataHoraAtual}</p>
+          <p>
+            <strong>Loja:</strong> Devine Café
+          </p>
+          <p>
+            <strong>Data e Hora:</strong> {dataHoraAtual}
+          </p>
 
           <S.TotalPagamento>
             <strong>Total a pagar:</strong>
             <span>R$ {total.toFixed(2).replace(".", ",")}</span>
           </S.TotalPagamento>
 
-          <button className="confirmar" onClick={handleConfirmar} disabled={!formaSelecionada}>
+          <button
+            className="confirmar"
+            onClick={handleConfirmar}
+            disabled={!formaSelecionada}
+          >
             Confirmar Pagamento
           </button>
         </S.ResumoSimplificado>

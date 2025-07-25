@@ -5,7 +5,9 @@ export const getPedidos = async (): Promise<Pedidos[]> => {
   try {
     const { data } = await apiUrl.get("/pedido");
     return data;
-  } catch (error: unknown) {
-    return [];
+  } catch (error) {
+    throw new Error(
+      `Falha ao buscar pedidos. ${error instanceof Error ? error.message : ""}`
+    );
   }
 };
