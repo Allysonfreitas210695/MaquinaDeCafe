@@ -85,30 +85,6 @@ export const PedidoFinalizado = () => {
         </div>
         <p className="pagragafo">Você será notificado quando estiver pronto.</p>
       </S.Tempo__Preparo>
-      <S.Status__do__Pedido>
-        <h1>Status do Pedido</h1>
-        <div className="status">
-          <img src={Images.pedidoconfirmado} alt="" />
-          <div className="confirmado">
-            <span>Pedido Confirmado</span>
-            <p>14:30</p>
-          </div>
-        </div>
-        <div className="preparo">
-          <img src={Images.empreparo} alt="" />
-          <div className="em_preparo">
-            <span>Em Preparo</span>
-            <p>Agora</p>
-          </div>
-        </div>
-        <div className="retirada">
-          <img src="" alt="" />
-          <div className="pronto_retirada">
-            <span>Pronto para Retirada</span>
-            <p>Em breve</p>
-          </div>
-        </div>
-      </S.Status__do__Pedido>
       <S.Button__Pedido>
         <button className="finalizar__pedido" onClick={handleFinalizarPedido}>
           Finalizar Pedido
