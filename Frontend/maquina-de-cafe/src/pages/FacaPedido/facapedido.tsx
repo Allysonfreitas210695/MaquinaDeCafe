@@ -100,7 +100,7 @@ export const FacaPedido = () => {
     if (totalNoCarrinho >= 10) {
       Swal.fire({
         icon: "warning",
-        title: "Limite atingido",
+        title: "Limite atingido!",
         text: "Você só pode adicionar até 10 itens ao carrinho.",
       });
       return;
@@ -134,7 +134,7 @@ export const FacaPedido = () => {
     Swal.fire({
       icon: "success",
       title: "Adicionado ao carrinho!",
-      timer: 1200,
+      timer: 1500,
       showConfirmButton: false,
     });
   };
@@ -160,8 +160,8 @@ export const FacaPedido = () => {
             if (total === 0) {
               Swal.fire({
                 icon: "error",
-                title: "Não tem item no seu carrinho",
-                text: "Verifique novamente o seu pedido",
+                title: "Carrinho Vazio!",
+                text: "Não encontramos nenhum item no seu carrinho.",
               });
               return;
             }
