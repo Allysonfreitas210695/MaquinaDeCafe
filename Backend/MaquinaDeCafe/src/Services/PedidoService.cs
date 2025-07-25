@@ -138,6 +138,8 @@ public class PedidoService : IPedidoRepository
                                         .ThenInclude(pi => pi.PedidoItemIngredientes)
                                         .ThenInclude(i => i.IngredienteAdicional)
                                     .Include(p => p.Pagamento)
+                                    .Include(p => p.PedidoItens)
+                                        .ThenInclude(x => x.TamanhoXicara)
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -186,7 +188,9 @@ public class PedidoService : IPedidoRepository
                 {
                     Id = pi.Cafe.Id,
                     Descricao = pi.Cafe.Descricao,
-                    Nome = pi.Cafe.Nome
+                    Nome = pi.Cafe.Nome,
+                    TempoPreparoSegundos = pi.Cafe.TempoPreparoSegundos,
+                    Categoria = pi.Cafe.Categoria.ToDescricao()
                 },
                 PedidoId = pi.PedidoId,
                 TipoLeite = pi.TipoLeite.ToString(),
