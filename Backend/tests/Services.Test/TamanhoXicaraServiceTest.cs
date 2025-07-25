@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CommonTestUltilities.Test.Request;
 using FluentAssertions;
 using MaquinaDeCafe.src.Data;
@@ -31,6 +27,37 @@ public class TamanhoXicaraServiceTest
     {
         _dbContext.Database.EnsureDeleted();
         _dbContext.Dispose();
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_ComIdExistente_DeveRetornarTamanhoXicara()
+    {
+        // Arrange
+        var request = RequestTamanhoXicaraJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var tamanho = await _dbContext.TamanhosXicara.FirstOrDefaultAsync();
+
+        // Act
+        var resultado = await _service.GetItemByIdAsync(tamanho!.Id);
+
+        // Assert
+        resultado.Should().NotBeNull();
+        resultado.Id.Should().Be(tamanho.Id);
+        resultado.Descricao.Should().Be(tamanho.Descricao);
+        resultado.Ml.Should().Be(tamanho.Ml);
+        resultado.Valor.Should().Be(tamanho.Valor);
+        resultado.CafeId.Should().Be(tamanho.CafeId);
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var idInexistente = Guid.NewGuid();
+
+        // Act & Assert
+        var act = async () => await _service.GetItemByIdAsync(idInexistente);
+        await Assert.ThrowsAsync<NotFoundException>(act);
     }
 
     [Fact]
