@@ -247,24 +247,42 @@ export const Button__Finalizar = styled.button`
 
 export const Div__Botao = styled.div`
   display: flex;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 1rem;
 
   button {
     background-color: #5C3D2E;
-    width: 400px;
     color: white;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
     border-radius: 20px;
-    padding: 12px 24px;
+    padding: 10px 20px;
     cursor: pointer;
     transition: background 0.3s ease;
+    width: 180px;
+    max-width: 100%;
 
     &:hover {
       background: #7a4e3a;
     }
+  }
+`;
+
+export const BotaoPequeno = styled.button`
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #5C3D2E;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  width: auto;
+  max-width: 180px;
+
+  &:hover {
+    background-color: #7b4f3a;
   }
 `;

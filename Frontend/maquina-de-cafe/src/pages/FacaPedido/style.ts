@@ -119,50 +119,47 @@ export const Button__Seguir = styled.div`
 `;
 
 export const Div__Acoes = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  gap: 15px;
-  z-index: 1000;
   position: fixed;
-  top: 90px;
-  right: 7em;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 1000;
 
   button {
     background-color: #5C3D2E;
     color: white;
-    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-size: 16px;
+    font-family: Poppins, sans-serif;
+    display: flex;
+    align-items: center;
+    position: relative;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
 
-    &:hover:not(:disabled) {
-      background-color: #4A3025;
+    &:hover {
+      background-color: #7a4e3a;
     }
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
+
+    .carrinho__pedido {
+      font-size: 24px;
+      margin-right: 8px;
     }
-  }
 
-  .carrinho__pedido{
-    font-size: 40px;
-    color: #ffffff;
-    margin-top: -10px;
-    padding: 2px;
-  }
-
-  .quantidade{
-    font-size: 14px;
-    color: #000;
-    margin-top: -35px;
-    margin-left: 3px;
-    font-weight: 900;
+    .quantidade {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #fff;
+      color: #5C3D2E;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 4px 7px;
+      font-size: 12px;
+      border: 1px solid #5C3D2E;
+    }
   }
 `;
 

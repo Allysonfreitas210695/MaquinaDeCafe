@@ -1,42 +1,40 @@
 import styled from "styled-components";
 
 export const Navegacao__Header = styled.div`
-  width: 300px;
+  width: 100%;
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px;
-  box-shadow: 0 0 0 24% #000000;
-
-  img {
-    width: 300px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
+  justify-content: center;
+  padding: 20px 0;
+  background: transparent; /* ou coloque uma cor se quiser */
 `;
 
-export const Nav = styled.div`
-  background-color: #3F1811;
+export const Nav = styled.nav`
+  background-color: #3F1811; // marrom escuro
   border-radius: 74px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 14rem;
-  min-width: 1224px;
-  padding: 8px 70px;
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  gap: 8rem;
+  min-width: 700px;
+  padding: 12px 40px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
+
+  @media (max-width: 768px) {
+    min-width: auto;
+    gap: 2rem;
+    padding: 8px 20px;
+    border-radius: 40px;
+    width: 90%;
+  }
 
   .link {
     color: #ffffff;
-    font-family: Sora;
+    font-family: "Poppins", sans-serif;
     font-weight: 800;
     font-size: 18px;
     line-height: 100%;
@@ -46,19 +44,29 @@ export const Nav = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+    transition: color 0.3s ease;
+  }
+
+  .link:hover {
+    color: #cfa67a; /* uma cor de destaque, tipo dourado */
   }
 `;
 
 export const MenuItem = styled.div<{ active: boolean }>`
   background-color: ${({ active }) => (active ? "#fff" : "transparent")};
   color: ${({ active }) => (active ? "#3F1811" : "#fff")};
-  padding: 0.8rem 1rem;
-  border-radius: 59px; /* arredondado só à esquerda */
+  padding: 0.8rem 1.6rem;
+  border-radius: 59px;
   transition: all 0.3s ease;
   cursor: pointer;
 
   .link {
     color: inherit;
     text-decoration: none;
+  }
+
+  &:hover {
+    background-color: ${({ active }) => (active ? "#fff" : "#5C3D2E")};
+    color: ${({ active }) => (active ? "#3F1811" : "#fff")};
   }
 `;
