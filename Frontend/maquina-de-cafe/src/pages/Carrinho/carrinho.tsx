@@ -37,7 +37,7 @@ export const Carrinho = () => {
           Continuar comprando
         </button>
         <button className="confirmar" onClick={handleConfirmarPagamento}>
-          Confirmar pagamento
+          Pagamento
         </button>
       </S.BotoesRodape>
     </S.Container__Carrinho>
