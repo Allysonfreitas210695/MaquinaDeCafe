@@ -2,14 +2,22 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
+import { useState } from "react";
 
 export const TipoPagamento = () => {
   const navigate = useNavigate();
-  const { getCartTotal, clearCart } = useCart();
+  const { cart, getCartTotal, clearCart } = useCart();
+  const [formaSelecionada, setFormaSelecionada] = useState<"pix" | "dinheiro" | null>(null);
 
   const handleCancelar = () => {
     clearCart();
     navigate("/pedido");
+  };
+
+  const handleConfirmar = () => {
+    if (formaSelecionada) {
+      navigate("/pedidofinalizado");
+    }
   };
 
   const dataHoraAtual = new Date().toLocaleString("pt-BR", {
@@ -42,14 +50,21 @@ export const TipoPagamento = () => {
 
               <S.Button__Forma_Pagamento>
                 <S.Button>
-                  <button>
+                  <button
+                    className={formaSelecionada === "pix" ? "selecionado" : "desabilitado"}
+                    onClick={() => setFormaSelecionada("pix")}
+                  >
                     <img src={Images.Veto1} alt="Pix" />
                     <span>Pix</span>
                     <p>Pagamento instantâneo</p>
                   </button>
                 </S.Button>
+
                 <S.Button>
-                  <button>
+                  <button
+                    className={formaSelecionada === "dinheiro" ? "selecionado" : "desabilitado"}
+                    onClick={() => setFormaSelecionada("dinheiro")}
+                  >
                     <img src={Images.Wallet} alt="Dinheiro" />
                     <span>Dinheiro</span>
                     <p>Pagamento na entrega</p>
@@ -81,11 +96,9 @@ export const TipoPagamento = () => {
             <span>R$ {total.toFixed(2).replace(".", ",")}</span>
           </S.TotalPagamento>
 
-          <S.Button>
-            <button onClick={() => navigate("/pedidofinalizado")}>
-              <span>Confirmar Pagamento</span>
-            </button>
-          </S.Button>
+          <button className="confirmar" onClick={handleConfirmar} disabled={!formaSelecionada}>
+            Confirmar Pagamento
+          </button>
         </S.ResumoSimplificado>
       </S.Tipo__Confirmar_Pagamento>
     </S.Container__Tipo_Pagamento>
