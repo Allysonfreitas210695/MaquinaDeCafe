@@ -59,6 +59,35 @@ public class IngredienteAdicionalServiceTest
     }
 
     [Fact]
+    public async Task GetListAsync_QuandoExistemIngredientes_DeveRetornarTodos()
+    {
+        // Arrange
+        var ingrediente1 = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(nome: "Canela", valorExtra: 1.5m);
+        var ingrediente2 = RequestCriacaoIngredienteAdicionalJsonBuilder.Build(nome: "Leite", valorExtra: 2.0m);
+        await _service.AddAsync(ingrediente1);
+        await _service.AddAsync(ingrediente2);
+
+        // Act
+        var lista = await _service.GetListAsync();
+
+        // Assert
+        lista.Should().HaveCount(2);
+        lista.Should().Contain(i => i.Nome == "Canela" && i.ValorExtra == 1.5m);
+        lista.Should().Contain(i => i.Nome == "Leite" && i.ValorExtra == 2.0m);
+    }
+
+    [Fact]
+    public async Task GetListAsync_QuandoNaoExistemIngredientes_DeveRetornarListaVazia()
+    {
+        // Act
+        var lista = await _service.GetListAsync();
+
+        // Assert
+        lista.Should().NotBeNull();
+        lista.Should().BeEmpty();
+    }
+
+    [Fact]
     public async Task AddAsync_ComDadosValidos_AdicionaIngredienteAdicional()
     {
         // Arrange
