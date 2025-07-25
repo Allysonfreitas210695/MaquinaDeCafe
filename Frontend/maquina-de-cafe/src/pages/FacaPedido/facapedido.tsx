@@ -81,12 +81,11 @@ export const FacaPedido = () => {
   ) => {
     console.log(cafeId);
     if (!selectedSize) {
-      Swal.fire({
+      return Swal.fire({
         icon: "warning",
         title: "Selecione um tamanho",
         text: "Por favor, selecione um tamanho de xícara para personalizar.",
       });
-      return;
     }
     navigate("/adicionais", {
       state: {
@@ -104,21 +103,19 @@ export const FacaPedido = () => {
     );
 
     if (totalNoCarrinho >= 10) {
-      Swal.fire({
+      return Swal.fire({
         icon: "warning",
         title: "Limite atingido!",
         text: "Você só pode adicionar até 10 itens ao carrinho.",
       });
-      return;
     }
 
     if (!cafe.tamanhosXicara || cafe.tamanhosXicara.length === 0) {
-      Swal.fire({
+      return Swal.fire({
         icon: "error",
         title: "Café sem tamanho disponível",
         text: "Não foi possível adicionar este café ao carrinho.",
       });
-      return;
     }
 
     const tamanhoPadrao = [...cafe.tamanhosXicara].sort(
@@ -139,7 +136,7 @@ export const FacaPedido = () => {
     };
 
     addToCart(novoItem);
-    Swal.fire({
+    return Swal.fire({
       icon: "success",
       title: "Adicionado ao carrinho!",
       timer: 1500,
