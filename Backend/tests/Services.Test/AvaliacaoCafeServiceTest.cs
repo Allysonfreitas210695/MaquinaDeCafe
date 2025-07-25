@@ -3,6 +3,7 @@ using FluentAssertions;
 using MaquinaDeCafe.src.Data;
 using MaquinaDeCafe.src.Exceptions;
 using MaquinaDeCafe.src.Models.Enums;
+using MaquinaDeCafe.src.Models.Enums.Extensions;
 using MaquinaDeCafe.src.Resources;
 using MaquinaDeCafe.src.Services;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,38 @@ namespace Services.Test
             _dbContext.Database.EnsureDeleted();
             _dbContext.Dispose();
         }
+
+        [Fact]
+        public async Task GetItemByIdAsync_ComIdExistente_RetornaAvaliacao()
+        {
+            // Arrange
+            var request = RequestAvaliacaoCafeJsonBuilder.Build();
+            await _service.AddAsync(request);
+            var avaliacao = await _dbContext.AvaliacoesCafe.FirstOrDefaultAsync();
+
+            // Act
+            var resultado = await _service.GetItemByIdAsync(avaliacao!.Id);
+
+            // Assert
+            resultado.Should().NotBeNull();
+            resultado!.Id.Should().Be(avaliacao.Id);
+            resultado.CafeId.Should().Be(avaliacao.CafeId);
+            resultado.Estrelas.Should().Be(avaliacao.Estrelas);
+            resultado.Observacao.Should().Be(avaliacao.Observacao);
+        }
+
+        [Fact]
+        public async Task GetItemByIdAsync_ComIdInexistente_LancaNotFoundException()
+        {
+            // Arrange
+            var idInvalido = Guid.NewGuid();
+
+            // Act & Assert
+            var act = async () => await _service.GetItemByIdAsync(idInvalido);
+
+            await Assert.ThrowsAsync<NotFoundException>(act);
+        }
+
 
         [Fact]
         public async Task AddAsync_ComDadosValidos_AdicionaAvaliacao()
@@ -130,7 +163,7 @@ namespace Services.Test
 
             // Act & Assert
             await Assert.ThrowsAsync<NotFoundException>(
-                () => _service.UpdateAsync(Guid.NewGuid(), atualizado)); 
+                () => _service.UpdateAsync(Guid.NewGuid(), atualizado));
         }
 
         [Fact]
