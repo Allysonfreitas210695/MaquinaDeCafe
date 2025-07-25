@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import { HeaderNavegacao } from "./HeaderNavegacao/navegacao";
 import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
-import {
-  ApiTamanhoXicara,
-  CoffeeCustomizationData,
-} from "../../service/interface";
+import { ApiTamanhoXicara } from "../../service/interface";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { IoCartSharp } from "react-icons/io5";
 import { getCafes } from "../../service/cafe_api";
+import Swal from "sweetalert2";
 
 interface TransformedCafe {
   id: string;
@@ -27,72 +25,11 @@ export const FacaPedido = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
   const [errorFetchingCafes, setErrorFetchingCafes] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { cart } = useCart();
-
-  const [coffeesToCustomize, setCoffeesToCustomize] = useState<
-    CoffeeCustomizationData[]
-  >([]);
-
-  // NOVA FUNÇÃO: Lidar com a seleção/desseleção de um café no CafeCard
-  const handleToggleCoffeeSelection = (
-    cafeId: string,
-    isSelected: boolean,
-    selectedSize: ApiTamanhoXicara | undefined,
-    cafeOriginalData: {
-      // Dados completos do café vindos do CafeCard
-      id: string;
-      title: string;
-      description: string;
-      tag: string;
-      preparation: number;
-      imageSrc: string;
-      tamanhosXicara: ApiTamanhoXicara[];
-    }
-  ) => {
-    setCoffeesToCustomize((prevSelected) => {
-      if (!isSelected) {
-        return prevSelected.filter((c) => c.id !== cafeId);
-      } else {
-        if (!selectedSize) {
-          alert(
-            "Por favor, selecione um tamanho de xícara antes de adicionar o café para personalização."
-          );
-          return prevSelected;
-        }
-        if (prevSelected.some((c) => c.id === cafeId)) {
-          return prevSelected;
-        }
-
-        // Cria o objeto CoffeeCustomizationData completo para adicionar à lista
-        const newCustomizationData: CoffeeCustomizationData = {
-          id: cafeId,
-          title: cafeOriginalData.title,
-          description: cafeOriginalData.description,
-          tag: cafeOriginalData.tag,
-          preparation: cafeOriginalData.preparation,
-          imageSrc: cafeOriginalData.imageSrc,
-          tamanhoSelecionado: selectedSize,
-        };
-        return [...prevSelected, newCustomizationData];
-      }
-    });
-  };
-
-  // NOVA FUNÇÃO: Iniciar o processo de personalização dos selecionados
-  const startCustomizationProcess = () => {
-    if (coffeesToCustomize.length === 0) {
-      alert("Por favor, selecione pelo menos um café para personalizar.");
-      return;
-    }
-    navigate("/adicionais", {
-      state: { coffeesToCustomize: coffeesToCustomize, currentIndex: 0 },
-    });
-  };
+  const { cart, addToCart } = useCart();
 
   async function fetchPedidos() {
     try {
       const data = await getCafes();
-      console.log(data);
       const transformedData = data.map((item) => ({
         id: item.id,
         nome: item.nome,
@@ -124,6 +61,84 @@ export const FacaPedido = () => {
     return cafe.categoria.toLowerCase() === selectedCategory.toLowerCase();
   });
 
+  const handlePersonalizar = (
+    cafeId: string,
+    selectedSize: ApiTamanhoXicara | undefined,
+    cafeData: {
+      id: string;
+      title: string;
+      description: string;
+      tag: string;
+      preparation: number;
+      imageSrc: string;
+      tamanhosXicara: ApiTamanhoXicara[];
+    }
+  ) => {
+    if (!selectedSize) {
+      Swal.fire({
+        icon: "warning",
+        title: "Selecione um tamanho",
+        text: "Por favor, selecione um tamanho de xícara para personalizar.",
+      });
+      return;
+    }
+    navigate("/adicionais", {
+      state: {
+        coffeesToCustomize: [{ ...cafeData, tamanhoSelecionado: selectedSize }],
+        currentIndex: 0,
+      },
+    });
+  };
+
+  // Função para adicionar direto ao carrinho com validação de 10 itens no total
+  const handleAddDirect = (cafe: TransformedCafe) => {
+    const totalNoCarrinho = cart.reduce(
+      (total, item) => total + item.quantidadeNoCarrinho,
+      0
+    );
+
+    if (totalNoCarrinho >= 10) {
+      Swal.fire({
+        icon: "warning",
+        title: "Limite atingido",
+        text: "Você só pode adicionar até 10 itens ao carrinho.",
+      });
+      return;
+    }
+
+    if (!cafe.tamanhosXicara || cafe.tamanhosXicara.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Café sem tamanho disponível",
+        text: "Não foi possível adicionar este café ao carrinho.",
+      });
+      return;
+    }
+
+    const tamanhoPadrao = [...cafe.tamanhosXicara].sort((a, b) => a.valor - b.valor)[0];
+
+    const novoItem = {
+      id: cafe.id + "-" + Date.now(),
+      title: cafe.nome,
+      description: cafe.descricao,
+      tag: cafe.categoria,
+      preparation: cafe.tempoPreparoSegundos,
+      imageSrc: cafe.imagemUrl ?? Images.CafeExpresso,
+      tamanhoSelecionado: tamanhoPadrao,
+      adicionaisSelecionados: [],
+      quantidadeNoCarrinho: 1,
+      valorTotalItem: tamanhoPadrao.valor,
+    };
+
+    addToCart(novoItem);
+    Swal.fire({
+      icon: "success",
+      title: "Adicionado ao carrinho!",
+      timer: 1200,
+      showConfirmButton: false,
+    });
+  };
+
   if (errorFetchingCafes) {
     return (
       <S.Container__Pedido_Header>
@@ -136,17 +151,28 @@ export const FacaPedido = () => {
     <S.Container__Pedido_Header>
       <HeaderNavegacao onCategoryChange={handleCategoryChange} />
       <S.Div__Acoes>
-        <button onClick={() => navigate("/carrinho")}>
-          <IoCartSharp className="carrinho__pedido" />
-          <div className="quantidade">{cart.length}</div>
-        </button>
-
-        <S.PersonalizarSelecionadosButton
-          onClick={startCustomizationProcess}
-          disabled={coffeesToCustomize.length === 0}
+        <button
+          onClick={() => {
+            const total = cart.reduce(
+              (total, item) => total + item.quantidadeNoCarrinho,
+              0
+            );
+            if (total === 0) {
+              Swal.fire({
+                icon: "error",
+                title: "Não tem item no seu carrinho",
+                text: "Verifique novamente o seu pedido",
+              });
+              return;
+            }
+            navigate("/carrinho");
+          }}
         >
-          Personalizar Selecionados ({coffeesToCustomize.length})
-        </S.PersonalizarSelecionadosButton>
+          <IoCartSharp className="carrinho__pedido" />
+          <div className="quantidade">
+            {cart.reduce((total, item) => total + item.quantidadeNoCarrinho, 0)}
+          </div>
+        </button>
       </S.Div__Acoes>
       <S.Pedido__Escolha>
         <S.Container__Card>
@@ -169,8 +195,18 @@ export const FacaPedido = () => {
                 preparation={tempoPreparoSegundos}
                 imageSrc={imagemUrl ?? Images.CafeExpresso}
                 tamanhosXicara={tamanhosXicara}
-                isSelected={coffeesToCustomize.some((c) => c.id === id)}
-                onToggleSelect={handleToggleCoffeeSelection}
+                onPersonalizar={handlePersonalizar}
+                onAddToCart={() =>
+                  handleAddDirect({
+                    id,
+                    nome,
+                    descricao,
+                    categoria,
+                    tempoPreparoSegundos,
+                    imagemUrl,
+                    tamanhosXicara,
+                  })
+                }
               />
             )
           )}
