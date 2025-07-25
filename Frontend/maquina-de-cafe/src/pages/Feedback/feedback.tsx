@@ -84,6 +84,7 @@ export const Feedback = () => {
       try {
         await postAvaliacaoCafe(feedbackData);
       } catch (error) {
+        console.error("Erro ao enviar feedback:", error);
         return Swal.fire({
           icon: "warning",
           title: "Aviso",
@@ -91,7 +92,7 @@ export const Feedback = () => {
         });
       }
     }
-    return Swal.fire({
+    Swal.fire({
       icon: "success",
       title: "Sucesso",
       text: "Seu feedback foi enviado com sucesso! Obrigado.",
