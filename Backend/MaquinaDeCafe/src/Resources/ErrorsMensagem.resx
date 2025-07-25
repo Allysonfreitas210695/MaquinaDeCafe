@@ -150,6 +150,9 @@
   <data name="CoffeePreparationTimeInvalid" xml:space="preserve">
     <value>Tempo de preparo do café deve ser maior que zero.</value>
   </data>
+  <data name="DeveConterAoMenosUmItem" xml:space="preserve">
+    <value>Deve haver ao menos um item no pedido.</value>
+  </data>
   <data name="ErroCriarPedido" xml:space="preserve">
     <value>Erro ao criar o pedido. Verifique os dados informados.</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="ErrorCriarTamanhoXicara" xml:space="preserve">
     <value>Erro ao criar o Tamanho da xícara. Verifique os dados informados.</value>
+  </data>
+  <data name="FormaPagamentoInvalida" xml:space="preserve">
+    <value>Forma de pagamento inválida.</value>
   </data>
   <data name="FormaPreparoNaoEncontrado" xml:space="preserve">
     <value>Forma de preparo não encontrado.</value>
@@ -192,11 +198,17 @@
   <data name="InvalidFormaPagamento" xml:space="preserve">
     <value>Forma de pagamento inválida.</value>
   </data>
+  <data name="ItensPedidoObrigatorios" xml:space="preserve">
+    <value>Itens do pedido são obrigatórios.</value>
+  </data>
   <data name="MaximoAdicionaisPorCafe" xml:space="preserve">
     <value>Cada café pode ter no máximo 4 ingredientes adicionais.</value>
   </data>
   <data name="MaximoCafesPorPedido" xml:space="preserve">
     <value>Não é permitido adicionar mais de 10 cafés em um único pedido.</value>
+  </data>
+  <data name="MaximoIngredientesAdicionaisPorCafe" xml:space="preserve">
+    <value>Cada café pode ter no máximo 4 ingredientes adicionais.</value>
   </data>
   <data name="NivelAtendimentoInvalido" xml:space="preserve">
     <value>Nível de atendimento inválido.</value>
@@ -212,6 +224,9 @@
   </data>
   <data name="PedidoItemInvalido" xml:space="preserve">
     <value>Item do pedido inválido.</value>
+  </data>
+  <data name="PedidoMaximoDeDezCafes" xml:space="preserve">
+    <value>O pedido não pode conter mais de 10 cafés.</value>
   </data>
   <data name="PedidoNaoEncontrado" xml:space="preserve">
     <value>Pedido não encontrado!</value>
@@ -237,6 +252,9 @@
   <data name="QuantidadeEstrelasInvalida" xml:space="preserve">
     <value>A quantidade de estrelas deve estar entre 1 e 5.</value>
   </data>
+  <data name="QuantidadeMaiorQueZero" xml:space="preserve">
+    <value>Quantidade deve ser maior que zero.</value>
+  </data>
   <data name="TamanhosXicaraNaoEncontrados" xml:space="preserve">
     <value>Um ou mais tamanhos de xícara não foram encontrados.</value>
   </data>
@@ -255,7 +273,19 @@
   <data name="TamanhoXicaraNaoEncontradoExclamacao" xml:space="preserve">
     <value>Tamanho de xícara não encontrado!</value>
   </data>
+  <data name="TamanhoXicaraObrigatorio" xml:space="preserve">
+    <value>O tamanho da xícara é obrigatório.</value>
+  </data>
   <data name="TamanhoXicaraValorExtraNegativo" xml:space="preserve">
     <value>Valor extra não pode ser negativo.</value>
+  </data>
+  <data name="TipoAcucarInvalido" xml:space="preserve">
+    <value>Tipo de açúcar inválido.</value>
+  </data>
+  <data name="TipoLeiteInvalido" xml:space="preserve">
+    <value>Tipo de leite inválido.</value>
+  </data>
+  <data name="ValorTotalPedidoMaiorQueZero" xml:space="preserve">
+    <value>Valor total do pedido deve ser maior que zero.</value>
   </data>
 </root>
