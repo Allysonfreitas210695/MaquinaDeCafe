@@ -118,9 +118,9 @@ export const Adicionais = () => {
       } else {
         if (prevSelected.length >= 4) {
           Swal.fire({
-            icon: "error",
-            title: "Você só pode selecionar 4 adicionais",
-            text: "Verifique novamente o seu café",
+            icon: "warning",
+            title: "Limite atingido",
+            text: "Você só pode adicionar até 4 itens adicionais.",
           });
           return prevSelected;
         }
