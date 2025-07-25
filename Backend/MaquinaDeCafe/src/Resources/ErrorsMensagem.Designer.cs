@@ -160,6 +160,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Deve haver ao menos um item no pedido..
+        /// </summary>
+        public static string DeveConterAoMenosUmItem {
+            get {
+                return ResourceManager.GetString("DeveConterAoMenosUmItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Erro ao criar o pedido. Verifique os dados informados..
         /// </summary>
         public static string ErroCriarPedido {
@@ -192,6 +201,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string ErrorCriarTamanhoXicara {
             get {
                 return ResourceManager.GetString("ErrorCriarTamanhoXicara", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Forma de pagamento inválida..
+        /// </summary>
+        public static string FormaPagamentoInvalida {
+            get {
+                return ResourceManager.GetString("FormaPagamentoInvalida", resourceCulture);
             }
         }
         
@@ -286,6 +304,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Itens do pedido são obrigatórios..
+        /// </summary>
+        public static string ItensPedidoObrigatorios {
+            get {
+                return ResourceManager.GetString("ItensPedidoObrigatorios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cada café pode ter no máximo 4 ingredientes adicionais..
         /// </summary>
         public static string MaximoAdicionaisPorCafe {
@@ -300,6 +327,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string MaximoCafesPorPedido {
             get {
                 return ResourceManager.GetString("MaximoCafesPorPedido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cada café pode ter no máximo 4 ingredientes adicionais..
+        /// </summary>
+        public static string MaximoIngredientesAdicionaisPorCafe {
+            get {
+                return ResourceManager.GetString("MaximoIngredientesAdicionaisPorCafe", resourceCulture);
             }
         }
         
@@ -345,6 +381,15 @@ namespace MaquinaDeCafe.src.Resources {
         public static string PedidoItemInvalido {
             get {
                 return ResourceManager.GetString("PedidoItemInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O pedido não pode conter mais de 10 cafés..
+        /// </summary>
+        public static string PedidoMaximoDeDezCafes {
+            get {
+                return ResourceManager.GetString("PedidoMaximoDeDezCafes", resourceCulture);
             }
         }
         
@@ -421,6 +466,15 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade deve ser maior que zero..
+        /// </summary>
+        public static string QuantidadeMaiorQueZero {
+            get {
+                return ResourceManager.GetString("QuantidadeMaiorQueZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Um ou mais tamanhos de xícara não foram encontrados..
         /// </summary>
         public static string TamanhosXicaraNaoEncontrados {
@@ -475,11 +529,47 @@ namespace MaquinaDeCafe.src.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O tamanho da xícara é obrigatório..
+        /// </summary>
+        public static string TamanhoXicaraObrigatorio {
+            get {
+                return ResourceManager.GetString("TamanhoXicaraObrigatorio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Valor extra não pode ser negativo..
         /// </summary>
         public static string TamanhoXicaraValorExtraNegativo {
             get {
                 return ResourceManager.GetString("TamanhoXicaraValorExtraNegativo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tipo de açúcar inválido..
+        /// </summary>
+        public static string TipoAcucarInvalido {
+            get {
+                return ResourceManager.GetString("TipoAcucarInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tipo de leite inválido..
+        /// </summary>
+        public static string TipoLeiteInvalido {
+            get {
+                return ResourceManager.GetString("TipoLeiteInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor total do pedido deve ser maior que zero..
+        /// </summary>
+        public static string ValorTotalPedidoMaiorQueZero {
+            get {
+                return ResourceManager.GetString("ValorTotalPedidoMaiorQueZero", resourceCulture);
             }
         }
     }
