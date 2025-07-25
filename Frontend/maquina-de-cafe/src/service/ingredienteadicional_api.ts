@@ -7,7 +7,11 @@ export const getIngredienteadicional = async (): Promise<
   try {
     const { data } = await apiUrl.get("/ingredienteadicional");
     return data;
-  } catch (error: unknown) {
-    return [];
+  } catch (error) {
+    throw new Error(
+      `Falha ao buscar ingredientes adicionais. ${
+        error instanceof Error ? error.message : ""
+      }`
+    );
   }
 };

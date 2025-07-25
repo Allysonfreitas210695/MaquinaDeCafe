@@ -1,18 +1,18 @@
 import { Images } from "../../assets/Images";
 import * as S from "./style";
 import Swal from "sweetalert2";
-
 import { CardAdicionais } from "../../components/CardAdicionais/cardadicionais";
-
 import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
+import { getIngredienteadicional } from "../../service/ingredienteadicional_api";
+
 import {
   CoffeeCustomizationData,
   Ingredienteadicional,
   SelectedAdicional,
+  ApiTamanhoXicara,
 } from "../../service/interface";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
-import { getIngredienteadicional } from "../../service/ingredienteadicional_api";
 
 export const Adicionais = () => {
   const [newsAdicionais, setNewsAdicionais] = useState<Ingredienteadicional[]>(
@@ -23,6 +23,9 @@ export const Adicionais = () => {
   >([]);
   const [selectedLeite, setSelectedLeite] = useState<string | null>(null);
   const [selectedAcucar, setSelectedAcucar] = useState<string | null>(null);
+  const [selectedTamanho, setSelectedTamanho] =
+    useState<ApiTamanhoXicara | null>(null);
+  const { clearCart } = useCart();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,7 +35,6 @@ export const Adicionais = () => {
     location.state?.coffeesToCustomize ?? [];
   const currentIndex: number = location.state?.currentIndex || 0;
 
-  // Café atual
   const currentCafe: CoffeeCustomizationData | undefined =
     coffeesToCustomize[currentIndex];
 
@@ -55,50 +57,26 @@ export const Adicionais = () => {
     setSelectedAdicionais([]);
     setSelectedLeite(null);
     setSelectedAcucar(null);
+    setSelectedTamanho(currentCafe?.tamanhoSelecionado ?? null);
   }, [currentIndex, coffeesToCustomize]);
 
-  const handleToggleAdicional = (adicional: Ingredienteadicional) => {
-    setSelectedAdicionais((prevSelected) => {
-      const existingAdicionalIndex = prevSelected.findIndex(
-        (item) => item.id === adicional.id
-      );
-
-      // Se já está selecionado, remove normalmente
-      if (existingAdicionalIndex > -1) {
-        const updatedSelected = [...prevSelected];
-        updatedSelected.splice(existingAdicionalIndex, 1);
-        return updatedSelected;
-      } else {
-        // Se já tem 4 adicionais, não adiciona mais e mostra alerta
-        if (prevSelected.length >= 4) {
-          Swal.fire({
-            icon: "error",
-            title: "Você só pode selecionar 4 adicionais",
-            text: "Verifique novamente o seu café",
-          });
-          return prevSelected;
-        }
-        return [...prevSelected, { ...adicional, quantidade: 1 }];
-      }
-    });
-  };
-
-  const handleSelectLeite = (tipo: string) => {
-    setSelectedLeite(tipo === selectedLeite ? null : tipo);
-  };
-
-  const handleSelectAcucar = (tipo: string) => {
-    setSelectedAcucar(tipo === selectedAcucar ? null : tipo);
+  const handleCancelar = () => {
+    clearCart();
+    navigate("/pedido");
   };
 
   const handleFinalizarPersonalizacao = () => {
-    if (!currentCafe || !currentCafe.tamanhoSelecionado) {
-      alert("Erro: Dados do café ou tamanho selecionado ausentes.");
+    if (!currentCafe || !selectedTamanho) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro",
+        text: "Dados do café ou tamanho selecionado ausentes.",
+      });
       navigate("/");
       return;
     }
 
-    const valorBase = currentCafe.tamanhoSelecionado.valor;
+    const valorBase = selectedTamanho.valor;
     const valorAdicionais = selectedAdicionais.reduce(
       (sum, adicional) => sum + adicional.valorExtra,
       0
@@ -112,7 +90,7 @@ export const Adicionais = () => {
       tag: currentCafe.description || "Padrão",
       preparation: currentCafe.preparation,
       imageSrc: currentCafe.imageSrc,
-      tamanhoSelecionado: currentCafe.tamanhoSelecionado,
+      tamanhoSelecionado: selectedTamanho,
       adicionaisSelecionados: [
         ...selectedAdicionais,
         ...(selectedLeite
@@ -130,7 +108,7 @@ export const Adicionais = () => {
           : []),
       ],
       quantidadeNoCarrinho: 1,
-      valorTotalItem: valorTotalItem,
+      valorTotalItem,
     };
 
     addToCart(newItem);
@@ -151,10 +129,31 @@ export const Adicionais = () => {
   const isAdicionalSelected = (adicionalId: string) =>
     selectedAdicionais.some((item) => item.id === adicionalId);
 
+  const handleToggleAdicional = (adicional: Ingredienteadicional) => {
+    setSelectedAdicionais((prevSelected) => {
+      const existingAdicionalIndex = prevSelected.findIndex(
+        (item) => item.id === adicional.id
+      );
+
+      if (existingAdicionalIndex > -1) {
+        const updatedSelected = [...prevSelected];
+        updatedSelected.splice(existingAdicionalIndex, 1);
+        return updatedSelected;
+      } else {
+        if (prevSelected.length >= 4) {
+          Swal.fire({
+            icon: "warning",
+            title: "Limite atingido",
+            text: "Você só pode adicionar até 4 itens adicionais.",
+          });
+          return prevSelected;
+        }
+        return [...prevSelected, { ...adicional, quantidade: 1 }];
+      }
+    });
+  };
+
   const isLastCafe = currentIndex === coffeesToCustomize.length - 1;
-  const buttonText = isLastCafe
-    ? "Finalizar e Ir para o Carrinho"
-    : "Próximo Café";
 
   if (!currentCafe) {
     return (
@@ -178,9 +177,9 @@ export const Adicionais = () => {
     <S.Container__Detalhes>
       <div className="header__container">
         <h1>Personalize o seu café</h1>
-        <Link className="button__cancelar" to={"/carrinho"}>
-          CANCELAR
-        </Link>
+        <S.BotoesTopo>
+          <button onClick={handleCancelar}>Cancelar</button>
+        </S.BotoesTopo>
       </div>
       <div className="detalhe__card_cafe">
         <div className="card__cafe">
@@ -189,10 +188,12 @@ export const Adicionais = () => {
             selectedAdicionais={selectedAdicionais}
             selectedLeite={selectedLeite}
             selectedAcucar={selectedAcucar}
-            onSelectLeite={handleSelectLeite}
-            onSelectAcucar={handleSelectAcucar}
+            selectedTamanho={selectedTamanho}
+            onSelectTamanho={setSelectedTamanho}
+            onSelectLeite={setSelectedLeite}
+            onSelectAcucar={setSelectedAcucar}
             onFinalizar={handleFinalizarPersonalizacao}
-            buttonText={buttonText}
+            isLastCafe={isLastCafe}
           />
         </div>
 

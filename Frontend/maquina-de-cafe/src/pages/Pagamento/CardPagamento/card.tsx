@@ -1,17 +1,17 @@
-import { Link } from "react-router-dom";
 import { Images } from "../../../assets/Images";
 import * as S from "./style";
-import { IoCartSharp } from "react-icons/io5";
 import { CardPagamentoProps } from "../../../service/interface";
 
 export const CardPagamento = ({
   pedidos,
-  subtotal,
-  taxaServico,
-  total,
-  checkoutPath,
-}: CardPagamentoProps) => {
-  const finalCheckoutPath = checkoutPath ?? "/pedidofinalizado";
+}: Pick<CardPagamentoProps, "pedidos" | "checkoutPath">) => {
+  // Cálculo de totais
+  const subtotal = pedidos.reduce(
+    (acc, item) => acc + item.valorTotalItem * item.quantidadeNoCarrinho,
+    0
+  );
+  const taxa = subtotal * 0.1;
+  const total = subtotal + taxa;
 
   return (
     <S.StyledWrapper>
@@ -21,6 +21,7 @@ export const CardPagamento = ({
             <img src={Images.Plus} alt="" />
             <span>Resumo do Pedido</span>
           </div>
+
           <div className="steps">
             <div className="step">
               <div className="tipos">
@@ -31,42 +32,39 @@ export const CardPagamento = ({
                       <div>
                         <h3>{item.title}</h3>
                         <p>{item.tamanhoSelecionado.descricao}</p>
-                        {item.adicionaisSelecionados &&
-                          item.adicionaisSelecionados.length > 0 && (
-                            <span style={{ whiteSpace: "pre-line" }}>
-                              {item.adicionaisSelecionados
-                                .map((adicional) => adicional.nome)
-                                .join("\n")}
-                            </span>
-                          )}
+                        {item.adicionaisSelecionados?.length > 0 && (
+                          <span>
+                            {item.adicionaisSelecionados
+                              .map((adicional) => adicional.nome)
+                              .join(" | ")}
+                          </span>
+                        )}
                       </div>
                     </div>
                     <div className="valor">
                       <span>
-                        {item.valorTotalItem.toFixed(2).replace(".", ",")}
+                        R$ {item.valorTotalItem.toFixed(2).replace(".", ",")}
                       </span>
                       <p>Qtd: {item.quantidadeNoCarrinho}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="payments">
-                <div className="details">
-                  <span>Subtotal:</span>
-                  <h3>R$ {subtotal.toFixed(2).replace(".", ",")}</h3>
-                  <span>Taxa de serviço:</span>
-                  <h3>R$ {taxaServico.toFixed(2).replace(".", ",")}</h3>
+
+              <S.TotaisResumo>
+                <div className="linha">
+                  <strong>Subtotal:</strong>
+                  <span>R$ {subtotal.toFixed(2).replace(".", ",")}</span>
                 </div>
-                <div className="footer">
-                  <div className="price">
-                    <span>Total</span>
-                    <p>R$ {total.toFixed(2).replace(".", ",")}</p>
-                  </div>
-                  <Link className="checkout-btn" to={finalCheckoutPath}>
-                    <IoCartSharp /> Confirmar Pagamento
-                  </Link>
+                <div className="linha">
+                  <strong>Taxa (10%):</strong>
+                  <span>R$ {taxa.toFixed(2).replace(".", ",")}</span>
                 </div>
-              </div>
+                <div className="total">
+                  <strong>Total:</strong>
+                  <span>R$ {total.toFixed(2).replace(".", ",")}</span>
+                </div>
+              </S.TotaisResumo>
             </div>
           </div>
         </div>

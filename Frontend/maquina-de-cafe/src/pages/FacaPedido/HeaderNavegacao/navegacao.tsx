@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import * as S from "./style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface IFacaPedidoProps {
   Link0: string;
   Link1: string;
   Link2: string;
   Link3: string;
-  onCategoryChange: (category: string) => void; 
+  onCategoryChange: (category: string) => void;
 }
 
 const facaPedido: IFacaPedidoProps[] = [
@@ -16,7 +16,7 @@ const facaPedido: IFacaPedidoProps[] = [
     Link1: "Quentes",
     Link2: "Gelados",
     Link3: "Voltar",
-    onCategoryChange: () => {}, 
+    onCategoryChange: () => {},
   },
 ];
 
@@ -25,13 +25,24 @@ export const HeaderNavegacao = ({
 }: {
   onCategoryChange: (category: string) => void;
 }) => {
+  const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+  }, [location]);
 
   const handleMenuItemClick = (index: number, category: string) => {
     setActiveIndex(index);
-   if (category !== "Voltar") { // Exemplo: só chama se não for o link "Voltar"
-        onCategoryChange(category);
+    if (category !== "Voltar") {
+      onCategoryChange(category);
     }
+  };
+
+  const paths = {
+    Todos: "/pedido",
+    Quentes: "/pedido?categoria=quentes",
+    Gelados: "/pedido?categoria=gelados",
+    Voltar: "/",
   };
 
   return (
@@ -39,38 +50,21 @@ export const HeaderNavegacao = ({
       {facaPedido.map(({ Link0, Link1, Link2, Link3 }, id) => (
         <S.Navegacao__Header key={id}>
           <S.Nav>
-            <S.MenuItem
-              active={activeIndex === 0}
-              onClick={() => handleMenuItemClick(0, Link0)}
-            >
-              <Link className="link" to="">
-                {Link0}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 1}
-              onClick={() => handleMenuItemClick(1, Link1)}
-            >
-              <Link className="link" to="">
-                {Link1}
-              </Link>
-            </S.MenuItem>
-            <S.MenuItem
-              active={activeIndex === 2}
-              onClick={() => handleMenuItemClick(2, Link2)}
-            >
-              <Link className="link" to="">
-                {Link2}
-              </Link>
-            </S.MenuItem>
-             <S.MenuItem
-              active={activeIndex === 3}
-              onClick={() => handleMenuItemClick(3, Link3)}
-            >
-              <Link className="link" style={{color: "#FFFFFF82"}} to="/">
-                {Link3}
-              </Link>
-            </S.MenuItem>
+            {[Link0, Link1, Link2, Link3].map((linkLabel, idx) => (
+              <S.MenuItem
+                key={idx}
+                active={activeIndex === idx}
+                onClick={() => handleMenuItemClick(idx, linkLabel)}
+              >
+                <Link
+                  className="link"
+                  to={paths[linkLabel as keyof typeof paths]}
+                  style={linkLabel === "Voltar" ? { color: "#FFFFFF82" } : undefined}
+                >
+                  {linkLabel}
+                </Link>
+              </S.MenuItem>
+            ))}
           </S.Nav>
         </S.Navegacao__Header>
       ))}

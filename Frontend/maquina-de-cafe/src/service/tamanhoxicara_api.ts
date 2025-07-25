@@ -5,7 +5,11 @@ export const getTamanhoXicara = async (): Promise<ApiTamanhoXicara[]> => {
   try {
     const { data } = await apiUrl.get("/tamanhoxicara");
     return data;
-  } catch (error: unknown) {
-    return [];
+  } catch (error) {
+    throw new Error(
+      `Falha ao buscar tamanhos de xícara. ${
+        error instanceof Error ? error.message : ""
+      }`
+    );
   }
 };

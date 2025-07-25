@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  padding-top: 50px;
 
-  /* Body */
   .container {
     padding-left: 8px;
   }
@@ -398,5 +396,63 @@ export const StyledWrapper = styled.div`
     font-weight: 500;
     line-height: 100%;
     letter-spacing: 0%;
+  }
+`;
+
+export const ResumoValores = styled.div`
+  margin-top: 1.5rem;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  max-width: 350px;
+  margin-left: auto;
+  font-family: 'Poppins';
+`;
+
+export const Row = styled.div<{ isTotal?: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-family: 'Poppins';
+  font-size: ${(props) => (props.isTotal ? "1.15rem" : "1rem")};
+  font-weight: ${(props) => (props.isTotal ? "700" : "500")};
+  color: ${(props) => (props.isTotal ? "#512615" : "#333")};
+  border-top: ${(props) => (props.isTotal ? "1px solid #ccc" : "none")};
+  margin-top: ${(props) => (props.isTotal ? "0.5rem" : "0")};
+
+  margin-bottom: ${(props) => (!props.isTotal ? "1.2rem" : "0")};
+`;
+
+export const TotaisResumo = styled.div`
+  padding: 1rem 0;
+  margin-top: 1.5rem;
+
+  .linha,
+  .total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #5C3D2E; /* cor marrom usada no preço */
+  }
+
+  .total {
+    border-top: 1px solid #ccc;
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+    font-weight: 700;
+  }
+
+  strong {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #5C3D2E; /* aplica a cor marrom aos labels */
+  }
+
+  span {
+    font-family: 'Poppins', sans-serif;
+    color: #5C3D2E; /* mantém o mesmo marrom nos valores */
   }
 `;

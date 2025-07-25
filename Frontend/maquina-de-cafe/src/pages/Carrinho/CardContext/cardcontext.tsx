@@ -5,6 +5,7 @@ import {
   useContext,
   ReactNode,
   useEffect,
+  useMemo,
 } from "react";
 import { Adicional, ITamanhoXicaraProps } from "../../../service/interface";
 
@@ -41,6 +42,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const localData = localStorage.getItem("coffee_cart");
       return localData ? JSON.parse(localData) : [];
     } catch (error) {
+      console.error("Erro ao carregar carrinho do localStorage:", error);
       return [];
     }
   });
@@ -89,28 +91,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return getCartSubtotal() + getServiceFee();
   };
 
+  const contextValue = useMemo(
+    () => ({
+      cart,
+      addToCart,
+      removeFromCart,
+      updateItemQuantity,
+      clearCart,
+      getCartSubtotal,
+      getServiceFee,
+      getCartTotal,
+    }),
+    [cart]
+  );
+
   return (
-    <CartContext.Provider
-      value={{
-        cart,
-        addToCart,
-        removeFromCart,
-        updateItemQuantity,
-        clearCart,
-        getCartSubtotal,
-        getServiceFee,
-        getCartTotal,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
 
 export const useCart = () => {
   const context = useContext(CartContext);
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
+  if (!context) throw new Error("useCart must be used within a CartProvider");
   return context;
 };

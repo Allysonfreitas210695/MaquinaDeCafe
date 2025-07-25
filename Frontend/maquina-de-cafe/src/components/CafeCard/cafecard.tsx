@@ -19,10 +19,22 @@ export interface CoffeeCardProps {
   preparation: number;
   imageSrc: string;
   tamanhosXicara: ITamanhoXicaraProps[];
-  isSelected: boolean;
-  onToggleSelect: (
+  isSelected?: boolean;
+  onPersonalizar: (
     cafeId: string,
-    isSelected: boolean,
+    selectedSize: ApiTamanhoXicara | undefined,
+    cafeData: {
+      id: string;
+      title: string;
+      description: string;
+      tag: string;
+      preparation: number;
+      imageSrc: string;
+      tamanhosXicara: ApiTamanhoXicara[];
+    }
+  ) => void;
+  onAddToCart: (
+    cafeId: string,
     selectedSize: ApiTamanhoXicara | undefined,
     cafeData: {
       id: string;
@@ -44,8 +56,8 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
   preparation,
   imageSrc,
   tamanhosXicara: initialTamanhosXicara,
-  isSelected,
-  onToggleSelect,
+  onPersonalizar,
+  onAddToCart,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(
@@ -55,34 +67,15 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
     []
   );
 
-  // Calcula o preço final com base na seleção da xícara
   const selectedCup = activeIndex !== null ? tamanhoXicara[activeIndex] : null;
 
-  // Função para lidar com a seleção/desseleção do card
-  const handleSelectToggle = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onToggleSelect(id, !isSelected, selectedCup || undefined, {
-      id: id,
-      title: title,
-      description: description,
-      tag: tag,
-      preparation: preparation,
-      imageSrc: imageSrc,
-      tamanhosXicara: initialTamanhosXicara,
-    });
-  };
-
-  // Função de ordenar o volume do café em ordem crescente
   useEffect(() => {
     const ordenado = [...initialTamanhosXicara].sort((a, b) => {
-      // Pega só os digitos da descrição
       const volumeA = parseInt(a.descricao.replace(/\D/g, ""), 10);
       const volumeB = parseInt(b.descricao.replace(/\D/g, ""), 10);
       return volumeA - volumeB;
     });
-
     setTamanhoXicara(ordenado);
-
     if (ordenado.length > 0) {
       setActiveIndex(0);
     } else {
@@ -120,9 +113,35 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
         ).toFixed(1)
       : "0.0";
 
+  const handlePersonalizarClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onPersonalizar(id, selectedCup || undefined, {
+      id,
+      title,
+      description,
+      tag,
+      preparation,
+      imageSrc,
+      tamanhosXicara: initialTamanhosXicara,
+    });
+  };
+
+  const handleAddToCartClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onAddToCart(id, selectedCup || undefined, {
+      id,
+      title,
+      description,
+      tag,
+      preparation,
+      imageSrc,
+      tamanhosXicara: initialTamanhosXicara,
+    });
+  };
+
   return (
     <S.CardContainer>
-      <S.Image src={Images.CafeExpresso} alt={title} />
+      <S.Image src={imageSrc ?? Images.CafeExpresso} alt={title} />
       <div className="title__description">
         <S.Title>{title}</S.Title>
         <S.Description>{description}</S.Description>
@@ -147,10 +166,12 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
       </S.StyledWrapper>
 
       <S.PriceSection>
-        <S.PriceCarrinho>
+        <S.PriceCarrinho
+          onClick={handleAddToCartClick}
+          style={{ cursor: "pointer" }}
+        >
           <S.Price>
             <span>
-              {" "}
               R${" "}
               {selectedCup
                 ? selectedCup.valor.toFixed(2).replace(".", ",")
@@ -159,7 +180,10 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
           </S.Price>
           <IoCartSharp />
         </S.PriceCarrinho>
-        <S.CartButton onClick={handleSelectToggle}>Personalizar</S.CartButton>
+
+        <S.CartButton onClick={handlePersonalizarClick}>
+          Personalizar
+        </S.CartButton>
       </S.PriceSection>
     </S.CardContainer>
   );

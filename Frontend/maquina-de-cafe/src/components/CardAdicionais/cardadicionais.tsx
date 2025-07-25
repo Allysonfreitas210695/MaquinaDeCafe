@@ -1,23 +1,25 @@
 import { Images } from "../../assets/Images";
-
 import * as S from "./style";
 import {
   CoffeeCustomizationData,
   SelectedAdicional,
+  ApiTamanhoXicara,
 } from "../../service/interface";
 
-const TIPOS_ACUCAR = ["Acucar", "Mascavo", "Adocante", "SemAcucar"];
-const TIPOS_LEITE = ["Integral", "Desnatado", "ZeroLactose", "SemLeite"];
+const TIPOS_ACUCAR = ["Açucar", "Mascavo", "Adoçante", "S/Açucar"];
+const TIPOS_LEITE = ["Integral", "Desnatado", "0 Lactose", "S/Leite"];
 
 interface CardAdicionaisProps {
   cafeData: CoffeeCustomizationData;
   selectedAdicionais: SelectedAdicional[];
   selectedLeite: string | null;
   selectedAcucar: string | null;
+  selectedTamanho: ApiTamanhoXicara | null;
   onSelectLeite: (tipo: string) => void;
   onSelectAcucar: (tipo: string) => void;
+  onSelectTamanho: (tamanho: ApiTamanhoXicara) => void;
   onFinalizar: () => void;
-  buttonText: string;
+  isLastCafe: boolean;
 }
 
 export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
@@ -25,48 +27,21 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
   selectedAdicionais,
   selectedLeite,
   selectedAcucar,
+  selectedTamanho,
   onSelectLeite,
   onSelectAcucar,
+  onSelectTamanho,
   onFinalizar,
-  buttonText,
+  isLastCafe,
 }) => {
-  const selectedTamanho = cafeData.tamanhoSelecionado;
-
   const calculateTotal = () => {
     let total = selectedTamanho ? selectedTamanho.valor : 0;
-
     selectedAdicionais.forEach((adicional) => {
       total += adicional.valorExtra * adicional.quantidade;
     });
-
     return total;
   };
   const total = calculateTotal();
-
-  // --- Início da correção ---
-  let tamanhoContent;
-  if (cafeData.tamanhosXicara?.length) {
-    // Se houver tamanhos de xícara definidos, mapeie-os
-    tamanhoContent = cafeData.tamanhosXicara.map((tamanho) => (
-      <S.Wrapper__Adicionais_Tx
-        key={tamanho.id}
-        $active={selectedTamanho?.id === tamanho.id}
-      >
-        <span>{tamanho.descricao}</span>
-      </S.Wrapper__Adicionais_Tx>
-    ));
-  } else if (selectedTamanho) {
-    // Se não houver tamanhos de xícara definidos, mas um tamanho foi selecionado
-    tamanhoContent = (
-      <S.Wrapper__Adicionais_Tx $active={true}>
-        <span>{selectedTamanho.descricao}</span>
-      </S.Wrapper__Adicionais_Tx>
-    );
-  } else {
-    // Caso contrário, o tamanho não foi especificado
-    tamanhoContent = <span>Tamanho não especificado.</span>;
-  }
-  // --- Fim da correção ---
 
   return (
     <S.Container__Card_Adicionais>
@@ -78,12 +53,22 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
 
       <S.StyledWrapper__Adicionais>
         <div className="tamanho_da_xicra">
-          {/* Renderiza o conteúdo que foi preparado na variável tamanhoContent */}
-          {tamanhoContent}
+          {cafeData.tamanhosXicara
+            ?.slice()
+            .sort((a, b) => a.valor - b.valor)
+            .map((tamanho) => (
+              <S.Wrapper__Adicionais_Tx
+                key={tamanho.id}
+                $active={selectedTamanho?.id === tamanho.id}
+                onClick={() => onSelectTamanho(tamanho)}
+                style={{ cursor: "pointer" }}
+              >
+                <span>{tamanho.descricao}</span>
+              </S.Wrapper__Adicionais_Tx>
+            ))}
         </div>
       </S.StyledWrapper__Adicionais>
 
-      {/* Tipo de Açúcar */}
       <S.StyledWrapper__Adicionais>
         <div className="tipo_de_acucar">
           {TIPOS_ACUCAR.map((tipo) => (
@@ -92,13 +77,12 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
               $active={selectedAcucar === tipo}
               onClick={() => onSelectAcucar(tipo)}
             >
-              <span>{tipo === "SemAcucar" ? "S/ Açúcar" : tipo}</span>
+              <span>{tipo}</span>
             </S.Wrapper__Adicionais_Tx>
           ))}
         </div>
       </S.StyledWrapper__Adicionais>
 
-      {/* Tipo de Leite */}
       <S.StyledWrapper__Adicionais>
         <div className="tipo_de_leite">
           {TIPOS_LEITE.map((tipo) => (
@@ -107,13 +91,12 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
               $active={selectedLeite === tipo}
               onClick={() => onSelectLeite(tipo)}
             >
-              <span>{tipo === "SemLeite" ? "S/ Leite" : tipo}</span>
+              <span>{tipo}</span>
             </S.Wrapper__Adicionais_Tx>
           ))}
         </div>
       </S.StyledWrapper__Adicionais>
 
-      {/* Adicionais selecionados */}
       <S.Mais__Adicionais>
         {selectedAdicionais.length > 0 ? (
           <>
@@ -126,7 +109,6 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
                 </span>
               ))}
             </div>
-
             <div className="valores">
               {selectedAdicionais.map((adicional) => (
                 <p key={`valor-${adicional.id}`}>
@@ -150,8 +132,10 @@ export const CardAdicionais: React.FC<CardAdicionaisProps> = ({
         <span>R$ {total.toFixed(2).replace(".", ",")}</span>
       </S.Total>
 
-      <S.Div__Botao>
-        <button onClick={onFinalizar}>{buttonText}</button>
+      <S.Div__Botao style={{ display: "flex", justifyContent: "center" }}>
+        <button onClick={onFinalizar}>
+          {isLastCafe ? "Finalizar" : "Próximo Café"}
+        </button>
       </S.Div__Botao>
     </S.Container__Card_Adicionais>
   );

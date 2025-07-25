@@ -10,6 +10,7 @@ import { CartItem } from "../Carrinho/CardContext/cardcontext";
 
 import { useState } from "react";
 import { postAvaliacaoCafe } from "../../service/avaliacao_api";
+import Swal from "sweetalert2";
 
 export const Feedback = () => {
   const location = useLocation();
@@ -46,21 +47,30 @@ export const Feedback = () => {
 
   const handleSendFeedback = async () => {
     if (!atendimentoRating) {
-      alert("Por favor, selecione uma opção para o atendimento.");
-      return;
+      return Swal.fire({
+        icon: "warning",
+        title: "Aviso",
+        text: "Por favor, selecione uma opção para o atendimento.",
+      });
     }
 
     if (itemsParaFeedback.length === 0) {
-      alert("Nenhum produto para avaliar.");
-      return;
+      return Swal.fire({
+        icon: "warning",
+        title: "Aviso",
+        text: "Nenhum produto para avaliar.",
+      });
     }
 
     const allProductsRated = itemsParaFeedback.every(
       (item) => productRatings[item.id]
     );
     if (!allProductsRated) {
-      alert("Por favor, avalie todos os produtos com pelo menos 1 estrela.");
-      return;
+      return Swal.fire({
+        icon: "warning",
+        title: "Aviso",
+        text: "Por favor, avalie todos os produtos com pelo menos 1 estrela.",
+      });
     }
 
     for (const item of itemsParaFeedback) {
@@ -74,13 +84,18 @@ export const Feedback = () => {
       try {
         await postAvaliacaoCafe(feedbackData);
       } catch (error) {
-        alert(
-          `Ocorreu um erro ao enviar o feedback para ${item.title}. Por favor, tente novamente.`
-        );
-        return;
+        return Swal.fire({
+          icon: "warning",
+          title: "Aviso",
+          text: `Ocorreu um erro ao enviar o feedback para ${item.title}. Por favor, tente novamente.`,
+        });
       }
     }
-    alert("Seu feedback foi enviado com sucesso! Obrigado.");
+    return Swal.fire({
+      icon: "success",
+      title: "Sucesso",
+      text: "Seu feedback foi enviado com sucesso! Obrigado.",
+    });
     navigate("/");
   };
 
