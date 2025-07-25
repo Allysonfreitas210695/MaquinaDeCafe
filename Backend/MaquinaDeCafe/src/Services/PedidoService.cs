@@ -7,6 +7,7 @@ using MaquinaDeCafe.src.Models.Enums;
 using MaquinaDeCafe.src.Models.Enums.Extensions;
 using MaquinaDeCafe.src.Repositories;
 using MaquinaDeCafe.src.Resources;
+using MaquinaDeCafe.src.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaquinaDeCafe.src.Services;
@@ -23,6 +24,12 @@ public class PedidoService : IPedidoRepository
     {
         try
         {
+            var validator = new RequestCriacaoPedidoValidator();
+            var validation = await validator.ValidateAsync(request);
+
+            if (!validation.IsValid)
+                throw new ErrorOnValidationException(validation.Errors.Select(e => e.ErrorMessage).ToList());
+
             if (request.PedidosItens.Count > 10)
                 throw new NotFoundException(ErrorsMensagem.MaximoCafesPorPedido);
 
