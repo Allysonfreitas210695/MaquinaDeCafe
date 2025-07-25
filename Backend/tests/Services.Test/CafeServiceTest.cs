@@ -64,6 +64,50 @@ public class CafeServiceTest
         await Assert.ThrowsAsync<NotFoundException>(act);
     }
 
+    [Fact]
+    public async Task GetListAsync_SemCategoria_DeveRetornarTodosOsCafes()
+    {
+        // Arrange
+        var cafe1 = RequestCriacaoCafeJsonBuilder.Build(categoria: MaquinaDeCafe.src.Models.Enums.CategoriaCafe.Quente);
+        var cafe2 = RequestCriacaoCafeJsonBuilder.Build(categoria: MaquinaDeCafe.src.Models.Enums.CategoriaCafe.Gelado);
+        await _service.AddAsync(cafe1);
+        await _service.AddAsync(cafe2);
+
+        // Act
+        var lista = await _service.GetListAsync(null);
+
+        // Assert
+        lista.Should().HaveCount(2);
+    }
+
+    [Fact]
+    public async Task GetListAsync_ComCategoriaValida_DeveRetornarApenasCafesDaCategoria()
+    {
+        // Arrange
+        var quente = RequestCriacaoCafeJsonBuilder.Build(categoria: MaquinaDeCafe.src.Models.Enums.CategoriaCafe.Quente);
+        var gelado = RequestCriacaoCafeJsonBuilder.Build(categoria: MaquinaDeCafe.src.Models.Enums.CategoriaCafe.Gelado);
+        await _service.AddAsync(quente);
+        await _service.AddAsync(gelado);
+
+        // Act
+        var lista = await _service.GetListAsync(MaquinaDeCafe.src.Models.Enums.CategoriaCafe.Quente);
+
+        // Assert
+        lista.Should().HaveCount(1);
+    }
+
+    [Fact]
+    public async Task GetListAsync_SemCafes_DeveRetornarListaVazia()
+    {
+        // Act
+        var lista = await _service.GetListAsync(null);
+
+        // Assert
+        lista.Should().NotBeNull();
+        lista.Should().BeEmpty();
+    }
+
+
 
     [Fact]
     public async Task AddAsync_ComDadosValidos_AdicionaAvaliacao()
