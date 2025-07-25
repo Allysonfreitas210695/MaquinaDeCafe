@@ -61,6 +61,36 @@ public class TamanhoXicaraServiceTest
     }
 
     [Fact]
+    public async Task GetListAsync_QuandoExistemTamanhos_RetornaLista()
+    {
+        // Arrange
+        var request1 = RequestTamanhoXicaraJsonBuilder.Build();
+        var request2 = RequestTamanhoXicaraJsonBuilder.Build();
+        await _service.AddAsync(request1);
+        await _service.AddAsync(request2);
+
+        // Act
+        var resultado = await _service.GetListAsync();
+
+        // Assert
+        resultado.Should().NotBeNull();
+        resultado.Should().HaveCount(2);
+        resultado.Should().ContainSingle(x => x.Descricao == request1.Descricao && x.CafeId == request1.CafeId);
+        resultado.Should().ContainSingle(x => x.Descricao == request2.Descricao && x.CafeId == request2.CafeId);
+    }
+
+    [Fact]
+    public async Task GetListAsync_QuandoNaoExistemTamanhos_RetornaListaVazia()
+    {
+        // Act
+        var resultado = await _service.GetListAsync();
+
+        // Assert
+        resultado.Should().NotBeNull();
+        resultado.Should().BeEmpty();
+    }
+
+    [Fact]
     public async Task AddAsync_ComDadosValidos_AdicionaTamanhoXicara()
     {
         // Arrange
