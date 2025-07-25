@@ -456,4 +456,3 @@ export const TotaisResumo = styled.div`
     color: #5C3D2E; /* mantém o mesmo marrom nos valores */
   }
 `;
-
