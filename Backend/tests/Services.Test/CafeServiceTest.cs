@@ -8,7 +8,8 @@ using MaquinaDeCafe.src.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Services.Test;
-public  class CafeServiceTest
+
+public class CafeServiceTest
 {
     private readonly CafeService _service;
     private readonly ApplicationDbContext _dbContext;
@@ -30,6 +31,41 @@ public  class CafeServiceTest
     }
 
     [Fact]
+    public async Task GetItemByIdAsync_ComIdExistente_RetornaCafeComDetalhes()
+    {
+        // Arrange
+        var request = RequestCriacaoCafeJsonBuilder.Build();
+        await _service.AddAsync(request);
+        var cafe = await _dbContext.Cafes.Include(c => c.TamanhosXicara).FirstOrDefaultAsync();
+
+
+        await _dbContext.SaveChangesAsync();
+
+        // Act
+        var resultado = await _service.GetItemByIdAsync(cafe!.Id);
+
+        // Assert
+        resultado.Should().NotBeNull();
+        resultado!.Id.Should().Be(cafe.Id);
+        resultado.Nome.Should().Be(cafe.Nome);
+        resultado.Descricao.Should().Be(cafe.Descricao);
+        resultado.TamanhosXicara.Should().HaveCount(cafe.TamanhosXicara.Count);
+    }
+
+    [Fact]
+    public async Task GetItemByIdAsync_ComIdInexistente_DeveLancarNotFoundException()
+    {
+        // Arrange
+        var idInexistente = Guid.NewGuid();
+
+        // Act & Assert
+        var act = async () => await _service.GetItemByIdAsync(idInexistente);
+
+        await Assert.ThrowsAsync<NotFoundException>(act);
+    }
+
+
+    [Fact]
     public async Task AddAsync_ComDadosValidos_AdicionaAvaliacao()
     {
         // Arrange
@@ -40,9 +76,9 @@ public  class CafeServiceTest
 
         // Assert
         var cafe = await _dbContext.Cafes.FirstOrDefaultAsync();
-        cafe.Should().NotBeNull(); 
+        cafe.Should().NotBeNull();
         cafe.Nome.Should().Be(request.Nome);
-        cafe.TempoPreparoSegundos.Should().Be(request.TempoPreparoSegundos); 
+        cafe.TempoPreparoSegundos.Should().Be(request.TempoPreparoSegundos);
     }
 
     [Fact]
@@ -215,7 +251,7 @@ public  class CafeServiceTest
 
         // Act & Assert
         var ex = await Assert.ThrowsAsync<NotFoundException>(
-            () => _service.RemoverAsync(idInexistente)); 
+            () => _service.RemoverAsync(idInexistente));
     }
 
     private class BrokenDbContext : ApplicationDbContext
