@@ -4,25 +4,24 @@ export const Navegacao__Header = styled.div`
   width: 100%;
   position: fixed;
   top: 0;
-  left: 0; /* Altera para a esquerda */
-  /* Remove transform: translateX(-50%); */
+  left: 0;
   z-index: 1000;
   display: flex;
-  justify-content: space-between; /* Altera para distribuir espaço */
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 40px; /* Aumenta o padding para a imagem não ficar grudada na borda */
+  padding: 10px 40px;
   background: transparent;
 `;
 
 export const NavContainer = styled.div`
-  flex-grow: 1; /* Permite que o container de navegação ocupe o espaço restante */
+  flex-grow: 1;
   display: flex;
-  justify-content: center; /* Centraliza a nav dentro do seu container */
+  justify-content: center;
   align-items: center;
 `;
 
 export const Nav = styled.nav`
-  background-color: #3F1811; // marrom escuro
+  background-color: #3F1811;
   border-radius: 74px;
   display: flex;
   flex-direction: row;
@@ -56,7 +55,7 @@ export const Nav = styled.nav`
   }
 
   .link:hover {
-    color: #cfa67a; /* uma cor de destaque, tipo dourado */
+    color: #cfa67a;
   }
 `;
 

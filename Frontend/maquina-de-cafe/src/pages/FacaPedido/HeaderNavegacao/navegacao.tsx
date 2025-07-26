@@ -2,6 +2,7 @@ import logo from "../../../assets/Images/Logo.png";
 import { Link, useLocation } from "react-router-dom";
 import * as S from "./style";
 import { useState, useEffect } from "react";
+import { useCart } from '../../../pages/Carrinho/CardContext/cardcontext';
 
 interface IMenuItem {
   label: string;
@@ -21,6 +22,7 @@ interface HeaderNavegacaoProps {
 export const HeaderNavegacao = ({ onCategoryChange }: HeaderNavegacaoProps) => {
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { clearCart } = useCart();
 
   useEffect(() => {
     const currentPath = location.pathname + location.search;
@@ -35,9 +37,13 @@ export const HeaderNavegacao = ({ onCategoryChange }: HeaderNavegacaoProps) => {
     onCategoryChange(category);
   };
 
+  const handleLogoClick = () => {
+    clearCart();
+  };
+
   return (
     <S.Navegacao__Header>
-      <Link to="/">
+      <Link to="/" onClick={handleLogoClick}>
         <img
           src={logo}
           alt="Logo Devine Café"
@@ -45,7 +51,7 @@ export const HeaderNavegacao = ({ onCategoryChange }: HeaderNavegacaoProps) => {
         />
       </Link>
 
-      <S.NavContainer> {/* Novo container para a navegação */}
+      <S.NavContainer>
         <S.Nav>
           {menuItems.map((item, index) => (
             <S.MenuItem
