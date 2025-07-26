@@ -61,7 +61,16 @@ export const Adicionais = () => {
   }, [currentIndex, coffeesToCustomize]);
 
   const handleVoltar = () => {
-    navigate("/pedido");
+    if (currentIndex > 0) {
+      navigate("/adicionais", {
+        state: {
+          coffeesToCustomize,
+          currentIndex: currentIndex - 1,
+        },
+      });
+    } else {
+      navigate("/pedido"); 
+    }
   };
 
   const handleFinalizarPersonalizacao = () => {
@@ -174,10 +183,11 @@ export const Adicionais = () => {
 
   return (
     <S.Container__Detalhes>
-      <div className="header__container">
+      <S.AcoesTopo>
         <BsArrowLeftShort onClick={handleVoltar} className="short" />
-        <h1>Personalize o seu café</h1>
-      </div>
+        <span>Personalize o seu café</span>
+      </S.AcoesTopo>
+
       <div className="detalhe__card_cafe">
         <div className="card__cafe">
           <CardAdicionais
