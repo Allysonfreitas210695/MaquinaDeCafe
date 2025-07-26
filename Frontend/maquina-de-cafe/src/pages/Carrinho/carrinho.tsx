@@ -27,10 +27,10 @@ export const Carrinho = () => {
 
   return (
     <S.Container__Carrinho>
-      <BsArrowLeftShort onClick={handleVoltar} className="short" />
-      <S.BotoesTopo>
+      <S.AcoesTopo>
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
         <button onClick={handleCancelar}>Cancelar</button>
-      </S.BotoesTopo>
+      </S.AcoesTopo>
 
       <S.Pedido__Escolha_Carrinho>
         <div className="carrinho">
