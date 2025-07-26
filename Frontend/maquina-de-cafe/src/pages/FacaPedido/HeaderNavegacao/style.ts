@@ -4,13 +4,21 @@ export const Navegacao__Header = styled.div`
   width: 100%;
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0; /* Altera para a esquerda */
+  /* Remove transform: translateX(-50%); */
   z-index: 1000;
   display: flex;
-  justify-content: center;
-  padding: 20px 0;
-  background: transparent; /* ou coloque uma cor se quiser */
+  justify-content: space-between; /* Altera para distribuir espaço */
+  align-items: center;
+  padding: 10px 40px; /* Aumenta o padding para a imagem não ficar grudada na borda */
+  background: transparent;
+`;
+
+export const NavContainer = styled.div`
+  flex-grow: 1; /* Permite que o container de navegação ocupe o espaço restante */
+  display: flex;
+  justify-content: center; /* Centraliza a nav dentro do seu container */
+  align-items: center;
 `;
 
 export const Nav = styled.nav`
