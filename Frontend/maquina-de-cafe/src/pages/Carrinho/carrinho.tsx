@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 import { useCart } from "./CardContext/cardcontext";
 import { CardPagamento } from "../Pagamento/CardPagamento/card";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 export const Carrinho = () => {
   const navigate = useNavigate();
@@ -16,12 +17,17 @@ export const Carrinho = () => {
     navigate("/pedido");
   };
 
+  const handleVoltar = () => {
+    navigate(-1);
+  };
+
   const handleConfirmarPagamento = () => {
     navigate("/pagamento");
   };
 
   return (
     <S.Container__Carrinho>
+      <BsArrowLeftShort onClick={handleVoltar} className="short" />
       <S.BotoesTopo>
         <button onClick={handleCancelar}>Cancelar</button>
       </S.BotoesTopo>

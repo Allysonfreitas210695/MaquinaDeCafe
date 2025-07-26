@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
 import { getIngredienteadicional } from "../../service/ingredienteadicional_api";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 import {
   CoffeeCustomizationData,
@@ -25,7 +26,6 @@ export const Adicionais = () => {
   const [selectedAcucar, setSelectedAcucar] = useState<string | null>(null);
   const [selectedTamanho, setSelectedTamanho] =
     useState<ApiTamanhoXicara | null>(null);
-  const { clearCart } = useCart();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,8 +60,7 @@ export const Adicionais = () => {
     setSelectedTamanho(currentCafe?.tamanhoSelecionado ?? null);
   }, [currentIndex, coffeesToCustomize]);
 
-  const handleCancelar = () => {
-    clearCart();
+  const handleVoltar = () => {
     navigate("/pedido");
   };
 
@@ -176,10 +175,8 @@ export const Adicionais = () => {
   return (
     <S.Container__Detalhes>
       <div className="header__container">
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
         <h1>Personalize o seu café</h1>
-        <S.BotoesTopo>
-          <button onClick={handleCancelar}>Cancelar</button>
-        </S.BotoesTopo>
       </div>
       <div className="detalhe__card_cafe">
         <div className="card__cafe">
