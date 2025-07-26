@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { useState } from "react";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 export const TipoPagamento = () => {
   const navigate = useNavigate();
@@ -14,6 +15,14 @@ export const TipoPagamento = () => {
   const handleCancelar = () => {
     clearCart();
     navigate("/pedido");
+  };
+
+  const handleVoltar = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/carrinho");
+    }
   };
 
   const handleConfirmar = () => {
@@ -34,14 +43,13 @@ export const TipoPagamento = () => {
 
   return (
     <S.Container__Tipo_Pagamento>
-      <S.Pagamento__Header>
-        <S.Titulo__pagamento_Header>
-          Pronto para um Devine Café?
-        </S.Titulo__pagamento_Header>
-        <S.BotoesTopo>
-          <button onClick={handleCancelar}>Cancelar</button>
-        </S.BotoesTopo>
-      </S.Pagamento__Header>
+      <S.AcoesTopo>
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
+        <span>Pronto para um Devine Café?</span>
+        <button onClick={handleCancelar} className="cancelar-btn">
+          Cancelar
+        </button>
+      </S.AcoesTopo>
 
       <S.Tipo__Confirmar_Pagamento>
         <S.Conteudo__Pagamento>
@@ -56,9 +64,7 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "pix"
-                        ? "selecionado"
-                        : "desabilitado"
+                      formaSelecionada === "pix" ? "selecionado" : "desabilitado"
                     }
                     onClick={() => setFormaSelecionada("pix")}
                   >
