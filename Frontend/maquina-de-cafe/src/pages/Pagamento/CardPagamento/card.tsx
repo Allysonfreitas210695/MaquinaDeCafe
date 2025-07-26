@@ -1,17 +1,34 @@
 import { Images } from "../../../assets/Images";
 import * as S from "./style";
 import { CardPagamentoProps } from "../../../service/interface";
+import { useCart } from "../../Carrinho/CardContext/cardcontext";
+import { useNavigate } from "react-router-dom"; 
+import { FaTrash } from "react-icons/fa"; 
+import Swal from 'sweetalert2'; 
 
 export const CardPagamento = ({
   pedidos,
 }: Pick<CardPagamentoProps, "pedidos" | "checkoutPath">) => {
-  // Cálculo de totais
-  const subtotal = pedidos.reduce(
-    (acc, item) => acc + item.valorTotalItem * item.quantidadeNoCarrinho,
-    0
-  );
-  const taxa = subtotal * 0.1;
-  const total = subtotal + taxa;
+  const { getCartTotal, removeFromCart, cart } = useCart(); 
+  const navigate = useNavigate();
+
+  const totalFinal = getCartTotal();
+
+  const handleDeleteItem = (itemId: string) => {
+    removeFromCart(itemId);
+    if (cart.length - 1 === 0) { 
+      Swal.fire({
+        icon: "info", 
+        title: "Carrinho Vazio!",
+        text: "Seu carrinho está vazio. Redirecionando para a página de pedidos.",
+        showConfirmButton: false, 
+        timer: 3000, 
+        timerProgressBar: true, 
+      }).then(() => {
+        navigate("/pedido"); 
+      });
+    }
+  };
 
   return (
     <S.StyledWrapper>
@@ -41,28 +58,31 @@ export const CardPagamento = ({
                         )}
                       </div>
                     </div>
-                    <div className="valor">
-                      <span>
-                        R$ {item.valorTotalItem.toFixed(2).replace(".", ",")}
-                      </span>
-                      <p>Qtd: {item.quantidadeNoCarrinho}</p>
+                    <div className="valor-e-acoes">
+                      <div className="valor">
+                        <span>
+                          R$ {item.valorTotalItem.toFixed(2).replace(".", ",")}
+                        </span>
+                        <p>Qtd: {item.quantidadeNoCarrinho}</p>
+                      </div>
+                      <div className="acoes">
+                        <button
+                          onClick={() => handleDeleteItem(item.id)}
+                          className="botao-excluir" 
+                          title="Remover item"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
 
               <S.TotaisResumo>
-                <div className="linha">
-                  <strong>Subtotal:</strong>
-                  <span>R$ {subtotal.toFixed(2).replace(".", ",")}</span>
-                </div>
-                <div className="linha">
-                  <strong>Taxa (10%):</strong>
-                  <span>R$ {taxa.toFixed(2).replace(".", ",")}</span>
-                </div>
                 <div className="total">
                   <strong>Total:</strong>
-                  <span>R$ {total.toFixed(2).replace(".", ",")}</span>
+                  <span>R$ {totalFinal.toFixed(2).replace(".", ",")}</span>
                 </div>
               </S.TotaisResumo>
             </div>
