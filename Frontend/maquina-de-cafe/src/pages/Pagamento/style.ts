@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { media } from "../../styles/media"; 
 
 export const Container__Tipo_Pagamento = styled.div`
   padding: 30px 20px;
