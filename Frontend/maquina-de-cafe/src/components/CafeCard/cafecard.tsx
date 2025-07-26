@@ -5,7 +5,6 @@ import { FaRegStar } from "react-icons/fa";
 import { LuClock2 } from "react-icons/lu";
 import { IoCartSharp } from "react-icons/io5";
 import {
-  ApiTamanhoXicara,
   AvaliacaoCafePayload,
   ITamanhoXicaraProps,
 } from "../../service/interface";
@@ -18,11 +17,11 @@ export interface CoffeeCardProps {
   tag: string;
   preparation: number;
   imageSrc: string;
-  tamanhosXicara: ITamanhoXicaraProps[];
+  tamanhosXicara: ITamanhoXicaraProps[]; 
   isSelected?: boolean;
   onPersonalizar: (
     cafeId: string,
-    selectedSize: ApiTamanhoXicara | undefined,
+    selectedSize: ITamanhoXicaraProps | undefined,
     cafeData: {
       id: string;
       title: string;
@@ -30,12 +29,12 @@ export interface CoffeeCardProps {
       tag: string;
       preparation: number;
       imageSrc: string;
-      tamanhosXicara: ApiTamanhoXicara[];
+      tamanhosXicara: ITamanhoXicaraProps[]; 
     }
   ) => void;
   onAddToCart: (
     cafeId: string,
-    selectedSize: ApiTamanhoXicara | undefined,
+    selectedSize: ITamanhoXicaraProps | undefined,
     cafeData: {
       id: string;
       title: string;
@@ -43,7 +42,7 @@ export interface CoffeeCardProps {
       tag: string;
       preparation: number;
       imageSrc: string;
-      tamanhosXicara: ApiTamanhoXicara[];
+      tamanhosXicara: ITamanhoXicaraProps[];
     }
   ) => void;
 }
@@ -60,28 +59,28 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
   onAddToCart,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [tamanhoXicara, setTamanhoXicara] = useState<ITamanhoXicaraProps[]>(
-    initialTamanhosXicara
-  );
-  const [newsAvaliacoes, setNewsAvaliacoes] = useState<AvaliacaoCafePayload[]>(
-    []
-  );
+  const [tamanhosOrdenados, setTamanhosOrdenados] = useState<ITamanhoXicaraProps[]>([]);
+  const [newsAvaliacoes, setNewsAvaliacoes] = useState<AvaliacaoCafePayload[]>([]);
 
-  const selectedCup = activeIndex !== null ? tamanhoXicara[activeIndex] : null;
+  const selectedCup = activeIndex !== null ? tamanhosOrdenados[activeIndex] : undefined;
+
 
   useEffect(() => {
     const ordenado = [...initialTamanhosXicara].sort((a, b) => {
+      // Extrai apenas os números da descrição
       const volumeA = parseInt(a.descricao.replace(/\D/g, ""), 10);
       const volumeB = parseInt(b.descricao.replace(/\D/g, ""), 10);
       return volumeA - volumeB;
     });
-    setTamanhoXicara(ordenado);
+    setTamanhosOrdenados(ordenado);
+    
     if (ordenado.length > 0) {
       setActiveIndex(0);
     } else {
       setActiveIndex(null);
     }
   }, [initialTamanhosXicara]);
+
 
   useEffect(() => {
     const fetchAvaliacoes = async () => {
@@ -115,7 +114,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
 
   const handlePersonalizarClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onPersonalizar(id, selectedCup || undefined, {
+    onPersonalizar(id, selectedCup, { 
       id,
       title,
       description,
@@ -128,7 +127,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
 
   const handleAddToCartClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onAddToCart(id, selectedCup || undefined, {
+    onAddToCart(id, selectedCup, { 
       id,
       title,
       description,
@@ -153,7 +152,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
         </div>
       </div>
       <S.StyledWrapper>
-        {tamanhoXicara.map((item, index) => (
+        {tamanhosOrdenados.map((item, index) => (
           <div key={item.id} className="styledWrapper">
             <S.Wrapper
               active={activeIndex === index}

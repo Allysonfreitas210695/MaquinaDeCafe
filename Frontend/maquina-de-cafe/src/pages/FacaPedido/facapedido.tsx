@@ -95,8 +95,11 @@ export const FacaPedido = () => {
     });
   };
 
-  // Função para adicionar direto ao carrinho com validação de 10 itens no total
-  const handleAddDirect = (cafe: TransformedCafe) => {
+  // Funçao para adicionar direto ao carrinho com validação de 10 itens no total
+  const handleAddDirect = (
+    cafe: TransformedCafe,
+    selectedSizeFromCard: ApiTamanhoXicara | undefined 
+  ) => {
     const totalNoCarrinho = cart.reduce(
       (total, item) => total + item.quantidadeNoCarrinho,
       0
@@ -110,17 +113,13 @@ export const FacaPedido = () => {
       });
     }
 
-    if (!cafe.tamanhosXicara || cafe.tamanhosXicara.length === 0) {
-      return Swal.fire({
-        icon: "error",
-        title: "Café sem tamanho disponível",
-        text: "Não foi possível adicionar este café ao carrinho.",
-      });
+    if (!selectedSizeFromCard) {
+        return Swal.fire({
+            icon: "warning",
+            title: "Selecione um tamanho",
+            text: "Por favor, selecione um tamanho de xícara para adicionar ao carrinho.",
+        });
     }
-
-    const tamanhoPadrao = [...cafe.tamanhosXicara].sort(
-      (a, b) => a.valor - b.valor
-    )[0];
 
     const novoItem = {
       id: cafe.id + "-" + Date.now(),
@@ -129,10 +128,10 @@ export const FacaPedido = () => {
       tag: cafe.categoria,
       preparation: cafe.tempoPreparoSegundos,
       imageSrc: cafe.imagemUrl ?? Images.CafeExpresso,
-      tamanhoSelecionado: tamanhoPadrao,
+      tamanhoSelecionado: selectedSizeFromCard, 
       adicionaisSelecionados: [],
       quantidadeNoCarrinho: 1,
-      valorTotalItem: tamanhoPadrao.valor,
+      valorTotalItem: selectedSizeFromCard.valor,
     };
 
     addToCart(novoItem);
@@ -201,16 +200,19 @@ export const FacaPedido = () => {
                 imageSrc={imagemUrl ?? Images.CafeExpresso}
                 tamanhosXicara={tamanhosXicara}
                 onPersonalizar={handlePersonalizar}
-                onAddToCart={() =>
-                  handleAddDirect({
-                    id,
-                    nome,
-                    descricao,
-                    categoria,
-                    tempoPreparoSegundos,
-                    imagemUrl,
-                    tamanhosXicara,
-                  })
+                onAddToCart={(_, selectedSize, cafeData) =>
+                  handleAddDirect(
+                    {
+                      id: cafeData.id,
+                      nome: cafeData.title,
+                      descricao: cafeData.description,
+                      categoria: cafeData.tag,
+                      tempoPreparoSegundos: cafeData.preparation,
+                      imagemUrl: cafeData.imageSrc,
+                      tamanhosXicara: cafeData.tamanhosXicara,
+                    },
+                    selectedSize
+                  )
                 }
               />
             )
