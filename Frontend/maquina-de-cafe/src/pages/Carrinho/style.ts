@@ -5,94 +5,40 @@ export const Container__Carrinho = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+`;
 
-  .carrinho {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-  }
+export const AcoesTopo = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   .short {
-    margin-top: 50px;
     color: #3f1811;
     font-size: 30px;
-  }
-`;
+    cursor: pointer;
+    transition: color 0.3s ease;
 
-export const Pedido__Escolha_Carrinho = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  padding: 0;
-
-  .carrinho {
-    width: 100%;
-    max-width: 100%;
-    padding: 0 15px;
-    margin: 0 auto;
-
-    .container {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 0 !important;
-      margin: 0 auto !important;
+    &:hover {
+      color: #7a4e3a;
     }
 
-    .card.cart {
-      width: 100%;
-      box-sizing: border-box;
-
-      .steps {
-        padding: 20px 30px;
-        height: auto;
-        max-height: none !important;
-        overflow-y: visible !important;
-      }
-
-      .steps .step .tipos {
-        display: flex;
-        flex-direction: column;
-        max-height: none !important;
-        overflow-y: visible !important;
-        padding-right: 10px !important;
-
-        /* Esconder scrollbars se existirem */
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-      }
-
-      .steps .step .tipos::-webkit-scrollbar {
-        display: none !important;
-      }
+    @media (max-width: 768px) {
+      font-size: 26px;
+    }
+    @media (max-width: 480px) {
+      font-size: 22px;
     }
   }
-
-  @media (max-width: 768px) {
-    .carrinho {
-      padding: 0 10px;
-
-      .card.cart {
-        padding: 15px;
-      }
-    }
-  }
-`;
-
-export const Container__Card_Carrinho = styled.div`
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 700px;
-`;
-
-export const BotoesTopo = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 30px;
 
   button {
     background: transparent;
@@ -104,31 +50,116 @@ export const BotoesTopo = styled.div`
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
 
     &:hover {
       color: #7a4e3a;
       background-color: rgba(81, 38, 21, 0.1);
     }
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+    @media (max-width: 480px) {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
   }
 
   @media (max-width: 768px) {
-    justify-content: flex-end;
-    padding: 15px 20px;
+    padding: 10px 15px;
+  }
+  @media (max-width: 480px) {
+    padding: 8px 10px;
+  }
+`;
 
-    button {
-      font-size: 13px;
-      padding: 8px 12px;
+export const Pedido__Escolha_Carrinho = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  padding-top: 80px;
+  flex-grow: 1;
+
+  .carrinho {
+    width: 100%;
+    /* REMOVIDO: max-width: 600px; */
+    padding: 0 15px;
+    /* REMOVIDO: margin: 0 auto; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .carrinho > .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .carrinho .card.cart {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+
+  .carrinho .card.cart .steps {
+    padding: 0;
+    height: auto;
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  .carrinho .card.cart .steps .step .tipos {
+    display: flex;
+    flex-direction: column;
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding-right: 0 !important;
+
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .carrinho .card.cart .steps .step .tipos::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 70px;
+    .carrinho {
+      padding: 0 10px;
+    }
+  }
+  @media (max-width: 480px) {
+    padding-top: 60px;
+    .carrinho {
+      padding: 0 5px;
     }
   }
 `;
 
+export const Container__Card_Carrinho = styled.div`
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+`;
+
 export const BotoesRodape = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 12px;
   padding: 20px 30px;
   margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
 
   button {
     font-family: Poppins, sans-serif;
@@ -166,6 +197,7 @@ export const BotoesRodape = styled.div`
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    padding: 15px 20px;
 
     button {
       width: 100%;
@@ -174,6 +206,9 @@ export const BotoesRodape = styled.div`
       padding: 12px 0;
       border-radius: 32px;
     }
+  }
+  @media (max-width: 480px) {
+    padding: 10px 15px;
   }
 `;
 

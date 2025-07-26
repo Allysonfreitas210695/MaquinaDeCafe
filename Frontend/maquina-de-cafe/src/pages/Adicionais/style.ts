@@ -5,10 +5,11 @@ export const Container__Detalhes = styled.div`
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: flex-end;
-  padding: 50px 0;
+  min-height: 100vh;
   font-family: Poppins;
+  padding-top: 70px; 
+  padding-bottom: 20px; 
+  position: relative; 
 
   .detalhe__card_cafe {
     display: flex;
@@ -17,6 +18,9 @@ export const Container__Detalhes = styled.div`
     margin-left: 1.5rem;
     padding-top: 10px;
     font-family: Poppins;
+    flex-grow: 1;
+    width: 100%;
+    justify-content: center; 
 
     .card__cafe {
       display: flex;
@@ -27,49 +31,83 @@ export const Container__Detalhes = styled.div`
 
     .cIyYKb {
       overflow-y: visible !important;
-      max-height: none !important; 
+      max-height: none !important;
       font-family: Poppins;
     }
   }
 
-  .header__container {
+  @media (max-width: 768px) {
+    padding-top: 60px; 
+    .detalhe__card_cafe {
+      flex-direction: column;
+      gap: 2rem;
+      margin-left: 0;
+      align-items: center;
+    }
+  }
+  @media (max-width: 480px) {
+    padding-top: 50px; 
+    .detalhe__card_cafe {
+      gap: 1.5rem;
+    }
+  }
+`;
+
+export const AcoesTopo = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .short {
+    color: #3f1811;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #7a4e3a;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 26px;
+    }
+    @media (max-width: 480px) {
+      font-size: 22px;
+    }
+  }
+
+  span {
     font-family: Poppins;
-    background-color: transparent;
-    width: 48%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    padding: 8px 20px;
+    font-weight: 800;
+    font-size: 22px; 
+    color: #512615;
+    flex-grow: 1; 
+    text-align: center; 
+    margin-right: 50px;
 
-    h1 {
-      font-family: Poppins;
-      font-weight: 800;
-      font-size: 42px;
-      line-height: 130%;
-      letter-spacing: 0%;
-      text-decoration: none;
-      color: #512615;
+    @media (max-width: 768px) {
+      font-size: 18px;
+      margin-right: 40px;
     }
+    @media (max-width: 480px) {
+      font-size: 16px;
+      margin-right: 30px;
+    }
+  }
 
-    .button__cancelar {
-      background-color: #552a18;
-      padding: 15px 30px;
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 50px;
-      font-family: Poppins;
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      text-decoration: none; 
-    }
-
-    .short {
-      color: #3f1811;
-      font-size: 30px;
-    }
+  @media (max-width: 768px) {
+    padding: 10px 15px;
+  }
+  @media (max-width: 480px) {
+    padding: 8px 10px;
   }
 `;
 
@@ -168,6 +206,7 @@ export const Detalhes = styled.div`
   flex-direction: column;
   background-color: #fcf7f0;
   border-radius: 16px;
+  flex: 1;
 
   h1 {
     font-family: Poppins;
@@ -320,10 +359,6 @@ export const Div__Botao = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  position: absolute;
-  top: 43rem;
-  left: 4.7rem;
- 
 
   button {
     background-color: #512615;
