@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../../styles/media";
 
 export const Navegacao__Header = styled.div`
   width: 100%;
@@ -10,7 +11,19 @@ export const Navegacao__Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 40px;
-  background: transparent;
+  background: transparent; 
+
+  ${media.tabletmd} { 
+    padding: 10px 20px;
+    background-color: #3F1811; 
+  }
+
+  ${media.mobilesm} { 
+    padding: 10px 15px;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+  }
 `;
 
 export const NavContainer = styled.div`
@@ -18,6 +31,14 @@ export const NavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${media.tabletmd} { 
+    display: none; 
+  }
+
+  ${media.mobilesm} { 
+    display: none; 
+  }
 `;
 
 export const Nav = styled.nav`
@@ -27,15 +48,23 @@ export const Nav = styled.nav`
   flex-direction: row;
   align-items: center;
   gap: 8rem;
-  min-width: 700px;
   padding: 12px 40px;
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
+  width: auto; 
+  max-width: 100%; 
 
-  @media (max-width: 768px) {
-    min-width: auto;
+  ${media.tabletmd} {
     gap: 2rem;
     padding: 8px 20px;
     border-radius: 40px;
+    width: auto; 
+  }
+
+  ${media.mobilesm} { 
+    flex-direction: column;
+    gap: 1rem; 
+    padding: 15px 10px; 
+    border-radius: 20px;
     width: 90%;
   }
 
@@ -52,6 +81,16 @@ export const Nav = styled.nav`
     align-items: center;
     gap: 20px;
     transition: color 0.3s ease;
+
+    ${media.tabletmd} {
+      font-size: 16px;
+      gap: 15px;
+    }
+
+    ${media.mobilesm} {
+      font-size: 14px;
+      gap: 10px;
+    }
   }
 
   .link:hover {
@@ -66,6 +105,7 @@ export const MenuItem = styled.div<{ active: boolean }>`
   border-radius: 59px;
   transition: all 0.3s ease;
   cursor: pointer;
+  white-space: nowrap;
 
   .link {
     color: inherit;
@@ -75,5 +115,18 @@ export const MenuItem = styled.div<{ active: boolean }>`
   &:hover {
     background-color: ${({ active }) => (active ? "#fff" : "#5C3D2E")};
     color: ${({ active }) => (active ? "#3F1811" : "#fff")};
+  }
+
+  ${media.tabletmd} {
+    padding: 0.6rem 1.2rem;
+    font-size: 14px;
+    border-radius: 40px;
+  }
+
+  ${media.mobilesm} {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
   }
 `;
