@@ -19,7 +19,7 @@ export const Titulo_Adicionais = styled.div`
   padding-right: 50px;
 
   span {
-    font-family: Sora;
+    font-family: Poppins;
     font-weight: 700;
     font-size: 34px;
     line-height: 100%;
@@ -29,7 +29,7 @@ export const Titulo_Adicionais = styled.div`
   }
 
   p {
-    font-family: Sora;
+    font-family: Poppins;
     font-weight: 700;
     font-size: 14px;
     line-height: 150%;
@@ -85,7 +85,7 @@ export const Wrapper__Adicionais_Tx = styled.div<WrapperAdicionaisTxProps>`
   background-color: ${(props) => (props.$active ? "#512615" : "transparent")}; /* Cor de fundo marrom quando ativo, transparente quando não ativo */
   color: ${(props) => (props.$active ? "#fff" : "#C99963A3")}; /* Cor do texto branca quando ativo, marrom claro quando não ativo */
   width: 96px; /* */
-  font-family: Sora; /* */
+  font-family: Poppins; /* */
   font-weight: 400; /* */
   font-size: 15px; /* */
   line-height: 100%; /* */
@@ -112,7 +112,7 @@ export const Wrapper__Adicionais_Leite = styled.div<{ active: boolean }>`
   background-color: ${({ active }) => (active ? "#512615" : "transparent")};
   color: ${({ active }) => (active ? "#fff" : "#C99963A3")};
   width: 96px;
-  font-family: Sora;
+  font-family: Poppins;
   font-weight: 400;
   font-size: 16px;
   line-height: 100%;
@@ -173,7 +173,7 @@ export const Mais__Adicionais = styled.div`
     gap: 8px;
 
     span {
-      font-family: Sora;
+      font-family: Poppins;
       font-weight: 400;
       font-size: 17px;
       line-height: 100%;
@@ -196,7 +196,7 @@ export const Mais__Adicionais = styled.div`
     gap: 8px;
 
     p {
-      font-family: Sora;
+      font-family: Poppins;
       font-weight: 300;
       font-size: 15px;
       line-height: 100%;
@@ -212,7 +212,7 @@ export const Total = styled.div`
   gap: 15rem;
 
   h1 {
-    font-family: Sora;
+    font-family: Poppins;
     font-weight: 600;
     font-size: 16px;
     line-height: 150%;
@@ -221,7 +221,7 @@ export const Total = styled.div`
   }
 
   span {
-    font-family: Sora;
+    font-family: Poppins;
     font-weight: 300;
     font-size: 16px;
     line-height: 100%;
@@ -236,7 +236,7 @@ export const Button__Finalizar = styled.button`
   margin: 20px 0;
   width: 410px;
   border-radius: 32px;
-  font-family: Sora;
+  font-family: Poppins;
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;

@@ -13,6 +13,12 @@ export const Container__Carrinho = styled.div`
     margin: 0;
     padding: 0;
   }
+
+  .short {
+    margin-top: 50px;
+    color: #3f1811;
+    font-size: 30px;
+  }
 `;
 
 export const Pedido__Escolha_Carrinho = styled.div`

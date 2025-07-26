@@ -47,7 +47,7 @@ export const Pedido__Cancelado = styled.div`
   }
 
   p {
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 20px;
     font-weight: 600;
     line-height: 100%;
@@ -62,7 +62,7 @@ export const Button__Novo_Pedido = styled.div`
     border-radius: 10px;
     padding: 20px 200px;
     text-decoration: none;
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 30px;
     font-weight: 600;
     line-height: 100%;

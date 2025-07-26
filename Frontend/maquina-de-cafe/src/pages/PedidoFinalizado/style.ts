@@ -66,7 +66,7 @@ export const Pedido__Confirmardo = styled.div`
   }
 
   p {
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 14px;
     font-weight: 400;
     line-height: 100%;
@@ -94,7 +94,7 @@ export const Detalhes = styled.div`
   justify-content: space-between;
 
   h1 {
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 20px;
     font-weight: 500;
     line-height: 39.5%;
@@ -105,7 +105,7 @@ export const Detalhes = styled.div`
     background-color: #e3cbb0;
     border-radius: 32.05px;
     padding: 15px 16px;
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 16px;
     font-weight: 500;
     line-height: 24.3%;
@@ -169,7 +169,7 @@ export const Item = styled.div`
       gap: 20px;
 
       span {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 400;
         line-height: 39.5%;
@@ -178,7 +178,7 @@ export const Item = styled.div`
       }
 
       p {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 400;
         line-height: 39.5%;
@@ -188,7 +188,7 @@ export const Item = styled.div`
     }
   }
   .valor {
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 23px;
     font-weight: 600;
     line-height: 39.5%;
@@ -208,7 +208,7 @@ export const Total__Pedido = styled.div`
 
   span,
   p {
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 20px;
     font-weight: 600;
     line-height: 39.5%;
@@ -232,7 +232,7 @@ export const Medoto_Pagamento = styled.div`
     background-color: rgba(20, 167, 103, 0.3);
     border-radius: 10px;
     padding: 15px 20px;
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 16px;
     font-weight: 600;
     line-height: 39.5%;
@@ -247,7 +247,7 @@ export const Medoto_Pagamento = styled.div`
     gap: 30px;
 
     h1 {
-      font-family: Inter;
+      font-family: Poppins;
       font-size: 20px;
       font-weight: 600;
       line-height: 39.5%;
@@ -276,7 +276,7 @@ export const Medoto_Pagamento = styled.div`
       gap: 25px;
 
       span {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 500;
         line-height: 39.5%;
@@ -285,7 +285,7 @@ export const Medoto_Pagamento = styled.div`
       }
 
       p {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 500;
         line-height: 39.5%;
@@ -368,7 +368,7 @@ export const Status__do__Pedido = styled.div`
   gap: 50px;
 
   h1 {
-    font-family: Inter;
+    font-family: Poppins;
     font-size: 29px;
     font-weight: 600;
     line-height: 47.5%;
@@ -395,7 +395,7 @@ export const Status__do__Pedido = styled.div`
       gap: 20px;
 
       span {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 400;
         line-height: 39.5%;
@@ -404,7 +404,7 @@ export const Status__do__Pedido = styled.div`
       }
 
       p {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 400;
         line-height: 39.5%;
@@ -434,7 +434,7 @@ export const Status__do__Pedido = styled.div`
       gap: 20px;
 
       span {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 400;
         line-height: 39.5%;
@@ -443,7 +443,7 @@ export const Status__do__Pedido = styled.div`
       }
 
       p {
-        font-family: Inter;
+        font-family: Poppins;
         font-size: 16px;
         font-weight: 400;
         line-height: 39.5%;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media } from "../../../styles/media";
+import { media } from "../../../styles/media"; 
 
 export const Navegacao__Header = styled.div`
   width: 100%;
@@ -12,6 +12,7 @@ export const Navegacao__Header = styled.div`
   align-items: center;
   padding: 10px 40px;
   background: transparent; 
+  font-family: 'Poppins', sans-serif; 
 
   ${media.tabletmd} { 
     padding: 10px 20px;
@@ -31,6 +32,7 @@ export const NavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Poppins', sans-serif;
 
   ${media.tabletmd} { 
     display: none; 
@@ -52,6 +54,7 @@ export const Nav = styled.nav`
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
   width: auto; 
   max-width: 100%; 
+  font-family: 'Poppins', sans-serif;
 
   ${media.tabletmd} {
     gap: 2rem;
@@ -70,7 +73,7 @@ export const Nav = styled.nav`
 
   .link {
     color: #ffffff;
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif; 
     font-weight: 800;
     font-size: 18px;
     line-height: 100%;
@@ -106,6 +109,7 @@ export const MenuItem = styled.div<{ active: boolean }>`
   transition: all 0.3s ease;
   cursor: pointer;
   white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
 
   .link {
     color: inherit;

@@ -32,7 +32,7 @@ export const Titulo = styled.div`
   gap: 5px;
 
   span {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 700;
     font-size: 36px;
     line-height: 100%;
@@ -41,7 +41,7 @@ export const Titulo = styled.div`
   }
 
   p {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 400;
     font-size: 25px;
     line-height: 100%;
@@ -63,7 +63,7 @@ export const Atendimento = styled.div`
   margin: 30px 0;
 
   h2 {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 600;
     font-size: 24px;
     line-height: 100%;
@@ -72,7 +72,7 @@ export const Atendimento = styled.div`
   }
 
   span {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 100%;
@@ -97,7 +97,7 @@ export const Atendimento = styled.div`
     cursor: pointer;
 
     span {
-      font-family: Sora;
+      font-family: Poppins, sans-serif;
       font-weight: 600;
       font-size: 14px;
       line-height: 100%;
@@ -179,7 +179,7 @@ export const Produto = styled.div`
     gap: 2px;
 
     h1{
-       font-family: Sora;
+       font-family: Poppins, sans-serif;
       font-weight: 600;
       font-size: 24px;
       line-height: 130%;
@@ -188,7 +188,7 @@ export const Produto = styled.div`
     }
 
     span {
-      font-family: Sora;
+      font-family: Poppins, sans-serif;
       font-weight: 400;
       font-size: 14px;
       line-height: 100%;
@@ -208,7 +208,7 @@ export const Observacao = styled.div`
   margin: 20px 0;
 
   span {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 100%;
@@ -217,7 +217,7 @@ export const Observacao = styled.div`
   }
 
   p {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 100%;
@@ -247,7 +247,7 @@ export const Button__Feedback = styled.div`
   margin: 0 auto;
 
   .pular__valiacao {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 600;
     font-size: 16px;
     line-height: 100%;
@@ -261,7 +261,7 @@ export const Button__Feedback = styled.div`
   }
 
   .enviar__avalicao {
-    font-family: Sora;
+    font-family: Poppins, sans-serif;
     font-weight: 600;
     font-size: 16px;
     line-height: 100%;

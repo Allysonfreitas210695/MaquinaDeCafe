@@ -96,7 +96,7 @@ export const StyledWrapper = styled.div`
 
     p {
       padding-top: 5px;
-      font-family: Inter;
+      font-family: Poppins;
       font-weight: 400;
       font-size: 16px;
       color: #808080;
@@ -129,7 +129,7 @@ export const StyledWrapper = styled.div`
 
     p {
       padding-top: 5px;
-      font-family: Inter;
+      font-family: Poppins;
       font-weight: 400;
       font-size: 16px;
       color: #808080;

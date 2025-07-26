@@ -8,29 +8,34 @@ export const Container__Detalhes = styled.div`
   align-items: start;
   justify-content: flex-end;
   padding: 50px 0;
+  font-family: Poppins;
 
   .detalhe__card_cafe {
     display: flex;
     flex-direction: row;
     gap: 5rem;
     margin-left: 1.5rem;
-    padding-top: 80px;
+    padding-top: 10px;
+    font-family: Poppins;
 
     .card__cafe {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      font-family: Poppins;
     }
 
     .cIyYKb {
       overflow-y: visible !important;
       max-height: none !important; 
+      font-family: Poppins;
     }
   }
 
   .header__container {
+    font-family: Poppins;
     background-color: transparent;
-    width: 1270px;
+    width: 48%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -53,13 +58,17 @@ export const Container__Detalhes = styled.div`
       color: #ffffff;
       text-decoration: none;
       border-radius: 50px;
-      font-family: Sora;
+      font-family: Poppins;
       font-weight: 600;
       font-size: 24px;
       line-height: 100%;
       letter-spacing: 0%;
-      text-decoration: none;
-      
+      text-decoration: none; 
+    }
+
+    .short {
+      color: #3f1811;
+      font-size: 30px;
     }
   }
 `;
@@ -161,7 +170,7 @@ export const Detalhes = styled.div`
   border-radius: 16px;
 
   h1 {
-    font-family: Sora;
+    font-family: Poppins;
     font-weight: 700;
     font-size: 34px;
     color: #2d0d0b;
@@ -246,7 +255,7 @@ export const Conteudo__Detalhes = styled.div`
     z-index: 1;
 
     span {
-      font-family: Sora;
+      font-family: Poppins;
       font-weight: 600;
       font-size: 10.68px;
       line-height: 150%;
@@ -326,39 +335,5 @@ export const Div__Botao = styled.div`
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-  }
-`;
-
-export const BotoesTopo = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px 30px;
-
-  button {
-    background: transparent;
-    color: #512615;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-family: Poppins, sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #7a4e3a;
-      background-color: rgba(81, 38, 21, 0.1);
-    }
-  }
-
-  @media (max-width: 768px) {
-    justify-content: flex-end;
-    padding: 15px 20px;
-
-    button {
-      font-size: 13px;
-      padding: 8px 12px;
-    }
   }
 `;
