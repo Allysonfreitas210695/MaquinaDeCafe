@@ -221,7 +221,7 @@ export const Button = styled.div`
       text-align: center;
     }
 
-    &.selecionado {
+    &.selected { 
       background-color: #512615;
       border-color: #512615;
       color: #fff;
@@ -236,7 +236,7 @@ export const Button = styled.div`
     &.desabilitado {
     }
 
-    &:hover:not(.selecionado) {
+    &:hover:not(.selected) { 
       background-color: #e0d0c0;
       border-color: #a08060;
     }
@@ -330,13 +330,12 @@ export const ResumoSimplificado = styled.div`
     font-weight: 700;
     font-size: 22px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transição apenas para cor e sombra */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 5px 15px rgba(81, 38, 21, 0.45);
 
     &:hover {
       background-color: #3f1f0e;
-      /* Removido: transform: translateY(-2px); */ 
-      box-shadow: 0 5px 15px rgba(81, 38, 21, 0.45); /* Mantido a mesma sombra ou ajustado conforme preferência */
+      box-shadow: 0 5px 15px rgba(81, 38, 21, 0.45); 
     }
 
     &:disabled {
