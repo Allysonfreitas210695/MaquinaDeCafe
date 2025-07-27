@@ -7,6 +7,28 @@ import { CriarPedidoRequest } from "../../service/interface";
 import { criarPedido } from "../../service/pedido_api";
 import axios from "axios";
 import { BsArrowLeftShort } from "react-icons/bs";
+
+
+const mapTipoAcucarToBackend = (tipoFrontend: string | null): string => {
+  switch (tipoFrontend) {
+    case "Açucar": return "Acucar"; 
+    case "Mascavo": return "Mascavo";
+    case "Adoçante": return "Adocante"; 
+    case "S/Açucar": return "SemAcucar";
+    default: return "SemAcucar"; 
+  }
+};
+
+const mapTipoLeiteToBackend = (tipoFrontend: string | null): string => {
+  switch (tipoFrontend) {
+    case "Integral": return "Integral";
+    case "Desnatado": return "Desnatado";
+    case "0 Lactose": return "ZeroLactose"; 
+    case "S/Leite": return "SemLeite";
+    default: return "Integral"; 
+  }
+};
+
 export const TipoPagamento = () => {
   const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
@@ -32,7 +54,7 @@ export const TipoPagamento = () => {
   const extrairGuidPuro = (id: string) => {
     const guidRegex =
       /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
-    const match = guidRegex.exec(id); // Using RegExp.exec()
+    const match = guidRegex.exec(id);
     return match ? match[0] : id;
   };
 
@@ -51,8 +73,8 @@ export const TipoPagamento = () => {
         ingredientesAdicionaisIds: item.adicionaisSelecionados
           .map((adicional) => extrairGuidPuro(adicional.id))
           .filter((id): id is string => id !== null),
-        tipoLeite: item.tipoLeite || "Integral",
-        tipoAcucar: item.tipoAcucar || "SemAcucar",
+        tipoLeite: mapTipoLeiteToBackend(item.tipoLeite ?? null),
+        tipoAcucar: mapTipoAcucarToBackend(item.tipoAcucar ?? null),
         observacao: item.observacao || "",
       }));
 
@@ -77,7 +99,7 @@ export const TipoPagamento = () => {
               pedidoId,
               formaPagamento: formaSelecionada,
               valorTotal: getCartTotal(),
-              pedidosItens: cart.map((item) => ({
+              pedidosItens: cart.map((item)  => ({
                 id: item.id,
                 nome: item.title,
                 quantidade: item.quantidadeNoCarrinho,
@@ -127,7 +149,7 @@ export const TipoPagamento = () => {
           } else {
             navigate("/cancelado");
           }
-        }, 1000);
+        }, 0);
       }
     } catch (error) {
       console.error("Erro ao criar pedido:", error);

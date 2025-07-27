@@ -22,9 +22,9 @@ interface TransformedCafe {
 
 const coffeeNameToImageMap: { [key: string]: string } = {
   "Café Espresso": Images.Machiato1,
-  // "Café Americano": Images.Americano,
+  "Café Americano": Images.CafeAmericano,
   "Café Cappuccino": Images.Cappuccino,
-  "Café Tradicional": Images.CafeComLeite,
+  "Café Tradicional": Images.CafeExpresso,
   "Cold brew": Images.ColdBrew,
   "Café Cortado": Images.Cortado,
   "Café Flat White": Images.FlatWhite,
