@@ -20,6 +20,22 @@ interface TransformedCafe {
   tamanhosXicara: ApiTamanhoXicara[];
 }
 
+const coffeeNameToImageMap: { [key: string]: string } = {
+  "Café Espresso": Images.Machiato1,
+  "Café Americano": Images.Americano,
+  "Café Cappuccino": Images.Cappuccino,
+  "Café Tradicional": Images.CafeComLeite,
+  "Cold brew": Images.ColdBrew,
+  "Café Cortado": Images.Cortado,
+  "Café Flat White": Images.FlatWhite,
+  "Café Affogato": Images.Afogato,
+  "Café Latte": Images.Latte,
+  "Café Ristretto": Images.Ritretto,
+  "Café Mocha": Images.Mocha,
+  "Café Macchiato": Images.Machiato,
+};
+
+
 export const FacaPedido = () => {
   const [newsPedidos, setNewsPedidos] = useState<TransformedCafe[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
@@ -27,31 +43,31 @@ export const FacaPedido = () => {
   const navigate = useNavigate();
   const { cart, addToCart } = useCart();
 
-  async function fetchPedidos() {
-    try {
-      const data = await getCafes();
-      const transformedData = data.map((item) => ({
-        id: item.id,
-        nome: item.nome,
-        descricao: item.descricao,
-        categoria: item.categoria,
-        tempoPreparoSegundos: item.tempoPreparoSegundos,
-        imagemUrl: Images.CafeExpresso,
-        tamanhosXicara: item.tamanhosXicara,
-      }));
-      setNewsPedidos(transformedData);
-      setErrorFetchingCafes(false);
-    } catch (error) {
-      console.error(
-        `Erro ao buscar cafés: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-      setErrorFetchingCafes(true);
-    }
-  }
+   useEffect(() => {
+    const fetchPedidos = async () => {
+      try {
+        const data = await getCafes();
 
-  useEffect(() => {
+        const transformedData = data.map((item) => {
+          const specificImage = coffeeNameToImageMap[item.nome];
+
+          return {
+            id: item.id,
+            nome: item.nome,
+            descricao: item.descricao,
+            categoria: item.categoria,
+            tempoPreparoSegundos: item.tempoPreparoSegundos,
+            imagemUrl: specificImage || Images.caffee,
+            tamanhosXicara: item.tamanhosXicara,
+          };
+        });
+        setNewsPedidos(transformedData);
+        setErrorFetchingCafes(false);
+      } catch (error) {
+        console.error("Falha ao buscar cafés:", error);
+        setErrorFetchingCafes(true);
+      }
+    };
     fetchPedidos();
   }, []);
 

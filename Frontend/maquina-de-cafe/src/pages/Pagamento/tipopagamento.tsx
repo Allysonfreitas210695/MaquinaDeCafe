@@ -3,31 +3,143 @@ import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { useState } from "react";
-import { BsArrowLeftShort } from "react-icons/bs";
-
+import { CriarPedidoRequest } from "../../service/interface";
+import { criarPedido } from "../../service/pedido_api";
+import axios from "axios"; 
 export const TipoPagamento = () => {
   const navigate = useNavigate();
-  const { getCartTotal, clearCart } = useCart();
+  const { cart, getCartTotal,  clearCart } = useCart();
   const [formaSelecionada, setFormaSelecionada] = useState<
-    "pix" | "dinheiro" | null
+    "Pix" | "Dinheiro" | null
   >(null);
+
+  const [loading, setLoading] = useState(false);
+
+ 
 
   const handleCancelar = () => {
     clearCart();
     navigate("/pedido");
   };
 
-  const handleVoltar = () => {
+  {/** const handleVoltar = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
       navigate("/carrinho");
     }
+  };*/}
+
+   const extrairGuidPuro = (id: string) => {
+    const match = id.match(
+      /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i
+    );
+    return match ? match[0] : id;
   };
 
-  const handleConfirmar = () => {
-    if (formaSelecionada) {
-      navigate("/pedidofinalizado");
+  const handleConfirmarPagamento = async () => {
+    if (!formaSelecionada) {
+      alert("Por favor, selecione uma forma de pagamento.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const pedidosItens = cart.map((item) => ({
+        cafeId: extrairGuidPuro(item.id) ?? "",
+        quantidade: item.quantidadeNoCarrinho,
+        tamanhoXicaraId: item.tamanhoSelecionado?.id || "",
+        ingredientesAdicionaisIds: item.adicionaisSelecionados
+          .map((adicional) => extrairGuidPuro(adicional.id))
+          .filter((id): id is string => id !== null),
+        tipoLeite: item.tipoLeite || "Integral",
+        tipoAcucar: item.tipoAcucar || "SemAcucar",
+        observacao: item.observacao || "",
+      }));
+
+      const pedido: CriarPedidoRequest = {
+        formaPagamento: formaSelecionada,
+        pedidosItens,
+        valorTotal: getCartTotal(),
+      };
+
+      const response = await criarPedido(pedido);
+
+      console.log("Resposta da criação do pedido:", response);
+
+      const pedidoId = response?.id || response?.pedidoId;
+
+      if (formaSelecionada === "Pix") {
+        const hashPix = response?.hashPix;
+        if (hashPix) {
+          navigate("/pagamentopix", {
+            state: {
+              hashPix,
+              pedidoId,
+              formaPagamento: formaSelecionada,
+              valorTotal: getCartTotal(),
+              pedidosItens: cart.map((item) => ({
+                id: item.id,
+                nome: item.title,
+                quantidade: item.quantidadeNoCarrinho,
+                valorUnitario: item.valorTotalItem,
+                ml: item.tamanhoSelecionado?.ml,
+                tipoLeite: item.tipoLeite || "Integral",
+                tipoAcucar: item.tipoAcucar || "SemAcucar",
+                observacao: item.observacao || "",
+                imageSrc: item.imageSrc || Images.caffee,
+              })),
+              statusPedido: response?.status || "Criado",
+              tempoPreparoEstimado: "8 - 12 minutos",
+            },
+          });
+        } else {
+          alert("Erro: Hash PIX não retornado.");
+          navigate("/cancelado");
+        }
+      } else if (formaSelecionada === "Dinheiro") {
+        setTimeout(() => {
+          if (
+            response?.status === "Sucesso" ||
+            response?.status === "Criado" ||
+            response?.id
+          ) {
+            navigate("/pedidofinalizado", {
+              state: {
+                pedidoId: pedidoId,
+               formaPagamento: formaSelecionada,
+                valorTotal: getCartTotal(),
+                pedidosItens: cart.map((item) => ({
+                  id: item.id,
+                  nome: item.title,
+                  quantidade: item.quantidadeNoCarrinho,
+                  valorUnitario: item.valorTotalItem,
+                  ml: item.tamanhoSelecionado?.ml,
+                  tipoLeite: item.tipoLeite || "Integral",
+                  tipoAcucar: item.tipoAcucar || "SemAcucar",
+                  observacao: item.observacao || "",
+                  imageSrc: item.imageSrc || Images.caffee,
+                })),
+                statusPedido: response?.status || "Criado",
+                tempoPreparoEstimado: "8 - 12 minutos",
+                fullResponse: response,
+              },
+            });
+          } else {
+            navigate("/cancelado");
+          }
+        }, 1000);
+      }
+    } catch (error) {
+      console.error("Erro ao criar pedido:", error);
+      let errorMessage = "Ocorreu um erro inesperado."; 
+      if (axios.isAxiosError(error)) { 
+        errorMessage = error.response?.data?.errorMessage || error.message;
+      }
+      alert(`Erro: ${errorMessage}`);
+      navigate("/cancelado");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -44,7 +156,6 @@ export const TipoPagamento = () => {
   return (
     <S.Container__Tipo_Pagamento>
       <S.AcoesTopo>
-        <BsArrowLeftShort onClick={handleVoltar} className="short" />
         <span>Pronto para um Devine Café?</span>
         <button onClick={handleCancelar} className="cancelar-btn">
           Cancelar
@@ -64,9 +175,9 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "pix" ? "selecionado" : "desabilitado"
+                      formaSelecionada === "Pix" ? "selected" : "" 
                     }
-                    onClick={() => setFormaSelecionada("pix")}
+                    onClick={() => setFormaSelecionada("Pix")}
                   >
                     <img src={Images.Veto1} alt="Pix" />
                     <span>Pix</span>
@@ -77,11 +188,9 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "dinheiro"
-                        ? "selecionado"
-                        : "desabilitado"
+                      formaSelecionada === "Dinheiro" ? "selected" : "" 
                     }
-                    onClick={() => setFormaSelecionada("dinheiro")}
+                    onClick={() => setFormaSelecionada("Dinheiro")}
                   >
                     <img src={Images.Wallet} alt="Dinheiro" />
                     <span>Dinheiro</span>
@@ -122,8 +231,8 @@ export const TipoPagamento = () => {
 
           <button
             className="confirmar"
-            onClick={handleConfirmar}
-            disabled={!formaSelecionada}
+            onClick={handleConfirmarPagamento}
+           disabled={!formaSelecionada || loading}
           >
             Confirmar Pagamento
           </button>

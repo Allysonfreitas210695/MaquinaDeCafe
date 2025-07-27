@@ -19,6 +19,11 @@ export interface CartItem {
   adicionaisSelecionados: Adicional[];
   quantidadeNoCarrinho: number;
   valorTotalItem: number;
+   tipoLeite?: string;
+  tipoAcucar?: string;
+  observacao?: string;
+   nome?: string;
+   ml?: number;
 }
 
 interface CartContextType {

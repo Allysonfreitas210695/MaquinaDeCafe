@@ -160,6 +160,7 @@ export const Item = styled.div`
       background-color: #c99963;
       padding: 5px;
       border-radius: 10px;
+      width: 70px;
     }
 
     .pedido {

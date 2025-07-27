@@ -73,24 +73,29 @@ export const Feedback = () => {
       });
     }
 
-    for (const item of itemsParaFeedback) {
+     for (const item of itemsParaFeedback) {
+
+      if (!item.id) {
+        console.warn(
+          "Item sem ID encontrado no Feedback, pulando avaliação para este item:",
+          item
+        );
+        continue; 
+      }
+
+       const pureCafeIdMatch = item.id.match(
+          /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i
+        );
+
+       const cafeId = pureCafeIdMatch ? pureCafeIdMatch[0] : item.id;
+
       const feedbackData = {
-        cafeId: item.id.split("-").slice(0, 5).join("-"),
+        cafeId: cafeId,
         atendimento: atendimentoRating,
         estrelas: productRatings[item.id] ?? 0,
         observacao: observation,
       };
-
-      try {
-        await postAvaliacaoCafe(feedbackData);
-      } catch (error) {
-        console.error("Erro ao enviar feedback:", error);
-        return Swal.fire({
-          icon: "warning",
-          title: "Aviso",
-          text: `Ocorreu um erro ao enviar o feedback para ${item.title}. Por favor, tente novamente.`,
-        });
-      }
+      await postAvaliacaoCafe(feedbackData);
     }
     Swal.fire({
       icon: "success",
@@ -112,13 +117,11 @@ export const Feedback = () => {
           <h2>Atendimento</h2>
           <span>Como foi sua experiência com nosso atendimento?</span>
           <div className="reacoes">
-            {/* Usando botões para elementos interativos */}
             <button
               className={`reacoes__conteudo ${
                 atendimentoRating === "MuitoBom" ? "selected" : ""
               }`}
               onClick={() => setAtendimentoRating("MuitoBom")}
-              // Adicionado para acessibilidade: role e aria-pressed (opcional, mas bom para botões de alternância)
               role="radio"
               aria-checked={atendimentoRating === "MuitoBom"}
             >
@@ -162,13 +165,11 @@ export const Feedback = () => {
             itemsParaFeedback.map((item) => (
               <div key={item.id}>
                 <div className="produto__conteudo">
-                  <img src={item.imageSrc || Images.caffee} alt={item.title} />
+                  <img src={item.imageSrc || Images.caffee} alt={"item.nome"} />
                   <div className="cafes">
-                    <span>{item.title}</span>
+                    <span>{item.nome}</span>
                     <p>
-                      {item.tamanhoSelecionado
-                        ? `${item.tamanhoSelecionado.ml}ml`
-                        : "N/A"}{" "}
+                      {item.ml ? `${item.ml}ml` : "N/A"}{" "}
                       Quantidade: {item.quantidadeNoCarrinho || 1}
                     </p>
                   </div>
@@ -205,7 +206,6 @@ export const Feedback = () => {
             placeholder="Seu comentário nos ajuda a entender melhor a sua experiência."
             style={{ fontSize: "16px" }}
           />
-          <p>Seu comentário nos ajuda a entender melhor a sua experiência.</p>
         </S.Observacao>
 
         <S.Button__Feedback>

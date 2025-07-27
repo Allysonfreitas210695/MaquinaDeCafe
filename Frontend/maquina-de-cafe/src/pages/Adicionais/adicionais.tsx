@@ -69,7 +69,7 @@ export const Adicionais = () => {
         },
       });
     } else {
-      navigate("/pedido"); 
+      navigate("/pedido");
     }
   };
 
@@ -99,22 +99,7 @@ export const Adicionais = () => {
       preparation: currentCafe.preparation,
       imageSrc: currentCafe.imageSrc,
       tamanhoSelecionado: selectedTamanho,
-      adicionaisSelecionados: [
-        ...selectedAdicionais,
-        ...(selectedLeite
-          ? [{ id: "leite", nome: selectedLeite, valorExtra: 0, quantidade: 1 }]
-          : []),
-        ...(selectedAcucar
-          ? [
-              {
-                id: "acucar",
-                nome: selectedAcucar,
-                valorExtra: 0,
-                quantidade: 1,
-              },
-            ]
-          : []),
-      ],
+      adicionaisSelecionados: [...selectedAdicionais],
       quantidadeNoCarrinho: 1,
       valorTotalItem,
     };
