@@ -1,3 +1,5 @@
+// src/pages/Carrinho/style.ts
+
 import styled from "styled-components";
 
 export const Container__Carrinho = styled.div`
@@ -21,6 +23,12 @@ export const AcoesTopo = styled.div`
   z-index: 1000;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  span { /* Estilo para o título "Carrinho" */
+    font-size: 20px;
+    font-weight: 600;
+    color: #3f1811;
+  }
 
   .short {
     color: #3f1811;
@@ -78,72 +86,226 @@ export const AcoesTopo = styled.div`
 export const Pedido__Escolha_Carrinho = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Alinha o conteúdo ao topo */
   width: 100%;
   padding: 0;
-  padding-top: 80px;
-  flex-grow: 1;
+  padding-top: 80px; /* Espaço para o fixed AcoesTopo */
+  flex-grow: 1; /* Ocupa o espaço restante */
+  overflow-y: auto; /* Permite scroll se o conteúdo for muito longo */
+`;
 
-  .carrinho {
-    width: 100%;
-    /* REMOVIDO: max-width: 600px; */
-    padding: 0 15px;
-    /* REMOVIDO: margin: 0 auto; */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+export const CarrinhoVazio = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px; /* Ajuste conforme necessário para centralizar bem */
+  text-align: center;
+  color: #666;
+  padding: 20px;
+
+  p {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #512615;
   }
 
-  .carrinho > .container {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  .carrinho .card.cart {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20px;
-  }
-
-  .carrinho .card.cart .steps {
-    padding: 0;
+  img {
+    width: 120px;
     height: auto;
-    max-height: none !important;
-    overflow-y: visible !important;
+    margin-top: 20px;
+    opacity: 0.7;
   }
 
-  .carrinho .card.cart .steps .step .tipos {
-    display: flex;
-    flex-direction: column;
-    max-height: none !important;
-    overflow-y: visible !important;
-    padding-right: 0 !important;
+  button {
+    margin-top: 30px;
+    padding: 12px 25px;
+    background-color: #512615;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
-  }
-
-  .carrinho .card.cart .steps .step .tipos::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  @media (max-width: 768px) {
-    padding-top: 70px;
-    .carrinho {
-      padding: 0 10px;
-    }
-  }
-  @media (max-width: 480px) {
-    padding-top: 60px;
-    .carrinho {
-      padding: 0 5px;
+    &:hover {
+      background-color: #7a4e3a;
     }
   }
 `;
 
+export const ListaItens = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaço entre os itens do carrinho */
+  padding: 20px;
+  max-width: 800px; /* Limita a largura da lista de itens */
+  margin: 0 auto; /* Centraliza a lista de itens */
+  width: 100%; /* Garante que ocupe a largura disponível no max-width */
+  box-sizing: border-box; /* Inclui padding na largura */
+`;
+
+export const ItemCarrinho = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #fcfcfc;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  gap: 15px;
+
+  img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0; /* Impede que a imagem encolha */
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+`;
+
+export const DetalhesItem = styled.div`
+  flex-grow: 1; /* Ocupa o máximo de espaço disponível */
+
+  h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #3f1811;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #666;
+  }
+
+  span {
+    font-weight: bold;
+    color: #512615;
+    font-size: 16px;
+  }
+`;
+
+export const ControleQuantidade = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0; /* Impede que este bloco encolha */
+
+  button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3f1811; /* Cor para os botões +/- */
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3f1811;
+  }
+
+  button.remover {
+    background-color: #ff4d4f; /* Cor vermelha para remover */
+    color: white;
+    width: auto;
+    padding: 5px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px; /* Espaço entre o controle de quantidade e o botão remover */
+
+    &:hover {
+      background-color: #e60000;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: space-around;
+    button.remover {
+      margin-left: 0;
+    }
+  }
+`;
+
+export const BotoesRodape = styled.div`
+  display: flex;
+  flex-direction: column; /* Alinha o total e o botão de finalizar verticalmente */
+  gap: 15px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+
+  button.finalizar-pedido {
+    width: 100%;
+    padding: 15px;
+    background-color: #512615;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #7a4e3a;
+    }
+  }
+
+  @media (min-width: 769px) {
+    /* Em telas maiores, podemos centralizar o rodapé */
+    max-width: 800px;
+    margin: 0 auto;
+  }
+`;
+
+export const Total = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: bold;
+  color: #3f1811;
+  padding-bottom: 10px; /* Espaço antes do botão de finalizar */
+
+  span:last-child {
+    color: #512615; /* Cor para o valor total */
+  }
+`;
+
 export const Container__Card_Carrinho = styled.div`
+  /* Este componente parece não ser usado diretamente no carrinho.tsx atual,
+     mas se você o usa em outro lugar ou planeja usá-lo, mantenha-o exportado. */
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -152,67 +314,8 @@ export const Container__Card_Carrinho = styled.div`
   margin: 0 auto;
 `;
 
-export const BotoesRodape = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px 30px;
-  margin-top: auto;
-  width: 100%;
-  box-sizing: border-box;
-
-  button {
-    font-family: Poppins, sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 10px 24px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    border: none;
-    min-width: 140px;
-  }
-
-  .continuar {
-    background: transparent;
-    color: #512615;
-    border: 2px solid #512615;
-
-    &:hover {
-      background-color: #512615;
-      color: white;
-    }
-  }
-
-  .confirmar {
-    background-color: #512615;
-    color: white;
-
-    &:hover {
-      background-color: #7a4e3a;
-    }
-  }
-
-  @media (max-width: 768px) {
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px 20px;
-
-    button {
-      width: 100%;
-      min-width: unset;
-      font-size: 13px;
-      padding: 12px 0;
-      border-radius: 32px;
-    }
-  }
-  @media (max-width: 480px) {
-    padding: 10px 15px;
-  }
-`;
-
 export const Ingredientes = styled.span`
+  /* Estilo para ingredientes, se aplicável */
   white-space: normal;
   display: block;
   font-size: 14px;

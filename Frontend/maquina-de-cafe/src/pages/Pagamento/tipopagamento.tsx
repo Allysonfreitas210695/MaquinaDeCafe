@@ -5,35 +5,34 @@ import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { useState } from "react";
 import { CriarPedidoRequest } from "../../service/interface";
 import { criarPedido } from "../../service/pedido_api";
-import axios from "axios"; 
+import axios from "axios";
+import { BsArrowLeftShort } from "react-icons/bs";
 export const TipoPagamento = () => {
   const navigate = useNavigate();
-  const { cart, getCartTotal,  clearCart } = useCart();
+  const { cart, getCartTotal, clearCart } = useCart();
   const [formaSelecionada, setFormaSelecionada] = useState<
     "Pix" | "Dinheiro" | null
   >(null);
 
   const [loading, setLoading] = useState(false);
 
- 
-
   const handleCancelar = () => {
     clearCart();
     navigate("/pedido");
   };
 
-  {/** const handleVoltar = () => {
+  const handleVoltar = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
       navigate("/carrinho");
     }
-  };*/}
+  };
 
-   const extrairGuidPuro = (id: string) => {
-    const match = id.match(
-      /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i
-    );
+  const extrairGuidPuro = (id: string) => {
+    const guidRegex =
+      /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
+    const match = guidRegex.exec(id); // Using RegExp.exec()
     return match ? match[0] : id;
   };
 
@@ -107,7 +106,7 @@ export const TipoPagamento = () => {
             navigate("/pedidofinalizado", {
               state: {
                 pedidoId: pedidoId,
-               formaPagamento: formaSelecionada,
+                formaPagamento: formaSelecionada,
                 valorTotal: getCartTotal(),
                 pedidosItens: cart.map((item) => ({
                   id: item.id,
@@ -132,14 +131,14 @@ export const TipoPagamento = () => {
       }
     } catch (error) {
       console.error("Erro ao criar pedido:", error);
-      let errorMessage = "Ocorreu um erro inesperado."; 
-      if (axios.isAxiosError(error)) { 
+      let errorMessage = "Ocorreu um erro inesperado.";
+      if (axios.isAxiosError(error)) {
         errorMessage = error.response?.data?.errorMessage || error.message;
       }
       alert(`Erro: ${errorMessage}`);
       navigate("/cancelado");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -156,6 +155,7 @@ export const TipoPagamento = () => {
   return (
     <S.Container__Tipo_Pagamento>
       <S.AcoesTopo>
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
         <span>Pronto para um Devine Café?</span>
         <button onClick={handleCancelar} className="cancelar-btn">
           Cancelar
@@ -175,7 +175,7 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "Pix" ? "selected" : "" 
+                      formaSelecionada === "Pix" ? "selected" : ""
                     }
                     onClick={() => setFormaSelecionada("Pix")}
                   >
@@ -188,7 +188,7 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "Dinheiro" ? "selected" : "" 
+                      formaSelecionada === "Dinheiro" ? "selected" : ""
                     }
                     onClick={() => setFormaSelecionada("Dinheiro")}
                   >
@@ -232,7 +232,7 @@ export const TipoPagamento = () => {
           <button
             className="confirmar"
             onClick={handleConfirmarPagamento}
-           disabled={!formaSelecionada || loading}
+            disabled={!formaSelecionada || loading}
           >
             Confirmar Pagamento
           </button>

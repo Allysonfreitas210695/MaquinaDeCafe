@@ -37,7 +37,6 @@ import cancelado from "./x.png";
 
 import Cappucino from "./CAPUCCINO.png";
 import ColdBrew from "./COLDBREW.png";
-import Americano from "./CafeAmericano.png";
 import Cortado from "./CaféCortado.png";
 import FlatWhite from "./CaféFlatWhite.png";
 import Afogato from "./Caféafogato.png";
@@ -90,7 +89,6 @@ export const Images = {
   Cortado,
   Ritretto,
   FlatWhite,
-  Americano,
   Latte,
   Machiato,
   Machiato1,

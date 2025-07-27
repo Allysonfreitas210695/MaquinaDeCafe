@@ -148,7 +148,7 @@ export const CafeCard: React.FC<CoffeeCardProps> = ({
           <FaRegStar className="star" />
           <span>{mediaEstrelas}</span>
           <LuClock2 />
-          <p>{preparation} min</p>
+          <p>{preparation/60} min</p>
         </div>
       </div>
       <S.StyledWrapper>
