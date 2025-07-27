@@ -1,27 +1,113 @@
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Images } from "../../assets/Images";
 import * as S from "./style";
-import { BsArrowLeftShort, BsCheck2 } from "react-icons/bs";
+import { BsCheck2 } from "react-icons/bs";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { atualizarStatusPedido } from "../../service/pedido_api";
 import axios from "axios";
+import { FaCoffee } from 'react-icons/fa';
+
+import WalletIcon from "../../assets/Images/Wallet.png";
+import PixIcon from "../../assets/Images/Vector1.png";
 
 interface PedidoItemFormatado {
   id: string;
   nome: string;
   quantidade: number;
   valorUnitario: number;
-  ml?: number; 
+  ml?: number;
   tipoLeite?: string;
   tipoAcucar?: string;
   observacao?: string;
   imageSrc?: string;
+  preparation?: number;
 }
 
+const formatTimeOutput = (totalMinutes: number): string => {
+  if (totalMinutes === 0) {
+    return "Não há itens para calcular o tempo.";
+  }
+
+  const hours = Math.floor(totalMinutes / 60);
+  const remainingMinutes = totalMinutes % 60;
+
+  let timeParts: string[] = [];
+
+  if (hours > 0) {
+    timeParts.push(`${hours} hora${hours > 1 ? 's' : ''}`);
+  }
+
+  if (remainingMinutes > 0 || (hours === 0 && totalMinutes > 0)) {
+    if (totalMinutes === 0) { 
+        return "Não há itens para calcular o tempo.";
+    } else if (totalMinutes < 1) { 
+        return "Menos de 1 minuto";
+    }
+    timeParts.push(`${remainingMinutes} minuto${remainingMinutes > 1 ? 's' : ''}`);
+  }
+
+  if (timeParts.length === 2) {
+    return `${timeParts[0]} e ${timeParts[1]}`;
+  } else if (timeParts.length === 1) {
+    return timeParts[0];
+  } else {
+    return "Calculando..."; 
+  }
+};
+
+
+const calculateAndFormatEstimatedTime = (pedidos: PedidoItemFormatado[]): string => {
+  if (pedidos.length === 0) {
+    return "Não há itens para calcular o tempo.";
+  }
+
+  let totalPreparationSeconds = 0;
+  pedidos.forEach(item => {
+    const itemPreparationTime = item.preparation || 0;
+    totalPreparationSeconds += Number(item.quantidade) * itemPreparationTime;
+  });
+
+  const totalPreparationMinutes = Math.ceil(totalPreparationSeconds / 60);
+  
+  return formatTimeOutput(totalPreparationMinutes);
+};
+
+
 export const PedidoFinalizado = () => {
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const { clearCart } = useCart();
+
+  const inactivityTimeoutRef = useRef<number | null>(null);
+
+  const resetInactivityTimer = useCallback(() => {
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+    }
+    inactivityTimeoutRef.current = setTimeout(() => {
+      clearCart();
+      navigate("/");
+    }, 60 * 1000); // 1 MINUTO DE INATIVIDADE VOLTA PARA A HOME
+  }, [navigate, clearCart]);
+
+  useEffect(() => {
+    resetInactivityTimer();
+
+    window.addEventListener("mousemove", resetInactivityTimer);
+    window.addEventListener("keydown", resetInactivityTimer);
+    window.addEventListener("click", resetInactivityTimer);
+    window.addEventListener("touchstart", resetInactivityTimer);
+
+    return () => {
+      if (inactivityTimeoutRef.current) {
+        clearTimeout(inactivityTimeoutRef.current);
+      }
+      window.removeEventListener("mousemove", resetInactivityTimer);
+      window.removeEventListener("keydown", resetInactivityTimer);
+      window.removeEventListener("click", resetInactivityTimer);
+      window.removeEventListener("touchstart", resetInactivityTimer);
+    };
+  }, [resetInactivityTimer]);
 
   const {
     pedidoId,
@@ -29,32 +115,40 @@ export const PedidoFinalizado = () => {
     valorTotal,
     pedidosItens,
     statusPedido,
-    tempoPreparoEstimado,
   } = (location.state || {}) as {
     pedidoId?: string;
     formaPagamento?: string;
     valorTotal?: number;
-    pedidosItens?: PedidoItemFormatado[]; 
+    pedidosItens?: PedidoItemFormatado[];
     statusPedido?: string;
     tempoPreparoEstimado?: string;
   };
 
   const pedidosFormatadosParaExibicao = pedidosItens || [];
+
   const totalRealDoPedido = valorTotal || 0;
 
+  const [tempoDeEsperaCalculado, setTempoDeEsperaCalculado] = useState<string>("Calculando...");
+
+  const displayPedidoId = pedidoId
+    ? pedidoId.substring(0, 6).toUpperCase()
+    : Math.floor(100000 + Math.random() * 900000).toString();
+
+  useEffect(() => {
+    setTempoDeEsperaCalculado(calculateAndFormatEstimatedTime(pedidosFormatadosParaExibicao));
+  }, [pedidosFormatadosParaExibicao]);
+
+
   const handleFinalizarPedido = async () => {
+    resetInactivityTimer();
+
     if (!pedidoId) {
       alert("ID do pedido não encontrado para finalizar.");
       navigate("/");
       return;
     }
 
-    console.log("Status atual do pedido (frontend):", statusPedido);
-
     if (statusPedido === "Pronto") {
-      console.log(
-        "Pedido já está pronto, não é necessário atualizar o status."
-      );
       clearCart();
       navigate("/feedback", {
         state: { itemsParaFeedback: pedidosFormatadosParaExibicao, pedidoId },
@@ -69,59 +163,40 @@ export const PedidoFinalizado = () => {
         state: { itemsParaFeedback: pedidosFormatadosParaExibicao, pedidoId },
       });
     } catch (error) {
-      console.error("Erro ao finalizar pedido (status Pronto):", error);
-  
-         let errorMessage = "Ocorreu um erro inesperado. Tente novamente."; 
+      let errorMessage = "Ocorreu um erro inesperado. Tente novamente.";
 
       if (axios.isAxiosError(error)) {
         errorMessage = error.response?.data?.errorMessage || error.message;
       }
-      
+
       alert(`Erro: ${errorMessage}`);
     }
   };
 
-  const handleCancelarPedido = async () => {
+  const handleNovoPedido = async () => {
+    resetInactivityTimer();
+
     if (!pedidoId) {
-      alert("ID do pedido não encontrado para cancelar.");
       navigate("/");
       return;
     }
 
-    console.log(
-      "Tentando cancelar pedido. ID:",
-      pedidoId,
-      "Status:",
-      "Cancelado"
-    );
-
-    try {
-      await atualizarStatusPedido(pedidoId, "Cancelado");
-      clearCart();
-      navigate("/cancelado");
-    } catch (error) {
-      console.error("Erro ao cancelar pedido:", error);
-      alert("Ocorreu um erro ao cancelar o pedido. Tente novamente.");
-    }
+    clearCart();
+    navigate("/");
   };
 
   return (
     <S.Container__Pedido_Finalizado>
-      <S.Header__Pedido>
-        <BsArrowLeftShort className="short" />
-        <h1>Pedido Finalizado</h1>
-      </S.Header__Pedido>
-      <div className="borda"></div>
       <S.Pedido__Confirmardo>
         <BsCheck2 className="check" />
-        <span>Pedido Confirmado!</span>
+        <span>Pedido Realizado!</span>
         <p>Seu pedido foi processado com sucesso.</p>
       </S.Pedido__Confirmardo>
 
       <S.Detalhe__Pedido>
         <S.Detalhes>
           <h1>Detalhes do Pedido</h1>
-          <span>#2025</span>
+          <span>#{displayPedidoId}</span>
         </S.Detalhes>
 
         <S.Pedidos>
@@ -129,10 +204,9 @@ export const PedidoFinalizado = () => {
             pedidosFormatadosParaExibicao.map((item, id) => (
               <S.Item key={item.id || id}>
                 <div className="tipos__pedidos">
-                  <img
-                    src={item.imageSrc || Images.caffee}
-                    alt={item.nome || "Café"}
-                  />
+                  <div className="icon-wrapper">
+                    <FaCoffee />
+                  </div>
                   <div className="pedido">
                     <span>{item.nome}</span>
                     <p>
@@ -162,7 +236,6 @@ export const PedidoFinalizado = () => {
 
         <S.Total__Pedido>
           <span>Total</span>
-
           <p>R$ {totalRealDoPedido.toFixed(2).replace(".", ",")}</p>
         </S.Total__Pedido>
       </S.Detalhe__Pedido>
@@ -174,19 +247,25 @@ export const PedidoFinalizado = () => {
         <S.Pedidos>
           <S.Item>
             <div className="tipos__pedidos">
-              <img src={Images.caffee} alt="ícone de método de pagamento" />
+              <div className="icon-wrapper">
+                {formaPagamento === "Pix" ? (
+                  <img src={PixIcon} alt="Pix Icon" />
+                ) : (
+                  <img src={WalletIcon} alt="Dinheiro Icon" />
+                )}
+              </div>
               <div className="pedido">
                 <span>{formaPagamento === "Pix" ? "Pix" : "Dinheiro"}</span>
                 <p>
                   {formaPagamento === "Pix"
-                    ? "Código PIX"
+                    ? "Pagamento via PIX"
                     : "Pagamento no local"}
                 </p>
               </div>
             </div>
             <span
               className="valor"
-              style={{ color: "green", fontWeight: "bold" }}
+              style={{ color: "#14a767", fontWeight: "bold" }}
             >
               APROVADO
             </span>
@@ -196,70 +275,17 @@ export const PedidoFinalizado = () => {
 
       <S.Detalhe__Pedido>
         <S.Detalhes>
-          <h1>Tempo de Preparo</h1>
+          <h1>Tempo de Espera</h1>
         </S.Detalhes>
         <S.Pedidos>
           <S.Item>
             <div className="tipos__pedidos">
+              <div className="icon-wrapper">
+                   <FaCoffee />
+              </div>
               <div className="pedido">
-                <span>{tempoPreparoEstimado || "Aguardando estimativa"}</span>
+                <span>{tempoDeEsperaCalculado}</span>
                 <p>Você será notificado quando estiver pronto.</p>
-              </div>
-            </div>
-          </S.Item>
-        </S.Pedidos>
-      </S.Detalhe__Pedido>
-
-      <S.Detalhe__Pedido>
-        <S.Detalhes>
-          <h1>Status do Pedido</h1>
-        </S.Detalhes>
-        <S.Pedidos>
-          <S.Item>
-            <div className="tipos__pedidos">
-              <div className="pedido">
-                <span>Pedido Confirmado</span>
-                <p>
-                  {statusPedido === "Criado" || statusPedido === "Sucesso"
-                    ? `Status: ${statusPedido}`
-                    : "Aguardando confirmação"}
-                </p>
-              </div>
-            </div>
-          </S.Item>
-          <S.Item>
-            <div className="tipos__pedidos">
-              <div className="pedido">
-                <span>Em Preparo</span>
-                <p>
-                  {statusPedido === "Em preparo"
-                    ? "Seu café está sendo preparado"
-                    : "Aguardando iniciar preparo"}
-                </p>
-              </div>
-            </div>
-          </S.Item>
-          <S.Item>
-            <div className="tipos__pedidos">
-              <div className="pedido">
-                <span>Pronto para Retirada</span>
-                <p>
-                  {statusPedido === "Pronto"
-                    ? "Seu café está pronto para ser retirado!"
-                    : "Aguardando preparo"}
-                </p>
-              </div>
-            </div>
-          </S.Item>
-          <S.Item>
-            <div className="tipos__pedidos">
-              <div className="pedido">
-                <span>Entregue</span>
-                <p>
-                  {statusPedido === "Entregue"
-                    ? "Pedido entregue!"
-                    : "Aguardando retirada"}
-                </p>
               </div>
             </div>
           </S.Item>
@@ -268,11 +294,11 @@ export const PedidoFinalizado = () => {
 
       <S.Button__Pedido>
         <button className="finalizar__pedido" onClick={handleFinalizarPedido}>
-          Finalizar Pedido
+          Avaliar Pedido
         </button>
 
-        <button className="cancelar__pedido" onClick={handleCancelarPedido}>
-          Cancelar Pedido
+        <button className="novo__pedido" onClick={handleNovoPedido}>
+          Novo Pedido
         </button>
       </S.Button__Pedido>
 
