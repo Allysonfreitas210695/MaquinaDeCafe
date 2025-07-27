@@ -2,11 +2,10 @@ import {
   createContext,
   useState,
   useContext,
-  ReactNode, // Keep ReactNode imported as we'll use it
+  ReactNode,
   useEffect,
   useMemo,
 } from "react";
-// Certifique-se de que os caminhos para Adicional e ITamanhoXicaraProps estão corretos
 import { Adicional, ITamanhoXicaraProps } from "../../../service/interface";
 
 export interface CartItem {
@@ -38,7 +37,6 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Corrected line for CartProvider props
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {

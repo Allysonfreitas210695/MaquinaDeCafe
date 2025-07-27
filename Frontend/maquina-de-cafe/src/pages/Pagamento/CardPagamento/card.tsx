@@ -46,10 +46,10 @@ export const CardPagamento = ({
                   const additionalOptions: string[] = [];
 
                   if (item.tipoLeite) {
-                    additionalOptions.push(`Leite: ${item.tipoLeite}`);
+                    additionalOptions.push(`${item.tipoLeite}`);
                   }
                   if (item.tipoAcucar) {
-                    additionalOptions.push(`Açúcar: ${item.tipoAcucar}`);
+                    additionalOptions.push(`${item.tipoAcucar}`);
                   }
 
                   if (item.adicionaisSelecionados?.length > 0) {

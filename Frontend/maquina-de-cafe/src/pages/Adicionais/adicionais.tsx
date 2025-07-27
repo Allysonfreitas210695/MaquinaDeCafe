@@ -57,7 +57,7 @@ export const Adicionais = () => {
     setSelectedAdicionais([]);
     setSelectedLeite(null);
     setSelectedAcucar(null);
-    setSelectedTamanho(currentCafe?.tamanhosXicara?.[0] || null); 
+    setSelectedTamanho(currentCafe?.tamanhosXicara?.[0] || null);
   }, [currentIndex, coffeesToCustomize, currentCafe]);
 
   const handleVoltar = () => {
@@ -73,9 +73,9 @@ export const Adicionais = () => {
     }
   };
 
-  const handleFinalizarPersonalizacao = () => {
+  const handleFinalizarPersonalizacao = async () => { 
     if (!currentCafe || !selectedTamanho) {
-      Swal.fire({
+      await Swal.fire({ 
         icon: "error",
         title: "Erro",
         text: "Dados do café ou tamanho selecionado ausentes.",
@@ -103,10 +103,18 @@ export const Adicionais = () => {
       quantidadeNoCarrinho: 1,
       valorTotalItem,
       tipoLeite: selectedLeite || undefined,
-      tipoAcucar: selectedAcucar || undefined, 
+      tipoAcucar: selectedAcucar || undefined,
     };
 
     addToCart(newItem);
+
+    await Swal.fire({
+      icon: "success",
+      title: "Adicionado ao carrinho!",
+      timer: 1500,
+      showConfirmButton: false,
+      timerProgressBar: true,
+    });
 
     const nextIndex = currentIndex + 1;
     if (nextIndex < coffeesToCustomize.length) {
