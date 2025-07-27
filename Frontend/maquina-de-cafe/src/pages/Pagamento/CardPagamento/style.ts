@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  width: 100%; 
+  width: 100%;
 
   .container {
     padding-left: 8px;
@@ -57,31 +57,6 @@ export const StyledWrapper = styled.div`
   .cart .steps .step .tipos {
     display: flex;
     flex-direction: column;
-    max-height: 150px;
-    overflow-y: scroll;
-    padding-right: 10px;
-
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 8px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #432c1b;
-      border-radius: 8px;
-      border: 2px solid #f1f1f1;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: #432c1b;
-    }
-
-    scrollbar-width: thin;
-    scrollbar-color: #432c1b #f1f1f1;
 
     span {
       font-family: Poppins;
@@ -204,7 +179,7 @@ export const StyledWrapper = styled.div`
 
       .acoes {
         display: flex;
-        
+
         .botao-excluir {
           background-color: transparent;
           border: 1px solid #d9534f;
@@ -433,7 +408,7 @@ export const TotaisResumo = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 10px;
-  border-top: 1px solid #c9996321; 
+  border-top: 1px solid #c9996321;
   margin-top: 10px;
 
   .linha {

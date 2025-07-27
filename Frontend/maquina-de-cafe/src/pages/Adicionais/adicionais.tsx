@@ -57,8 +57,8 @@ export const Adicionais = () => {
     setSelectedAdicionais([]);
     setSelectedLeite(null);
     setSelectedAcucar(null);
-    setSelectedTamanho(currentCafe?.tamanhoSelecionado ?? null);
-  }, [currentIndex, coffeesToCustomize]);
+    setSelectedTamanho(currentCafe?.tamanhosXicara?.[0] || null); 
+  }, [currentIndex, coffeesToCustomize, currentCafe]);
 
   const handleVoltar = () => {
     if (currentIndex > 0) {
@@ -102,6 +102,8 @@ export const Adicionais = () => {
       adicionaisSelecionados: [...selectedAdicionais],
       quantidadeNoCarrinho: 1,
       valorTotalItem,
+      tipoLeite: selectedLeite || undefined,
+      tipoAcucar: selectedAcucar || undefined, 
     };
 
     addToCart(newItem);

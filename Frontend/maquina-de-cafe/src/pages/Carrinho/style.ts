@@ -1,5 +1,3 @@
-// src/pages/Carrinho/style.ts
-
 import styled from "styled-components";
 
 export const Container__Carrinho = styled.div`
@@ -9,6 +7,8 @@ export const Container__Carrinho = styled.div`
   width: 100%;
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export const AcoesTopo = styled.div`
@@ -23,8 +23,10 @@ export const AcoesTopo = styled.div`
   z-index: 1000;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  box-sizing: border-box;
 
-  span { /* Estilo para o título "Carrinho" */
+  span {
     font-size: 20px;
     font-weight: 600;
     color: #3f1811;
@@ -86,12 +88,19 @@ export const AcoesTopo = styled.div`
 export const Pedido__Escolha_Carrinho = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Alinha o conteúdo ao topo */
+  justify-content: flex-start;
   width: 100%;
-  padding: 0;
-  padding-top: 80px; /* Espaço para o fixed AcoesTopo */
-  flex-grow: 1; /* Ocupa o espaço restante */
-  overflow-y: auto; /* Permite scroll se o conteúdo for muito longo */
+  padding: 0 20px;
+  padding-top: 60px; /* Espaço para o cabeçalho fixo */
+  padding-bottom: 90px; /* **AJUSTADO: Adicionado espaço para o rodapé fixo.** Ajuste este valor se a altura do seu rodapé mudar. */
+
+  .carrinho {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
 `;
 
 export const CarrinhoVazio = styled.div`
@@ -99,7 +108,7 @@ export const CarrinhoVazio = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 300px; /* Ajuste conforme necessário para centralizar bem */
+  min-height: 300px;
   text-align: center;
   color: #666;
   padding: 20px;
@@ -137,12 +146,9 @@ export const CarrinhoVazio = styled.div`
 export const ListaItens = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espaço entre os itens do carrinho */
+  gap: 15px;
   padding: 20px;
-  max-width: 800px; /* Limita a largura da lista de itens */
-  margin: 0 auto; /* Centraliza a lista de itens */
-  width: 100%; /* Garante que ocupe a largura disponível no max-width */
-  box-sizing: border-box; /* Inclui padding na largura */
+  box-sizing: border-box;
 `;
 
 export const ItemCarrinho = styled.div`
@@ -160,7 +166,7 @@ export const ItemCarrinho = styled.div`
     height: 90px;
     object-fit: cover;
     border-radius: 8px;
-    flex-shrink: 0; /* Impede que a imagem encolha */
+    flex-shrink: 0;
   }
 
   @media (max-width: 480px) {
@@ -175,7 +181,7 @@ export const ItemCarrinho = styled.div`
 `;
 
 export const DetalhesItem = styled.div`
-  flex-grow: 1; /* Ocupa o máximo de espaço disponível */
+  flex-grow: 1;
 
   h3 {
     margin: 0 0 5px 0;
@@ -200,7 +206,7 @@ export const ControleQuantidade = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0; /* Impede que este bloco encolha */
+  flex-shrink: 0;
 
   button {
     background-color: #f0f0f0;
@@ -213,7 +219,7 @@ export const ControleQuantidade = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #3f1811; /* Cor para os botões +/- */
+    color: #3f1811;
 
     &:hover {
       background-color: #e0e0e0;
@@ -227,14 +233,14 @@ export const ControleQuantidade = styled.div`
   }
 
   button.remover {
-    background-color: #ff4d4f; /* Cor vermelha para remover */
+    background-color: #ff4d4f;
     color: white;
     width: auto;
     padding: 5px 12px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
-    margin-left: 10px; /* Espaço entre o controle de quantidade e o botão remover */
+    margin-left: 10px;
 
     &:hover {
       background-color: #e60000;
@@ -251,42 +257,49 @@ export const ControleQuantidade = styled.div`
 `;
 
 export const BotoesRodape = styled.div`
+  position: fixed; /* **Reintroduzido: Rodapé fixo** */
+  bottom: 0;      /* Fixado na parte inferior */
+  left: 0;        /* Alinhado à esquerda */
+  width: 100%;    /* Ocupa toda a largura */
   display: flex;
-  flex-direction: column; /* Alinha o total e o botão de finalizar verticalmente */
-  gap: 15px;
-  padding: 20px;
-  width: 100%;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 30px;
   box-sizing: border-box;
   background-color: #ffffff;
-  border-top: 1px solid #eee;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para cima */
+  z-index: 999; /* Garante que fique acima do conteúdo principal */
 
-  button.finalizar-pedido {
-    width: 100%;
-    padding: 15px;
-    background-color: #512615;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
+  button {
+    font-family: Poppins, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 10px 24px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    min-width: 140px;
+  }
 
-    &:disabled {
-      background-color: #cccccc;
-      cursor: not-allowed;
-    }
+  .continuar {
+    background: transparent;
+    color: #512615;
+    border: 2px solid #512615;
 
-    &:hover:not(:disabled) {
-      background-color: #7a4e3a;
+    &:hover {
+      background-color: #512615;
+      color: white;
     }
   }
 
-  @media (min-width: 769px) {
-    /* Em telas maiores, podemos centralizar o rodapé */
-    max-width: 800px;
-    margin: 0 auto;
+  .confirmar {
+    background-color: #512615;
+    color: white;
+
+    &:hover {
+      background-color: #7a4e3a;
+    }
   }
 `;
 
@@ -296,26 +309,26 @@ export const Total = styled.div`
   font-size: 22px;
   font-weight: bold;
   color: #3f1811;
-  padding-bottom: 10px; /* Espaço antes do botão de finalizar */
+  padding: 20px;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
 
   span:last-child {
-    color: #512615; /* Cor para o valor total */
+    color: #512615;
   }
 `;
 
 export const Container__Card_Carrinho = styled.div`
-  /* Este componente parece não ser usado diretamente no carrinho.tsx atual,
-     mas se você o usa em outro lugar ou planeja usá-lo, mantenha-o exportado. */
   flex: 2;
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 700px;
   margin: 0 auto;
+  width: 100%;
 `;
 
 export const Ingredientes = styled.span`
-  /* Estilo para ingredientes, se aplicável */
   white-space: normal;
   display: block;
   font-size: 14px;
