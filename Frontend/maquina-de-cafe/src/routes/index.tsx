@@ -8,6 +8,7 @@ import { PedidoFinalizado } from "../pages/PedidoFinalizado/pedidofinalizado";
 import { Feedback } from "../pages/Feedback/feedback";
 import { PedidoCancelado } from "../pages/PedidoCancelado/cancelado";
 import { CartProvider } from "../pages/Carrinho/CardContext/cardcontext";
+import { PagamentoPix } from "../pages/PixPayment/pixpagamento";
 
 function RoutesApp() {
   return (
@@ -22,6 +23,7 @@ function RoutesApp() {
           <Route path="/pedidofinalizado" element={<PedidoFinalizado />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/cancelado" element={<PedidoCancelado />} />
+          <Route path="/pagamentopix" element={<PagamentoPix />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>

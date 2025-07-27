@@ -29,7 +29,7 @@ export const CardContainer = styled.div`
 
     span {
       font-size: 13px;
-      font-family: Open Sans;
+      font-family: Poppins;
       font-weight: 600;
       line-height: 100%;
       letter-spacing: 0%;
@@ -39,7 +39,7 @@ export const CardContainer = styled.div`
     p {
       color: #3f18114d;
       font-size: 13px;
-      font-family: Open Sans;
+      font-family: Poppins;
       font-weight: 600;
       line-height: 100%;
       letter-spacing: 0%;
@@ -143,7 +143,7 @@ export const StyledWrapper = styled.div`
 export const Wrapper = styled.div<{ active: boolean }>`
   background-color: ${({ active }) => (active ? "#512615" : "transparent")};
   color: ${({ active }) => (active ? "#fff" : "#6F482959")};
-  font-family: Sen;
+  font-family: Poppins;
   font-weight: 400;
   font-size: 16px;
   line-height: 100%;
@@ -180,7 +180,7 @@ export const PriceCarrinho = styled.div`
   display: flex;
   align-items: center;
   border-radius: 46px;
-  font-family: Inter;
+  font-family: Poppins;
   font-weight: 600;
   font-size: 16px;
   line-height: 100%;
@@ -188,7 +188,7 @@ export const PriceCarrinho = styled.div`
 `;
 
 export const Price = styled.span`
-  font-family: Inter;
+  font-family: Poppins;
   font-weight: 900;
   font-size: 1rem;
   color: #ffffff;
@@ -237,7 +237,7 @@ export const QuantityDisplay = styled.span`
   margin: 0 0.8rem;
   font-size: 1rem;
   color: #061737;
-  font-family: Open Sans;
+  font-family: Poppins;
   font-weight: 700;
   font-size: 19px;
   line-height: 100%;
@@ -255,7 +255,7 @@ export const CartButton = styled.button`
   display: flex;
   align-items: center;
   border-radius: 46px;
-  font-family: Inter;
+  font-family: Poppins;
   font-weight: 600;
   font-size: 16px;
   line-height: 100%;

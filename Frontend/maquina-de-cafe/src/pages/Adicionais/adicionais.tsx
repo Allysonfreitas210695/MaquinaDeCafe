@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CartItem, useCart } from "../Carrinho/CardContext/cardcontext";
 import { getIngredienteadicional } from "../../service/ingredienteadicional_api";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 import {
   CoffeeCustomizationData,
@@ -25,7 +26,6 @@ export const Adicionais = () => {
   const [selectedAcucar, setSelectedAcucar] = useState<string | null>(null);
   const [selectedTamanho, setSelectedTamanho] =
     useState<ApiTamanhoXicara | null>(null);
-  const { clearCart } = useCart();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -57,17 +57,25 @@ export const Adicionais = () => {
     setSelectedAdicionais([]);
     setSelectedLeite(null);
     setSelectedAcucar(null);
-    setSelectedTamanho(currentCafe?.tamanhoSelecionado ?? null);
-  }, [currentIndex, coffeesToCustomize]);
+    setSelectedTamanho(currentCafe?.tamanhosXicara?.[0] || null);
+  }, [currentIndex, coffeesToCustomize, currentCafe]);
 
-  const handleCancelar = () => {
-    clearCart();
-    navigate("/pedido");
+  const handleVoltar = () => {
+    if (currentIndex > 0) {
+      navigate("/adicionais", {
+        state: {
+          coffeesToCustomize,
+          currentIndex: currentIndex - 1,
+        },
+      });
+    } else {
+      navigate("/pedido");
+    }
   };
 
-  const handleFinalizarPersonalizacao = () => {
+  const handleFinalizarPersonalizacao = async () => { 
     if (!currentCafe || !selectedTamanho) {
-      Swal.fire({
+      await Swal.fire({ 
         icon: "error",
         title: "Erro",
         text: "Dados do café ou tamanho selecionado ausentes.",
@@ -91,27 +99,22 @@ export const Adicionais = () => {
       preparation: currentCafe.preparation,
       imageSrc: currentCafe.imageSrc,
       tamanhoSelecionado: selectedTamanho,
-      adicionaisSelecionados: [
-        ...selectedAdicionais,
-        ...(selectedLeite
-          ? [{ id: "leite", nome: selectedLeite, valorExtra: 0, quantidade: 1 }]
-          : []),
-        ...(selectedAcucar
-          ? [
-              {
-                id: "acucar",
-                nome: selectedAcucar,
-                valorExtra: 0,
-                quantidade: 1,
-              },
-            ]
-          : []),
-      ],
+      adicionaisSelecionados: [...selectedAdicionais],
       quantidadeNoCarrinho: 1,
       valorTotalItem,
+      tipoLeite: selectedLeite || undefined,
+      tipoAcucar: selectedAcucar || undefined,
     };
 
     addToCart(newItem);
+
+    await Swal.fire({
+      icon: "success",
+      title: "Adicionado ao carrinho!",
+      timer: 1500,
+      showConfirmButton: false,
+      timerProgressBar: true,
+    });
 
     const nextIndex = currentIndex + 1;
     if (nextIndex < coffeesToCustomize.length) {
@@ -175,12 +178,11 @@ export const Adicionais = () => {
 
   return (
     <S.Container__Detalhes>
-      <div className="header__container">
-        <h1>Personalize o seu café</h1>
-        <S.BotoesTopo>
-          <button onClick={handleCancelar}>Cancelar</button>
-        </S.BotoesTopo>
-      </div>
+      <S.AcoesTopo>
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
+        <span>Personalize o seu café</span>
+      </S.AcoesTopo>
+
       <div className="detalhe__card_cafe">
         <div className="card__cafe">
           <CardAdicionais

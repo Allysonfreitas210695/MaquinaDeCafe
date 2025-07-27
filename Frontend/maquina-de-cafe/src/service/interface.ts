@@ -108,3 +108,18 @@ export interface Pedidos {
   pedidosItens: PedidoItem[]; 
  
 }
+
+export interface PedidoItemRequest {
+  cafeId: string; // GUID do café
+  quantidade: number;
+  tamanhoXicaraId: string; // GUID do tamanho da xícara
+  ingredientesAdicionaisIds: string[]; // Apenas GUIDs
+  tipoLeite: string;
+  tipoAcucar: string;
+}
+
+export interface CriarPedidoRequest {
+  formaPagamento: string;
+  valorTotal: number;
+  pedidosItens: PedidoItemRequest[];
+}

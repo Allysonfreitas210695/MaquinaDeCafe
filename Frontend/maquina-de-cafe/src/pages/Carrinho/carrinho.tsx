@@ -1,35 +1,68 @@
 import { useNavigate } from "react-router-dom";
 import * as S from "./style";
-import { useCart } from "./CardContext/cardcontext";
+import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { CardPagamento } from "../Pagamento/CardPagamento/card";
+import { BsArrowLeftShort } from "react-icons/bs";
+import Swal from 'sweetalert2';
 
 export const Carrinho = () => {
   const navigate = useNavigate();
   const { cart, clearCart } = useCart();
 
+  const totalFinal = cart.reduce((acc, item) => acc + item.valorTotalItem * item.quantidadeNoCarrinho, 0);
+
   const handleCancelar = () => {
     clearCart();
-    navigate("/pedido");
+    Swal.fire({
+      icon: "error",
+      title: "Pedido Cancelado!",
+      text: "Explore nosso devine café e comece um novo pedido!",
+      timer: 3000, 
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/pedido");
+    });
   };
 
   const handleContinuarComprando = () => {
     navigate("/pedido");
   };
 
-  const handleConfirmarPagamento = () => {
-    navigate("/pagamento");
+  const handleVoltar = () => {
+    navigate(-1);
+  };
+
+  const handleConfirmarPagamento = async () => {
+    if (cart.length === 0) {
+      await Swal.fire({
+        icon: "error",
+        title: "Não tem item no seu carrinho",
+        text: "Verifique novamente o seu pedido antes de finalizar.",
+        confirmButtonText: "Ok"
+      });
+      return;
+    }
+
+    navigate("/pagamento", { state: { cartItems: cart, total: totalFinal } });
   };
 
   return (
     <S.Container__Carrinho>
-      <S.BotoesTopo>
+      <S.AcoesTopo>
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
         <button onClick={handleCancelar}>Cancelar</button>
-      </S.BotoesTopo>
+      </S.AcoesTopo>
 
       <S.Pedido__Escolha_Carrinho>
-        <div className="carrinho">
-          <CardPagamento pedidos={cart} checkoutPath="/pagamento" />
-        </div>
+        {cart.length === 0 ? (
+          <S.CarrinhoVazio>
+            <p>Seu carrinho está vazio.</p>
+          </S.CarrinhoVazio>
+        ) : (
+          <div className="carrinho">
+            <CardPagamento pedidos={cart} checkoutPath="/pagamento" />
+          </div>
+        )}
       </S.Pedido__Escolha_Carrinho>
 
       <S.BotoesRodape>

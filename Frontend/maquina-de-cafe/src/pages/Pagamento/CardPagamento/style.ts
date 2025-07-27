@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
+  width: 100%;
 
   .container {
     padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
   }
 
   hr {
@@ -13,10 +16,12 @@ export const StyledWrapper = styled.div`
   }
 
   .card {
-    width: 400px;
+    width: 100%;
     box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01),
       0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09),
       0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
   }
 
   .title {
@@ -38,12 +43,6 @@ export const StyledWrapper = styled.div`
     }
   }
 
-  /* Cart */
-  .cart {
-    border-radius: 10px;
-    margin-top: 20px;
-  }
-
   .cart .steps {
     display: flex;
     flex-direction: column;
@@ -58,32 +57,6 @@ export const StyledWrapper = styled.div`
   .cart .steps .step .tipos {
     display: flex;
     flex-direction: column;
-    max-height: 150px; 
-    overflow-y: scroll;
-    padding-right: 10px;
-
-    &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-    border-radius: 8px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #432c1b; 
-    border-radius: 8px;
-    border: 2px solid #f1f1f1; 
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #432c1b;
-  }
-
-  scrollbar-width: thin;
-  scrollbar-color: #432c1b #f1f1f1;
-
 
     span {
       font-family: Poppins;
@@ -96,7 +69,7 @@ export const StyledWrapper = styled.div`
 
     p {
       padding-top: 5px;
-      font-family: Inter;
+      font-family: Poppins;
       font-weight: 400;
       font-size: 16px;
       color: #808080;
@@ -129,7 +102,7 @@ export const StyledWrapper = styled.div`
 
     p {
       padding-top: 5px;
-      font-family: Inter;
+      font-family: Poppins;
       font-weight: 400;
       font-size: 16px;
       color: #808080;
@@ -174,27 +147,61 @@ export const StyledWrapper = styled.div`
       }
     }
 
-    .valor {
+    .valor-e-acoes {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-end;
+      gap: 8px;
 
-      span {
-        font-family: Poppins;
-        font-weight: 700;
-        font-size: 16px;
-        color: #432c1b;
-        line-height: 100%;
-        letter-spacing: 0%;
+      .valor {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        span {
+          font-family: Poppins;
+          font-weight: 700;
+          font-size: 16px;
+          color: #432c1b;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+
+        p {
+          font-family: Poppins;
+          font-weight: 400;
+          font-size: 16px;
+          color: #aaaaaa;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
       }
 
-      p {
-        font-family: Poppins;
-        font-weight: 400;
-        font-size: 16px;
-        color: #aaaaaa;
-        line-height: 100%;
-        letter-spacing: 0%;
+      .acoes {
+        display: flex;
+
+        .botao-excluir {
+          background-color: transparent;
+          border: 1px solid #d9534f;
+          color: #d9534f;
+          padding: 6px 10px;
+          border-radius: 5px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:hover {
+            background-color: #d9534f;
+            color: white;
+          }
+
+          svg {
+            font-size: 1.2rem;
+          }
+        }
       }
     }
   }
@@ -228,7 +235,6 @@ export const StyledWrapper = styled.div`
     color: #000000;
   }
 
-  /* Promo */
   .promo form {
     display: grid;
     grid-template-columns: 1fr 80px;
@@ -332,7 +338,6 @@ export const StyledWrapper = styled.div`
       color: #432c1b;
     }
   }
-  /* Checkout */
   .payments .details {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -357,7 +362,7 @@ export const StyledWrapper = styled.div`
       letter-spacing: 0%;
       display: flex;
       align-items: end;
-     justify-content: end;
+      justify-content: end;
     }
   }
 
@@ -399,60 +404,37 @@ export const StyledWrapper = styled.div`
   }
 `;
 
-export const ResumoValores = styled.div`
-  margin-top: 1.5rem;
-  padding: 15px 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fafafa;
-  max-width: 350px;
-  margin-left: auto;
-  font-family: 'Poppins';
-`;
-
-export const Row = styled.div<{ isTotal?: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-family: 'Poppins';
-  font-size: ${(props) => (props.isTotal ? "1.15rem" : "1rem")};
-  font-weight: ${(props) => (props.isTotal ? "700" : "500")};
-  color: ${(props) => (props.isTotal ? "#512615" : "#333")};
-  border-top: ${(props) => (props.isTotal ? "1px solid #ccc" : "none")};
-  margin-top: ${(props) => (props.isTotal ? "0.5rem" : "0")};
-
-  margin-bottom: ${(props) => (!props.isTotal ? "1.2rem" : "0")};
-`;
-
 export const TotaisResumo = styled.div`
-  padding: 1rem 0;
-  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  border-top: 1px solid #c9996321;
+  margin-top: 10px;
 
-  .linha,
+  .linha {
+    display: flex;
+    justify-content: space-between;
+    font-family: Poppins;
+    font-size: 16px;
+    margin-bottom: 5px;
+
+    strong {
+      color: #3f1811;
+      font-weight: 600;
+    }
+    span {
+      color: #808080;
+      font-weight: 400;
+    }
+  }
+
   .total {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #5C3D2E; /* cor marrom usada no preço */
-  }
-
-  .total {
-    border-top: 1px solid #ccc;
-    padding-top: 0.8rem;
-    margin-top: 0.8rem;
+    font-family: Poppins;
+    font-size: 20px;
     font-weight: 700;
-  }
-
-  strong {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    color: #5C3D2E; /* aplica a cor marrom aos labels */
-  }
-
-  span {
-    font-family: 'Poppins', sans-serif;
-    color: #5C3D2E; /* mantém o mesmo marrom nos valores */
+    color: #432c1b;
+    margin-top: 10px;
   }
 `;

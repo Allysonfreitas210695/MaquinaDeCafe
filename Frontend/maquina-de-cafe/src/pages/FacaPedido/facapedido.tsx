@@ -20,6 +20,22 @@ interface TransformedCafe {
   tamanhosXicara: ApiTamanhoXicara[];
 }
 
+const coffeeNameToImageMap: { [key: string]: string } = {
+  "Café Espresso": Images.Machiato1,
+  "Café Americano": Images.CafeAmericano,
+  "Café Cappuccino": Images.Cappuccino,
+  "Café Tradicional": Images.CafeExpresso,
+  "Cold brew": Images.ColdBrew,
+  "Café Cortado": Images.Cortado,
+  "Café Flat White": Images.FlatWhite,
+  "Café Affogato": Images.Afogato,
+  "Café Latte": Images.Latte,
+  "Café Ristretto": Images.Ritretto,
+  "Café Mocha": Images.Mocha,
+  "Café Macchiato": Images.Machiato,
+};
+
+
 export const FacaPedido = () => {
   const [newsPedidos, setNewsPedidos] = useState<TransformedCafe[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
@@ -27,31 +43,31 @@ export const FacaPedido = () => {
   const navigate = useNavigate();
   const { cart, addToCart } = useCart();
 
-  async function fetchPedidos() {
-    try {
-      const data = await getCafes();
-      const transformedData = data.map((item) => ({
-        id: item.id,
-        nome: item.nome,
-        descricao: item.descricao,
-        categoria: item.categoria,
-        tempoPreparoSegundos: item.tempoPreparoSegundos,
-        imagemUrl: Images.CafeExpresso,
-        tamanhosXicara: item.tamanhosXicara,
-      }));
-      setNewsPedidos(transformedData);
-      setErrorFetchingCafes(false);
-    } catch (error) {
-      console.error(
-        `Erro ao buscar cafés: ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-      setErrorFetchingCafes(true);
-    }
-  }
-
   useEffect(() => {
+    const fetchPedidos = async () => {
+      try {
+        const data = await getCafes();
+
+        const transformedData = data.map((item) => {
+          const specificImage = coffeeNameToImageMap[item.nome];
+
+          return {
+            id: item.id,
+            nome: item.nome,
+            descricao: item.descricao,
+            categoria: item.categoria,
+            tempoPreparoSegundos: item.tempoPreparoSegundos,
+            imagemUrl: specificImage || Images.caffee,
+            tamanhosXicara: item.tamanhosXicara,
+          };
+        });
+        setNewsPedidos(transformedData);
+        setErrorFetchingCafes(false);
+      } catch (error) {
+        console.error("Falha ao buscar cafés:", error);
+        setErrorFetchingCafes(true);
+      }
+    };
     fetchPedidos();
   }, []);
 
@@ -95,8 +111,11 @@ export const FacaPedido = () => {
     });
   };
 
-  // Função para adicionar direto ao carrinho com validação de 10 itens no total
-  const handleAddDirect = (cafe: TransformedCafe) => {
+  // Funçao para adicionar direto ao carrinho com validação de 10 itens no total
+  const handleAddDirect = (
+    cafe: TransformedCafe,
+    selectedSizeFromCard: ApiTamanhoXicara | undefined
+  ) => {
     const totalNoCarrinho = cart.reduce(
       (total, item) => total + item.quantidadeNoCarrinho,
       0
@@ -110,17 +129,13 @@ export const FacaPedido = () => {
       });
     }
 
-    if (!cafe.tamanhosXicara || cafe.tamanhosXicara.length === 0) {
+    if (!selectedSizeFromCard) {
       return Swal.fire({
-        icon: "error",
-        title: "Café sem tamanho disponível",
-        text: "Não foi possível adicionar este café ao carrinho.",
+        icon: "warning",
+        title: "Selecione um tamanho",
+        text: "Por favor, selecione um tamanho de xícara para adicionar ao carrinho.",
       });
     }
-
-    const tamanhoPadrao = [...cafe.tamanhosXicara].sort(
-      (a, b) => a.valor - b.valor
-    )[0];
 
     const novoItem = {
       id: cafe.id + "-" + Date.now(),
@@ -129,10 +144,10 @@ export const FacaPedido = () => {
       tag: cafe.categoria,
       preparation: cafe.tempoPreparoSegundos,
       imageSrc: cafe.imagemUrl ?? Images.CafeExpresso,
-      tamanhoSelecionado: tamanhoPadrao,
+      tamanhoSelecionado: selectedSizeFromCard,
       adicionaisSelecionados: [],
       quantidadeNoCarrinho: 1,
-      valorTotalItem: tamanhoPadrao.valor,
+      valorTotalItem: selectedSizeFromCard.valor,
     };
 
     addToCart(novoItem);
@@ -164,9 +179,12 @@ export const FacaPedido = () => {
             );
             if (total === 0) {
               Swal.fire({
-                icon: "error",
+                icon: "info",
                 title: "Carrinho Vazio!",
                 text: "Não encontramos nenhum item no seu carrinho.",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
               });
               return;
             }
@@ -201,16 +219,19 @@ export const FacaPedido = () => {
                 imageSrc={imagemUrl ?? Images.CafeExpresso}
                 tamanhosXicara={tamanhosXicara}
                 onPersonalizar={handlePersonalizar}
-                onAddToCart={() =>
-                  handleAddDirect({
-                    id,
-                    nome,
-                    descricao,
-                    categoria,
-                    tempoPreparoSegundos,
-                    imagemUrl,
-                    tamanhosXicara,
-                  })
+                onAddToCart={(_, selectedSize, cafeData) =>
+                  handleAddDirect(
+                    {
+                      id: cafeData.id,
+                      nome: cafeData.title,
+                      descricao: cafeData.description,
+                      categoria: cafeData.tag,
+                      tempoPreparoSegundos: cafeData.preparation,
+                      imagemUrl: cafeData.imageSrc,
+                      tamanhosXicara: cafeData.tamanhosXicara,
+                    },
+                    selectedSize
+                  )
                 }
               />
             )

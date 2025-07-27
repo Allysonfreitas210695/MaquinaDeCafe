@@ -3,24 +3,163 @@ import { useNavigate } from "react-router-dom";
 import { Images } from "../../assets/Images";
 import { useCart } from "../Carrinho/CardContext/cardcontext";
 import { useState } from "react";
+import { CriarPedidoRequest } from "../../service/interface";
+import { criarPedido } from "../../service/pedido_api";
+import axios from "axios";
+import { BsArrowLeftShort } from "react-icons/bs";
+import Swal from 'sweetalert2';
+
+const mapTipoAcucarToBackend = (tipoFrontend: string | null): string => {
+  switch (tipoFrontend) {
+    case "Açucar": return "Acucar"; 
+    case "Mascavo": return "Mascavo";
+    case "Adoçante": return "Adocante"; 
+    case "S/Açucar": return "SemAcucar";
+    default: return "SemAcucar"; 
+  }
+};
+
+const mapTipoLeiteToBackend = (tipoFrontend: string | null): string => {
+  switch (tipoFrontend) {
+    case "Integral": return "Integral";
+    case "Desnatado": return "Desnatado";
+    case "0 Lactose": return "ZeroLactose"; 
+    case "S/Leite": return "SemLeite";
+    default: return "Integral"; 
+  }
+};
 
 export const TipoPagamento = () => {
   const navigate = useNavigate();
-  const { getCartTotal, clearCart } = useCart();
+  const { cart, getCartTotal, clearCart } = useCart();
   const [formaSelecionada, setFormaSelecionada] = useState<
-    "pix" | "dinheiro" | null
+    "Pix" | "Dinheiro" | null
   >(null);
 
-  const handleCancelar = () => {
-    clearCart();
-    navigate("/pedido");
-  };
+  const [loading, setLoading] = useState(false);
 
-  const handleConfirmar = () => {
-    if (formaSelecionada) {
-      navigate("/pedidofinalizado");
+    const handleCancelar = () => {
+      clearCart();
+      Swal.fire({
+        icon: "error",
+        title: "Pedido Cancelado!",
+        text: "Explore nosso devine café e comece um novo pedido!",
+        timer: 3000, 
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/pedido");
+      });
+    };
+
+  const handleVoltar = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/carrinho");
     }
   };
+
+  const extrairGuidPuro = (id: string) => {
+    const guidRegex =
+      /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
+    const match = guidRegex.exec(id);
+    return match ? match[0] : id;
+  };
+
+  const handleConfirmarPagamento = async () => {
+  if (!formaSelecionada) {
+    alert("Por favor, selecione uma forma de pagamento.");
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const pedidosItensParaBackend = cart.map((item) => ({
+      cafeId: extrairGuidPuro(item.id) ?? "",
+      quantidade: item.quantidadeNoCarrinho,
+      tamanhoXicaraId: item.tamanhoSelecionado?.id || "",
+      ingredientesAdicionaisIds: item.adicionaisSelecionados
+        .map((adicional) => extrairGuidPuro(adicional.id))
+        .filter((id): id is string => id !== null),
+      tipoLeite: mapTipoLeiteToBackend(item.tipoLeite ?? null),
+      tipoAcucar: mapTipoAcucarToBackend(item.tipoAcucar ?? null),
+      observacao: item.observacao || "",
+    }));
+
+    const pedido: CriarPedidoRequest = {
+      formaPagamento: formaSelecionada,
+      pedidosItens: pedidosItensParaBackend,
+      valorTotal: getCartTotal(),
+    };
+
+    const response = await criarPedido(pedido);
+
+    const pedidoId = response?.id || response?.pedidoId;
+
+    const pedidosItensParaPedidoFinalizado = cart.map((item) => ({
+      id: item.id,
+      nome: item.title,
+      quantidade: item.quantidadeNoCarrinho,
+      valorUnitario: item.valorTotalItem,
+      ml: item.tamanhoSelecionado?.ml,
+      tipoLeite: item.tipoLeite || "Integral",
+      tipoAcucar: item.tipoAcucar || "SemAcucar",
+      observacao: item.observacao || "",
+      imageSrc: item.imageSrc || Images.caffee,
+      preparation: item.preparation,
+    }));
+
+    if (formaSelecionada === "Pix") {
+      const hashPix = response?.hashPix;
+      if (hashPix) {
+        navigate("/pagamentopix", {
+          state: {
+            hashPix,
+            pedidoId,
+            formaPagamento: formaSelecionada,
+            valorTotal: getCartTotal(),
+            pedidosItens: pedidosItensParaPedidoFinalizado,
+            statusPedido: response?.status || "Criado",
+          },
+        });
+      } else {
+        alert("Erro: Hash PIX não retornado.");
+        handleCancelar(); 
+      }
+    } else if (formaSelecionada === "Dinheiro") {
+      setTimeout(() => {
+        if (
+          response?.status === "Sucesso" ||
+          response?.status === "Criado" ||
+          response?.id
+        ) {
+          navigate("/pedidofinalizado", {
+            state: {
+              pedidoId: pedidoId,
+              formaPagamento: formaSelecionada,
+              valorTotal: getCartTotal(),
+              pedidosItens: pedidosItensParaPedidoFinalizado,
+              statusPedido: response?.status || "Criado",
+              fullResponse: response,
+            },
+          });
+        } else {
+          handleCancelar(); 
+        }
+      }, 0);
+    }
+  } catch (error) {
+    console.error("Erro ao criar pedido:", error);
+    let errorMessage = "Ocorreu um erro inesperado.";
+    if (axios.isAxiosError(error)) {
+      errorMessage = error.response?.data?.errorMessage || error.message;
+    }
+    alert(`Erro: ${errorMessage}`);
+    handleCancelar(); 
+  } finally {
+    setLoading(false);
+  }
+};
 
   const dataHoraAtual = new Date().toLocaleString("pt-BR", {
     day: "2-digit",
@@ -34,14 +173,13 @@ export const TipoPagamento = () => {
 
   return (
     <S.Container__Tipo_Pagamento>
-      <S.Pagamento__Header>
-        <S.Titulo__pagamento_Header>
-          Pronto para um Devine Café?
-        </S.Titulo__pagamento_Header>
-        <S.BotoesTopo>
-          <button onClick={handleCancelar}>Cancelar</button>
-        </S.BotoesTopo>
-      </S.Pagamento__Header>
+      <S.AcoesTopo>
+        <BsArrowLeftShort onClick={handleVoltar} className="short" />
+        <span>Pronto para um Devine Café?</span>
+        <button onClick={handleCancelar} className="cancelar-btn">
+          Cancelar
+        </button>
+      </S.AcoesTopo>
 
       <S.Tipo__Confirmar_Pagamento>
         <S.Conteudo__Pagamento>
@@ -56,11 +194,9 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "pix"
-                        ? "selecionado"
-                        : "desabilitado"
+                      formaSelecionada === "Pix" ? "selected" : ""
                     }
-                    onClick={() => setFormaSelecionada("pix")}
+                    onClick={() => setFormaSelecionada("Pix")}
                   >
                     <img src={Images.Veto1} alt="Pix" />
                     <span>Pix</span>
@@ -71,11 +207,9 @@ export const TipoPagamento = () => {
                 <S.Button>
                   <button
                     className={
-                      formaSelecionada === "dinheiro"
-                        ? "selecionado"
-                        : "desabilitado"
+                      formaSelecionada === "Dinheiro" ? "selected" : ""
                     }
-                    onClick={() => setFormaSelecionada("dinheiro")}
+                    onClick={() => setFormaSelecionada("Dinheiro")}
                   >
                     <img src={Images.Wallet} alt="Dinheiro" />
                     <span>Dinheiro</span>
@@ -116,8 +250,8 @@ export const TipoPagamento = () => {
 
           <button
             className="confirmar"
-            onClick={handleConfirmar}
-            disabled={!formaSelecionada}
+            onClick={handleConfirmarPagamento}
+            disabled={!formaSelecionada || loading}
           >
             Confirmar Pagamento
           </button>

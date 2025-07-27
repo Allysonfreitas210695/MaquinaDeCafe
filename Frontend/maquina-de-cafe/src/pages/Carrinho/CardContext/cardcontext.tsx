@@ -1,4 +1,3 @@
-// src/context/CartContext.tsx
 import {
   createContext,
   useState,
@@ -19,7 +18,12 @@ export interface CartItem {
   tamanhoSelecionado: ITamanhoXicaraProps;
   adicionaisSelecionados: Adicional[];
   quantidadeNoCarrinho: number;
-  valorTotalItem: number;
+  valorTotalItem: number; 
+  tipoLeite?: string;
+  tipoAcucar?: string;
+  observacao?: string;
+  nome?: string;
+  ml?: number;
 }
 
 interface CartContextType {
@@ -28,15 +32,12 @@ interface CartContextType {
   removeFromCart: (itemId: string) => void;
   updateItemQuantity: (itemId: string, quantity: number) => void;
   clearCart: () => void;
-  getCartSubtotal: () => number;
-  getServiceFee: () => number;
   getCartTotal: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  // Inicializa o carrinho tentando carregar do localStorage
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
       const localData = localStorage.getItem("coffee_cart");
@@ -47,7 +48,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   });
 
-  // Salva o carrinho no localStorage sempre que ele muda
   useEffect(() => {
     try {
       localStorage.setItem("coffee_cart", JSON.stringify(cart));
@@ -57,7 +57,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [cart]);
 
   const addToCart = (item: CartItem) => {
-    setCart((prevCart) => [...prevCart, item]);
+    setCart((prevCart) => {
+      const existingItemIndex = prevCart.findIndex(
+        (i) => i.id === item.id && 
+                 i.tamanhoSelecionado?.id === item.tamanhoSelecionado?.id &&
+                 JSON.stringify(i.adicionaisSelecionados) === JSON.stringify(item.adicionaisSelecionados) &&
+                 i.tipoLeite === item.tipoLeite && 
+                 i.tipoAcucar === item.tipoAcucar
+      );
+
+      if (existingItemIndex > -1) {
+        const updatedCart = [...prevCart];
+        const existingItem = updatedCart[existingItemIndex];
+        
+        updatedCart[existingItemIndex] = {
+          ...existingItem,
+          quantidadeNoCarrinho: existingItem.quantidadeNoCarrinho + item.quantidadeNoCarrinho,
+        };
+        return updatedCart;
+      } else {
+        return [...prevCart, item];
+      }
+    });
   };
 
   const removeFromCart = (itemId: string) => {
@@ -76,20 +97,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart([]);
   };
 
-  const getCartSubtotal = () => {
-    return cart.reduce(
+  const getCartTotal = useMemo(() => {
+    return () => cart.reduce(
       (total, item) => total + item.valorTotalItem * item.quantidadeNoCarrinho,
       0
     );
-  };
-
-  const getServiceFee = () => {
-    return getCartSubtotal() * 0.1;
-  };
-
-  const getCartTotal = () => {
-    return getCartSubtotal() + getServiceFee();
-  };
+  }, [cart]);
 
   const contextValue = useMemo(
     () => ({
@@ -98,11 +111,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       removeFromCart,
       updateItemQuantity,
       clearCart,
-      getCartSubtotal,
-      getServiceFee,
       getCartTotal,
     }),
-    [cart]
+    [cart, getCartTotal]
   );
 
   return (
