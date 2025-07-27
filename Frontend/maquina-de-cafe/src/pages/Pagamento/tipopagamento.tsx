@@ -7,7 +7,7 @@ import { CriarPedidoRequest } from "../../service/interface";
 import { criarPedido } from "../../service/pedido_api";
 import axios from "axios";
 import { BsArrowLeftShort } from "react-icons/bs";
-
+import Swal from 'sweetalert2';
 
 const mapTipoAcucarToBackend = (tipoFrontend: string | null): string => {
   switch (tipoFrontend) {
@@ -38,10 +38,18 @@ export const TipoPagamento = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleCancelar = () => {
-    clearCart();
-    navigate("/pedido");
-  };
+    const handleCancelar = () => {
+      clearCart();
+      Swal.fire({
+        icon: "error",
+        title: "Pedido Cancelado!",
+        text: "Explore nosso devine café e comece um novo pedido!",
+        timer: 3000, 
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/pedido");
+      });
+    };
 
   const handleVoltar = () => {
     if (window.history.length > 1) {
@@ -59,110 +67,99 @@ export const TipoPagamento = () => {
   };
 
   const handleConfirmarPagamento = async () => {
-    if (!formaSelecionada) {
-      alert("Por favor, selecione uma forma de pagamento.");
-      return;
-    }
+  if (!formaSelecionada) {
+    alert("Por favor, selecione uma forma de pagamento.");
+    return;
+  }
 
-    setLoading(true);
-    try {
-      const pedidosItens = cart.map((item) => ({
-        cafeId: extrairGuidPuro(item.id) ?? "",
-        quantidade: item.quantidadeNoCarrinho,
-        tamanhoXicaraId: item.tamanhoSelecionado?.id || "",
-        ingredientesAdicionaisIds: item.adicionaisSelecionados
-          .map((adicional) => extrairGuidPuro(adicional.id))
-          .filter((id): id is string => id !== null),
-        tipoLeite: mapTipoLeiteToBackend(item.tipoLeite ?? null),
-        tipoAcucar: mapTipoAcucarToBackend(item.tipoAcucar ?? null),
-        observacao: item.observacao || "",
-      }));
+  setLoading(true);
+  try {
+    const pedidosItensParaBackend = cart.map((item) => ({
+      cafeId: extrairGuidPuro(item.id) ?? "",
+      quantidade: item.quantidadeNoCarrinho,
+      tamanhoXicaraId: item.tamanhoSelecionado?.id || "",
+      ingredientesAdicionaisIds: item.adicionaisSelecionados
+        .map((adicional) => extrairGuidPuro(adicional.id))
+        .filter((id): id is string => id !== null),
+      tipoLeite: mapTipoLeiteToBackend(item.tipoLeite ?? null),
+      tipoAcucar: mapTipoAcucarToBackend(item.tipoAcucar ?? null),
+      observacao: item.observacao || "",
+    }));
 
-      const pedido: CriarPedidoRequest = {
-        formaPagamento: formaSelecionada,
-        pedidosItens,
-        valorTotal: getCartTotal(),
-      };
+    const pedido: CriarPedidoRequest = {
+      formaPagamento: formaSelecionada,
+      pedidosItens: pedidosItensParaBackend,
+      valorTotal: getCartTotal(),
+    };
 
-      const response = await criarPedido(pedido);
+    const response = await criarPedido(pedido);
 
-      console.log("Resposta da criação do pedido:", response);
+    const pedidoId = response?.id || response?.pedidoId;
 
-      const pedidoId = response?.id || response?.pedidoId;
+    const pedidosItensParaPedidoFinalizado = cart.map((item) => ({
+      id: item.id,
+      nome: item.title,
+      quantidade: item.quantidadeNoCarrinho,
+      valorUnitario: item.valorTotalItem,
+      ml: item.tamanhoSelecionado?.ml,
+      tipoLeite: item.tipoLeite || "Integral",
+      tipoAcucar: item.tipoAcucar || "SemAcucar",
+      observacao: item.observacao || "",
+      imageSrc: item.imageSrc || Images.caffee,
+      preparation: item.preparation,
+    }));
 
-      if (formaSelecionada === "Pix") {
-        const hashPix = response?.hashPix;
-        if (hashPix) {
-          navigate("/pagamentopix", {
+    if (formaSelecionada === "Pix") {
+      const hashPix = response?.hashPix;
+      if (hashPix) {
+        navigate("/pagamentopix", {
+          state: {
+            hashPix,
+            pedidoId,
+            formaPagamento: formaSelecionada,
+            valorTotal: getCartTotal(),
+            pedidosItens: pedidosItensParaPedidoFinalizado,
+            statusPedido: response?.status || "Criado",
+          },
+        });
+      } else {
+        alert("Erro: Hash PIX não retornado.");
+        handleCancelar(); 
+      }
+    } else if (formaSelecionada === "Dinheiro") {
+      setTimeout(() => {
+        if (
+          response?.status === "Sucesso" ||
+          response?.status === "Criado" ||
+          response?.id
+        ) {
+          navigate("/pedidofinalizado", {
             state: {
-              hashPix,
-              pedidoId,
+              pedidoId: pedidoId,
               formaPagamento: formaSelecionada,
               valorTotal: getCartTotal(),
-              pedidosItens: cart.map((item)  => ({
-                id: item.id,
-                nome: item.title,
-                quantidade: item.quantidadeNoCarrinho,
-                valorUnitario: item.valorTotalItem,
-                ml: item.tamanhoSelecionado?.ml,
-                tipoLeite: item.tipoLeite || "Integral",
-                tipoAcucar: item.tipoAcucar || "SemAcucar",
-                observacao: item.observacao || "",
-                imageSrc: item.imageSrc || Images.caffee,
-              })),
+              pedidosItens: pedidosItensParaPedidoFinalizado,
               statusPedido: response?.status || "Criado",
-              tempoPreparoEstimado: "8 - 12 minutos",
+              fullResponse: response,
             },
           });
         } else {
-          alert("Erro: Hash PIX não retornado.");
-          navigate("/cancelado");
+          handleCancelar(); 
         }
-      } else if (formaSelecionada === "Dinheiro") {
-        setTimeout(() => {
-          if (
-            response?.status === "Sucesso" ||
-            response?.status === "Criado" ||
-            response?.id
-          ) {
-            navigate("/pedidofinalizado", {
-              state: {
-                pedidoId: pedidoId,
-                formaPagamento: formaSelecionada,
-                valorTotal: getCartTotal(),
-                pedidosItens: cart.map((item) => ({
-                  id: item.id,
-                  nome: item.title,
-                  quantidade: item.quantidadeNoCarrinho,
-                  valorUnitario: item.valorTotalItem,
-                  ml: item.tamanhoSelecionado?.ml,
-                  tipoLeite: item.tipoLeite || "Integral",
-                  tipoAcucar: item.tipoAcucar || "SemAcucar",
-                  observacao: item.observacao || "",
-                  imageSrc: item.imageSrc || Images.caffee,
-                })),
-                statusPedido: response?.status || "Criado",
-                tempoPreparoEstimado: "8 - 12 minutos",
-                fullResponse: response,
-              },
-            });
-          } else {
-            navigate("/cancelado");
-          }
-        }, 0);
-      }
-    } catch (error) {
-      console.error("Erro ao criar pedido:", error);
-      let errorMessage = "Ocorreu um erro inesperado.";
-      if (axios.isAxiosError(error)) {
-        errorMessage = error.response?.data?.errorMessage || error.message;
-      }
-      alert(`Erro: ${errorMessage}`);
-      navigate("/cancelado");
-    } finally {
-      setLoading(false);
+      }, 0);
     }
-  };
+  } catch (error) {
+    console.error("Erro ao criar pedido:", error);
+    let errorMessage = "Ocorreu um erro inesperado.";
+    if (axios.isAxiosError(error)) {
+      errorMessage = error.response?.data?.errorMessage || error.message;
+    }
+    alert(`Erro: ${errorMessage}`);
+    handleCancelar(); 
+  } finally {
+    setLoading(false);
+  }
+};
 
   const dataHoraAtual = new Date().toLocaleString("pt-BR", {
     day: "2-digit",
