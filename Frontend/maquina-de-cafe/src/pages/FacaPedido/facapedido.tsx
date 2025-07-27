@@ -43,7 +43,7 @@ export const FacaPedido = () => {
   const navigate = useNavigate();
   const { cart, addToCart } = useCart();
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchPedidos = async () => {
       try {
         const data = await getCafes();
@@ -114,7 +114,7 @@ export const FacaPedido = () => {
   // Funçao para adicionar direto ao carrinho com validação de 10 itens no total
   const handleAddDirect = (
     cafe: TransformedCafe,
-    selectedSizeFromCard: ApiTamanhoXicara | undefined 
+    selectedSizeFromCard: ApiTamanhoXicara | undefined
   ) => {
     const totalNoCarrinho = cart.reduce(
       (total, item) => total + item.quantidadeNoCarrinho,
@@ -130,11 +130,11 @@ export const FacaPedido = () => {
     }
 
     if (!selectedSizeFromCard) {
-        return Swal.fire({
-            icon: "warning",
-            title: "Selecione um tamanho",
-            text: "Por favor, selecione um tamanho de xícara para adicionar ao carrinho.",
-        });
+      return Swal.fire({
+        icon: "warning",
+        title: "Selecione um tamanho",
+        text: "Por favor, selecione um tamanho de xícara para adicionar ao carrinho.",
+      });
     }
 
     const novoItem = {
@@ -144,7 +144,7 @@ export const FacaPedido = () => {
       tag: cafe.categoria,
       preparation: cafe.tempoPreparoSegundos,
       imageSrc: cafe.imagemUrl ?? Images.CafeExpresso,
-      tamanhoSelecionado: selectedSizeFromCard, 
+      tamanhoSelecionado: selectedSizeFromCard,
       adicionaisSelecionados: [],
       quantidadeNoCarrinho: 1,
       valorTotalItem: selectedSizeFromCard.valor,
@@ -179,9 +179,12 @@ export const FacaPedido = () => {
             );
             if (total === 0) {
               Swal.fire({
-                icon: "error",
+                icon: "info",
                 title: "Carrinho Vazio!",
                 text: "Não encontramos nenhum item no seu carrinho.",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
               });
               return;
             }
