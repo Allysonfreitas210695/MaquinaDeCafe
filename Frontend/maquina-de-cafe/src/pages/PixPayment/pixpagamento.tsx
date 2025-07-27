@@ -1,14 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import QRCode from "react-qr-code";
 import { atualizarStatusPedido } from "../../service/pedido_api";
 import "./pix.css";
 import { FaCopy, FaCheckCircle, FaSpinner } from 'react-icons/fa';
 import { BsArrowLeftShort } from "react-icons/bs";
+import Swal from 'sweetalert2';
+import { useCart } from "../Carrinho/CardContext/cardcontext";
 
 export const PagamentoPix = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { clearCart } = useCart(); 
 
   const {
     hashPix,
@@ -24,21 +27,35 @@ export const PagamentoPix = () => {
   const [copied, setCopied] = useState(false);
   const [loadingPayment, setLoadingPayment] = useState(false);
 
+  const handleCancelar = useCallback(() => {
+    clearCart(); 
+
+    Swal.fire({
+      icon: "error",
+      title: "Pedido Cancelado!",
+      text: "Explore nosso devine café e comece um novo pedido!",
+      timer: 3000,
+      showConfirmButton: false,
+    }).then(() => {
+      navigate("/pedido"); 
+    });
+  }, [navigate, clearCart]); 
+
   useEffect(() => {
     if (!pedidoId) {
       console.error("PedidoId não recebido na tela de Pagamento Pix.");
-      navigate("/cancelado");
+      handleCancelar();
       return;
     }
 
     setLoadingPayment(true);
 
     const paymentConfirmationTimer = setTimeout(async () => {
-      setPago(true); 
+      setPago(true);
       setLoadingPayment(false);
 
       try {
-        await atualizarStatusPedido(pedidoId, "Pronto"); 
+        await atualizarStatusPedido(pedidoId, "Pronto");
 
         const redirectTimer = setTimeout(() => {
           navigate("/pedidofinalizado", {
@@ -58,9 +75,9 @@ export const PagamentoPix = () => {
         console.error("Erro ao atualizar status do pedido após pagamento PIX:", error);
         alert("Ocorreu um erro ao confirmar o pagamento do pedido.");
         setLoadingPayment(false);
-        navigate("/cancelado");
+        handleCancelar();
       }
-    }, 7000); 
+    }, 7000);
 
     return () => clearTimeout(paymentConfirmationTimer);
   }, [
@@ -70,7 +87,8 @@ export const PagamentoPix = () => {
     valorTotal,
     pedidosItens,
     statusInicialPedido,
-    tempoPreparoEstimado
+    tempoPreparoEstimado,
+    handleCancelar 
   ]);
 
   const handleCopy = () => {
