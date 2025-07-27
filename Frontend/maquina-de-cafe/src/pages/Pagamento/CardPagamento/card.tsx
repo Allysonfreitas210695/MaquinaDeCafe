@@ -20,7 +20,7 @@ export const CardPagamento = ({
       Swal.fire({
         icon: "info",
         title: "Carrinho Vazio!",
-        text: "Seu carrinho está vazio. Redirecionando para a página de pedidos.",
+        text: "Não encontramos nenhum item no seu carrinho.",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
