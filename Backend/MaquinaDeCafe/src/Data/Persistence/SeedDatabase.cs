@@ -22,7 +22,7 @@ public static class SeedDatabaseInitial
 
         foreach (var cafe in cafes)
         {
-            var quantidadeAvaliacoes = faker.Random.Int(1, 2);
+            var quantidadeAvaliacoes = faker.Random.Int(1, 5);
             var avaliacoes = new List<AvaliacaoCafe>();
 
             for (int i = 0; i < quantidadeAvaliacoes; i++)
