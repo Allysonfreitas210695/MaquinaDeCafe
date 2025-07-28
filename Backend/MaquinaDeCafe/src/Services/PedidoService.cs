@@ -39,8 +39,6 @@ public class PedidoService : IPedidoRepository
                     throw new NotFoundException(ErrorsMensagem.MaximoAdicionaisPorCafe);
             }
 
-            await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
             var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo, request.ValorTotal);
             await _dbContext.Pedidos.AddAsync(pedido);
 
@@ -113,11 +111,14 @@ public class PedidoService : IPedidoRepository
             }
 
             await _dbContext.SaveChangesAsync();
-            await transaction.CommitAsync();
 
             return await GetItemByIdAsync(pedido.Id);
         }
         catch (NotFoundException)
+        {
+            throw;
+        }
+        catch (ErrorOnValidationException)
         {
             throw;
         }
