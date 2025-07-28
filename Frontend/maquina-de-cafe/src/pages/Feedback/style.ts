@@ -2,16 +2,15 @@ import styled from "styled-components";
 
 export const Container__Feedback = styled.div`
   background-color: #ffffff;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
-  font-family: 'Poppins', sans-serif;
-  position: relative; 
+  font-family: "Poppins", sans-serif;
+  position: relative;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -28,7 +27,7 @@ export const Container__Feedback = styled.div`
   }
 
   @media (max-width: 992px) {
-    height: auto; 
+    height: auto;
     min-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
@@ -38,40 +37,40 @@ export const Container__Feedback = styled.div`
 export const Conteudo__Feedback = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
-  box-sizing: border-box; 
+  align-items: flex-start;
+  box-sizing: border-box;
 
-  width: 100%; 
+  width: 100%;
   max-width: 1000px;
-  min-width: 300px; 
-  
-  padding: 200px 40px 40px 40px;
+  min-width: 300px;
 
-  @media (max-width: 1200px) { 
+  padding: 30px 40px 40px 40px;
+
+  @media (max-width: 1200px) {
     max-width: 900px;
-  padding: 200px 40px 40px 40px;
+    padding: 30px 40px 40px 40px;
   }
 
   @media (max-width: 992px) {
-    width: 100%; 
+    width: 100%;
     max-width: 100%;
     padding: 20px 15px 15px 15px;
-    align-items: center; 
+    align-items: center;
     text-align: center;
   }
 
   @media (max-width: 768px) {
-    padding: 15px 10px 10px 10px; 
+    padding: 15px 10px 10px 10px;
   }
 `;
 
 export const Titulo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 3px;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   width: 100%;
   min-height: 60px;
   overflow: visible;
@@ -79,27 +78,27 @@ export const Titulo = styled.div`
   @media (max-width: 992px) {
     align-items: center;
     text-align: center;
-    min-height: 50px; 
+    min-height: 50px;
   }
 
   @media (max-width: 768px) {
-    min-height: 40px; 
+    min-height: 40px;
   }
 
   span {
     font-weight: 700;
     font-size: 32px;
-    line-height: 1.2; 
+    line-height: 1.2;
     color: #3f1811;
-    white-space: normal; 
-    word-break: break-word; 
-    hyphens: auto; 
-    max-width: 100%; 
-    overflow: visible; 
-    text-overflow: clip; 
-    display: inline-block; 
-    min-width: 1px; 
-    min-height: 1.2em; 
+    white-space: normal;
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    overflow: visible;
+    text-overflow: clip;
+    display: inline-block;
+    min-width: 1px;
+    min-height: 1.2em;
 
     @media (min-width: 1001px) {
       font-size: 38px;
@@ -108,19 +107,19 @@ export const Titulo = styled.div`
 
     @media (max-width: 992px) {
       font-size: 26px;
-      line-height: 1.25; 
+      line-height: 1.25;
     }
     @media (max-width: 768px) {
       font-size: 22px;
-      line-height: 1.3; 
+      line-height: 1.3;
     }
     @media (max-width: 480px) {
       font-size: 18px;
-      line-height: 1.4; 
-      white-space: normal; 
-      overflow: visible; 
-      text-overflow: clip; 
-      max-width: 100%; 
+      line-height: 1.4;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      max-width: 100%;
     }
     @media (max-width: 380px) {
       font-size: 16px;
@@ -133,9 +132,9 @@ export const Titulo = styled.div`
     font-size: 20px;
     line-height: 1.2;
     color: #512615;
-    max-width: 100%; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @media (min-width: 1001px) {
       font-size: 24px;
@@ -154,22 +153,21 @@ export const Titulo = styled.div`
 export const Atendimento = styled.div`
   background-color: #f7f0e3;
   border-radius: 8px;
-  width: 100%; 
-  max-width: 100%; 
+  width: 100%;
+  max-width: 100%;
   padding: 15px 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 8px;
-  margin-top: 20px; 
-  margin-bottom: 15px; 
+  margin-top: 20px;
+  margin-bottom: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  box-sizing: border-box; 
-
+  box-sizing: border-box;
 
   @media (max-width: 992px) {
-    margin: 15px auto; 
+    margin: 15px auto;
     align-items: center;
     text-align: center;
   }
@@ -179,7 +177,7 @@ export const Atendimento = styled.div`
     font-size: 20px;
     line-height: 1.2;
     color: #512615;
-    max-width: 100%; 
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 
@@ -197,7 +195,7 @@ export const Atendimento = styled.div`
     font-size: 14px;
     line-height: 1.3;
     color: #512615;
-    max-width: 100%; 
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 
@@ -214,17 +212,16 @@ export const Atendimento = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center; 
+    justify-content: start;
     gap: 15px;
     margin-top: 10px;
     width: 100%;
-    box-sizing: border-box; 
-
+    box-sizing: border-box;
 
     @media (max-width: 480px) {
       flex-wrap: wrap;
       gap: 10px;
-      padding: 0 5px; 
+      padding: 0 5px;
       justify-content: center;
     }
   }
@@ -241,12 +238,12 @@ export const Atendimento = styled.div`
     padding: 8px;
     border-radius: 10px;
     transition: all 0.2s ease-in-out;
-    min-width: 70px; 
-    flex-shrink: 0; 
+    min-width: 70px;
+    flex-shrink: 0;
     box-sizing: border-box;
 
     &:hover {
-      border-color: #B6895B;
+      border-color: #b6895b;
       transform: translateY(-2px);
       box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.06);
     }
@@ -265,10 +262,10 @@ export const Atendimento = styled.div`
       font-size: 12px;
       line-height: 1.2;
       color: #512615;
-      white-space: nowrap; 
-      overflow: hidden; 
-      text-overflow: ellipsis; 
-      max-width: 100%; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
 
       @media (min-width: 1001px) {
         font-size: 13px;
@@ -276,12 +273,12 @@ export const Atendimento = styled.div`
     }
 
     &.selected {
-      border-color: #B6895B;
+      border-color: #b6895b;
       background-color: #fffaf0;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       transform: translateY(-3px);
       span {
-        color: #B6895B;
+        color: #b6895b;
       }
     }
   }
@@ -290,18 +287,17 @@ export const Atendimento = styled.div`
 export const Produto = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 10px;
-  width: 100%; 
-  max-width: 100%; 
+  width: 100%;
+  max-width: 100%;
   margin-bottom: 20px;
   background-color: #f7f0e3;
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  box-sizing: border-box; 
-
+  box-sizing: border-box;
 
   @media (max-width: 992px) {
     margin: 15px auto;
@@ -312,7 +308,7 @@ export const Produto = styled.div`
   .header-produto {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
     justify-content: flex-start;
     gap: 2px;
     width: 100%;
@@ -329,7 +325,7 @@ export const Produto = styled.div`
       line-height: 1.2;
       color: #512615;
       margin-bottom: 0;
-      max-width: 100%; 
+      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
 
@@ -343,7 +339,7 @@ export const Produto = styled.div`
       font-size: 13px;
       line-height: 1.3;
       color: #512615;
-      max-width: 100%; 
+      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
 
@@ -367,7 +363,7 @@ export const Produto = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
   }
 
   .produto__conteudo {
@@ -377,8 +373,7 @@ export const Produto = styled.div`
     justify-content: flex-start;
     gap: 8px;
     width: 100%;
-    box-sizing: border-box; 
-
+    box-sizing: border-box;
 
     @media (max-width: 768px) {
       flex-direction: row;
@@ -399,7 +394,7 @@ export const Produto = styled.div`
     width: 50px;
     height: 50px;
     object-fit: contain;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 
     @media (min-width: 1001px) {
       width: 60px;
@@ -413,8 +408,8 @@ export const Produto = styled.div`
     align-items: flex-start;
     justify-content: center;
     gap: 3px;
-    flex-grow: 1; 
-    min-width: 0; 
+    flex-grow: 1;
+    min-width: 0;
 
     @media (max-width: 768px) {
       align-items: flex-start;
@@ -428,10 +423,10 @@ export const Produto = styled.div`
       font-size: 14px;
       line-height: 1.3;
       color: #512615;
-      white-space: nowrap; 
-      overflow: hidden; 
-      text-overflow: ellipsis; 
-      max-width: 100%; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
 
       @media (min-width: 1001px) {
         font-size: 16px;
@@ -443,10 +438,10 @@ export const Produto = styled.div`
       font-size: 12px;
       line-height: 1.3;
       color: #898476;
-      white-space: nowrap; 
-      overflow: hidden; 
-      text-overflow: ellipsis; 
-      max-width: 100%; 
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
 
       @media (min-width: 1001px) {
         font-size: 13px;
@@ -458,14 +453,13 @@ export const Produto = styled.div`
 export const Observacao = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 6px;
   margin: 15px 0 25px 0;
-  width: 100%; 
-  max-width: 100%; 
-  box-sizing: border-box; 
-
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 992px) {
     margin: 10px auto 20px auto;
@@ -478,7 +472,7 @@ export const Observacao = styled.div`
     font-size: 13px;
     line-height: 1.3;
     color: #512615;
-    max-width: 100%; 
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 
@@ -511,7 +505,7 @@ export const Observacao = styled.div`
     }
 
     &:focus {
-      border-color: #B6895B;
+      border-color: #b6895b;
       box-shadow: 0 0 0 1px rgba(182, 137, 91, 0.1);
     }
   }
@@ -521,24 +515,23 @@ export const Button__Feedback = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   gap: 15px;
-  margin: 0; 
-  width: 100%; 
-  max-width: 100%; 
-  box-sizing: border-box; 
-
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 992px) {
     flex-direction: column;
     gap: 8px;
-    margin: 0 auto; 
+    margin: 0 auto;
     justify-content: center;
   }
 
   .pular__valiacao,
   .enviar__avalicao {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 14px;
     line-height: 1.2;
