@@ -28,16 +28,7 @@ public class PedidoService : IPedidoRepository
             var validation = await validator.ValidateAsync(request);
 
             if (!validation.IsValid)
-                throw new ErrorOnValidationException(validation.Errors.Select(e => e.ErrorMessage).ToList());
-
-            if (request.PedidosItens.Count > 10)
-                throw new NotFoundException(ErrorsMensagem.MaximoCafesPorPedido);
-
-            foreach (var item in request.PedidosItens)
-            {
-                if (item.IngredientesAdicionaisIds?.Count > 4)
-                    throw new NotFoundException(ErrorsMensagem.MaximoAdicionaisPorCafe);
-            }
+                throw new ErrorOnValidationException(validation.Errors.Select(e => e.ErrorMessage).ToList());  
 
             var pedido = new Pedido(Guid.NewGuid(), StatusPedido.EmPreparo, request.ValorTotal);
             await _dbContext.Pedidos.AddAsync(pedido);
