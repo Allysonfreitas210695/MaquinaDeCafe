@@ -28,6 +28,7 @@ public class CafeServiceTest : IDisposable
     {
         _dbContext.Database.EnsureDeleted();
         _dbContext.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     [Fact]

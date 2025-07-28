@@ -30,6 +30,7 @@ namespace Services.Test
         {
             _dbContext.Database.EnsureDeleted();
             _dbContext.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
