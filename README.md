@@ -6,7 +6,6 @@ O componente curricular de **Métodos Formais de Engenharia de Software** abrang
 
 Para aplicar o aprendizado relativo ao conteúdo supracitado e utilizando das etapas necessárias para o processo de desenvolvimento de software, foi desenvolvido o projeto **Devine Café** - Sistema de Máquina de Café como parte da avaliação da disciplina de **Métodos Formais**, sob a orientação do professor Alysson Filgueira Milanez.
 
-
 ## 📖 Descrição
 
 O projeto Devine Café consiste em um sistema Web de máquina de café desenvolvido majoritariamente em linguagem de programação **C#**. O sistema procura facilitar a realização de pedidos em uma cafeteria, por meio da automatização de processos, promovendo maior autonomia ao cliente. 
@@ -44,9 +43,9 @@ O sistema é baseado em uma arquitetura cliente-servidor, utilizando os seguinte
 
 ## 🔗 Links Úteis
 
-- [Apresentação](https://github.com/Allysonfreitas210695/MaquinaDeCafe/blob/main/Artefatos/Apresentacoes/A2-APRESENTACAO_SEGUNDA_UNIDADE.pdf)
+- [Apresentação](https://github.com/Allysonfreitas210695/MaquinaDeCafe/blob/main/Artefatos/Apresentacoes/A2-APRESENTACAO_TERCEIRA_UNIDADE.pdf)
 - [Artefatos](https://github.com/Allysonfreitas210695/MaquinaDeCafe/tree/main/Artefatos)
-- [Artigo](###)
+- [Artigo](https://github.com/Allysonfreitas210695/MaquinaDeCafe/tree/main/Artefatos/ARTIGO_DEVINE_CAFÉ.pdf)
 
 ## 👥 Equipe
 
