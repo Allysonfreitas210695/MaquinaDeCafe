@@ -45,6 +45,7 @@ import Ritretto from "./CaféRitretto.png";
 import Mocha from "./CaféMocha.png";
 import Machiato from "./CaféMachiatto.png";
 import Machiato1 from "./Machiato.png";
+import Expresso from "./Expresso.png";
 
 export const Images = {
   CafeExpresso,
@@ -93,4 +94,5 @@ export const Images = {
   Machiato,
   Machiato1,
   Mocha,
+  Expresso,
 };
