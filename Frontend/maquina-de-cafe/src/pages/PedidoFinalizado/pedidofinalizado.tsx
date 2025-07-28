@@ -130,10 +130,6 @@ export const PedidoFinalizado = () => {
 
   const [tempoDeEsperaCalculado, setTempoDeEsperaCalculado] = useState<string>("Calculando...");
 
-  const displayPedidoId = pedidoId
-    ? pedidoId.substring(0, 6).toUpperCase()
-    : Math.floor(100000 + Math.random() * 900000).toString();
-
   useEffect(() => {
     setTempoDeEsperaCalculado(calculateAndFormatEstimatedTime(pedidosFormatadosParaExibicao));
   }, [pedidosFormatadosParaExibicao]);
@@ -196,7 +192,7 @@ export const PedidoFinalizado = () => {
       <S.Detalhe__Pedido>
         <S.Detalhes>
           <h1>Detalhes do Pedido</h1>
-          <span>#{displayPedidoId}</span>
+          <span>#{pedidoId  ?? "N/A"}</span>
         </S.Detalhes>
 
         <S.Pedidos>
