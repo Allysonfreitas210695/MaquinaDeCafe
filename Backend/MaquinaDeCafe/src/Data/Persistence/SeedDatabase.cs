@@ -18,11 +18,27 @@ public static class SeedDatabaseInitial
             "Perfeito para o dia a dia.",
             "Gostei bastante!"
         };
+
+        var regularObservacoes = new List<string> 
+        { 
+            "Bom, mas poderia estar mais quente.", 
+            "Nada demais.", 
+            "Aceitável, mas faltou algo.",  
+            "Mais ou menos."  }; 
+
+        var ruimObservacoes = new List<string> 
+        { 
+            "Café estava frio.", 
+            "Demorou muito para sair.", 
+            "Sabor desagradável.", 
+            "Péssimo atendimento." 
+        };
+
         var cafes = await dbContext.Cafes.AsNoTracking().ToListAsync();
 
         foreach (var cafe in cafes)
         {
-            var quantidadeAvaliacoes = faker.Random.Int(1, 5);
+            var quantidadeAvaliacoes = faker.Random.Int(3, 10);
             var avaliacoes = new List<AvaliacaoCafe>();
 
             for (int i = 0; i < quantidadeAvaliacoes; i++)
@@ -32,12 +48,16 @@ public static class SeedDatabaseInitial
                 var estrelas = atendimento switch
                 {
                     NivelAtendimento.MuitoBom => faker.Random.Int(4, 5),
+                    NivelAtendimento.Regular => faker.Random.Int(2, 3),  
+                    NivelAtendimento.Ruim => faker.Random.Int(1, 2),
                     _ => 3
                 };
 
                 var observacao = atendimento switch
                 {
                     NivelAtendimento.MuitoBom => faker.PickRandom(muitoBomObservacoes),
+                    NivelAtendimento.Regular => faker.PickRandom(regularObservacoes), 
+                    NivelAtendimento.Ruim => faker.PickRandom(ruimObservacoes),
                     _ => "Avaliação neutra."
                 };
 
