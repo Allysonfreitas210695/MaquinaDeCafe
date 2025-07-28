@@ -43,7 +43,7 @@ public static class SeedDatabaseInitial
 
             for (int i = 0; i < quantidadeAvaliacoes; i++)
             {
-                var atendimento =  NivelAtendimento.MuitoBom;
+                var atendimento = faker.PickRandom<NivelAtendimento>();
 
                 var estrelas = atendimento switch
                 {
