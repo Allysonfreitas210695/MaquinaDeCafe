@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Test;
 
-public class IngredienteAdicionalServiceTest
+public class IngredienteAdicionalServiceTest : IDisposable
 {
     private readonly IngredienteAdicionalService _service;
     private readonly ApplicationDbContext _dbContext;

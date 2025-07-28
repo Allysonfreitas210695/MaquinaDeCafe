@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Test;
 
-public class TamanhoXicaraServiceTest
+public class TamanhoXicaraServiceTest : IDisposable
 {
     private readonly TamanhoXicaraService _service;
     private readonly ApplicationDbContext _dbContext;

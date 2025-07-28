@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Test;
 
-public class PedidoServiceTest
+public class PedidoServiceTest : IDisposable
 {
     private readonly PedidoService _service;
     private readonly CafeService _serviceCafe;

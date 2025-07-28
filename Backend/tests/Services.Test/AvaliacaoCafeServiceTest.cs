@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Services.Test
 {
-    public class AvaliacaoCafeServiceTest : IDisposable
+    public class AvaliacaoCafeServiceTest : IDisposable 
     {
         private readonly AvaliacaoCafeService _service;
         private readonly ApplicationDbContext _dbContext;

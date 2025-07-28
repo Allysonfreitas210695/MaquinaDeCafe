@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Test;
 
-public class CafeServiceTest
+public class CafeServiceTest : IDisposable
 {
     private readonly CafeService _service;
     private readonly ApplicationDbContext _dbContext;
