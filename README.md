@@ -43,7 +43,7 @@ O sistema é baseado em uma arquitetura cliente-servidor, utilizando os seguinte
 
 ## 🔗 Links Úteis
 
-- [Apresentação](https://github.com/Allysonfreitas210695/MaquinaDeCafe/blob/main/Artefatos/Apresentacoes/A2-APRESENTACAO_TERCEIRA_UNIDADE.pdf)
+- [Apresentação](https://github.com/Allysonfreitas210695/MaquinaDeCafe/blob/main/Artefatos/Apresentacoes/A3-APRESENTACAO_TERCEIRA_UNIDADE.pdf)
 - [Artefatos](https://github.com/Allysonfreitas210695/MaquinaDeCafe/tree/main/Artefatos)
 - [Artigo](https://github.com/Allysonfreitas210695/MaquinaDeCafe/tree/main/Artefatos/ARTIGO_DEVINE_CAFÉ.pdf)
 
